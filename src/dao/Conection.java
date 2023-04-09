@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
-/**
- *
- * @author Admin
- */
 public class Conection {
-    
+
+    private static final String url = "jdbc:mysql://localhost:3306/lanhuemanagement";
+    private static final String username = "root";
+    private static final String password = "23092003";
+
+    public static void getConnection() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+        }
+    }
 }
