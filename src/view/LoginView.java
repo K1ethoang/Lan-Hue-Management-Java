@@ -23,9 +23,9 @@ public class LoginView extends javax.swing.JFrame {
         labelAwesomeIcon1 = new icon.LabelAwesomeIcon();
         labelAwesomeIcon2 = new icon.LabelAwesomeIcon();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
         exitBtn = new icon.LabelGoogleIcon();
-        jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -130,19 +130,7 @@ public class LoginView extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Quên mật khẩu?");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 330, -1));
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setForeground(new java.awt.Color(46, 11, 47));
-        jButton3.setText("Đặt lại");
-        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 70, 24));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 340, -1));
 
         exitBtn.setBackground(new java.awt.Color(46, 11, 47));
         exitBtn.setForeground(new java.awt.Color(46, 11, 47));
@@ -160,17 +148,28 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel2.add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setForeground(new java.awt.Color(46, 11, 47));
-        jButton4.setText("Đăng nhập");
-        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(51, 0, 51));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Đăng nhập");
+        jButton1.setBorderPainted(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 70, 24));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(51, 0, 51));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Đặt lại");
+        jButton2.setBorderPainted(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setFocusPainted(false);
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,10 +206,6 @@ public class LoginView extends javax.swing.JFrame {
         password.setText("");
     }//GEN-LAST:event_passwordFocusGained
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void exitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseClicked
         System.exit(0);
 
@@ -220,9 +215,9 @@ public class LoginView extends javax.swing.JFrame {
         exitBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_exitBtnMouseEntered
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
 
@@ -235,8 +230,8 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private icon.LabelGoogleIcon exitBtn;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
