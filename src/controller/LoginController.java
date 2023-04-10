@@ -8,6 +8,6 @@ package controller;
  *
  * @author Admin
  */
-public class Controller {
+public class LoginController {
     
 }
