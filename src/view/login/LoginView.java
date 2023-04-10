@@ -1,4 +1,4 @@
-package view;
+package view.login;
 
 import java.awt.Cursor;
 
@@ -18,14 +18,12 @@ public class LoginView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         password = new javax.swing.JPasswordField();
         username = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
         labelAwesomeIcon1 = new icon.LabelAwesomeIcon();
         labelAwesomeIcon2 = new icon.LabelAwesomeIcon();
         jLabel3 = new javax.swing.JLabel();
         exitBtn = new icon.LabelGoogleIcon();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        resetBtn = new rojeru_san.complementos.RSButtonHover();
+        loginBtn = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -73,7 +71,7 @@ public class LoginView extends javax.swing.JFrame {
         password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         password.setForeground(new java.awt.Color(255, 255, 255));
         password.setText("Matkhau");
-        password.setBorder(null);
+        password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         password.setCaretColor(new java.awt.Color(255, 255, 255));
         password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -91,7 +89,7 @@ public class LoginView extends javax.swing.JFrame {
         username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         username.setForeground(new java.awt.Color(255, 255, 255));
         username.setText("Tên người dùng");
-        username.setBorder(null);
+        username.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         username.setCaretColor(new java.awt.Color(255, 255, 255));
         username.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         username.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -105,15 +103,6 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
         jPanel2.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 197, 30));
-
-        jSeparator1.setBackground(new java.awt.Color(231, 70, 70));
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 197, -1));
-
-        jSeparator2.setBackground(new java.awt.Color(231, 70, 70));
-        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 197, -1));
 
         labelAwesomeIcon1.setAwesomeIcon(icon.FontAwesome.USER);
         labelAwesomeIcon1.setIconColor(new java.awt.Color(255, 255, 255));
@@ -136,6 +125,7 @@ public class LoginView extends javax.swing.JFrame {
         exitBtn.setForeground(new java.awt.Color(46, 11, 47));
         exitBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exitBtn.setGoogleIcon(icon.GoogleMaterialDesignIcons.CLOSE);
+        exitBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         exitBtn.setIconColor(new java.awt.Color(46, 11, 47));
         exitBtn.setIconSize(32.0F);
         exitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -148,28 +138,23 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel2.add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(51, 0, 51));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Đăng nhập");
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        resetBtn.setBackground(new java.awt.Color(46, 11, 47));
+        resetBtn.setText("Đặt lại");
+        resetBtn.setColorHover(new java.awt.Color(137, 24, 140));
+        resetBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                resetBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        jPanel2.add(resetBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 80, 30));
 
-        jButton2.setBackground(new java.awt.Color(51, 0, 51));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Đặt lại");
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setFocusPainted(false);
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 80, -1));
+        loginBtn.setBackground(new java.awt.Color(46, 11, 47));
+        loginBtn.setText("Đăng nhập");
+        loginBtn.setColorHover(new java.awt.Color(137, 24, 140));
+        loginBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        loginBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,9 +175,21 @@ public class LoginView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void exitBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseEntered
+        exitBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_exitBtnMouseEntered
+
+    private void exitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitBtnMouseClicked
+
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
+
+    private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
+        password.setText("");
+    }//GEN-LAST:event_passwordFocusGained
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
@@ -202,22 +199,9 @@ public class LoginView extends javax.swing.JFrame {
         username.setText("");
     }//GEN-LAST:event_usernameFocusGained
 
-    private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
-        password.setText("");
-    }//GEN-LAST:event_passwordFocusGained
-
-    private void exitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseClicked
-        System.exit(0);
-
-    }//GEN-LAST:event_exitBtnMouseClicked
-
-    private void exitBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseEntered
-        exitBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_exitBtnMouseEntered
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_resetBtnActionPerformed
 
     public static void main(String args[]) {
 
@@ -230,18 +214,16 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private icon.LabelGoogleIcon exitBtn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private icon.LabelAwesomeIcon labelAwesomeIcon1;
     private icon.LabelAwesomeIcon labelAwesomeIcon2;
     private icon.LabelGoogleIcon labelGoogleIcon1;
+    private rojeru_san.complementos.RSButtonHover loginBtn;
     private javax.swing.JPasswordField password;
+    private rojeru_san.complementos.RSButtonHover resetBtn;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

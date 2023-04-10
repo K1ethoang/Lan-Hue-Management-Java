@@ -9,5 +9,5 @@ package model;
  * @author Admin
  */
 public class Model {
-    
+
 }
