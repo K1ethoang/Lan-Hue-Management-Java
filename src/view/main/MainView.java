@@ -9,10 +9,6 @@ import controller.ChuyenManHinhController;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author kieth
- */
 public class MainView extends javax.swing.JFrame {
 
     /**
