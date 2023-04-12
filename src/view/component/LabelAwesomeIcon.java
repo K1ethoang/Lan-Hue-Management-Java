@@ -1,22 +1,23 @@
-package icon;
+package view.component;
 
+import icon.FontAwesome;
 import java.awt.Color;
-import java.awt.Cursor;
 import javax.swing.JLabel;
 import jiconfont.swing.IconFontSwing;
 
-public class LabelGoogleIcon extends JLabel {
+public class LabelAwesomeIcon extends JLabel {
 
-    private GoogleMaterialDesignIcons googleIcon;
+    private FontAwesome awesomeIcon;
+
     private float iconSize = 16;
     private Color iconColor = Color.yellow;
 
-    public GoogleMaterialDesignIcons getGoogleIcon() {
-        return googleIcon;
+    public FontAwesome getAwesomeIcon() {
+        return awesomeIcon;
     }
 
-    public void setGoogleIcon(GoogleMaterialDesignIcons googleIcon) {
-        this.googleIcon = googleIcon;
+    public void setAwesomeIcon(FontAwesome awesomeIcon) {
+        this.awesomeIcon = awesomeIcon;
         initIcon();
 
     }
@@ -41,9 +42,10 @@ public class LabelGoogleIcon extends JLabel {
     }
 
     private void initIcon() {
-        if (googleIcon != null) {
-            IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
-            setIcon(IconFontSwing.buildIcon(googleIcon, iconSize, iconColor));
+        if (awesomeIcon != null) {
+            IconFontSwing.register(FontAwesome.getIconFont());
+            setIcon(IconFontSwing.buildIcon(awesomeIcon, iconSize, iconColor));
         }
+
     }
 }
