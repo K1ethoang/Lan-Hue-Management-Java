@@ -1,19 +1,20 @@
-
 package bean;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import view.component.LabelGoogleIcon;
 
 /**
  *
  * @author Admin
  */
 public class DanhMucBean {
+
     private String kind;
     private JPanel jpn;
-    private JLabel jlb;
+    private LabelGoogleIcon jlb;
 
-    public DanhMucBean(String kind, JPanel jpn, JLabel jlb) {
+    public DanhMucBean(String kind, JPanel jpn, LabelGoogleIcon jlb) {
         this.kind = kind;
         this.jpn = jpn;
         this.jlb = jlb;
@@ -39,9 +40,8 @@ public class DanhMucBean {
         return jlb;
     }
 
-    public void setJlb(JLabel jlb) {
+    public void setJlb(LabelGoogleIcon jlb) {
         this.jlb = jlb;
     }
-    
-    
+
 }
