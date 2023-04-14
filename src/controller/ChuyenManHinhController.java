@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import view.component.LabelGoogleIcon;
 import view.main.BangDieuKhienJPanel;
 import view.main.DangXuatJPanel;
-import view.main.DatTiecJPanel;
+import view.main.TiecJPanel;
 import view.main.DoanhThuJPanel;
 import view.main.KhachHangJPanel;
 import view.main.NhanVienJPanel;
@@ -30,8 +30,7 @@ public class ChuyenManHinhController {
 
     public void setView(JPanel jpnItem, LabelGoogleIcon jlbItem) {
         kindSelected = "BangDieuKhien";
-        jpnItem.setBackground(new Color(255, 51, 51));
-        jlbItem.setBackground(new Color(255, 51, 51));
+        jpnItem.setBackground(new Color(148, 175, 159));
 
         root.removeAll();
         root.setLayout(new BorderLayout());
@@ -45,7 +44,7 @@ public class ChuyenManHinhController {
         for (DanhMucBean item : listItem) {
             item.getJpn().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), (LabelGoogleIcon) item.getJlb()));
         }
-        
+
     }
 
     class LabelEvent implements MouseListener {
@@ -77,8 +76,8 @@ public class ChuyenManHinhController {
                 case "ThucDon":
                     node = new ThucDonJPanel();
                     break;
-                case "DatTiec":
-                    node = new DatTiecJPanel();
+                case "Tiec":
+                    node = new TiecJPanel();
                     break;
                 case "DoanhThu":
                     node = new DoanhThuJPanel();
@@ -102,9 +101,10 @@ public class ChuyenManHinhController {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            kindSelected = kind;
-            jpnItem.setBackground(new Color(46,11,47));
-            jlbItem.setBackground(new Color(46,11,47));
+            if (!kindSelected.equals(kind)) {
+                kindSelected = kind;
+                jpnItem.setBackground(new Color(187, 214, 184));
+            }
         }
 
         @Override
@@ -114,18 +114,14 @@ public class ChuyenManHinhController {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(46,11,47));
-                jlbItem.setBackground(new Color(46,11,47));
+                jpnItem.setBackground(new Color(187, 214, 184));
             }
-//            jpnItem.setBackground(new Color(96, 100, 191));
-//            jlbItem.setBackground(new Color(96, 100, 191));
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
             if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(102,102,102));
-                jlbItem.setBackground(new Color(102,102,102));
+                jpnItem.setBackground(new Color(102, 102, 102));
             }
         }
 
@@ -134,11 +130,9 @@ public class ChuyenManHinhController {
     private void setChangeBackground(String kind) {
         for (DanhMucBean item : listItem) {
             if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(255, 51, 51));
-                item.getJlb().setBackground(new Color(255, 51, 51));
+                item.getJpn().setBackground(new Color(148, 175, 159));
             } else {
-                item.getJpn().setBackground(new Color(102,102,102));
-                item.getJlb().setBackground(new Color(102,102,102));
+                item.getJpn().setBackground(new Color(102, 102, 102));
             }
         }
     }

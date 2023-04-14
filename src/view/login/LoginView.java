@@ -29,20 +29,20 @@ public class LoginView extends javax.swing.JFrame {
         labelAwesomeIcon2 = new view.component.LabelAwesomeIcon();
         forgotPasswordBtn = new javax.swing.JLabel();
         closeBtn = new view.component.LabelGoogleIcon();
-        resetBtn = new rojeru_san.complementos.RSButtonHover();
         loginBtn = new rojeru_san.complementos.RSButtonHover();
         minimizeBtn = new view.component.LabelGoogleIcon();
         showPassBtn = new view.component.LabelAwesomeIcon();
         hidePassBtn = new view.component.LabelAwesomeIcon();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAutoRequestFocus(false);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(650, 350));
         setName("login"); // NOI18N
         setUndecorated(true);
         setResizable(false);
 
-        leftPanel.setBackground(new java.awt.Color(46, 11, 47));
+        leftPanel.setBackground(new java.awt.Color(148, 175, 159));
         leftPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 leftPanelMouseDragged(evt);
@@ -60,6 +60,7 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
+        labelGoogleIcon1.setBackground(new java.awt.Color(178, 164, 255));
         labelGoogleIcon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelGoogleIcon1.setGoogleIcon(icon.GoogleMaterialDesignIcons.RESTAURANT);
         labelGoogleIcon1.setIconColor(new java.awt.Color(255, 255, 255));
@@ -87,17 +88,23 @@ public class LoginView extends javax.swing.JFrame {
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
-        rightPanel.setBackground(new java.awt.Color(231, 70, 70));
+        rightPanel.setBackground(new java.awt.Color(124, 150, 171));
         rightPanel.setForeground(new java.awt.Color(255, 255, 255));
         rightPanel.setAutoscrolls(true);
         rightPanel.setPreferredSize(new java.awt.Dimension(325, 350));
         rightPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        passwordField.setBackground(new java.awt.Color(231, 70, 70));
+        passwordField.setBackground(new java.awt.Color(124, 150, 171));
         passwordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         passwordField.setForeground(new java.awt.Color(255, 255, 255));
+        passwordField.setText("matkhau");
         passwordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         passwordField.setCaretColor(new java.awt.Color(255, 255, 255));
+        passwordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                passwordFieldMouseClicked(evt);
+            }
+        });
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
@@ -105,12 +112,19 @@ public class LoginView extends javax.swing.JFrame {
         });
         rightPanel.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 197, 30));
 
-        usernameField.setBackground(new java.awt.Color(231, 70, 70));
+        usernameField.setBackground(new java.awt.Color(124, 150, 171));
         usernameField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         usernameField.setForeground(new java.awt.Color(255, 255, 255));
+        usernameField.setText("Tài khoản");
+        usernameField.setToolTipText("");
         usernameField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         usernameField.setCaretColor(new java.awt.Color(255, 255, 255));
         usernameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        usernameField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usernameFieldMouseClicked(evt);
+            }
+        });
         usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameFieldActionPerformed(evt);
@@ -147,7 +161,7 @@ public class LoginView extends javax.swing.JFrame {
         closeBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         closeBtn.setGoogleIcon(icon.GoogleMaterialDesignIcons.CLOSE);
         closeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        closeBtn.setIconColor(new java.awt.Color(46, 11, 47));
+        closeBtn.setIconColor(new java.awt.Color(219, 228, 198));
         closeBtn.setIconSize(32.0F);
         closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -156,20 +170,9 @@ public class LoginView extends javax.swing.JFrame {
         });
         rightPanel.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
-        resetBtn.setBackground(new java.awt.Color(46, 11, 47));
-        resetBtn.setText("Đặt lại");
-        resetBtn.setColorHover(new java.awt.Color(137, 24, 140));
-        resetBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        resetBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetBtnActionPerformed(evt);
-            }
-        });
-        rightPanel.add(resetBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 80, 30));
-
-        loginBtn.setBackground(new java.awt.Color(46, 11, 47));
+        loginBtn.setBackground(new java.awt.Color(148, 175, 159));
         loginBtn.setText("Đăng nhập");
-        loginBtn.setColorHover(new java.awt.Color(137, 24, 140));
+        loginBtn.setColorHover(new java.awt.Color(187, 214, 184));
         loginBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         loginBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -177,11 +180,12 @@ public class LoginView extends javax.swing.JFrame {
                 loginBtnMouseClicked(evt);
             }
         });
-        rightPanel.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 110, 30));
+        rightPanel.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 197, 30));
 
+        minimizeBtn.setBackground(new java.awt.Color(148, 175, 159));
         minimizeBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         minimizeBtn.setGoogleIcon(icon.GoogleMaterialDesignIcons.REMOVE);
-        minimizeBtn.setIconColor(new java.awt.Color(46, 11, 47));
+        minimizeBtn.setIconColor(new java.awt.Color(219, 228, 198));
         minimizeBtn.setIconSize(32.0F);
         minimizeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -259,11 +263,6 @@ public class LoginView extends javax.swing.JFrame {
         setXAndYWhenClickPanel(evt);
     }//GEN-LAST:event_leftPanelMousePressed
 
-    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
-        usernameField.setText("");
-        passwordField.setText("");
-    }//GEN-LAST:event_resetBtnActionPerformed
-
     private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
         this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_minimizeBtnMouseClicked
@@ -306,6 +305,24 @@ public class LoginView extends javax.swing.JFrame {
     private void leftPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftPanelMouseExited
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_leftPanelMouseExited
+
+    private void usernameFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameFieldMouseClicked
+        if (usernameField.getText().toUpperCase().equals("TÀI KHOẢN")) {
+            usernameField.setText("");
+        }
+        String pass = String.valueOf(passwordField.getPassword());
+        if (pass.toUpperCase().equals(""))
+            passwordField.setText("Matkhau");
+    }//GEN-LAST:event_usernameFieldMouseClicked
+
+    private void passwordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordFieldMouseClicked
+        if (usernameField.getText().toUpperCase().equals("")) {
+            usernameField.setText("Tài khoản");
+        }
+        String pass = String.valueOf(passwordField.getPassword());
+        if (pass.toUpperCase().equals("MATKHAU"))
+            passwordField.setText("");
+    }//GEN-LAST:event_passwordFieldMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -364,7 +381,6 @@ public class LoginView extends javax.swing.JFrame {
     private rojeru_san.complementos.RSButtonHover loginBtn;
     private view.component.LabelGoogleIcon minimizeBtn;
     private javax.swing.JPasswordField passwordField;
-    private rojeru_san.complementos.RSButtonHover resetBtn;
     private javax.swing.JPanel rightPanel;
     private view.component.LabelAwesomeIcon showPassBtn;
     private javax.swing.JTextField usernameField;

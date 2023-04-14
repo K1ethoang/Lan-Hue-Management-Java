@@ -3,6 +3,9 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1000, 818]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -34,6 +37,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jpnRoot">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="e7" green="f5" red="f9" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -43,19 +51,19 @@
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="jpnView" max="32767" attributes="0"/>
               </Group>
-              <Component id="jPanel10" alignment="0" max="32767" attributes="0"/>
+              <Component id="topPanel" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="topPanel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jpnMenu" max="32767" attributes="0"/>
                       <Component id="jpnView" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -66,12 +74,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="719" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="764" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -86,14 +94,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jpnDoanhThu" alignment="0" pref="275" max="32767" attributes="0"/>
-                  <Component id="jpnDangXuat" alignment="0" pref="275" max="32767" attributes="0"/>
-                  <Component id="jpnThucDon" alignment="0" pref="275" max="32767" attributes="0"/>
-                  <Component id="jpnNhanVien" alignment="1" pref="275" max="32767" attributes="0"/>
-                  <Component id="jpnKhachHang" alignment="1" pref="275" max="32767" attributes="0"/>
-                  <Component id="jpnDatTiec" alignment="0" pref="275" max="32767" attributes="0"/>
-                  <Component id="jpnTaiKhoan" alignment="0" pref="275" max="32767" attributes="0"/>
-                  <Component id="jpnBangDieuKhien" alignment="0" pref="275" max="32767" attributes="0"/>
+                  <Component id="jpnDoanhThu" alignment="0" pref="263" max="32767" attributes="0"/>
+                  <Component id="jpnDangXuat" alignment="0" pref="263" max="32767" attributes="0"/>
+                  <Component id="jpnThucDon" alignment="0" pref="263" max="32767" attributes="0"/>
+                  <Component id="jpnNhanVien" alignment="1" pref="263" max="32767" attributes="0"/>
+                  <Component id="jpnKhachHang" alignment="1" pref="263" max="32767" attributes="0"/>
+                  <Component id="jpnDatTiec" alignment="0" pref="263" max="32767" attributes="0"/>
+                  <Component id="jpnTaiKhoan" alignment="0" pref="263" max="32767" attributes="0"/>
+                  <Component id="jpnBangDieuKhien" alignment="0" pref="263" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -152,6 +160,9 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbNhanVien">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnNhanVien" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -202,6 +213,9 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbThucDon">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnThucDon" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -252,6 +266,9 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbDatTiec">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnDatTiec" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -288,7 +305,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="jlbDoanhThu" min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -302,6 +319,9 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbDoanhThu">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnDoanhThu" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -352,6 +372,9 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbKhachHang">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnKhachHang" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -406,6 +429,9 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbDangXuat">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnDangXuat" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -459,6 +485,9 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbTaiKhoan">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnTaiKhoan" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -495,7 +524,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace pref="33" max="32767" attributes="0"/>
                           <Component id="jlbBangDieuKhien" min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -509,11 +538,14 @@
               <SubComponents>
                 <Component class="view.component.LabelGoogleIcon" name="jlbBangDieuKhien">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jpnBangDieuKhien" name="background" type="property"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="  B&#x1ea2;NG &#x110;I&#x1ec0;U KHI&#xca;N"/>
+                    <Property name="text" type="java.lang.String" value="  B&#x1ea2;NG &#x110;I&#x1ec0;U KHI&#x1ec2;N"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
                     </Property>
@@ -534,65 +566,131 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel10">
+        <Container class="javax.swing.JPanel" name="topPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="66" red="66" type="rgb"/>
+              <Color blue="ab" green="96" red="7c" type="rgb"/>
             </Property>
           </Properties>
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelGoogleIcon1" min="-2" pref="261" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelGoogleIcon1" min="-2" pref="54" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+            <Property name="columns" type="int" value="2"/>
+            <Property name="rows" type="int" value="1"/>
           </Layout>
           <SubComponents>
-            <Component class="view.component.LabelGoogleIcon" name="labelGoogleIcon1">
+            <Container class="javax.swing.JPanel" name="jPanel2">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="topPanel" name="background" type="property"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; LAN HU&#x1ec6;"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="1"/>
-                </Property>
-                <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                  <Value id="RESTAURANT"/>
-                </Property>
-                <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="iconSize" type="float" value="40.0"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="labelGoogleIcon1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="261" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="labelGoogleIcon1" min="-2" pref="54" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="view.component.LabelGoogleIcon" name="labelGoogleIcon1">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                    <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; LAN HU&#x1ec6;"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="18" style="1"/>
+                    </Property>
+                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
+                      <Value id="RESTAURANT"/>
+                    </Property>
+                    <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="iconSize" type="float" value="40.0"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel1">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="1"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="topPanel" name="background" type="property"/>
                 </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Xin Ch&#xe0;o, Ki&#x1ec7;t"/>
               </Properties>
-            </Component>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MainView_jPanel1"/>
+              </AuxValues>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="425" max="32767" attributes="0"/>
+                          <Component id="minimizeBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="closeBtn" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="minimizeBtn" max="32767" attributes="0"/>
+                              <Component id="closeBtn" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="view.component.LabelGoogleIcon" name="closeBtn">
+                  <Properties>
+                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
+                      <Value id="CLOSE"/>
+                    </Property>
+                    <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="c6" green="e4" red="db" type="rgb"/>
+                    </Property>
+                    <Property name="iconSize" type="float" value="32.0"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="closeBtnMouseClicked"/>
+                  </Events>
+                </Component>
+                <Component class="view.component.LabelGoogleIcon" name="minimizeBtn">
+                  <Properties>
+                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
+                      <Value id="REMOVE"/>
+                    </Property>
+                    <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="c6" green="e4" red="db" type="rgb"/>
+                    </Property>
+                    <Property name="iconSize" type="float" value="32.0"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="minimizeBtnMouseClicked"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>

@@ -8,12 +8,12 @@ package view.main;
  *
  * @author Admin
  */
-public class DatTiecJPanel extends javax.swing.JPanel {
+public class TiecJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form DatTiecJPanel
      */
-    public DatTiecJPanel() {
+    public TiecJPanel() {
         initComponents();
     }
 
@@ -28,7 +28,7 @@ public class DatTiecJPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
 
-        setBackground(new java.awt.Color(0, 204, 204));
+        setBackground(new java.awt.Color(249, 245, 231));
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 51));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
