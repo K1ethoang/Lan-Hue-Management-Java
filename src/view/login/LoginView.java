@@ -9,6 +9,8 @@ public class LoginView extends javax.swing.JFrame {
 
     public LoginView() {
         initComponents();
+        minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         showPassBtn.setVisible(true);
         hidePassBtn.setVisible(false);
     }
@@ -151,9 +153,6 @@ public class LoginView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 closeBtnMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                closeBtnMouseEntered(evt);
-            }
         });
         rightPanel.add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
@@ -187,9 +186,6 @@ public class LoginView extends javax.swing.JFrame {
         minimizeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 minimizeBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                minimizeBtnMouseEntered(evt);
             }
         });
         rightPanel.add(minimizeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
@@ -241,10 +237,6 @@ public class LoginView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseEntered
-        closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_closeBtnMouseEntered
-
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
         System.exit(0);
     }//GEN-LAST:event_closeBtnMouseClicked
@@ -273,12 +265,8 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_resetBtnActionPerformed
 
     private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
-        this.setExtendedState(LoginView.ICONIFIED);
+        this.setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_minimizeBtnMouseClicked
-
-    private void minimizeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseEntered
-        minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_minimizeBtnMouseEntered
 
     private void showPassBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPassBtnMouseClicked
         showPassBtn.setVisible(false);
