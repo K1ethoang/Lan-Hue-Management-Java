@@ -1,0 +1,10 @@
+Color:
+primary [148,175,159]
+secondary [174,194,182]
+primary2 [187,214,184]
+third [219,228,198]
+viewBg [249, 245, 231]
+
+Size JFrame main: [1000,870]
+Size JPanel menu: [263,816]
+Size JPanel view: [737,816]
