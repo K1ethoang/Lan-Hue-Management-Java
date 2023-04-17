@@ -48,7 +48,6 @@ public class ChuyenManHinhController {
     }
 
     class LabelEvent implements MouseListener {
-
         private JPanel node;
 
         private String kind;
