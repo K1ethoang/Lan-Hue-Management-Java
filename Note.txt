@@ -1,0 +1,16 @@
+Color:
+primary [148,175,159]
+primary2 [187,214,184]
+secondary [174,194,182]
+secondary2 [124,150,171]
+third [219,228,198]
+third2 [232, 160, 191]
+viewBg [249, 245, 231]
+red [244, 80, 80]
+navy [10, 77, 104]
+
+Size:
+JFrame main: [1280,720]
+JPanel menu: [263,576]
+JPanel view: [1017,576]
+JPanel Search: [300, 40]
