@@ -2,6 +2,7 @@ package view.login;
 
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import view.main.MainView;
 
@@ -12,6 +13,7 @@ public class LoginView extends javax.swing.JFrame {
         // set cursor
         minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        leftPanel.setCursor(new Cursor(Cursor.MOVE_CURSOR));
         // set visible
         showPassBtn.setVisible(true);
         hidePassBtn.setVisible(false);
@@ -238,10 +240,6 @@ public class LoginView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_closeBtnMouseClicked
-
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
 
     }//GEN-LAST:event_passwordFieldActionPerformed
@@ -251,18 +249,17 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void leftPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftPanelMouseDragged
-        setLocationWhendrag(evt);
+        int gX = evt.getXOnScreen();
+        int gY = evt.getYOnScreen();
+        this.setLocation(gX - x, gY - y);
     }//GEN-LAST:event_leftPanelMouseDragged
 
-    private void leftPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftPanelMousePressed
-        this.setCursor(new Cursor(Cursor.MOVE_CURSOR) {
-        });
-        setXAndYWhenClickPanel(evt);
-    }//GEN-LAST:event_leftPanelMousePressed
+    private int x, y;
 
-    private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
-        this.setExtendedState(this.ICONIFIED);
-    }//GEN-LAST:event_minimizeBtnMouseClicked
+    private void leftPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftPanelMousePressed
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_leftPanelMousePressed
 
     private void showPassBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPassBtnMouseClicked
         showPassBtn.setVisible(false);
@@ -299,17 +296,27 @@ public class LoginView extends javax.swing.JFrame {
         if (getUsername().toUpperCase().equals("TÀI KHOẢN")) {
             usernameField.setText("");
         }
-        if (getPassword().toUpperCase().equals(""))
+        if (getPassword().toUpperCase().equals("")) {
             passwordField.setText("Matkhau");
+        }
     }//GEN-LAST:event_usernameFieldMouseClicked
 
     private void passwordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordFieldMouseClicked
         if (getUsername().toUpperCase().equals("")) {
             usernameField.setText("Tài khoản");
         }
-        if (getPassword().toUpperCase().equals("MATKHAU"))
+        if (getPassword().toUpperCase().equals("MATKHAU")) {
             passwordField.setText("");
+        }
     }//GEN-LAST:event_passwordFieldMouseClicked
+
+    private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_closeBtnMouseClicked
+
+    private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
+        this.setState(this.ICONIFIED);
+    }//GEN-LAST:event_minimizeBtnMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -338,22 +345,10 @@ public class LoginView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginView().setVisible(true);
+                LoginView loginView = new LoginView();
+                loginView.setVisible(true);
             }
         });
-    }
-
-    private int x, y;
-
-    public void setXAndYWhenClickPanel(MouseEvent evt) {
-        x = evt.getX();
-        y = evt.getY();
-    }
-
-    public void setLocationWhendrag(MouseEvent evt) {
-        int gX = evt.getXOnScreen();
-        int gY = evt.getYOnScreen();
-        this.setLocation(gX - x, gY - y);
     }
 
     private String getUsername() {
