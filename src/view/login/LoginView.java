@@ -1,9 +1,10 @@
 package view.login;
 
+import dao.Account.AccountDAOImpl;
 import java.awt.Cursor;
-import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import model.AccountModel;
 import view.main.MainView;
 
 public class LoginView extends javax.swing.JFrame {
@@ -109,6 +110,11 @@ public class LoginView extends javax.swing.JFrame {
                 passwordFieldActionPerformed(evt);
             }
         });
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
+            }
+        });
         rightPanel.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 197, 30));
 
         usernameField.setBackground(new java.awt.Color(124, 150, 171));
@@ -127,6 +133,11 @@ public class LoginView extends javax.swing.JFrame {
         usernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameFieldActionPerformed(evt);
+            }
+        });
+        usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usernameFieldKeyPressed(evt);
             }
         });
         rightPanel.add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 197, 30));
@@ -286,10 +297,7 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_forgotPasswordBtnMouseClicked
 
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseClicked
-        String usernameValue = this.usernameField.getText();
-        char[] password = this.passwordField.getPassword();
-        String passwordValue = String.valueOf(password);
-        System.out.println(usernameValue + " " + passwordValue);
+        login();
     }//GEN-LAST:event_loginBtnMouseClicked
 
     private void usernameFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameFieldMouseClicked
@@ -317,6 +325,18 @@ public class LoginView extends javax.swing.JFrame {
     private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
         this.setState(this.ICONIFIED);
     }//GEN-LAST:event_minimizeBtnMouseClicked
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_passwordFieldKeyPressed
+
+    private void usernameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_usernameFieldKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -360,6 +380,22 @@ public class LoginView extends javax.swing.JFrame {
         return pass;
     }
 
+    private void login() {
+        String usernameValue = this.getUsername();
+        String passwordValue = this.getPassword();
+        if (usernameValue.trim().isEmpty() || passwordValue.trim().isEmpty() || usernameValue.toUpperCase().equals("TÀI KHOẢN") && passwordValue.toUpperCase().equals("MATKHAU")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
+        } else {
+            AccountModel accountModel = AccountDAOImpl.getInstance().login(usernameValue, passwordValue);
+            if (accountModel == null) {
+                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không hợp lệ!");
+            } else {
+                MainView mainView = new MainView();
+                mainView.setVisible(true);
+                this.dispose();
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.component.LabelGoogleIcon closeBtn;
     private javax.swing.JLabel forgotPasswordBtn;
