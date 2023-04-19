@@ -1,10 +1,19 @@
 package view.main;
 
+import javax.swing.JScrollBar;
+import view.component.ScrollBarCus;
+
 public class TiecJPanel extends javax.swing.JPanel {
 
     public TiecJPanel() {
         initComponents();
-        table.fixTable(jScrollPane2);
+        // set vertical and horizontal scroll bar
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCus());
+        ScrollBarCus sb = new ScrollBarCus();
+        sb.setOrientation(JScrollBar.HORIZONTAL);
+        jScrollPane1.setHorizontalScrollBar(sb);
+
+        tableParty.fixTable(jScrollPane1);
     }
 
     @SuppressWarnings("unchecked")
@@ -15,16 +24,16 @@ public class TiecJPanel extends javax.swing.JPanel {
         searchPanel = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
         searchBtn = new rojerusan.RSButtonHover();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableParty = new view.component.Table();
         center = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table = new view.component.Table();
         bottom = new javax.swing.JPanel();
         seeBtn = new rojeru_san.complementos.RSButtonHover();
         addBtn = new rojeru_san.complementos.RSButtonHover();
         editBtn = new rojeru_san.complementos.RSButtonHover();
         removeBtn = new rojeru_san.complementos.RSButtonHover();
         paymentBtn = new rojeru_san.complementos.RSButtonHover();
+        paymentBtn1 = new rojeru_san.complementos.RSButtonHover();
 
         setBackground(new java.awt.Color(249, 245, 231));
         setMinimumSize(new java.awt.Dimension(1017, 576));
@@ -59,6 +68,125 @@ public class TiecJPanel extends javax.swing.JPanel {
         });
         searchPanel.add(searchBtn);
 
+        tableParty.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã tiệc", "Tên tiệc", "Tên KH", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "Loại tiệc", "Trạng thái tiệc", "Thanh toán"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableParty.setShowGrid(false);
+        tableParty.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tableParty);
+
         javax.swing.GroupLayout topLayout = new javax.swing.GroupLayout(top);
         top.setLayout(topLayout);
         topLayout.setHorizontalGroup(
@@ -67,55 +195,31 @@ public class TiecJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
         );
         topLayout.setVerticalGroup(
             topLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(top, java.awt.BorderLayout.NORTH);
 
         center.setBackground(getBackground());
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Mã tiệc", "Tên tiệc", "Tên KH", "Số bàn", "Loại tiệc", "Thời gian", "Địa điểm", "Trạng thái", "Thanh toán"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        table.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(table);
-
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
         center.setLayout(centerLayout);
         centerLayout.setHorizontalGroup(
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-            .addGroup(centerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+            .addGap(0, 1017, Short.MAX_VALUE)
         );
         centerLayout.setVerticalGroup(
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(centerLayout.createSequentialGroup()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
-                .addGap(25, 25, 25))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         add(center, java.awt.BorderLayout.CENTER);
@@ -212,6 +316,24 @@ public class TiecJPanel extends javax.swing.JPanel {
         });
         bottom.add(paymentBtn);
 
+        paymentBtn1.setBackground(new java.awt.Color(10, 77, 104));
+        paymentBtn1.setText("In thực đơn");
+        paymentBtn1.setColorHover(new java.awt.Color(14, 112, 152));
+        paymentBtn1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        paymentBtn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        paymentBtn1.setPreferredSize(new java.awt.Dimension(110, 40));
+        paymentBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paymentBtn1MouseClicked(evt);
+            }
+        });
+        paymentBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentBtn1ActionPerformed(evt);
+            }
+        });
+        bottom.add(paymentBtn1);
+
         add(bottom, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -267,20 +389,28 @@ public class TiecJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_seeBtnMouseClicked
 
+    private void paymentBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paymentBtn1MouseClicked
+
+    private void paymentBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paymentBtn1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.complementos.RSButtonHover addBtn;
     private javax.swing.JPanel bottom;
     private javax.swing.JPanel center;
     private rojeru_san.complementos.RSButtonHover editBtn;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JScrollPane jScrollPane1;
     private rojeru_san.complementos.RSButtonHover paymentBtn;
+    private rojeru_san.complementos.RSButtonHover paymentBtn1;
     private rojeru_san.complementos.RSButtonHover removeBtn;
     private rojerusan.RSButtonHover searchBtn;
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
     private rojeru_san.complementos.RSButtonHover seeBtn;
-    private view.component.Table table;
+    private view.component.Table tableParty;
     private javax.swing.JPanel top;
     // End of variables declaration//GEN-END:variables
 }

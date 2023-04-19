@@ -3,9 +3,6 @@ package view.main;
 import bean.DanhMucBean;
 import controller.ChuyenManHinhController;
 import java.awt.Cursor;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -14,6 +11,7 @@ public class MainView extends javax.swing.JFrame {
 
     public MainView() {
         initComponents();
+        // set scroll style
 
         minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -76,6 +74,7 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpnRoot.setBackground(new java.awt.Color(249, 245, 231));
+        jpnRoot.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
         jpnView.setLayout(jpnViewLayout);
@@ -340,6 +339,7 @@ public class MainView extends javax.swing.JFrame {
         );
 
         topPanel.setBackground(new java.awt.Color(124, 150, 171));
+        topPanel.setPreferredSize(new java.awt.Dimension(1280, 54));
         topPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 topPanelMouseDragged(evt);
@@ -373,7 +373,7 @@ public class MainView extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -405,7 +405,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 568, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(minimizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
