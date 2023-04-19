@@ -35,10 +35,7 @@ public class TiecJPanel extends javax.swing.JPanel {
 
         searchPanel.setLayout(new javax.swing.BoxLayout(searchPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        searchField.setBackground(new java.awt.Color(255, 255, 255));
-        searchField.setForeground(new java.awt.Color(0, 0, 0));
         searchField.setText("Tìm kiếm");
-        searchField.setCaretColor(new java.awt.Color(0, 0, 0));
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
