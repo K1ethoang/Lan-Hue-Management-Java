@@ -18,7 +18,6 @@ public class Table extends JTable {
         getTableHeader().setPreferredSize(new Dimension(0, 35));
         setDefaultRenderer(Object.class, new TableCell());
         setRowHeight(30);
-
     }
 
     public void fixTable(JScrollPane scroll) {
