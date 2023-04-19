@@ -4,7 +4,7 @@ public class TiecJPanel extends javax.swing.JPanel {
 
     public TiecJPanel() {
         initComponents();
-        
+        table.fixTable(jScrollPane2);
     }
 
     @SuppressWarnings("unchecked")
@@ -17,8 +17,8 @@ public class TiecJPanel extends javax.swing.JPanel {
         searchBtn = new rojerusan.RSButtonHover();
         center = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table1 = new view.component.Table();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new view.component.Table();
         bottom = new javax.swing.JPanel();
         seeBtn = new rojeru_san.complementos.RSButtonHover();
         addBtn = new rojeru_san.complementos.RSButtonHover();
@@ -80,18 +80,24 @@ public class TiecJPanel extends javax.swing.JPanel {
 
         center.setBackground(getBackground());
 
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã tiệc", "Tên tiệc", "Tên KH", "Số bàn", "Loại tiệc", "Thời gian", "Địa điểm", "Trạng thái", "Thanh toán"
             }
-        ));
-        jScrollPane1.setViewportView(table1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(table);
 
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
         center.setLayout(centerLayout);
@@ -100,7 +106,7 @@ public class TiecJPanel extends javax.swing.JPanel {
             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
             .addGroup(centerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         centerLayout.setVerticalGroup(
@@ -108,8 +114,8 @@ public class TiecJPanel extends javax.swing.JPanel {
             .addGroup(centerLayout.createSequentialGroup()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2)
+                .addGap(25, 25, 25))
         );
 
         add(center, java.awt.BorderLayout.CENTER);
@@ -266,7 +272,7 @@ public class TiecJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel bottom;
     private javax.swing.JPanel center;
     private rojeru_san.complementos.RSButtonHover editBtn;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private rojeru_san.complementos.RSButtonHover paymentBtn;
     private rojeru_san.complementos.RSButtonHover removeBtn;
@@ -274,7 +280,7 @@ public class TiecJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
     private rojeru_san.complementos.RSButtonHover seeBtn;
-    private view.component.Table table1;
+    private view.component.Table table;
     private javax.swing.JPanel top;
     // End of variables declaration//GEN-END:variables
 }
