@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,7 +34,7 @@ public class Table extends JTable {
 
     private class TableHeader extends DefaultTableCellRenderer {
 
-        private TableCellRenderer defaultRenderer;
+        private final TableCellRenderer defaultRenderer;
 
         public TableHeader(TableCellRenderer defaultRenderer) {
             this.defaultRenderer = defaultRenderer;

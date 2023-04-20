@@ -10,11 +10,11 @@ import javax.swing.JPanel;
 import view.component.LabelGoogleIcon;
 import view.main.BangDieuKhienJPanel;
 import view.main.DangXuatJPanel;
-import view.main.TiecJPanel;
+import view.party.PartyJPanel;
 import view.main.DoanhThuJPanel;
-import view.main.KhachHangJPanel;
-import view.main.NhanVienJPanel;
-import view.main.TaiKhoanJPanel;
+import view.customer.CustomerJPanel;
+import view.staff.StaffJPanel;
+import view.account.AccountJPanel;
 import view.main.ThucDonJPanel;
 
 public class ChuyenManHinhController {
@@ -68,22 +68,22 @@ public class ChuyenManHinhController {
                     node = new BangDieuKhienJPanel();
                     break;
                 case "KhachHang":
-                    node = new KhachHangJPanel();
+                    node = new CustomerJPanel();
                     break;
                 case "NhanVien":
-                    node = new NhanVienJPanel();
+                    node = new StaffJPanel();
                     break;
                 case "ThucDon":
                     node = new ThucDonJPanel();
                     break;
                 case "Tiec":
-                    node = new TiecJPanel();
+                    node = new PartyJPanel();
                     break;
                 case "DoanhThu":
                     node = new DoanhThuJPanel();
                     break;
                 case "TaiKhoan":
-                    node = new TaiKhoanJPanel();
+                    node = new AccountJPanel();
                     break;
                 case "DangXuat":
                     node = new DangXuatJPanel();
