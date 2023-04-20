@@ -16,7 +16,7 @@ public class LabelDateTime extends JLabel {
         super();
         Timer timer = new Timer(1000, e -> {
             Date now = new Date();
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            DateFormat df = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
             String dateTimeString = df.format(now);
             setText(dateTimeString);
         });

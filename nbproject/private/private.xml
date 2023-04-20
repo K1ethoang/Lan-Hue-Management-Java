@@ -15,10 +15,14 @@
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Account/AccountDAOImpl.java</file>
 =======
             <file>file:/D:/Lan-Hue-Management/src/view/main/TiecJPanel.java</file>
-            <file>file:/D:/Lan-Hue-Management/src/view/main/MainView.java</file>
-            <file>file:/D:/Lan-Hue-Management/src/main/Program.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/party/addParty.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/component/table/Table.java</file>
             <file>file:/D:/Lan-Hue-Management/src/view/component/LabelDateTime.java</file>
+<<<<<<< Updated upstream
 >>>>>>> 280959c5330649384d22cce5311e4b23c155a928
+=======
+            <file>file:/D:/Lan-Hue-Management/Note.txt</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
