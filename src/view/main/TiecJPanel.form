@@ -47,17 +47,14 @@
                   <Component id="searchPanel" min="-2" pref="287" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Component id="jScrollPane1" alignment="0" pref="1017" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="searchPanel" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="472" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -95,27 +92,88 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="center">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="Form" name="background" type="property"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+          <BorderConstraints direction="Center"/>
+        </Constraint>
+      </Constraints>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ScrollPaneTable" pref="1005" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ScrollPaneTable" pref="471" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="ScrollPaneTable">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="view.component.Table" name="tableParty">
+            <Component class="view.component.table.Table" name="tableParty">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="10" rowCount="100">
-                    <Column editable="false" title="M&#xe3; ti&#x1ec7;c" type="java.lang.Object"/>
-                    <Column editable="false" title="T&#xea;n ti&#x1ec7;c" type="java.lang.Object"/>
-                    <Column editable="false" title="T&#xea;n KH" type="java.lang.Object"/>
-                    <Column editable="false" title="S&#x110;T" type="java.lang.Object"/>
-                    <Column editable="false" title="S&#x1ed1; b&#xe0;n" type="java.lang.Object"/>
-                    <Column editable="false" title="Th&#x1edd;i gian" type="java.lang.Object"/>
-                    <Column editable="false" title="&#x110;&#x1ecb;a &#x111;i&#x1ec3;m" type="java.lang.Object"/>
-                    <Column editable="false" title="Lo&#x1ea1;i ti&#x1ec7;c" type="java.lang.Object"/>
-                    <Column editable="false" title="Tr&#x1ea1;ng th&#xe1;i ti&#x1ec7;c" type="java.lang.Object"/>
-                    <Column editable="false" title="Thanh to&#xe1;n" type="java.lang.Object"/>
+                  <Table columnCount="9" rowCount="2">
+                    <Column editable="true" title="ID" type="java.lang.Object">
+                      <Data value="1"/>
+                      <Data value="2"/>
+                    </Column>
+                    <Column editable="true" title="T&#xea;n ti&#x1ec7;c" type="java.lang.Object">
+                      <Data value="Sinh nh&#x1ead;t b&#xe9; An"/>
+                      <Data value="&#x110;&#xe1;m c&#x1b0;&#x1edb;i"/>
+                    </Column>
+                    <Column editable="true" title="Ng&#x1b0;&#x1edd;i &#x111;&#x1eb7;t" type="java.lang.Object">
+                      <Data value="Ho&#xe0;ng Gia Ki&#x1ec7;t"/>
+                      <Data value="Nguy&#x1ec5;n V&#x103;n A"/>
+                    </Column>
+                    <Column editable="true" title="S&#x110;T" type="java.lang.Object">
+                      <Data value="0784265174"/>
+                      <Data value="0123123123"/>
+                    </Column>
+                    <Column editable="true" title="S&#x1ed1; b&#xe0;n" type="java.lang.Object">
+                      <Data value="23"/>
+                      <Data value="10"/>
+                    </Column>
+                    <Column editable="true" title="Th&#x1edd;i gian" type="java.lang.Object">
+                      <Data value="17:30 20/04/2023"/>
+                      <Data value="17:00 19/04/2023"/>
+                    </Column>
+                    <Column editable="true" title="&#x110;&#x1ecb;a &#x111;i&#x1ec3;m" type="java.lang.Object">
+                      <Data value="Bi&#xea;n H&#xf2;a"/>
+                      <Data value="Bi&#xea;n H&#xf2;a"/>
+                    </Column>
+                    <Column editable="true" title="TT ti&#x1ec7;c" type="java.lang.Object">
+                      <Data value="S&#x1eaf;p t&#x1edb;i"/>
+                      <Data value="&#x110;&#xe3; xong"/>
+                    </Column>
+                    <Column editable="true" title="Thanh to&#xe1;n" type="java.lang.Object">
+                      <Data value="Ch&#x1b0;a"/>
+                      <Data value="Xong"/>
+                    </Column>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -165,14 +223,8 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                   </TableColumnModel>
                 </Property>
-                <Property name="showGrid" type="boolean" value="false"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
@@ -182,35 +234,15 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="center">
+    <Container class="javax.swing.JPanel" name="bottom">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection component="Form" name="background" type="property"/>
         </Property>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-          <BorderConstraints direction="Center"/>
-        </Constraint>
-      </Constraints>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1017" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-    </Container>
-    <Container class="javax.swing.JPanel" name="bottom">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="bf" green="a0" red="e8" type="rgb"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+            <MatteColorBorder bottom="0" left="0" right="0" top="1"/>
+          </Border>
         </Property>
       </Properties>
       <Constraints>

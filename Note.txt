@@ -4,7 +4,6 @@ primary2 [187,214,184]
 secondary [174,194,182]
 secondary2 [124,150,171]
 third [219,228,198]
-third2 [232, 160, 191]
 viewBg [249, 245, 231]
 red [244, 80, 80]
 navy [10, 77, 104]
@@ -14,3 +13,15 @@ JFrame main: [1280,720]
 JPanel menu: [263,576]
 JPanel view: [1017,576]
 JPanel Search: [300, 40]
+
+
+Cách dùng component:
+1. Table (component/table)
+B1: Phải cài đặt style scroll vertical và horizontal
+        jScrollPane2.setVerticalScrollBar(new ScrollBarCus());
+        ScrollBarCus sb = new ScrollBarCus();
+        sb.setOrientation(JScrollBar.HORIZONTAL);
+        jScrollPane2.setHorizontalScrollBar(sb);
+
+B2: lấy table vừa thêm vào design gọi 2 phương thức:
+        table1.fixTable(jScrollPane2);

@@ -64,6 +64,7 @@ public class MainView extends javax.swing.JFrame {
         topPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         labelGoogleIcon1 = new view.component.LabelGoogleIcon();
+        labelDateTime1 = new view.component.LabelDateTime();
         jPanel1 = new javax.swing.JPanel();
         closeBtn = new view.component.LabelGoogleIcon();
         minimizeBtn = new view.component.LabelGoogleIcon();
@@ -75,6 +76,9 @@ public class MainView extends javax.swing.JFrame {
 
         jpnRoot.setBackground(new java.awt.Color(249, 245, 231));
         jpnRoot.setPreferredSize(new java.awt.Dimension(1280, 720));
+
+        jpnView.setBackground(new java.awt.Color(249, 245, 231));
+        jpnView.setMinimumSize(new java.awt.Dimension(1017, 576));
 
         javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
         jpnView.setLayout(jpnViewLayout);
@@ -362,6 +366,9 @@ public class MainView extends javax.swing.JFrame {
         labelGoogleIcon1.setIconColor(new java.awt.Color(255, 255, 255));
         labelGoogleIcon1.setIconSize(40.0F);
 
+        labelDateTime1.setForeground(new java.awt.Color(255, 255, 255));
+        labelDateTime1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -369,12 +376,16 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(404, Short.MAX_VALUE))
+                .addGap(109, 109, 109)
+                .addComponent(labelDateTime1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDateTime1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -430,9 +441,7 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(jpnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jpnRootLayout.createSequentialGroup()
-                .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,7 +467,6 @@ public class MainView extends javax.swing.JFrame {
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
         System.exit(0);
     }//GEN-LAST:event_closeBtnMouseClicked
-
 
     private void topPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topPanelMouseDragged
         int gX = evt.getXOnScreen();
@@ -541,6 +549,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jpnTaiKhoan;
     private javax.swing.JPanel jpnThucDon;
     private javax.swing.JPanel jpnView;
+    private view.component.LabelDateTime labelDateTime1;
     private view.component.LabelGoogleIcon labelGoogleIcon1;
     private view.component.LabelGoogleIcon minimizeBtn;
     private javax.swing.JPanel topPanel;
