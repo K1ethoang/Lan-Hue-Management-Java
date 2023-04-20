@@ -1,4 +1,4 @@
-package view.component;
+package view.component.scroll;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,11 +14,11 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class ModernScrollBarUI extends BasicScrollBarUI {
 
-    private final int THUMB_SIZE = 40;
+    private final int THUMB_SIZE = 70;
 
     @Override
     protected Dimension getMaximumThumbSize() {
-        if (scrollbar.getOrientation() == scrollbar.VERTICAL) {
+        if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
             return new Dimension(0, THUMB_SIZE);
         } else {
             return new Dimension(THUMB_SIZE, 0);
@@ -27,7 +27,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
 
     @Override
     protected Dimension getMinimumThumbSize() {
-        if (scrollbar.getOrientation() == scrollbar.VERTICAL) {
+        if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
             return new Dimension(0, THUMB_SIZE);
         } else {
             return new Dimension(THUMB_SIZE, 0);
@@ -35,18 +35,17 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
     }
 
     @Override
-    protected JButton createIncreaseButton(int orientation) {
+    protected JButton createIncreaseButton(int i) {
         return new ScrollBarButton();
     }
 
     @Override
-    protected JButton createDecreaseButton(int orientation) {
+    protected JButton createDecreaseButton(int i) {
         return new ScrollBarButton();
-
     }
 
     @Override
-    protected void paintTrack(Graphics grphcs, JComponent c, Rectangle trackBounds) {
+    protected void paintTrack(Graphics grphcs, JComponent jc, Rectangle rctngl) {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         int orientation = scrollbar.getOrientation();
@@ -55,17 +54,17 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
         int y;
         int width;
         int height;
-        if (orientation == scrollbar.VERTICAL) {
-            size = trackBounds.width / 2;
-            x = trackBounds.x + ((trackBounds.width - size) / 2);
-            y = trackBounds.y;
+        if (orientation == JScrollBar.VERTICAL) {
+            size = rctngl.width / 2;
+            x = rctngl.x + ((rctngl.width - size) / 2);
+            y = rctngl.y;
             width = size;
-            height = trackBounds.height;
+            height = rctngl.height;
         } else {
-            size = trackBounds.height / 2;
-            y = trackBounds.y + ((trackBounds.height - size) / 2);
+            size = rctngl.height / 2;
+            y = rctngl.y + ((rctngl.height - size) / 2);
             x = 0;
-            width = trackBounds.width;
+            width = rctngl.width;
             height = size;
         }
         g2.setColor(new Color(240, 240, 240));
@@ -73,13 +72,13 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
     }
 
     @Override
-    protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
-        Graphics2D g2 = (Graphics2D) g;
+    protected void paintThumb(Graphics grphcs, JComponent jc, Rectangle rctngl) {
+        Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int x = thumbBounds.x;
-        int y = thumbBounds.y;
-        int width = thumbBounds.width;
-        int height = thumbBounds.height;
+        int x = rctngl.x;
+        int y = rctngl.y;
+        int width = rctngl.width;
+        int height = rctngl.height;
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
             y += 8;
             height -= 16;
@@ -89,7 +88,6 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
         }
         g2.setColor(scrollbar.getForeground());
         g2.fillRoundRect(x, y, width, height, 10, 10);
-
     }
 
     private class ScrollBarButton extends JButton {
@@ -99,9 +97,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
         }
 
         @Override
-        public void paint(Graphics g) {
-            super.paint(g);
+        public void paint(Graphics grphcs) {
         }
-
     }
 }

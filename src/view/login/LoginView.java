@@ -190,6 +190,11 @@ public class LoginView extends javax.swing.JFrame {
                 loginBtnMouseClicked(evt);
             }
         });
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
         rightPanel.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 197, 30));
 
         minimizeBtn.setBackground(new java.awt.Color(148, 175, 159));
@@ -337,6 +342,10 @@ public class LoginView extends javax.swing.JFrame {
             login();
         }
     }//GEN-LAST:event_usernameFieldKeyPressed
+
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

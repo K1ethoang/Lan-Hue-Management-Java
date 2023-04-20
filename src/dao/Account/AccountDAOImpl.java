@@ -19,7 +19,7 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public AccountModel login(String user, String pass) {
         Connection con = (Connection) DBConnection.getConnection();
-        String sql = "SELECT * FROM Account WHERE "
+        String sql = "SELECT * FROM account WHERE "
                 + "UN_Username=? AND "
                 + "Password=?";
         AccountModel accountModel = null;

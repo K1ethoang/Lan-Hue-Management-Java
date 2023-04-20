@@ -1,4 +1,4 @@
-package view.component;
+package view.component.table;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -10,15 +10,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import view.component.scroll.ScrollBarCus;
 
 public class Table extends JTable {
 
     public Table() {
-        getTableHeader().setDefaultRenderer(new TableHeader());
+        getTableHeader().setDefaultRenderer(new TableHeader(this.getTableHeader().getDefaultRenderer()));
         getTableHeader().setPreferredSize(new Dimension(0, 35));
         setDefaultRenderer(Object.class, new TableCell());
         setRowHeight(30);
-
+        setAutoCreateRowSorter(true);
     }
 
     public void fixTable(JScrollPane scroll) {
@@ -32,12 +34,18 @@ public class Table extends JTable {
 
     private class TableHeader extends DefaultTableCellRenderer {
 
+        private final TableCellRenderer defaultRenderer;
+
+        public TableHeader(TableCellRenderer defaultRenderer) {
+            this.defaultRenderer = defaultRenderer;
+        }
+
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            Component com = defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             com.setBackground(new Color(124, 150, 171));
-            com.setForeground(new Color(255, 255, 255));
-            com.setFont(com.getFont().deriveFont(Font.BOLD, 18));
+            com.setForeground(new Color(0, 0, 0));
+            com.setFont(com.getFont().deriveFont(Font.BOLD, 16));
             return com;
         }
     }

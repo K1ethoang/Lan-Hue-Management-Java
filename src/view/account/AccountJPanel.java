@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package view.main;
+package view.account;
 
 /**
  *
  * @author Admin
  */
-public class NhanVienJPanel extends javax.swing.JPanel {
+public class AccountJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form TrangChuJPanel
+     * Creates new form TaiKhoanJPanel
      */
-    public NhanVienJPanel() {
+    public AccountJPanel() {
         initComponents();
     }
 
@@ -27,18 +27,36 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        labelGoogleIcon1 = new view.component.LabelGoogleIcon();
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 204));
+        setBackground(new java.awt.Color(249, 245, 231));
+
+        jPanel1.setBackground(getBackground());
+
+        labelGoogleIcon1.setBackground(getBackground());
+        labelGoogleIcon1.setForeground(new java.awt.Color(0, 0, 0));
+        labelGoogleIcon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelGoogleIcon1.setText("Đang phát triển");
+        labelGoogleIcon1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        labelGoogleIcon1.setGoogleIcon(icon.GoogleMaterialDesignIcons.CODE);
+        labelGoogleIcon1.setIconColor(new java.awt.Color(0, 0, 0));
+        labelGoogleIcon1.setIconSize(36.0F);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -53,8 +71,8 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private view.component.LabelGoogleIcon labelGoogleIcon1;
     // End of variables declaration//GEN-END:variables
 }
