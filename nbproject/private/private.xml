@@ -2,24 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-<<<<<<< HEAD
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/model/AccountModel.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/main/MainView.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/main/KhachHangJPanel.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/main/BangDieuKhienJPanel.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Account/AccountDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/login/LoginView.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/controller/ChuyenManHinhController.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/KhachHangServiceImpl.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/model/KhachHang.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/controller/QuanLyKhachHangController.java</file>
-=======
-            <file>file:/D:/Lan-Hue-Management/src/view/main/TiecJPanel.java</file>
-            <file>file:/D:/Lan-Hue-Management/src/view/main/MainView.java</file>
-            <file>file:/D:/Lan-Hue-Management/Note.txt</file>
->>>>>>> 911ab28ad20ef6fd9759743df1f8ccd8c69fc70b
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Account/AccountDAOImpl.java</file>
         </group>
-=======
-        <group/>
->>>>>>> dbb4e8a5090d4600a9bb68ffd9c77b8ec7e5fa42
     </open-files>
 </project-private>
