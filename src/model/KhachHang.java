@@ -9,6 +9,7 @@ package model;
  * @author Admin
  */
 public class KhachHang {
+
     private int customerID;
     private String name;
     private String phoneNumber;
@@ -57,8 +58,7 @@ public class KhachHang {
 
     @Override
     public String toString() {
-        return customerID + " - " + name ;
+        return customerID + " - " + name;
     }
-    
-    
+
 }

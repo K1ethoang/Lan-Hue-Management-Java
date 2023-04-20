@@ -1,19 +1,19 @@
 package view.main;
 
 import javax.swing.JScrollBar;
-import view.component.ScrollBarCus;
+import view.component.scroll.ScrollBarCus;
 
 public class TiecJPanel extends javax.swing.JPanel {
 
     public TiecJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
-        jScrollPane1.setVerticalScrollBar(new ScrollBarCus());
+        ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
-        jScrollPane1.setHorizontalScrollBar(sb);
+        ScrollPaneTable.setHorizontalScrollBar(sb);
+        tableParty.fixTable(ScrollPaneTable);
 
-        tableParty.fixTable(jScrollPane1);
     }
 
     @SuppressWarnings("unchecked")
@@ -24,9 +24,9 @@ public class TiecJPanel extends javax.swing.JPanel {
         searchPanel = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
         searchBtn = new rojerusan.RSButtonHover();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableParty = new view.component.Table();
         center = new javax.swing.JPanel();
+        ScrollPaneTable = new javax.swing.JScrollPane();
+        tableParty = new view.component.table.Table();
         bottom = new javax.swing.JPanel();
         seeBtn = new rojeru_san.complementos.RSButtonHover();
         addBtn = new rojeru_san.complementos.RSButtonHover();
@@ -71,125 +71,6 @@ public class TiecJPanel extends javax.swing.JPanel {
         });
         searchPanel.add(searchBtn);
 
-        tableParty.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã tiệc", "Tên tiệc", "Tên KH", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "Loại tiệc", "Trạng thái tiệc", "Thanh toán"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableParty.setShowGrid(false);
-        tableParty.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tableParty);
-
         javax.swing.GroupLayout topLayout = new javax.swing.GroupLayout(top);
         top.setLayout(topLayout);
         topLayout.setHorizontalGroup(
@@ -198,36 +79,52 @@ public class TiecJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
         );
         topLayout.setVerticalGroup(
             topLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(top, java.awt.BorderLayout.NORTH);
 
         center.setBackground(getBackground());
 
+        tableParty.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "Sinh nhật bé An", "Hoàng Gia Kiệt", "0784265174", "23", "17:30 20/04/2023", "Biên Hòa", "Sắp tới", "Chưa"},
+                {"2", "Đám cưới", "Nguyễn Văn A", "0123123123", "10", "17:00 19/04/2023", "Biên Hòa", "Đã xong", "Xong"}
+            },
+            new String [] {
+                "ID", "Tên tiệc", "Người đặt", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "TT tiệc", "Thanh toán"
+            }
+        ));
+        tableParty.getTableHeader().setReorderingAllowed(false);
+        ScrollPaneTable.setViewportView(tableParty);
+
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
         center.setLayout(centerLayout);
         centerLayout.setHorizontalGroup(
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1017, Short.MAX_VALUE)
+            .addGroup(centerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
         );
         centerLayout.setVerticalGroup(
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(centerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(center, java.awt.BorderLayout.CENTER);
 
-        bottom.setBackground(new java.awt.Color(232, 160, 191));
+        bottom.setBackground(getBackground());
+        bottom.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
 
         seeBtn.setBackground(new java.awt.Color(148, 175, 159));
         seeBtn.setText("Xem");
@@ -401,11 +298,11 @@ public class TiecJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_paymentBtn1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollPaneTable;
     private rojeru_san.complementos.RSButtonHover addBtn;
     private javax.swing.JPanel bottom;
     private javax.swing.JPanel center;
     private rojeru_san.complementos.RSButtonHover editBtn;
-    private javax.swing.JScrollPane jScrollPane1;
     private rojeru_san.complementos.RSButtonHover paymentBtn;
     private rojeru_san.complementos.RSButtonHover paymentBtn1;
     private rojeru_san.complementos.RSButtonHover removeBtn;
@@ -413,7 +310,7 @@ public class TiecJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchPanel;
     private rojeru_san.complementos.RSButtonHover seeBtn;
-    private view.component.Table tableParty;
+    private view.component.table.Table tableParty;
     private javax.swing.JPanel top;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-package view.component;
+package view.component.scroll;
 
 import java.awt.Color;
 import java.awt.Dimension;
