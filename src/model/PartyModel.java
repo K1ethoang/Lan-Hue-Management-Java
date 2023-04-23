@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,7 +15,7 @@ public class PartyModel {
     private String partyName;
     private String customer;
     private String sdt;
-    private Date time;
+    private Timestamp time;
     private String location;
     private int tableNumber;
     private String happenStatus;
@@ -53,11 +53,11 @@ public class PartyModel {
         this.sdt = sdt;
     }
 
-    public Date getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 

@@ -9,7 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import model.PartyModel;
 
@@ -53,8 +54,13 @@ public class PartyJPanel extends javax.swing.JPanel {
                 String partySDT = party.getSdt();
                 party.setTableNumber(rs.getInt("TableNumber"));
                 int tableNumber = party.getTableNumber();
-                party.setTime(rs.getDate("Time"));
-                Date time = party.getTime();
+                
+                party.setTime(rs.getTimestamp("Time"));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Timestamp time = (Timestamp) party.getTime();
+                String formattedTime = dateFormat.format(party.getTime());
+//                Timestamp time = (Timestamp) party.getTime();
+                
                 party.setLocation(rs.getString("Location"));
                 String location = party.getLocation();
                 party.setHappenStatus(rs.getString("StatusName"));
@@ -226,7 +232,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         button.add(paymentBtn1);
 
         sumParty.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sumParty.setForeground(new java.awt.Color(0, 0, 0));
         sumParty.setText("Số lượng: 0");
         button.add(sumParty);
 
@@ -239,19 +244,16 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         payment.setBackground(getBackground());
 
-        labelGoogleIcon1.setForeground(new java.awt.Color(0, 0, 0));
         labelGoogleIcon1.setText("Trạng thái tiệc:");
         labelGoogleIcon1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         payment.add(labelGoogleIcon1);
 
         happenWait.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        happenWait.setForeground(new java.awt.Color(0, 0, 0));
         happenWait.setText("Sắp tới");
         happenWait.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         payment.add(happenWait);
 
         happenNow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        happenNow.setForeground(new java.awt.Color(0, 0, 0));
         happenNow.setText("Đang tổ chức");
         happenNow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         happenNow.addActionListener(new java.awt.event.ActionListener() {
@@ -262,7 +264,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         payment.add(happenNow);
 
         happenDone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        happenDone.setForeground(new java.awt.Color(0, 0, 0));
         happenDone.setText("Đã xong");
         happenDone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         happenDone.addActionListener(new java.awt.event.ActionListener() {
@@ -276,13 +277,11 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         happen.setBackground(getBackground());
 
-        labelGoogleIcon2.setForeground(new java.awt.Color(0, 0, 0));
         labelGoogleIcon2.setText("Thanh toán:");
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         happen.add(labelGoogleIcon2);
 
         paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setForeground(new java.awt.Color(0, 0, 0));
         paymentNo.setText("Chưa");
         paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentNo.addActionListener(new java.awt.event.ActionListener() {
@@ -293,7 +292,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         happen.add(paymentNo);
 
         paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setForeground(new java.awt.Color(0, 0, 0));
         paymentYes.setText("Xong");
         paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentYes.addActionListener(new java.awt.event.ActionListener() {
@@ -313,8 +311,7 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         tableParty.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Sinh nhật bé An", "Hoàng Gia Kiệt", "0784265174", "23", "17:30 20/04/2023", "Biên Hòa", "Sắp tới", "Chưa"},
-                {"2", "Đám cưới", "Nguyễn Văn A", "0123123123", "10", "17:00 19/04/2023", "Biên Hòa", "Đã xong", "Xong"}
+
             },
             new String [] {
                 "ID", "Tên tiệc", "Người đặt", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "TT tiệc", "Thanh toán"

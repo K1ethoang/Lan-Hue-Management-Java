@@ -412,43 +412,16 @@
             <Component class="view.component.table.Table" name="tableParty">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="2">
-                    <Column editable="true" title="ID" type="java.lang.Object">
-                      <Data value="1"/>
-                      <Data value="2"/>
-                    </Column>
-                    <Column editable="true" title="T&#xea;n ti&#x1ec7;c" type="java.lang.Object">
-                      <Data value="Sinh nh&#x1ead;t b&#xe9; An"/>
-                      <Data value="&#x110;&#xe1;m c&#x1b0;&#x1edb;i"/>
-                    </Column>
-                    <Column editable="true" title="Ng&#x1b0;&#x1edd;i &#x111;&#x1eb7;t" type="java.lang.Object">
-                      <Data value="Ho&#xe0;ng Gia Ki&#x1ec7;t"/>
-                      <Data value="Nguy&#x1ec5;n V&#x103;n A"/>
-                    </Column>
-                    <Column editable="true" title="S&#x110;T" type="java.lang.Object">
-                      <Data value="0784265174"/>
-                      <Data value="0123123123"/>
-                    </Column>
-                    <Column editable="true" title="S&#x1ed1; b&#xe0;n" type="java.lang.Object">
-                      <Data value="23"/>
-                      <Data value="10"/>
-                    </Column>
-                    <Column editable="true" title="Th&#x1edd;i gian" type="java.lang.Object">
-                      <Data value="17:30 20/04/2023"/>
-                      <Data value="17:00 19/04/2023"/>
-                    </Column>
-                    <Column editable="true" title="&#x110;&#x1ecb;a &#x111;i&#x1ec3;m" type="java.lang.Object">
-                      <Data value="Bi&#xea;n H&#xf2;a"/>
-                      <Data value="Bi&#xea;n H&#xf2;a"/>
-                    </Column>
-                    <Column editable="true" title="TT ti&#x1ec7;c" type="java.lang.Object">
-                      <Data value="S&#x1eaf;p t&#x1edb;i"/>
-                      <Data value="&#x110;&#xe3; xong"/>
-                    </Column>
-                    <Column editable="true" title="Thanh to&#xe1;n" type="java.lang.Object">
-                      <Data value="Ch&#x1b0;a"/>
-                      <Data value="Xong"/>
-                    </Column>
+                  <Table columnCount="9" rowCount="0">
+                    <Column editable="true" title="ID" type="java.lang.Object"/>
+                    <Column editable="true" title="T&#xea;n ti&#x1ec7;c" type="java.lang.Object"/>
+                    <Column editable="true" title="Ng&#x1b0;&#x1edd;i &#x111;&#x1eb7;t" type="java.lang.Object"/>
+                    <Column editable="true" title="S&#x110;T" type="java.lang.Object"/>
+                    <Column editable="true" title="S&#x1ed1; b&#xe0;n" type="java.lang.Object"/>
+                    <Column editable="true" title="Th&#x1edd;i gian" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x110;&#x1ecb;a &#x111;i&#x1ec3;m" type="java.lang.Object"/>
+                    <Column editable="true" title="TT ti&#x1ec7;c" type="java.lang.Object"/>
+                    <Column editable="true" title="Thanh to&#xe1;n" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
