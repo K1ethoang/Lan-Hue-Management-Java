@@ -1,7 +1,18 @@
 package view.party;
 
+import dao.DBConnection;
 import javax.swing.JScrollBar;
+import javax.swing.table.DefaultTableModel;
 import view.component.scroll.ScrollBarCus;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import model.PartyModel;
+
 
 public class PartyJPanel extends javax.swing.JPanel {
 
@@ -13,9 +24,55 @@ public class PartyJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableParty.fixTable(ScrollPaneTable);
-
+        
+        setPartyDetailsToTable();
     }
-
+    DefaultTableModel model;
+    public void setPartyDetailsToTable(){
+        try{
+            Connection con = DBConnection.getConnection();
+            String sql ="SELECT *, customer.name AS CustomerName, paymentstatus.StatusName AS PaymentStatusName " +
+                        "FROM party " +
+                        "JOIN customer ON party.CustomerID = Customer.CustomerID " +
+                        "JOIN happenstatus ON party.HappenStatusID = happenstatus.HappenStatusID " +
+                        "JOIN paymentstatus ON party.PaymentStatusID = paymentstatus.PaymentStatusID;";
+//            List<PartyModel> list = new ArrayList<>();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery(sql);
+             
+            while(rs.next()){
+                PartyModel party = new PartyModel();
+                
+                party.setPartyID(rs.getInt("PartyID"));
+                int partyID = party.getPartyID();               
+                party.setPartyName(rs.getString("PartyName"));
+                String partyName = party.getPartyName();               
+                party.setCustomer(rs.getString("CustomerName"));
+                String customerName = party.getCustomer();
+                party.setSdt(rs.getString("PhoneNumber"));
+                String partySDT = party.getSdt();
+                party.setTableNumber(rs.getInt("TableNumber"));
+                int tableNumber = party.getTableNumber();
+                party.setTime(rs.getDate("Time"));
+                Date time = party.getTime();
+                party.setLocation(rs.getString("Location"));
+                String location = party.getLocation();
+                party.setHappenStatus(rs.getString("StatusName"));
+                String happenStatus = party.getHappenStatus();
+                party.setPaymentStatus(rs.getString("PaymentStatusName"));
+                String paymentStatus = party.getPaymentStatus();
+                
+                Object[] obj = {partyID, partyName, customerName, partySDT, tableNumber, time, location, happenStatus, paymentStatus};
+                model = (DefaultTableModel) tableParty.getModel();
+                model.addRow(obj);
+            }
+            
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
