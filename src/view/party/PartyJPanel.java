@@ -1,6 +1,8 @@
 package view.party;
 
 import dao.DBConnection;
+import dao.Party.PartyDAO;
+import dao.Party.PartyDAOImpl;
 import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 import view.component.scroll.ScrollBarCus;
@@ -13,6 +15,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import model.PartyModel;
+import table.TableParty;
 
 
 public class PartyJPanel extends javax.swing.JPanel {
@@ -26,57 +29,14 @@ public class PartyJPanel extends javax.swing.JPanel {
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableParty.fixTable(ScrollPaneTable);
         
-        setPartyDetailsToTable();
-    }
-    DefaultTableModel model;
-    public void setPartyDetailsToTable(){
-        try{
-            Connection con = DBConnection.getConnection();
-            String sql ="SELECT *, customer.name AS CustomerName, paymentstatus.StatusName AS PaymentStatusName " +
-                        "FROM party " +
-                        "JOIN customer ON party.CustomerID = Customer.CustomerID " +
-                        "JOIN happenstatus ON party.HappenStatusID = happenstatus.HappenStatusID " +
-                        "JOIN paymentstatus ON party.PaymentStatusID = paymentstatus.PaymentStatusID;";
-//            List<PartyModel> list = new ArrayList<>();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery(sql);
-             
-            while(rs.next()){
-                PartyModel party = new PartyModel();
-                
-                party.setPartyID(rs.getInt("PartyID"));
-                int partyID = party.getPartyID();               
-                party.setPartyName(rs.getString("PartyName"));
-                String partyName = party.getPartyName();               
-                party.setCustomer(rs.getString("CustomerName"));
-                String customerName = party.getCustomer();
-                party.setSdt(rs.getString("PhoneNumber"));
-                String partySDT = party.getSdt();
-                party.setTableNumber(rs.getInt("TableNumber"));
-                int tableNumber = party.getTableNumber();
-                
-                party.setTime(rs.getTimestamp("Time"));
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Timestamp time = (Timestamp) party.getTime();
-                String formattedTime = dateFormat.format(party.getTime());
-//                Timestamp time = (Timestamp) party.getTime();
-                
-                party.setLocation(rs.getString("Location"));
-                String location = party.getLocation();
-                party.setHappenStatus(rs.getString("StatusName"));
-                String happenStatus = party.getHappenStatus();
-                party.setPaymentStatus(rs.getString("PaymentStatusName"));
-                String paymentStatus = party.getPaymentStatus();
-                
-                Object[] obj = {partyID, partyName, customerName, partySDT, tableNumber, time, location, happenStatus, paymentStatus};
-                model = (DefaultTableModel) tableParty.getModel();
-                model.addRow(obj);
-            }
-            
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
+        setPartyTable();
+//        setPartyDetailsToTable();
         
+    }
+    public void setPartyTable(){
+        PartyDAO partyDAO = new PartyDAOImpl();
+        TableParty tb = new TableParty();
+        tb.setPartyDetailsToTable(partyDAO.getList(), tableParty);
     }
     
     @SuppressWarnings("unchecked")
@@ -117,6 +77,11 @@ public class PartyJPanel extends javax.swing.JPanel {
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setMnemonic('X');
         seeBtn.setText("Xem chi tiết");
+        seeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
@@ -125,6 +90,11 @@ public class PartyJPanel extends javax.swing.JPanel {
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
@@ -132,6 +102,11 @@ public class PartyJPanel extends javax.swing.JPanel {
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(removeBtn);
 
         setBackground(new java.awt.Color(249, 245, 231));
@@ -154,6 +129,11 @@ public class PartyJPanel extends javax.swing.JPanel {
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
@@ -348,6 +328,7 @@ public class PartyJPanel extends javax.swing.JPanel {
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_paymentBtnActionPerformed
 
     private void paymentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnMouseClicked
@@ -356,6 +337,7 @@ public class PartyJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
@@ -391,6 +373,22 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentYesActionPerformed
+
+    private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_seeBtnActionPerformed
+
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeBtnActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;

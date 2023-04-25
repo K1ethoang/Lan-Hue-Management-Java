@@ -93,6 +93,11 @@ public class PartyModel {
         this.paymentStatus = paymentStatus;
     }
 
+    @Override
+    public String toString() {
+        return "PartyModel{" + "partyID=" + partyID + ", partyName=" + partyName + ", customer=" + customer + ", sdt=" + sdt + ", time=" + time + ", location=" + location + ", tableNumber=" + tableNumber + ", happenStatus=" + happenStatus + ", paymentStatus=" + paymentStatus + '}';
+    }
+
     
     
     
