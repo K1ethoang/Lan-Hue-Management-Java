@@ -1,6 +1,11 @@
 package view.customer;
 
+import java.util.List;
 import javax.swing.JScrollBar;
+import model.CustomerModel;
+import service.customer.CustomerService;
+import service.customer.CustomerServiceImpl;
+import table.TableCustomer;
 import view.component.scroll.ScrollBarCus;
 
 public class CustomerJPanel extends javax.swing.JPanel {
@@ -13,9 +18,16 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableCustomer.fixTable(ScrollPaneTable);
-
+        
+        setCustomerTable();
     }
-
+    
+    public void setCustomerTable(){
+        CustomerService customerService = new CustomerServiceImpl();
+        List<CustomerModel> list = customerService.getList();
+        TableCustomer tb = new TableCustomer();
+        tb.setCustomerDetailsToTable(list, tableCustomer);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,7 +138,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         button.add(addBtn);
 
         sumCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sumCustomer.setForeground(new java.awt.Color(0, 0, 0));
         sumCustomer.setText("Số lượng: 0");
         button.add(sumCustomer);
 
@@ -139,13 +150,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
         sex.setBackground(getBackground());
 
-        labelGoogleIcon2.setForeground(new java.awt.Color(0, 0, 0));
         labelGoogleIcon2.setText("Giới tính:");
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sex.add(labelGoogleIcon2);
 
         paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setForeground(new java.awt.Color(0, 0, 0));
         paymentNo.setText("Nữ");
         paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentNo.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +165,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sex.add(paymentNo);
 
         paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setForeground(new java.awt.Color(0, 0, 0));
         paymentYes.setText("Nam");
         paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentYes.addActionListener(new java.awt.event.ActionListener() {
@@ -176,8 +184,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
         tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Hoàng Gia Kiệt", "0784265174", "Nam", "075277784981", "Biên Hòa"},
-                {"2", "Nguyễn Văn C", "0123123123", "Nữ", "123123123123", "Biên Hòa"}
+
             },
             new String [] {
                 "ID", "Tên KH", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ"

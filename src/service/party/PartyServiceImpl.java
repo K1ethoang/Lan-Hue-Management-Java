@@ -1,6 +1,7 @@
 
-package service;
+package service.party;
 
+import service.*;
 import dao.Party.PartyDAO;
 import dao.Party.PartyDAOImpl;
 import java.util.List;

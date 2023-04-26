@@ -1,6 +1,7 @@
 
-package service;
+package service.party;
 
+import service.*;
 import java.util.List;
 import model.PartyModel;
 

@@ -8,11 +8,12 @@ package model;
  *
  * @author Admin
  */
-public class KhachHang {
+public class CustomerModel {
 
     private int customerID;
     private String name;
     private String phoneNumber;
+    private boolean sex;
     private String citizenNumber;
     private String address;
 
@@ -40,6 +41,14 @@ public class KhachHang {
         this.phoneNumber = phoneNumber;
     }
 
+    public boolean isSex() {
+        return sex;
+    }
+
+    public void setSex(boolean sex) {
+        this.sex = sex;
+    }
+    
     public String getCitizenNumber() {
         return citizenNumber;
     }
@@ -58,7 +67,8 @@ public class KhachHang {
 
     @Override
     public String toString() {
-        return customerID + " - " + name;
+        return "CustomerModel{" + "customerID=" + customerID + ", name=" + name + ", phoneNumber=" + phoneNumber + ", sex=" + sex + ", citizenNumber=" + citizenNumber + ", address=" + address + '}';
     }
+    
 
 }

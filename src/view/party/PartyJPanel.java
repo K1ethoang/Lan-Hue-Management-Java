@@ -1,20 +1,11 @@
 package view.party;
 
-import dao.DBConnection;
-import dao.Party.PartyDAO;
-import dao.Party.PartyDAOImpl;
 import javax.swing.JScrollBar;
-import javax.swing.table.DefaultTableModel;
 import view.component.scroll.ScrollBarCus;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import model.PartyModel;
+import service.party.PartyService;
+import service.party.PartyServiceImpl;
 import table.TableParty;
 
 
@@ -34,9 +25,10 @@ public class PartyJPanel extends javax.swing.JPanel {
         
     }
     public void setPartyTable(){
-        PartyDAO partyDAO = new PartyDAOImpl();
+        PartyService partyService = new PartyServiceImpl();
+        List<PartyModel> list = partyService.getList();
         TableParty tb = new TableParty();
-        tb.setPartyDetailsToTable(partyDAO.getList(), tableParty);
+        tb.setPartyDetailsToTable(list, tableParty);
     }
     
     @SuppressWarnings("unchecked")
