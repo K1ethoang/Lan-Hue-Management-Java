@@ -3,16 +3,16 @@ package view.party;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+import model.CustomerModel;
 import model.PartyModel;
-import service.party.PartyService;
 import service.party.PartyServiceImpl;
 import table.TableParty;
 
 public class PartyJPanel extends javax.swing.JPanel {
 
     List<PartyModel> listParty = new PartyServiceImpl().getList();
+    PartyModel partyCurrent = new PartyModel();
 
     public PartyJPanel() {
         initComponents();
@@ -26,10 +26,26 @@ public class PartyJPanel extends javax.swing.JPanel {
         setPartyTable();
     }
 
-    public void setPartyTable() {
+    private void setPartyTable() {
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(listParty, tableParty);
         sumParty.setText("Số lượng: " + listParty.size());
+    }
+
+    private void setPartyCurrent() {
+        int row = tableParty.getSelectedRow();
+        PartyModel party = listParty.get(row);
+
+        partyCurrent.setPartyID(party.getPartyID());
+        partyCurrent.setPartyName(party.getPartyName());
+        partyCurrent.setTableNumber(party.getTableNumber());
+        partyCurrent.setTime(party.getTime());
+        partyCurrent.setLocation(party.getLocation());
+        partyCurrent.setTypeParty(party.getTypeParty());
+        partyCurrent.setHappenStatus(party.getHappenStatus());
+        partyCurrent.setPaymentStatus(party.getPaymentStatus());
+        partyCurrent.setNote(party.getNote());
+        partyCurrent.setCustomer(party.getCustomer());
     }
 
     @SuppressWarnings("unchecked")
@@ -50,7 +66,7 @@ public class PartyJPanel extends javax.swing.JPanel {
         button = new javax.swing.JPanel();
         addBtn = new rojeru_san.complementos.RSButtonHover();
         paymentBtn = new rojeru_san.complementos.RSButtonHover();
-        paymentBtn1 = new rojeru_san.complementos.RSButtonHover();
+        printMenuBtn = new rojeru_san.complementos.RSButtonHover();
         sumParty = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
         typeParty = new javax.swing.JPanel();
@@ -173,11 +189,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         paymentBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         paymentBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         paymentBtn.setPreferredSize(new java.awt.Dimension(110, 40));
-        paymentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paymentBtnMouseClicked(evt);
-            }
-        });
         paymentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentBtnActionPerformed(evt);
@@ -185,23 +196,13 @@ public class PartyJPanel extends javax.swing.JPanel {
         });
         button.add(paymentBtn);
 
-        paymentBtn1.setBackground(new java.awt.Color(10, 77, 104));
-        paymentBtn1.setText("In thực đơn");
-        paymentBtn1.setColorHover(new java.awt.Color(14, 112, 152));
-        paymentBtn1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        paymentBtn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        paymentBtn1.setPreferredSize(new java.awt.Dimension(110, 40));
-        paymentBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paymentBtn1MouseClicked(evt);
-            }
-        });
-        paymentBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentBtn1ActionPerformed(evt);
-            }
-        });
-        button.add(paymentBtn1);
+        printMenuBtn.setBackground(new java.awt.Color(10, 77, 104));
+        printMenuBtn.setText("In thực đơn");
+        printMenuBtn.setColorHover(new java.awt.Color(14, 112, 152));
+        printMenuBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        printMenuBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        printMenuBtn.setPreferredSize(new java.awt.Dimension(110, 40));
+        button.add(printMenuBtn);
 
         sumParty.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sumParty.setText("Số lượng: 0");
@@ -347,28 +348,12 @@ public class PartyJPanel extends javax.swing.JPanel {
 
     }// GEN-LAST:event_paymentBtnActionPerformed
 
-    private void paymentBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_paymentBtnMouseClicked
-        // TODO add your handling code here:
-    }// GEN-LAST:event_paymentBtnMouseClicked
-
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {
 //        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
 //        topFrame.setExtendedState(JFrame.ICONIFIED);
         addParty addParty = new addParty();
         addParty.setVisible(true);
     }
-
-    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addBtnMouseClicked
-        // TODO add your handling code here:
-    }// GEN-LAST:event_addBtnMouseClicked
-
-    private void paymentBtn1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_paymentBtn1MouseClicked
-        // TODO add your handling code here:
-    }// GEN-LAST:event_paymentBtn1MouseClicked
-
-    private void paymentBtn1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtn1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_paymentBtn1ActionPerformed
 
     private void tablePartyMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
         if (evt.isPopupTrigger()) {
@@ -393,7 +378,13 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_paymentYesActionPerformed
 
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_seeBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            setPartyCurrent();
+            addParty addParty = new addParty(partyCurrent);
+            addParty.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Tiệc không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
     }// GEN-LAST:event_seeBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeBtnActionPerformed
@@ -426,10 +417,10 @@ public class PartyJPanel extends javax.swing.JPanel {
     private view.component.LabelGoogleIcon labelGoogleIcon3;
     private javax.swing.JPanel payment;
     private rojeru_san.complementos.RSButtonHover paymentBtn;
-    private rojeru_san.complementos.RSButtonHover paymentBtn1;
     private javax.swing.JCheckBox paymentNo;
     private javax.swing.JCheckBox paymentYes;
     private javax.swing.JPopupMenu popupMenu;
+    private rojeru_san.complementos.RSButtonHover printMenuBtn;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;

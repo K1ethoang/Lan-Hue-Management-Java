@@ -68,6 +68,22 @@ public class PanelLocation extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setProvince(String s) {
+        comboBoxProvince.addItem(s);
+    }
+
+    public void setDistrict(String s) {
+        comboBoxDistrict.addItem(s);
+    }
+
+    public void setWard(String s) {
+        comboBoxWard.addItem(s);
+    }
+
+    public void setAddress(String s) {
+        textFieldAddress.setText(s);
+    }
+
     public String getProvince() {
         return (String) comboBoxProvince.getSelectedItem();
     }

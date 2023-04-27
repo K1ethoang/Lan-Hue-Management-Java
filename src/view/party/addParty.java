@@ -1,8 +1,10 @@
 package view.party;
 
+import java.awt.TextField;
 import java.util.List;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
+import model.PartyModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import service.customer.CustomerServiceImpl;
 import view.component.scroll.ScrollBarCus;
@@ -13,8 +15,9 @@ import view.component.scroll.ScrollBarCus;
  */
 public class addParty extends javax.swing.JFrame {
 
-    List<CustomerModel> listCustomer = new CustomerServiceImpl().getList();
-    CustomerModel customerModel = null;
+    List<CustomerModel> gListCustomer = null;
+    PartyModel gPartyModel = null;
+    CustomerModel gCustomerModel = null;
 
     public addParty() {
         initComponents();
@@ -25,14 +28,63 @@ public class addParty extends javax.swing.JFrame {
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneNote.setHorizontalScrollBar(sb);
+        // get data
+        gListCustomer = new CustomerServiceImpl().getList();
+
         setComboBoxCustomer();
+
+        // set button
+        editBtn.setVisible(false);
+    }
+
+    public addParty(PartyModel _partyModel) {
+        initComponents();
+
+        AutoCompleteDecorator.decorate(comboBoxCustomer);
+        // set vertical and horizontal scroll bar
+        ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
+        ScrollBarCus sb = new ScrollBarCus();
+        sb.setOrientation(JScrollBar.HORIZONTAL);
+        ScrollPaneNote.setHorizontalScrollBar(sb);
+
+        setData(_partyModel);
+        setReadOnlyAll();
+
+        // set button
+        addBtn.setVisible(false);
+        saveBtn.setVisible(false);
+        editBtn.setVisible(true);
+
     }
 
     private void setComboBoxCustomer() {
         comboBoxCustomer.removeAllItems();
-        for (int i = 0; i < listCustomer.size(); i++) {
-            comboBoxCustomer.addItem(listCustomer.get(i).getName());
+        for (int i = 0; i < gListCustomer.size(); i++) {
+            comboBoxCustomer.addItem(gListCustomer.get(i).getName());
         }
+    }
+
+    private void setData(PartyModel partyModel) {
+        this.setTitle("Xem tiệc");
+        TF_partyID.setText(partyModel.getPartyID() + "");
+        TF_partyName.setText(partyModel.getPartyName());
+        SP_partyNumber.setValue(partyModel.getTableNumber());
+        comboBoxTypeParty.addItem(partyModel.getTypeParty());
+        textAreaNote.setText(partyModel.getNote());
+        panelLocation2.setAddress(partyModel.getLocation());
+        comboBoxCustomer.addItem(partyModel.getCustomer().getName());
+        TF_phoneNumber.setText(partyModel.getCustomer().getPhoneNumber());
+    }
+
+    private void setReadOnlyAll() {
+        TF_partyName.setEditable(false);
+        SP_partyNumber.setEnabled(false);
+        comboBoxTypeParty.setEditable(false);
+        SP_time.setEnabled(false);
+        TF_date.setEnabled(false);
+        textAreaNote.setEditable(false);
+        comboBoxCustomer.setEditable(false);
+        TF_phoneNumber.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -51,11 +103,11 @@ public class addParty extends javax.swing.JFrame {
         SP_partyNumber = new com.toedter.components.JSpinField();
         panelRight = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboBoxTypeParty = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
+        SP_time = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        TF_date = new com.toedter.calendar.JDateChooser();
         panelNote = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         ScrollPaneNote = new javax.swing.JScrollPane();
@@ -71,6 +123,7 @@ public class addParty extends javax.swing.JFrame {
         TF_phoneNumber = new javax.swing.JTextField();
         bottom = new javax.swing.JPanel();
         saveBtn = new rojeru_san.complementos.RSButtonHover();
+        editBtn = new rojeru_san.complementos.RSButtonHover();
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -88,9 +141,8 @@ public class addParty extends javax.swing.JFrame {
         jLabel1.setText("ID");
         panelLeft.add(jLabel1);
 
+        TF_partyID.setEditable(false);
         TF_partyID.setText("123");
-        TF_partyID.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        TF_partyID.setEnabled(false);
         panelLeft.add(TF_partyID);
 
         jLabel2.setText("Tên tiệc (*)");
@@ -116,21 +168,20 @@ public class addParty extends javax.swing.JFrame {
         jLabel7.setText("Loại tiệc (*)");
         panelRight.add(jLabel7);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        panelRight.add(jComboBox1);
+        panelRight.add(comboBoxTypeParty);
 
         jLabel4.setText("Thời gian (*)");
         panelRight.add(jLabel4);
 
-        jSpinner2.setModel(new javax.swing.SpinnerDateModel());
-        jSpinner2.setEditor(new javax.swing.JSpinner.DateEditor(jSpinner2, "HH:mm"));
-        panelRight.add(jSpinner2);
+        SP_time.setModel(new javax.swing.SpinnerDateModel());
+        SP_time.setEditor(new javax.swing.JSpinner.DateEditor(SP_time, "HH:mm"));
+        panelRight.add(SP_time);
 
         jLabel10.setText("Ngày (*)");
         panelRight.add(jLabel10);
 
-        jDateChooser1.setDateFormatString("dd-MM-yyyy");
-        panelRight.add(jDateChooser1);
+        TF_date.setDateFormatString("dd-MM-yyyy");
+        panelRight.add(TF_date);
 
         center.add(panelRight);
 
@@ -220,6 +271,19 @@ public class addParty extends javax.swing.JFrame {
         });
         bottom.add(saveBtn);
 
+        editBtn.setBackground(new java.awt.Color(10, 77, 104));
+        editBtn.setText("Chỉnh sửa");
+        editBtn.setColorHover(new java.awt.Color(14, 112, 152));
+        editBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        editBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        editBtn.setPreferredSize(new java.awt.Dimension(110, 40));
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
+        bottom.add(editBtn);
+
         cancelBtn.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn.setText("Hủy");
         cancelBtn.setColorHover(new java.awt.Color(14, 112, 152));
@@ -286,9 +350,15 @@ public class addParty extends javax.swing.JFrame {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void comboBoxCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCustomerActionPerformed
-        customerModel = listCustomer.get(comboBoxCustomer.getSelectedIndex());
-        TF_phoneNumber.setText(customerModel.getPhoneNumber());
+        if (gListCustomer != null) {
+            gCustomerModel = gListCustomer.get(comboBoxCustomer.getSelectedIndex());
+            TF_phoneNumber.setText(gCustomerModel.getPhoneNumber());
+        }
     }//GEN-LAST:event_comboBoxCustomerActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,7 +397,9 @@ public class addParty extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.components.JSpinField SP_partyNumber;
+    private javax.swing.JSpinner SP_time;
     private javax.swing.JScrollPane ScrollPaneNote;
+    private com.toedter.calendar.JDateChooser TF_date;
     private javax.swing.JTextField TF_partyID;
     private javax.swing.JTextField TF_partyName;
     private javax.swing.JTextField TF_phoneNumber;
@@ -336,8 +408,8 @@ public class addParty extends javax.swing.JFrame {
     private rojeru_san.complementos.RSButtonHover cancelBtn;
     private javax.swing.JPanel center;
     private javax.swing.JComboBox<String> comboBoxCustomer;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox<String> comboBoxTypeParty;
+    private rojeru_san.complementos.RSButtonHover editBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -351,7 +423,6 @@ public class addParty extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private com.toedter.components.JSpinField jSpinField2;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelLeft;
     private view.component.PanelLocation panelLocation2;
