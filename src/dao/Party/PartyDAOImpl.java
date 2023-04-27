@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao.Party;
 
 import dao.DBConnection;
@@ -10,52 +6,50 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import model.CustomerModel;
 import model.PartyModel;
 
-/**
- *
- * @author Admin
- */
-public class PartyDAOImpl implements PartyDAO{
+public class PartyDAOImpl implements PartyDAO {
 
     @Override
     public List<PartyModel> getList() {
-        try{
+        try {
             Connection con = DBConnection.getConnection();
-            String sql ="SELECT *, customer.name AS CustomerName, paymentstatus.StatusName AS PaymentStatusName " +
-                        "FROM party " +
-                        "JOIN customer ON party.CustomerID = Customer.CustomerID " +
-                        "JOIN happenstatus ON party.HappenStatusID = happenstatus.HappenStatusID " +
-                        "JOIN paymentstatus ON party.PaymentStatusID = paymentstatus.PaymentStatusID;";
+            String sql = "SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber, hp.statusName AS happenName, ps.statusName AS paymentName\n"
+                    + "FROM party p\n"
+                    + "JOIN customer c ON p.customerID = c.customerID\n"
+                    + "JOIN happenStatus hp ON p.HappenStatusID = hp.HappenStatusID\n"
+                    + "JOIN paymentStatus ps ON p.PaymentStatusID = ps.PaymentStatusID\n"
+                    + "JOIN typeParty tp ON p.typePartyID = tp.typePartyID";
             List<PartyModel> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery(sql); 
-            while(rs.next()){
+            ResultSet rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                CustomerModel customer = new CustomerModel();
                 PartyModel party = new PartyModel();
-                
-                party.setPartyID(rs.getInt("PartyID"));        
-                party.setPartyName(rs.getString("PartyName"));        
-                party.setCustomer(rs.getString("CustomerName"));
-                party.setSdt(rs.getString("PhoneNumber"));
+
+                customer.setName(rs.getString("customerName"));
+                customer.setPhoneNumber(rs.getString("customerPhoneNumber"));
+
+                party.setPartyID(rs.getInt("PartyID"));
+                party.setPartyName(rs.getString("PartyName"));
                 party.setTableNumber(rs.getInt("TableNumber"));
                 party.setTime(rs.getTimestamp("Time"));
-//                Timestamp time = (Timestamp) party.getTime();  
                 party.setLocation(rs.getString("Location"));
-                party.setHappenStatus(rs.getString("StatusName"));
-                party.setPaymentStatus(rs.getString("PaymentStatusName"));       
+                party.setTypeParty(rs.getString("typeParty"));
+                party.setHappenStatus(rs.getString("happenName"));
+                party.setPaymentStatus(rs.getString("paymentName"));
+                party.setNote(rs.getString("Note"));
+                party.setCustomer(customer);
+
                 list.add(party);
             }
             ps.close();
             rs.close();
             con.close();
             return list;
-        }catch (Exception ex){
-            ex.printStackTrace();
+        } catch (Exception ex) {
         }
         return null;
-    }
-    public static void main(String[] args) {
-        PartyDAO partyDAO = new PartyDAOImpl();
-        System.out.println(partyDAO.getList());
     }
 }

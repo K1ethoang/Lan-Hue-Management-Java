@@ -3,12 +3,16 @@ package view.party;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import model.PartyModel;
 import service.party.PartyService;
 import service.party.PartyServiceImpl;
 import table.TableParty;
 
 public class PartyJPanel extends javax.swing.JPanel {
+
+    List<PartyModel> listParty = new PartyServiceImpl().getList();
 
     public PartyJPanel() {
         initComponents();
@@ -20,20 +24,17 @@ public class PartyJPanel extends javax.swing.JPanel {
         tableParty.fixTable(ScrollPaneTable);
 
         setPartyTable();
-        // setPartyDetailsToTable();
-
     }
 
     public void setPartyTable() {
-        PartyService partyService = new PartyServiceImpl();
-        List<PartyModel> list = partyService.getList();
         TableParty tb = new TableParty();
-        tb.setPartyDetailsToTable(list, tableParty);
+        tb.setPartyDetailsToTable(listParty, tableParty);
+        sumParty.setText("Số lượng: " + listParty.size());
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
@@ -52,6 +53,9 @@ public class PartyJPanel extends javax.swing.JPanel {
         paymentBtn1 = new rojeru_san.complementos.RSButtonHover();
         sumParty = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
+        typeParty = new javax.swing.JPanel();
+        labelGoogleIcon3 = new view.component.LabelGoogleIcon();
+        typePartyComboBox = new javax.swing.JComboBox<>();
         payment = new javax.swing.JPanel();
         labelGoogleIcon1 = new view.component.LabelGoogleIcon();
         happenWait = new javax.swing.JCheckBox();
@@ -65,8 +69,7 @@ public class PartyJPanel extends javax.swing.JPanel {
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableParty = new view.component.table.Table();
 
-        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X,
-                java.awt.event.InputEvent.ALT_DOWN_MASK));
+        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         seeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setMnemonic('X');
@@ -79,8 +82,7 @@ public class PartyJPanel extends javax.swing.JPanel {
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
-        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C,
-                java.awt.event.InputEvent.ALT_DOWN_MASK));
+        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setMnemonic('C');
@@ -133,18 +135,19 @@ public class PartyJPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
-                searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 315,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap()));
+            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
         searchPanelLayout.setVerticalGroup(
-                searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
-                                .addContainerGap()));
+            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         searchAndButton.add(searchPanel);
 
@@ -157,11 +160,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addBtn.setPreferredSize(new java.awt.Dimension(100, 40));
-        addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addBtnMouseClicked(evt);
-            }
-        });
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
@@ -215,6 +213,22 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         filter.setBackground(getBackground());
         filter.setLayout(new javax.swing.BoxLayout(filter, javax.swing.BoxLayout.Y_AXIS));
+
+        typeParty.setBackground(getBackground());
+
+        labelGoogleIcon3.setText("Loại tiệc:");
+        labelGoogleIcon3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        typeParty.add(labelGoogleIcon3);
+
+        typePartyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        typePartyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typePartyComboBoxActionPerformed(evt);
+            }
+        });
+        typeParty.add(typePartyComboBox);
+
+        filter.add(typeParty);
 
         payment.setBackground(getBackground());
 
@@ -284,40 +298,49 @@ public class PartyJPanel extends javax.swing.JPanel {
         center.setBackground(getBackground());
 
         tableParty.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
+            new Object [][] {
 
-                },
-                new String[] {
-                        "ID", "Tên tiệc", "Người đặt", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "TT tiệc", "Thanh toán"
-                }));
-        tableParty.setShowGrid(true);
-        tableParty.getTableHeader().setReorderingAllowed(false);
-        tableParty.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tablePartyMouseReleased(evt);
+            },
+            new String [] {
+                "ID", "Tên tiệc", "Loại tiệc", "Người đặt", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "Trạng thái", "Thanh toán"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        tableParty.setComponentPopupMenu(popupMenu);
+        tableParty.setShowGrid(true);
+        tableParty.getTableHeader().setReorderingAllowed(false);
         ScrollPaneTable.setViewportView(tableParty);
 
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
         center.setLayout(centerLayout);
         centerLayout.setHorizontalGroup(
-                centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(centerLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1005,
-                                        Short.MAX_VALUE)
-                                .addContainerGap()));
+            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(centerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
+        );
         centerLayout.setVerticalGroup(
-                centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(centerLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 446,
-                                        Short.MAX_VALUE)
-                                .addContainerGap()));
+            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(centerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         add(center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void typePartyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typePartyComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_typePartyComboBoxActionPerformed
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
@@ -328,10 +351,12 @@ public class PartyJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }// GEN-LAST:event_paymentBtnMouseClicked
 
-    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addBtnActionPerformed
-        // TODO add your handling code here:
-
-    }// GEN-LAST:event_addBtnActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {
+//        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//        topFrame.setExtendedState(JFrame.ICONIFIED);
+        addParty addParty = new addParty();
+        addParty.setVisible(true);
+    }
 
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
@@ -398,6 +423,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private view.component.LabelGoogleIcon labelGoogleIcon1;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
+    private view.component.LabelGoogleIcon labelGoogleIcon3;
     private javax.swing.JPanel payment;
     private rojeru_san.complementos.RSButtonHover paymentBtn;
     private rojeru_san.complementos.RSButtonHover paymentBtn1;
@@ -412,5 +438,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel sumParty;
     private view.component.table.Table tableParty;
     private javax.swing.JPanel top;
+    private javax.swing.JPanel typeParty;
+    private javax.swing.JComboBox<String> typePartyComboBox;
     // End of variables declaration//GEN-END:variables
 }

@@ -203,6 +203,14 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 ;
 
 use lanhuemanagement;
+SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber, hp.statusName AS happenName, ps.statusName AS paymentName
+FROM party p
+JOIN customer c ON p.customerID = c.customerID
+JOIN happenStatus hp ON p.HappenStatusID = hp.HappenStatusID
+JOIN paymentStatus ps ON p.PaymentStatusID = ps.PaymentStatusID
+JOIN typeParty tp ON p.typePartyID = tp.typePartyID;
+
+
 SELECT *, customer.name AS CustomerName, paymentstatus.StatusName AS PaymentStatusName
 FROM party
 JOIN customer ON party.CustomerID = Customer.CustomerID

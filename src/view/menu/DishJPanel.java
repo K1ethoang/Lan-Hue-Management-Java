@@ -182,13 +182,9 @@ public class DishJPanel extends javax.swing.JPanel {
                 "ID", "Tên món", "Giá", "Loại"
             }
         ));
+        tableDish.setComponentPopupMenu(popupMenu);
         tableDish.setShowGrid(true);
         tableDish.getTableHeader().setReorderingAllowed(false);
-        tableDish.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tableDishMouseReleased(evt);
-            }
-        });
         ScrollPaneTable.setViewportView(tableDish);
 
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
@@ -226,12 +222,6 @@ public class DishJPanel extends javax.swing.JPanel {
     private void paymentBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtn1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentBtn1ActionPerformed
-
-    private void tableDishMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDishMouseReleased
-        if (evt.isPopupTrigger()) {
-            popupMenu.show(this, evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_tableDishMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;

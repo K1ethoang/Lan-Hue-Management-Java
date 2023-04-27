@@ -190,13 +190,9 @@ public class CustomerJPanel extends javax.swing.JPanel {
                 "ID", "Tên KH", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ"
             }
         ));
+        tableCustomer.setComponentPopupMenu(popupMenu);
         tableCustomer.setShowGrid(true);
         tableCustomer.getTableHeader().setReorderingAllowed(false);
-        tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tableCustomerMouseReleased(evt);
-            }
-        });
         ScrollPaneTable.setViewportView(tableCustomer);
 
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
@@ -226,12 +222,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_addBtnMouseClicked
-
-    private void tableCustomerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerMouseReleased
-        if (evt.isPopupTrigger()) {
-            popupMenu.show(this, evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_tableCustomerMouseReleased
 
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
         // TODO add your handling code here:

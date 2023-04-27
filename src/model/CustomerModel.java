@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author Admin
- */
 public class CustomerModel {
 
     private int customerID;
@@ -16,6 +8,18 @@ public class CustomerModel {
     private boolean sex;
     private String citizenNumber;
     private String address;
+
+    public CustomerModel() {
+    }
+
+    public CustomerModel(int customerID, String name, String phoneNumber, boolean sex, String citizenNumber, String address) {
+        this.customerID = customerID;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.sex = sex;
+        this.citizenNumber = citizenNumber;
+        this.address = address;
+    }
 
     public int getCustomerID() {
         return customerID;
@@ -48,7 +52,7 @@ public class CustomerModel {
     public void setSex(boolean sex) {
         this.sex = sex;
     }
-    
+
     public String getCitizenNumber() {
         return citizenNumber;
     }
@@ -69,6 +73,5 @@ public class CustomerModel {
     public String toString() {
         return "CustomerModel{" + "customerID=" + customerID + ", name=" + name + ", phoneNumber=" + phoneNumber + ", sex=" + sex + ", citizenNumber=" + citizenNumber + ", address=" + address + '}';
     }
-    
 
 }
