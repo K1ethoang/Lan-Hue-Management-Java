@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/customer/CustomerService.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/customer/CustomerServiceImpl.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/main/MainView.java</file>
@@ -16,6 +17,15 @@
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Party/PartyDAOImpl.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/PartyServiceImpl.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/customer/CustomerJPanel.java</file>
+=======
+            <file>file:/D:/Lan-Hue-Management/src/view/party/addParty.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/main/MainView.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/login/LoginView.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/main/Program.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/dao/Party/PartyDAO.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/party/PartyJPanel.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/dao/DBConnection.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>

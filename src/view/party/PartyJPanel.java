@@ -8,7 +8,6 @@ import service.party.PartyService;
 import service.party.PartyServiceImpl;
 import table.TableParty;
 
-
 public class PartyJPanel extends javax.swing.JPanel {
 
     public PartyJPanel() {
@@ -19,20 +18,22 @@ public class PartyJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableParty.fixTable(ScrollPaneTable);
-        
+
         setPartyTable();
-//        setPartyDetailsToTable();
-        
+        // setPartyDetailsToTable();
+
     }
-    public void setPartyTable(){
+
+    public void setPartyTable() {
         PartyService partyService = new PartyServiceImpl();
         List<PartyModel> list = partyService.getList();
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(list, tableParty);
     }
-    
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
@@ -64,7 +65,8 @@ public class PartyJPanel extends javax.swing.JPanel {
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableParty = new view.component.table.Table();
 
-        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X,
+                java.awt.event.InputEvent.ALT_DOWN_MASK));
         seeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setMnemonic('X');
@@ -77,7 +79,8 @@ public class PartyJPanel extends javax.swing.JPanel {
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
-        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C,
+                java.awt.event.InputEvent.ALT_DOWN_MASK));
         editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setMnemonic('C');
@@ -130,19 +133,18 @@ public class PartyJPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
-            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+                searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(searchPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 315,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap()));
         searchPanelLayout.setVerticalGroup(
-            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(searchPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE)
+                                .addContainerGap()));
 
         searchAndButton.add(searchPanel);
 
@@ -282,13 +284,12 @@ public class PartyJPanel extends javax.swing.JPanel {
         center.setBackground(getBackground());
 
         tableParty.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][] {
 
-            },
-            new String [] {
-                "ID", "Tên tiệc", "Người đặt", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "TT tiệc", "Thanh toán"
-            }
-        ));
+                },
+                new String[] {
+                        "ID", "Tên tiệc", "Người đặt", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "TT tiệc", "Thanh toán"
+                }));
         tableParty.setShowGrid(true);
         tableParty.getTableHeader().setReorderingAllowed(false);
         tableParty.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -301,86 +302,86 @@ public class PartyJPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
         center.setLayout(centerLayout);
         centerLayout.setHorizontalGroup(
-            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(centerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(centerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1005,
+                                        Short.MAX_VALUE)
+                                .addContainerGap()));
         centerLayout.setVerticalGroup(
-            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(centerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(centerLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 446,
+                                        Short.MAX_VALUE)
+                                .addContainerGap()));
 
         add(center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
+    private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_paymentBtnActionPerformed
 
-    private void paymentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnMouseClicked
+    }// GEN-LAST:event_paymentBtnActionPerformed
+
+    private void paymentBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_paymentBtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_paymentBtnMouseClicked
+    }// GEN-LAST:event_paymentBtnMouseClicked
 
-    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_addBtnActionPerformed
 
-    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
+    }// GEN-LAST:event_addBtnActionPerformed
+
+    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_addBtnMouseClicked
+    }// GEN-LAST:event_addBtnMouseClicked
 
-    private void paymentBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtn1MouseClicked
+    private void paymentBtn1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_paymentBtn1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_paymentBtn1MouseClicked
+    }// GEN-LAST:event_paymentBtn1MouseClicked
 
-    private void paymentBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtn1ActionPerformed
+    private void paymentBtn1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtn1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_paymentBtn1ActionPerformed
+    }// GEN-LAST:event_paymentBtn1ActionPerformed
 
-    private void tablePartyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePartyMouseReleased
+    private void tablePartyMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
         if (evt.isPopupTrigger()) {
             popupMenu.show(this, evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_tablePartyMouseReleased
+    }// GEN-LAST:event_tablePartyMouseReleased
 
-    private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_happenNowActionPerformed
+    private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenNowActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_happenNowActionPerformed
+    }// GEN-LAST:event_happenNowActionPerformed
 
-    private void happenDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_happenDoneActionPerformed
+    private void happenDoneActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenDoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_happenDoneActionPerformed
+    }// GEN-LAST:event_happenDoneActionPerformed
 
-    private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
+    private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentNoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_paymentNoActionPerformed
+    }// GEN-LAST:event_paymentNoActionPerformed
 
-    private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
+    private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentYesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_paymentYesActionPerformed
+    }// GEN-LAST:event_paymentYesActionPerformed
 
-    private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
+    private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_seeBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_seeBtnActionPerformed
+    }// GEN-LAST:event_seeBtnActionPerformed
 
-    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_removeBtnActionPerformed
+    }// GEN-LAST:event_removeBtnActionPerformed
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_editBtnActionPerformed
+    }// GEN-LAST:event_editBtnActionPerformed
 
-    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchFieldActionPerformed
+    }// GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;

@@ -10,13 +10,13 @@ CREATE TABLE IF NOT EXISTS Customer(
 	CustomerID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(10) NOT NULL,
-    Sex BIT NOT NULL,
+    Sex INT NOT NULL,
     UN_CitizenNumber VARCHAR(12) UNIQUE,
     Address TEXT NOT NULL,
     CONSTRAINT PkCustomer_CustomerID PRIMARY KEY (CustomerId),
     CONSTRAINT UnCustomer_UN_CitizenNumber UNIQUE (UN_CitizenNumber),
-    CONSTRAINT CkCustomer_PhoneNumber CHECK (PhoneNumber = 10),
-	CONSTRAINT CkCustomer_UN_CitizenNumber CHECK (UN_CitizenNumber = 12)
+    CONSTRAINT CkCustomer_PhoneNumber CHECK (LENGTH(PhoneNumber) = 10),
+    CONSTRAINT CkCustomer_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12)
 ) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 -- TRUNCATE TABLE Customer;
 -- NSERT INTO Customer(Name,PhoneNumber,UN_CitizenNumber,Address) VALUES ("Hoàng Gia Kiệt", "0784265174", "123123123123", "123");
@@ -49,10 +49,8 @@ CREATE TABLE IF NOT EXISTS HappenStatus(
 -- DROP TABLE Role;
 CREATE TABLE IF NOT EXISTS Role(
 	RoleID INT UNSIGNED AUTO_INCREMENT,
-    UN_RoleCode VARCHAR(10),
     RoleName VARCHAR(255) NOT NULL,
-    CONSTRAINT PkRole_RoleID PRIMARY KEY (RoleID),
-    CONSTRAINT UnRole_UN_RoleCode UNIQUE (UN_RoleCode)
+    CONSTRAINT PkRole_RoleID PRIMARY KEY (RoleID)
 ) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 -- TRUNCATE TABLE Role;
 -- INSERT INTO Role (UN_RoleCode, RoleName) VALUES ("CT1", "Chạy tiệc")
@@ -73,6 +71,7 @@ CREATE TABLE IF NOT EXISTS TypeDish(
 CREATE TABLE IF NOT EXISTS Staff(
 	StaffID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
+    Sex INT NOT NULL,
     PhoneNumber VARCHAR(10) NOT NULL,
 	UN_CitizenNumber VARCHAR(12) UNIQUE,
     Address VARCHAR(300),
@@ -113,7 +112,7 @@ CREATE TABLE IF NOT EXISTS Party(
 	PartyID INT UNSIGNED AUTO_INCREMENT,
     PartyName TEXT,
     TableNumber TINYINT UNSIGNED,
-    `Time` DATETIME,
+    `Time` TIMESTAMP,
     Location TEXT,
     Note TEXT,
     CustomerID INT UNSIGNED,
@@ -133,7 +132,7 @@ CREATE TABLE IF NOT EXISTS Party(
 -- DROP TABLE Invoice;
 CREATE TABLE Invoice(
 	InvoiceID INT UNSIGNED AUTO_INCREMENT,
-    `Time` DATETIME,
+    `Time` TIMESTAMP,
     Total DOUBLE DEFAULT 0,
 	StaffID INT UNSIGNED,
     PartyID INT UNSIGNED,
@@ -202,6 +201,13 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 ('1', 'admin', 'admin123'),
 ('2', 'staff', 'staff123')
 ;
+
+use lanhuemanagement;
+SELECT *, customer.name AS CustomerName, paymentstatus.StatusName AS PaymentStatusName
+FROM party
+JOIN customer ON party.CustomerID = Customer.CustomerID
+JOIN happenstatus ON party.HappenStatusID = happenstatus.HappenStatusID
+JOIN paymentstatus ON party.PaymentStatusID = paymentstatus.PaymentStatusID; 
 
 
 
