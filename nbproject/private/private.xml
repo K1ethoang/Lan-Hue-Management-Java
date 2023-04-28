@@ -5,19 +5,16 @@
         <group>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/customer/CustomerService.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/customer/CustomerServiceImpl.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/party/PartyService.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/main/MainView.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/party/PartyJPanel.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Party/PartyDAO.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Customer/CustomerDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/login/LoginView.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/controller/ChuyenManHinhController.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Customer/CustomerDAOImpl.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/PartyService.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/model/CustomerModel.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/party/PartyServiceImpl.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/table/TableParty.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/table/TableCustomer.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Party/PartyDAOImpl.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/service/PartyServiceImpl.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/customer/CustomerJPanel.java</file>
         </group>
     </open-files>

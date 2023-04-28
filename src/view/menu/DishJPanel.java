@@ -1,33 +1,21 @@
-package view.customer;
+package view.menu;
 
-import java.util.List;
 import javax.swing.JScrollBar;
-import model.CustomerModel;
-import service.customer.CustomerService;
-import service.customer.CustomerServiceImpl;
-import table.TableCustomer;
 import view.component.scroll.ScrollBarCus;
 
-public class CustomerJPanel extends javax.swing.JPanel {
+public class DishJPanel extends javax.swing.JPanel {
 
-    public CustomerJPanel() {
+    public DishJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
-        tableCustomer.fixTable(ScrollPaneTable);
-        
-        setCustomerTable();
+        tableDish.fixTable(ScrollPaneTable);
+
     }
-    
-    public void setCustomerTable(){
-        CustomerService customerService = new CustomerServiceImpl();
-        List<CustomerModel> list = customerService.getList();
-        TableCustomer tb = new TableCustomer();
-        tb.setCustomerDetailsToTable(list, tableCustomer);
-    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,15 +32,15 @@ public class CustomerJPanel extends javax.swing.JPanel {
         searchField = new rojerusan.RSMetroTextPlaceHolder();
         button = new javax.swing.JPanel();
         addBtn = new rojeru_san.complementos.RSButtonHover();
-        sumCustomer = new javax.swing.JLabel();
+        paymentBtn1 = new rojeru_san.complementos.RSButtonHover();
+        sumParty = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
-        sex = new javax.swing.JPanel();
+        happen = new javax.swing.JPanel();
         labelGoogleIcon2 = new view.component.LabelGoogleIcon();
-        paymentNo = new javax.swing.JCheckBox();
-        paymentYes = new javax.swing.JCheckBox();
+        comboBox = new javax.swing.JComboBox<>();
         center = new javax.swing.JPanel();
         ScrollPaneTable = new javax.swing.JScrollPane();
-        tableCustomer = new view.component.table.Table();
+        tableDish = new view.component.table.Table();
 
         seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         seeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -119,12 +107,12 @@ public class CustomerJPanel extends javax.swing.JPanel {
         button.setBackground(getBackground());
 
         addBtn.setBackground(new java.awt.Color(148, 175, 159));
-        addBtn.setText("Thêm khách hàng");
+        addBtn.setText("Thêm món");
         addBtn.setToolTipText("Ctrl+N");
         addBtn.setColorHover(new java.awt.Color(187, 214, 184));
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addBtn.setPreferredSize(new java.awt.Dimension(150, 40));
+        addBtn.setPreferredSize(new java.awt.Dimension(120, 40));
         addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addBtnMouseClicked(evt);
@@ -137,9 +125,28 @@ public class CustomerJPanel extends javax.swing.JPanel {
         });
         button.add(addBtn);
 
-        sumCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sumCustomer.setText("Số lượng: 0");
-        button.add(sumCustomer);
+        paymentBtn1.setBackground(new java.awt.Color(10, 77, 104));
+        paymentBtn1.setText("In thực đơn");
+        paymentBtn1.setColorHover(new java.awt.Color(14, 112, 152));
+        paymentBtn1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        paymentBtn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        paymentBtn1.setPreferredSize(new java.awt.Dimension(110, 40));
+        paymentBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paymentBtn1MouseClicked(evt);
+            }
+        });
+        paymentBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentBtn1ActionPerformed(evt);
+            }
+        });
+        button.add(paymentBtn1);
+
+        sumParty.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        sumParty.setForeground(new java.awt.Color(0, 0, 0));
+        sumParty.setText("Số lượng: 0");
+        button.add(sumParty);
 
         searchAndButton.add(button);
 
@@ -148,33 +155,17 @@ public class CustomerJPanel extends javax.swing.JPanel {
         filter.setBackground(getBackground());
         filter.setLayout(new javax.swing.BoxLayout(filter, javax.swing.BoxLayout.Y_AXIS));
 
-        sex.setBackground(getBackground());
+        happen.setBackground(getBackground());
 
-        labelGoogleIcon2.setText("Giới tính:");
+        labelGoogleIcon2.setForeground(new java.awt.Color(0, 0, 0));
+        labelGoogleIcon2.setText("Loại món ăn");
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sex.add(labelGoogleIcon2);
+        happen.add(labelGoogleIcon2);
 
-        paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setText("Nữ");
-        paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentNo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentNoActionPerformed(evt);
-            }
-        });
-        sex.add(paymentNo);
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        happen.add(comboBox);
 
-        paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setText("Nam");
-        paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentYes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentYesActionPerformed(evt);
-            }
-        });
-        sex.add(paymentYes);
-
-        filter.add(sex);
+        filter.add(happen);
 
         top.add(filter);
 
@@ -182,18 +173,19 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
         center.setBackground(getBackground());
 
-        tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+        tableDish.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"1", "Lẩu hải sản", "250.000", "Lẩu"},
+                {"2", "Sữa chua", "120.000", "Tráng miệng"}
             },
             new String [] {
-                "ID", "Tên KH", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ"
+                "ID", "Tên món", "Giá", "Loại"
             }
         ));
-        tableCustomer.setComponentPopupMenu(popupMenu);
-        tableCustomer.setShowGrid(true);
-        tableCustomer.getTableHeader().setReorderingAllowed(false);
-        ScrollPaneTable.setViewportView(tableCustomer);
+        tableDish.setComponentPopupMenu(popupMenu);
+        tableDish.setShowGrid(true);
+        tableDish.getTableHeader().setReorderingAllowed(false);
+        ScrollPaneTable.setViewportView(tableDish);
 
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
         center.setLayout(centerLayout);
@@ -208,7 +200,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(centerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -223,35 +215,35 @@ public class CustomerJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_addBtnMouseClicked
 
-    private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
+    private void paymentBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtn1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_paymentNoActionPerformed
+    }//GEN-LAST:event_paymentBtn1MouseClicked
 
-    private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
+    private void paymentBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtn1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_paymentYesActionPerformed
+    }//GEN-LAST:event_paymentBtn1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;
     private rojeru_san.complementos.RSButtonHover addBtn;
     private javax.swing.JPanel button;
     private javax.swing.JPanel center;
+    private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JMenuItem editBtn;
     private javax.swing.JPanel filter;
+    private javax.swing.JPanel happen;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
-    private javax.swing.JCheckBox paymentNo;
-    private javax.swing.JCheckBox paymentYes;
+    private rojeru_san.complementos.RSButtonHover paymentBtn1;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JMenuItem seeBtn;
-    private javax.swing.JPanel sex;
-    private javax.swing.JLabel sumCustomer;
-    private view.component.table.Table tableCustomer;
+    private javax.swing.JLabel sumParty;
+    private view.component.table.Table tableDish;
     private javax.swing.JPanel top;
     // End of variables declaration//GEN-END:variables
 }

@@ -183,13 +183,9 @@ public class StaffJPanel extends javax.swing.JPanel {
                 "ID", "Tên NV", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ", "Vị trí"
             }
         ));
+        tableStaff.setComponentPopupMenu(popupMenu);
         tableStaff.setShowGrid(true);
         tableStaff.getTableHeader().setReorderingAllowed(false);
-        tableStaff.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tableStaffMouseReleased(evt);
-            }
-        });
         ScrollPaneTable.setViewportView(tableStaff);
 
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
@@ -219,12 +215,6 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_addBtnMouseClicked
-
-    private void tableStaffMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStaffMouseReleased
-        if (evt.isPopupTrigger()) {
-            popupMenu.show(this, evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_tableStaffMouseReleased
 
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
         // TODO add your handling code here:

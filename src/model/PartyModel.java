@@ -1,25 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author Admin
- */
 public class PartyModel {
+
     private int partyID;
     private String partyName;
-    private String customer;
-    private String sdt;
+    private int tableNumber;
     private Timestamp time;
     private String location;
-    private int tableNumber;
+    private String typeParty;
     private String happenStatus;
     private String paymentStatus;
+    private String note;
+    private CustomerModel customer;
+
+    public CustomerModel getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerModel customer) {
+        this.customer = customer;
+    }
+
+    public String getTypeParty() {
+        return typeParty;
+    }
+
+    public void setTypeParty(String typeParty) {
+        this.typeParty = typeParty;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public int getPartyID() {
         return partyID;
@@ -35,22 +53,6 @@ public class PartyModel {
 
     public void setPartyName(String partyName) {
         this.partyName = partyName;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
-    public String getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
     }
 
     public Timestamp getTime() {
@@ -95,10 +97,7 @@ public class PartyModel {
 
     @Override
     public String toString() {
-        return "PartyModel{" + "partyID=" + partyID + ", partyName=" + partyName + ", customer=" + customer + ", sdt=" + sdt + ", time=" + time + ", location=" + location + ", tableNumber=" + tableNumber + ", happenStatus=" + happenStatus + ", paymentStatus=" + paymentStatus + '}';
+        return "PartyModel{" + "partyID=" + partyID + ", partyName=" + partyName + ", tableNumber=" + tableNumber + ", time=" + time + ", location=" + location + ", typeParty=" + typeParty + ", happenStatus=" + happenStatus + ", paymentStatus=" + paymentStatus + ", note=" + note + ", customer=" + customer + '}';
     }
 
-    
-    
-    
 }
