@@ -32,7 +32,7 @@ public class addParty extends javax.swing.JFrame {
         gListCustomer = new CustomerServiceImpl().getList();
 
         setComboBoxCustomer();
-
+        
         // set button
         editBtn.setVisible(false);
     }
@@ -143,6 +143,11 @@ public class addParty extends javax.swing.JFrame {
 
         TF_partyID.setEditable(false);
         TF_partyID.setText("123");
+        TF_partyID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_partyIDActionPerformed(evt);
+            }
+        });
         panelLeft.add(TF_partyID);
 
         jLabel2.setText("Tên tiệc (*)");
@@ -168,6 +173,11 @@ public class addParty extends javax.swing.JFrame {
         jLabel7.setText("Loại tiệc (*)");
         panelRight.add(jLabel7);
 
+        comboBoxTypeParty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxTypePartyActionPerformed(evt);
+            }
+        });
         panelRight.add(comboBoxTypeParty);
 
         jLabel4.setText("Thời gian (*)");
@@ -359,6 +369,14 @@ public class addParty extends javax.swing.JFrame {
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editBtnActionPerformed
+
+    private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxTypePartyActionPerformed
+
+    private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_partyIDActionPerformed
 
     /**
      * @param args the command line arguments

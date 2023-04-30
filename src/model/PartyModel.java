@@ -1,13 +1,15 @@
 package model;
 
-import java.sql.Timestamp;
+import java.util.Date;
+import java.sql.Time;
 
 public class PartyModel {
 
     private int partyID;
     private String partyName;
     private int tableNumber;
-    private Timestamp time;
+    private Date date;
+    private Time time;
     private String location;
     private String typeParty;
     private String happenStatus;
@@ -55,11 +57,19 @@ public class PartyModel {
         this.partyName = partyName;
     }
 
-    public Timestamp getTime() {
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 

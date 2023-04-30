@@ -1,7 +1,8 @@
 package table;
 
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.PartyModel;
@@ -22,9 +23,8 @@ public class TableParty {
                     int partyID = party.getPartyID();
                     String partyName = party.getPartyName();
                     int tableNumber = party.getTableNumber();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-                    String formattedTime = dateFormat.format(party.getTime());
-                    Timestamp time = (Timestamp) party.getTime();
+                    Date date = party.getDate();
+                    Time time = (Time) party.getTime();
                     String location = party.getLocation();
                     String partyType = party.getTypeParty();
                     String happenStatus = party.getHappenStatus();
@@ -33,7 +33,7 @@ public class TableParty {
                     String customerName = party.getCustomer().getName();
                     String customerPhoneNumber = party.getCustomer().getPhoneNumber();
 
-                    Object[] obj = {partyID, partyName, partyType, customerName, customerPhoneNumber, tableNumber, time, location, happenStatus, paymentStatus};
+                    Object[] obj = {partyID, partyName, partyType, customerName, customerPhoneNumber, tableNumber, date ,time, location, happenStatus, paymentStatus};
                     model = (DefaultTableModel) tableParty.getModel();
                     model.addRow(obj);
 

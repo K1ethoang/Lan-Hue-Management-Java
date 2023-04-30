@@ -303,11 +303,11 @@ public class PartyJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Tên tiệc", "Loại tiệc", "Người đặt", "SĐT", "Số bàn", "Thời gian", "Địa điểm", "Trạng thái", "Thanh toán"
+                "ID", "Tên tiệc", "Loại tiệc", "Người đặt", "SĐT", "Số bàn", "Ngày", "Giờ", "Địa điểm", "Trạng thái", "Thanh toán"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

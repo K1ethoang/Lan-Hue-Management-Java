@@ -1,10 +1,19 @@
 package view.staff;
 
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import model.StaffModel;
+import service.staff.StaffService;
+import service.staff.StaffServiceImpl;
+import table.TableStaff;
 import view.component.scroll.ScrollBarCus;
 
 public class StaffJPanel extends javax.swing.JPanel {
-
+    
+    List<StaffModel> listStaff = new StaffServiceImpl().getList();
+    StaffModel staffCurrent = new StaffModel();
+    
     public StaffJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -13,9 +22,30 @@ public class StaffJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
-
+        
+        setStaffTable();
     }
-
+    
+    public void setStaffTable(){
+        System.out.println(listStaff);
+        TableStaff tb = new TableStaff();
+        tb.setCustomerDetailsToTable(listStaff, tableStaff);
+        sumStaff.setText("Số lượng: " + listStaff.size());
+    }
+    
+    private void setStaffCurrent(){
+        int row = tableStaff.getSelectedRow();
+        StaffModel staff = listStaff.get(row);
+        
+        staffCurrent.setStaffID(staff.getStaffID());
+        staffCurrent.setName(staff.getName());
+        staffCurrent.setSdt(staff.getSdt());
+        staffCurrent.setSex(staff.isSex());
+        staffCurrent.setCccd(staff.getCccd());
+        staffCurrent.setAddress(staff.getAddress());
+        staffCurrent.setRole(staff.getRole());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,6 +77,11 @@ public class StaffJPanel extends javax.swing.JPanel {
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setMnemonic('X');
         seeBtn.setText("Xem chi tiết");
+        seeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
@@ -55,6 +90,11 @@ public class StaffJPanel extends javax.swing.JPanel {
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
@@ -62,6 +102,11 @@ public class StaffJPanel extends javax.swing.JPanel {
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(removeBtn);
 
         setBackground(new java.awt.Color(249, 245, 231));
@@ -126,7 +171,6 @@ public class StaffJPanel extends javax.swing.JPanel {
         button.add(addBtn);
 
         sumStaff.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sumStaff.setForeground(new java.awt.Color(0, 0, 0));
         sumStaff.setText("Số lượng: 0");
         button.add(sumStaff);
 
@@ -139,13 +183,11 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         happen.setBackground(getBackground());
 
-        labelGoogleIcon2.setForeground(new java.awt.Color(0, 0, 0));
         labelGoogleIcon2.setText("Giới tính:");
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         happen.add(labelGoogleIcon2);
 
         paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setForeground(new java.awt.Color(0, 0, 0));
         paymentNo.setText("Nữ");
         paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentNo.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +198,6 @@ public class StaffJPanel extends javax.swing.JPanel {
         happen.add(paymentNo);
 
         paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setForeground(new java.awt.Color(0, 0, 0));
         paymentYes.setText("Nam");
         paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentYes.addActionListener(new java.awt.event.ActionListener() {
@@ -176,8 +217,7 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         tableStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Hoàng Gia Kiệt", "0784265174", "Nam", "075123456789", "Biên Hòa", "Chủ"},
-                {"2", "Nguyễn Văn A", "0123123123", "Nữ", "123123432123", "Biên Hòa", "Chạy bàn"}
+
             },
             new String [] {
                 "ID", "Tên NV", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ", "Vị trí"
@@ -210,8 +250,12 @@ public class StaffJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
+        addStaff addStaff = new addStaff();
+        addStaff.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
+    
+    
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_addBtnMouseClicked
@@ -223,6 +267,34 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentYesActionPerformed
+    
+    private void tableStaffMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
+        if (evt.isPopupTrigger()) {
+            popupMenu.show(this, evt.getX(), evt.getY());
+        }
+    }
+    
+    // xử lí sự kiện xem staff
+    private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
+
+        try {
+            setStaffCurrent();
+            System.out.println("---------");
+            addStaff addStaff = new addStaff(staffCurrent);
+            System.out.println(addStaff);
+            addStaff.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_seeBtnActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;

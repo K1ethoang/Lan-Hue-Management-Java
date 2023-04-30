@@ -34,7 +34,8 @@ public class PartyDAOImpl implements PartyDAO {
                 party.setPartyID(rs.getInt("PartyID"));
                 party.setPartyName(rs.getString("PartyName"));
                 party.setTableNumber(rs.getInt("TableNumber"));
-                party.setTime(rs.getTimestamp("Time"));
+                party.setDate(rs.getDate("TimeDD/mm/yyyy"));
+                party.setTime(rs.getTime("Time"));
                 party.setLocation(rs.getString("Location"));
                 party.setTypeParty(rs.getString("typeParty"));
                 party.setHappenStatus(rs.getString("happenName"));
