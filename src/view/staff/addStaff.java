@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.JScrollBar;
 import model.RoleModel;
 import model.StaffModel;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import service.role.RoleServiceImpl;
 import view.component.scroll.ScrollBarCus;
 
@@ -27,11 +26,11 @@ public class addStaff extends javax.swing.JFrame {
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
-        
+        this.setLocationRelativeTo(null);
+        this.setTitle("Thêm Nhân Viên");
         gListRole = new RoleServiceImpl().getList();
         setComboboxRole();
         
-        editBtn2.setVisible(false);
     }
     
     public addStaff(StaffModel _staffModel){
@@ -40,19 +39,19 @@ public class addStaff extends javax.swing.JFrame {
         ScrollBarCus sb = new ScrollBarCus();
         System.out.println("11111");
         sb.setOrientation(JScrollBar.HORIZONTAL);
+        this.setLocationRelativeTo(null);   
         
         setData(_staffModel);
         setReadOnly();
         // set button
         saveBtn2.setVisible(false);
-        editBtn2.setVisible(true);
     }
     
     private void setData(StaffModel _staffModel){
         this.setTitle("Xem Nhân Viên");
         TF_staffID.setText(_staffModel.getStaffID()+ "");
         comboBoxRole.addItem(_staffModel.getRole());
-        comboBoxStaff.addItem(_staffModel.getName());
+        TF_NameStaff.setText(_staffModel.getName());
         TF_phoneNumber.setText(_staffModel.getSdt());
         TF_CCCD.setText(_staffModel.getCccd());
         panelLocation2.setAddress(_staffModel.getAddress());
@@ -60,7 +59,7 @@ public class addStaff extends javax.swing.JFrame {
     
     private void setReadOnly(){
         comboBoxRole.setEditable(false);
-        comboBoxStaff.setEditable(false);
+        TF_NameStaff.setEditable(false);
         TF_phoneNumber.setEditable(false);
         TF_CCCD.setEditable(false);
     }
@@ -85,15 +84,13 @@ public class addStaff extends javax.swing.JFrame {
         panelLocation2 = new view.component.PanelLocation();
         panelStaff = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxStaff = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         TF_phoneNumber = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        TF_phoneNumber1 = new javax.swing.JTextField();
+        TF_NameStaff = new javax.swing.JTextField();
         TF_CCCD = new javax.swing.JTextField();
         bottom2 = new javax.swing.JPanel();
         saveBtn2 = new rojeru_san.complementos.RSButtonHover();
-        editBtn2 = new rojeru_san.complementos.RSButtonHover();
         cancelBtn2 = new rojeru_san.complementos.RSButtonHover();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -101,7 +98,9 @@ public class addStaff extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         comboBoxRole = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(630, 570));
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -111,15 +110,8 @@ public class addStaff extends javax.swing.JFrame {
         panelStaff.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 10, 0));
         panelStaff.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setText("Nhân viên (*)");
+        jLabel5.setText("Tên nhân viên (*)");
         panelStaff.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 298, 22));
-
-        comboBoxStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxStaffActionPerformed(evt);
-            }
-        });
-        panelStaff.add(comboBoxStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 10, 298, -1));
 
         jLabel6.setText("SĐT liên hệ (*)");
         panelStaff.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 298, 22));
@@ -133,13 +125,7 @@ public class addStaff extends javax.swing.JFrame {
 
         jLabel3.setText("Căn cước công dân (CMND) (*):");
         panelStaff.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, -1));
-
-        TF_phoneNumber1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_phoneNumber1ActionPerformed(evt);
-            }
-        });
-        panelStaff.add(TF_phoneNumber1, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 42, 298, -1));
+        panelStaff.add(TF_NameStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 297, -1));
         panelStaff.add(TF_CCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 74, 297, -1));
 
         jPanel1.add(panelStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 107, -1, -1));
@@ -159,19 +145,6 @@ public class addStaff extends javax.swing.JFrame {
         });
         bottom2.add(saveBtn2);
 
-        editBtn2.setBackground(new java.awt.Color(10, 77, 104));
-        editBtn2.setText("Chỉnh sửa");
-        editBtn2.setColorHover(new java.awt.Color(14, 112, 152));
-        editBtn2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        editBtn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        editBtn2.setPreferredSize(new java.awt.Dimension(110, 40));
-        editBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtn2ActionPerformed(evt);
-            }
-        });
-        bottom2.add(editBtn2);
-
         cancelBtn2.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn2.setText("Hủy");
         cancelBtn2.setColorHover(new java.awt.Color(14, 112, 152));
@@ -190,7 +163,7 @@ public class addStaff extends javax.swing.JFrame {
         });
         bottom2.add(cancelBtn2);
 
-        jPanel1.add(bottom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 502, 596, 40));
+        jPanel1.add(bottom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 596, 40));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -232,10 +205,6 @@ public class addStaff extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelBtn2MouseClicked
 
-    private void editBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editBtn2ActionPerformed
-
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
          // TODO add your handling code here:
     }//GEN-LAST:event_saveBtn2ActionPerformed
@@ -243,17 +212,6 @@ public class addStaff extends javax.swing.JFrame {
     private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_phoneNumberActionPerformed
-
-    private void comboBoxStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStaffActionPerformed
-//        if (gListCustomer != null) {
-//            gCustomerModel = gListCustomer.get(comboBoxStaff.getSelectedIndex());
-//            TF_phoneNumber.setText(gCustomerModel.getPhoneNumber());
-//        }
-    }//GEN-LAST:event_comboBoxStaffActionPerformed
-
-    private void TF_phoneNumber1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumber1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_phoneNumber1ActionPerformed
 
     private void comboBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRoleActionPerformed
         if(gListRole != null){
@@ -274,14 +232,12 @@ public class addStaff extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TF_CCCD;
+    private javax.swing.JTextField TF_NameStaff;
     private javax.swing.JTextField TF_phoneNumber;
-    private javax.swing.JTextField TF_phoneNumber1;
     private javax.swing.JTextField TF_staffID;
     private javax.swing.JPanel bottom2;
     private rojeru_san.complementos.RSButtonHover cancelBtn2;
     private javax.swing.JComboBox<String> comboBoxRole;
-    private javax.swing.JComboBox<String> comboBoxStaff;
-    private rojeru_san.complementos.RSButtonHover editBtn2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

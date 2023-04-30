@@ -366,10 +366,6 @@ public class addParty extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboBoxCustomerActionPerformed
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editBtnActionPerformed
-
     private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxTypePartyActionPerformed
@@ -377,6 +373,10 @@ public class addParty extends javax.swing.JFrame {
     private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_partyIDActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtnActionPerformed
 
     /**
      * @param args the command line arguments
