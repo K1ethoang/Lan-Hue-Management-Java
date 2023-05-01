@@ -1,4 +1,3 @@
-
 package dao.Role;
 
 import dao.DBConnection;
@@ -8,7 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-public class RoleDAOImpl implements RoleDAO{
+
+public class RoleDAOImpl implements RoleDAO {
+
+    public static RoleDAOImpl getInstance() {
+        return new RoleDAOImpl();
+    }
 
     @Override
     public List<RoleModel> getList() {
@@ -30,10 +34,9 @@ public class RoleDAOImpl implements RoleDAO{
             con.close();
             return list;
         } catch (Exception ex) {
-            
+
         }
         return null;
     }
-    
-    
+
 }

@@ -1,13 +1,16 @@
 package view.party;
 
-import java.awt.TextField;
+import dao.Customer.CustomerDAOImpl;
+import dao.Party.PartyDAOImpl;
+import dao.TypeParty.TypePartyDAOImpl;
 import java.util.List;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
 import model.PartyModel;
+import model.TypePartyModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import service.customer.CustomerServiceImpl;
 import view.component.scroll.ScrollBarCus;
+import static view.party.PartyJPanel.gCurrentID;
 
 /**
  *
@@ -15,76 +18,85 @@ import view.component.scroll.ScrollBarCus;
  */
 public class addParty extends javax.swing.JFrame {
 
-    List<CustomerModel> gListCustomer = null;
+    List<CustomerModel> gListCustomer = CustomerDAOImpl.getInstance().getList();
+    List<TypePartyModel> listTypeParty = TypePartyDAOImpl.getInstance().getList();
     PartyModel gPartyModel = null;
     CustomerModel gCustomerModel = null;
 
     public addParty() {
         initComponents();
 
-        AutoCompleteDecorator.decorate(comboBoxCustomer);
+        AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
         // set vertical and horizontal scroll bar
         ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneNote.setHorizontalScrollBar(sb);
-        // get data
-        gListCustomer = new CustomerServiceImpl().getList();
 
-        setComboBoxCustomer();
-        
-        // set button
-        editBtn.setVisible(false);
+        setTextFieldID();
+        setComboBoxPhoneNumber();
+        setComboBoxTypeParty();
     }
 
     public addParty(PartyModel _partyModel) {
         initComponents();
 
-        AutoCompleteDecorator.decorate(comboBoxCustomer);
+        AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
         // set vertical and horizontal scroll bar
         ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneNote.setHorizontalScrollBar(sb);
 
-        setData(_partyModel);
-        setReadOnlyAll();
+        setDataSeeParty(_partyModel);
 
         // set button
-        addBtn.setVisible(false);
-        saveBtn.setVisible(false);
-        editBtn.setVisible(true);
+        addCusBtn.setVisible(false);
+        savePartyBtn.setVisible(false);
 
     }
 
-    private void setComboBoxCustomer() {
-        comboBoxCustomer.removeAllItems();
+    private void setComboBoxPhoneNumber() {
+        comboBoxPhoneNumber.removeAllItems();
         for (int i = 0; i < gListCustomer.size(); i++) {
-            comboBoxCustomer.addItem(gListCustomer.get(i).getName());
+            comboBoxPhoneNumber.addItem(gListCustomer.get(i).getPhoneNumber());
         }
     }
 
-    private void setData(PartyModel partyModel) {
-        this.setTitle("Xem tiệc");
-        TF_partyID.setText(partyModel.getPartyID() + "");
-        TF_partyName.setText(partyModel.getPartyName());
-        SP_partyNumber.setValue(partyModel.getTableNumber());
-        comboBoxTypeParty.addItem(partyModel.getTypeParty());
-        textAreaNote.setText(partyModel.getNote());
-        panelLocation2.setAddress(partyModel.getLocation());
-        comboBoxCustomer.addItem(partyModel.getCustomer().getName());
-        TF_phoneNumber.setText(partyModel.getCustomer().getPhoneNumber());
+    private void setTextFieldID() {
+        TF_partyID.setText(gCurrentID + "");
     }
 
-    private void setReadOnlyAll() {
-        TF_partyName.setEditable(false);
-        SP_partyNumber.setEnabled(false);
-        comboBoxTypeParty.setEditable(false);
-        SP_time.setEnabled(false);
-        TF_date.setEnabled(false);
-        textAreaNote.setEditable(false);
-        comboBoxCustomer.setEditable(false);
-        TF_phoneNumber.setEditable(false);
+    private void setDataSeeParty(PartyModel partyModel) {
+        this.setTitle("Xem tiệc");
+        TF_partyID.setText(partyModel.getID() + "");
+        TF_partyName.setText(partyModel.getPartyName());
+        SP_partyNumber.setValue(partyModel.getTableNumber());
+        comboBoxTypeParty.addItem(partyModel.getTypeParty().getName());
+        textAreaNote.setText(partyModel.getNote());
+        panelLocation2.setAddress(partyModel.getLocation());
+        panelLocation2.setFullAddress();
+        comboBoxPhoneNumber.addItem(partyModel.getCustomer().getPhoneNumber());
+        TF_nameCustomer.setText(partyModel.getCustomer().getName());
+        setFieldEnable(false);
+    }
+
+    private void setComboBoxTypeParty() {
+        comboBoxTypeParty.removeAllItems();
+        for (int i = 0; i < listTypeParty.size(); i++) {
+            comboBoxTypeParty.addItem(listTypeParty.get(i).getName());
+        }
+    }
+
+    private void setFieldEnable(boolean bool) {
+        TF_partyName.setEditable(bool);
+        SP_partyNumber.setEnabled(bool);
+        SP_time.setEnabled(bool);
+        TF_date.setEnabled(bool);
+        textAreaNote.setEditable(bool);
+        comboBoxPhoneNumber.setEditable(bool);
+        TF_nameCustomer.setEditable(bool);
+        panelLocation2.setEnable(bool);
     }
 
     @SuppressWarnings("unchecked")
@@ -115,15 +127,14 @@ public class addParty extends javax.swing.JFrame {
         panelLocation2 = new view.component.PanelLocation();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        addBtn = new rojeru_san.complementos.RSButtonHover();
+        addCusBtn = new rojeru_san.complementos.RSButtonHover();
         panelCustomer = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        comboBoxCustomer = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        TF_phoneNumber = new javax.swing.JTextField();
+        comboBoxPhoneNumber = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        TF_nameCustomer = new javax.swing.JTextField();
         bottom = new javax.swing.JPanel();
-        saveBtn = new rojeru_san.complementos.RSButtonHover();
-        editBtn = new rojeru_san.complementos.RSButtonHover();
+        savePartyBtn = new rojeru_san.complementos.RSButtonHover();
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -142,7 +153,7 @@ public class addParty extends javax.swing.JFrame {
         panelLeft.add(jLabel1);
 
         TF_partyID.setEditable(false);
-        TF_partyID.setText("123");
+        TF_partyID.setText("0");
         TF_partyID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TF_partyIDActionPerformed(evt);
@@ -220,79 +231,61 @@ public class addParty extends javax.swing.JFrame {
         jLabel9.setText("Thông tin khách hàng");
         jPanel1.add(jLabel9);
 
-        addBtn.setBackground(new java.awt.Color(148, 175, 159));
-        addBtn.setText("Thêm khách hàng");
-        addBtn.setToolTipText("Ctrl+N");
-        addBtn.setColorHover(new java.awt.Color(187, 214, 184));
-        addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addBtn.setPreferredSize(new java.awt.Dimension(150, 40));
-        addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addBtnMouseClicked(evt);
-            }
-        });
-        addBtn.addActionListener(new java.awt.event.ActionListener() {
+        addCusBtn.setBackground(new java.awt.Color(148, 175, 159));
+        addCusBtn.setText("Thêm khách hàng");
+        addCusBtn.setToolTipText("Ctrl+N");
+        addCusBtn.setColorHover(new java.awt.Color(187, 214, 184));
+        addCusBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        addCusBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addCusBtn.setPreferredSize(new java.awt.Dimension(150, 40));
+        addCusBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBtnActionPerformed(evt);
+                addCusBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(addBtn);
+        jPanel1.add(addCusBtn);
 
         jPanel2.add(jPanel1);
 
         panelCustomer.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 10, 0));
         panelCustomer.setLayout(new java.awt.GridLayout(2, 2, 0, 10));
 
-        jLabel5.setText("Khách hàng (*)");
-        panelCustomer.add(jLabel5);
-
-        comboBoxCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxCustomerActionPerformed(evt);
-            }
-        });
-        panelCustomer.add(comboBoxCustomer);
-
         jLabel6.setText("SĐT liên hệ (*)");
         panelCustomer.add(jLabel6);
 
-        TF_phoneNumber.addActionListener(new java.awt.event.ActionListener() {
+        comboBoxPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_phoneNumberActionPerformed(evt);
+                comboBoxPhoneNumberActionPerformed(evt);
             }
         });
-        panelCustomer.add(TF_phoneNumber);
+        panelCustomer.add(comboBoxPhoneNumber);
+
+        jLabel5.setText("Khách hàng (*)");
+        panelCustomer.add(jLabel5);
+
+        TF_nameCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_nameCustomerActionPerformed(evt);
+            }
+        });
+        panelCustomer.add(TF_nameCustomer);
 
         jPanel2.add(panelCustomer);
 
         bottom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
-        saveBtn.setBackground(new java.awt.Color(10, 77, 104));
-        saveBtn.setText("Lưu");
-        saveBtn.setColorHover(new java.awt.Color(14, 112, 152));
-        saveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        saveBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        saveBtn.setPreferredSize(new java.awt.Dimension(110, 40));
-        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+        savePartyBtn.setBackground(new java.awt.Color(10, 77, 104));
+        savePartyBtn.setText("Lưu");
+        savePartyBtn.setColorHover(new java.awt.Color(14, 112, 152));
+        savePartyBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        savePartyBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        savePartyBtn.setPreferredSize(new java.awt.Dimension(110, 40));
+        savePartyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveBtnActionPerformed(evt);
+                savePartyBtnActionPerformed(evt);
             }
         });
-        bottom.add(saveBtn);
-
-        editBtn.setBackground(new java.awt.Color(10, 77, 104));
-        editBtn.setText("Chỉnh sửa");
-        editBtn.setColorHover(new java.awt.Color(14, 112, 152));
-        editBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        editBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        editBtn.setPreferredSize(new java.awt.Dimension(110, 40));
-        editBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtnActionPerformed(evt);
-            }
-        });
-        bottom.add(editBtn);
+        bottom.add(savePartyBtn);
 
         cancelBtn.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn.setText("Hủy");
@@ -300,11 +293,6 @@ public class addParty extends javax.swing.JFrame {
         cancelBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cancelBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cancelBtn.setPreferredSize(new java.awt.Dimension(110, 40));
-        cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelBtnMouseClicked(evt);
-            }
-        });
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
@@ -335,36 +323,28 @@ public class addParty extends javax.swing.JFrame {
         //
     }//GEN-LAST:event_TF_partyNameActionPerformed
 
-    private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
+    private void TF_nameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_nameCustomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TF_phoneNumberActionPerformed
+    }//GEN-LAST:event_TF_nameCustomerActionPerformed
 
-    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saveBtnActionPerformed
-
-    private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_cancelBtnMouseClicked
+    private void savePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyBtnActionPerformed
+        System.out.println(PartyDAOImpl.getInstance().insert(gPartyModel));
+    }//GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelBtnActionPerformed
 
-    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
+    private void addCusBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCusBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addBtnMouseClicked
+    }//GEN-LAST:event_addCusBtnActionPerformed
 
-    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBtnActionPerformed
-
-    private void comboBoxCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCustomerActionPerformed
+    private void comboBoxPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPhoneNumberActionPerformed
         if (gListCustomer != null) {
-            gCustomerModel = gListCustomer.get(comboBoxCustomer.getSelectedIndex());
-            TF_phoneNumber.setText(gCustomerModel.getPhoneNumber());
+            gCustomerModel = gListCustomer.get(comboBoxPhoneNumber.getSelectedIndex());
+            TF_nameCustomer.setText(gCustomerModel.getName());
         }
-    }//GEN-LAST:event_comboBoxCustomerActionPerformed
+    }//GEN-LAST:event_comboBoxPhoneNumberActionPerformed
 
     private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
         // TODO add your handling code here:
@@ -373,10 +353,6 @@ public class addParty extends javax.swing.JFrame {
     private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_partyIDActionPerformed
-
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,16 +394,15 @@ public class addParty extends javax.swing.JFrame {
     private javax.swing.JSpinner SP_time;
     private javax.swing.JScrollPane ScrollPaneNote;
     private com.toedter.calendar.JDateChooser TF_date;
+    private javax.swing.JTextField TF_nameCustomer;
     private javax.swing.JTextField TF_partyID;
     private javax.swing.JTextField TF_partyName;
-    private javax.swing.JTextField TF_phoneNumber;
-    private rojeru_san.complementos.RSButtonHover addBtn;
+    private rojeru_san.complementos.RSButtonHover addCusBtn;
     private javax.swing.JPanel bottom;
     private rojeru_san.complementos.RSButtonHover cancelBtn;
     private javax.swing.JPanel center;
-    private javax.swing.JComboBox<String> comboBoxCustomer;
+    private javax.swing.JComboBox<String> comboBoxPhoneNumber;
     private javax.swing.JComboBox<String> comboBoxTypeParty;
-    private rojeru_san.complementos.RSButtonHover editBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -446,7 +421,7 @@ public class addParty extends javax.swing.JFrame {
     private view.component.PanelLocation panelLocation2;
     private javax.swing.JPanel panelNote;
     private javax.swing.JPanel panelRight;
-    private rojeru_san.complementos.RSButtonHover saveBtn;
+    private rojeru_san.complementos.RSButtonHover savePartyBtn;
     private javax.swing.JTextArea textAreaNote;
     // End of variables declaration//GEN-END:variables
 }

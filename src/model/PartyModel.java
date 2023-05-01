@@ -5,17 +5,42 @@ import java.sql.Time;
 
 public class PartyModel {
 
-    private int partyID;
+    private int ID;
     private String partyName;
     private int tableNumber;
     private Date date;
     private Time time;
     private String location;
-    private String typeParty;
-    private String happenStatus;
-    private String paymentStatus;
     private String note;
+
+    private TypePartyModel typeParty;
+    private HappenStatusModel happenStatus;
+    private PaymentStatusModel paymentStatus;
     private CustomerModel customer;
+
+    public TypePartyModel getTypeParty() {
+        return typeParty;
+    }
+
+    public void setTypeParty(TypePartyModel typeParty) {
+        this.typeParty = typeParty;
+    }
+
+    public HappenStatusModel getHappenStatus() {
+        return happenStatus;
+    }
+
+    public void setHappenStatus(HappenStatusModel happenStatus) {
+        this.happenStatus = happenStatus;
+    }
+
+    public PaymentStatusModel getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatusModel paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 
     public CustomerModel getCustomer() {
         return customer;
@@ -23,14 +48,6 @@ public class PartyModel {
 
     public void setCustomer(CustomerModel customer) {
         this.customer = customer;
-    }
-
-    public String getTypeParty() {
-        return typeParty;
-    }
-
-    public void setTypeParty(String typeParty) {
-        this.typeParty = typeParty;
     }
 
     public String getNote() {
@@ -41,12 +58,12 @@ public class PartyModel {
         this.note = note;
     }
 
-    public int getPartyID() {
-        return partyID;
+    public int getID() {
+        return ID;
     }
 
-    public void setPartyID(int partyID) {
-        this.partyID = partyID;
+    public void setID(int partyID) {
+        this.ID = partyID;
     }
 
     public String getPartyName() {
@@ -64,7 +81,7 @@ public class PartyModel {
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
     public Time getTime() {
         return time;
     }
@@ -87,27 +104,6 @@ public class PartyModel {
 
     public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
-    }
-
-    public String getHappenStatus() {
-        return happenStatus;
-    }
-
-    public void setHappenStatus(String happenStatus) {
-        this.happenStatus = happenStatus;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    @Override
-    public String toString() {
-        return "PartyModel{" + "partyID=" + partyID + ", partyName=" + partyName + ", tableNumber=" + tableNumber + ", time=" + time + ", location=" + location + ", typeParty=" + typeParty + ", happenStatus=" + happenStatus + ", paymentStatus=" + paymentStatus + ", note=" + note + ", customer=" + customer + '}';
     }
 
 }

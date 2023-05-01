@@ -2,7 +2,7 @@ package model;
 
 public class CustomerModel {
 
-    private int customerID;
+    private int ID;
     private String name;
     private String phoneNumber;
     private boolean sex;
@@ -13,7 +13,7 @@ public class CustomerModel {
     }
 
     public CustomerModel(int customerID, String name, String phoneNumber, boolean sex, String citizenNumber, String address) {
-        this.customerID = customerID;
+        this.ID = customerID;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.sex = sex;
@@ -21,12 +21,12 @@ public class CustomerModel {
         this.address = address;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getID() {
+        return ID;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setID(int customerID) {
+        this.ID = customerID;
     }
 
     public String getName() {
@@ -71,7 +71,7 @@ public class CustomerModel {
 
     @Override
     public String toString() {
-        return "CustomerModel{" + "customerID=" + customerID + ", name=" + name + ", phoneNumber=" + phoneNumber + ", sex=" + sex + ", citizenNumber=" + citizenNumber + ", address=" + address + '}';
+        return "CustomerModel{" + "customerID=" + ID + ", name=" + name + ", phoneNumber=" + phoneNumber + ", sex=" + sex + ", citizenNumber=" + citizenNumber + ", address=" + address + '}';
     }
 
 }

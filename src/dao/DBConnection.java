@@ -6,7 +6,7 @@ public class DBConnection {
 
     private static final String url = "jdbc:mysql://localhost:3306/lanhuemanagement";
     private static final String username = "root";
-    private static final String password = "130320030348753499mysql";
+    private static final String password = "23092003"; //130320030348753499mysql
 
     public static Connection getConnection() {
         try {
