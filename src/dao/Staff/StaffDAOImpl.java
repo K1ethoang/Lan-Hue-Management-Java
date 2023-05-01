@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao.Staff;
 
 import dao.DBConnection;
@@ -12,14 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class StaffDAOImpl implements StaffDAO{
+public class StaffDAOImpl implements StaffDAO {
+
+    public static StaffDAOImpl getInstance() {
+        return new StaffDAOImpl();
+    }
+
     @Override
     public List<StaffModel> getList() {
-       try {
+        try {
             Connection con = DBConnection.getConnection();
-            String sql = "SELECT *\n" +
-                        "FROM staff\n" +
-                        "JOIN role ON staff.RoleID = role.RoleID;";
+            String sql = "SELECT *\n"
+                    + "FROM staff\n"
+                    + "JOIN role ON staff.RoleID = role.RoleID;";
 
             List<StaffModel> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -27,7 +28,7 @@ public class StaffDAOImpl implements StaffDAO{
             while (rs.next()) {
                 StaffModel staff = new StaffModel();
 
-                staff.setStaffID(rs.getInt("StaffID"));
+                staff.setID(rs.getInt("StaffID"));
                 staff.setName(rs.getString("Name"));
                 staff.setSex(rs.getBoolean("Sex"));
                 staff.setSdt(rs.getString("PhoneNumber"));
@@ -46,6 +47,5 @@ public class StaffDAOImpl implements StaffDAO{
         }
         return null;
     }
-    
-    
+
 }

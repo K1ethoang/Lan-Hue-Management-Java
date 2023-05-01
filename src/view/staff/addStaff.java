@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.staff;
 
+import dao.Role.RoleDAOImpl;
 import java.util.List;
 import javax.swing.JScrollBar;
 import model.RoleModel;
 import model.StaffModel;
-import service.role.RoleServiceImpl;
 import view.component.scroll.ScrollBarCus;
 
 /**
@@ -18,59 +14,60 @@ import view.component.scroll.ScrollBarCus;
 public class addStaff extends javax.swing.JFrame {
 
     StaffModel staffModel = null;
-    List<RoleModel> gListRole = null ;
+    List<RoleModel> gListRole = null;
     RoleModel gRoleModel = null;
+
     public addStaff() {
         initComponents();
-        
+
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
         this.setTitle("Thêm Nhân Viên");
-        gListRole = new RoleServiceImpl().getList();
+        gListRole = RoleDAOImpl.getInstance().getList();
         setComboboxRole();
-        
+
     }
-    
-    public addStaff(StaffModel _staffModel){
+
+    public addStaff(StaffModel _staffModel) {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         System.out.println("11111");
         sb.setOrientation(JScrollBar.HORIZONTAL);
-        this.setLocationRelativeTo(null);   
-        
+        this.setLocationRelativeTo(null);
+
         setData(_staffModel);
         setReadOnly();
         // set button
         saveBtn2.setVisible(false);
     }
-    
-    private void setData(StaffModel _staffModel){
+
+    private void setData(StaffModel _staffModel) {
         this.setTitle("Xem Nhân Viên");
-        TF_staffID.setText(_staffModel.getStaffID()+ "");
+        TF_staffID.setText(_staffModel.getID() + "");
         comboBoxRole.addItem(_staffModel.getRole());
         TF_NameStaff.setText(_staffModel.getName());
         TF_phoneNumber.setText(_staffModel.getSdt());
         TF_CCCD.setText(_staffModel.getCccd());
         panelLocation2.setAddress(_staffModel.getAddress());
     }
-    
-    private void setReadOnly(){
+
+    private void setReadOnly() {
         comboBoxRole.setEditable(false);
         TF_NameStaff.setEditable(false);
         TF_phoneNumber.setEditable(false);
         TF_CCCD.setEditable(false);
     }
-    
-    private void setComboboxRole(){
+
+    private void setComboboxRole() {
         comboBoxRole.removeAllItems();
-        for(int i=0; i<gListRole.size(); i++){
+        for (int i = 0; i < gListRole.size(); i++) {
             comboBoxRole.addItem(gListRole.get(i).getRoleName());
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,7 +203,7 @@ public class addStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtn2MouseClicked
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
     private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
@@ -214,7 +211,7 @@ public class addStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_TF_phoneNumberActionPerformed
 
     private void comboBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRoleActionPerformed
-        if(gListRole != null){
+        if (gListRole != null) {
             gRoleModel = gListRole.get(comboBoxRole.getSelectedIndex());
         }
     }//GEN-LAST:event_comboBoxRoleActionPerformed

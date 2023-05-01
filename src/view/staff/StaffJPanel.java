@@ -1,19 +1,18 @@
 package view.staff;
 
+import dao.Staff.StaffDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import model.StaffModel;
-import service.staff.StaffService;
-import service.staff.StaffServiceImpl;
 import table.TableStaff;
 import view.component.scroll.ScrollBarCus;
 
 public class StaffJPanel extends javax.swing.JPanel {
-    
-    List<StaffModel> listStaff = new StaffServiceImpl().getList();
+
+    List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
     StaffModel staffCurrent = new StaffModel();
-    
+
     public StaffJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -22,22 +21,22 @@ public class StaffJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
-        
+
         setStaffTable();
     }
-    
-    public void setStaffTable(){
+
+    public void setStaffTable() {
         System.out.println(listStaff);
         TableStaff tb = new TableStaff();
         tb.setCustomerDetailsToTable(listStaff, tableStaff);
         sumStaff.setText("Số lượng: " + listStaff.size());
     }
-    
-    private void setStaffCurrent(){
+
+    private void setStaffCurrent() {
         int row = tableStaff.getSelectedRow();
         StaffModel staff = listStaff.get(row);
-        
-        staffCurrent.setStaffID(staff.getStaffID());
+
+        staffCurrent.setID(staff.getID());
         staffCurrent.setName(staff.getName());
         staffCurrent.setSdt(staff.getSdt());
         staffCurrent.setSex(staff.isSex());
@@ -45,7 +44,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         staffCurrent.setAddress(staff.getAddress());
         staffCurrent.setRole(staff.getRole());
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -254,8 +253,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         addStaff.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
-    
-    
+
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_addBtnMouseClicked
@@ -267,13 +265,13 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentYesActionPerformed
-    
+
     private void tableStaffMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
         if (evt.isPopupTrigger()) {
             popupMenu.show(this, evt.getX(), evt.getY());
         }
     }
-    
+
     // xử lí sự kiện xem staff
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
 

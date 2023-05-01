@@ -18,7 +18,7 @@ public class TableStaff {
             if (rows > 0) {
                 for (int i = 0; i < rows; i++) {
                     StaffModel staff = listStaff.get(i);
-                    int staffID = staff.getStaffID();
+                    int staffID = staff.getID();
                     String staffName = staff.getName();  
                     String staffSDT = staff.getSdt();
                     String sex = staff.isSex()== true ? "Nam" : "Nữ";

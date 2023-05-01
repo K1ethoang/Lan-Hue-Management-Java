@@ -1,10 +1,10 @@
 package view.customer;
 
+import dao.Customer.CustomerDAOImpl;
+import dao.PaymentStatus.PaymentStatusDAOImpl;
 import java.util.List;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
-import service.customer.CustomerService;
-import service.customer.CustomerServiceImpl;
 import table.TableCustomer;
 import view.component.scroll.ScrollBarCus;
 
@@ -18,16 +18,16 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableCustomer.fixTable(ScrollPaneTable);
-        
+
         setCustomerTable();
     }
-    
-    public void setCustomerTable(){
-        CustomerService customerService = new CustomerServiceImpl();
-        List<CustomerModel> list = customerService.getList();
+
+    public void setCustomerTable() {
+        List<CustomerModel> list = CustomerDAOImpl.getInstance().getList();
         TableCustomer tb = new TableCustomer();
         tb.setCustomerDetailsToTable(list, tableCustomer);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

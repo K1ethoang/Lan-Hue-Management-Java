@@ -12,6 +12,13 @@ public class PanelLocation extends javax.swing.JPanel {
         initComponents();
         AutoCompleteDecorator.decorate(comboBoxDistrict);
         AutoCompleteDecorator.decorate(comboBoxWard);
+        setFullAddress();
+    }
+
+    public void setEnable(boolean bool) {
+        comboBoxDistrict.setEnabled(bool);
+        comboBoxWard.setEnabled(bool);
+        textFieldAddress.setEditable(bool);
     }
 
     @SuppressWarnings("unchecked")
@@ -27,6 +34,10 @@ public class PanelLocation extends javax.swing.JPanel {
         comboBoxWard = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         textFieldAddress = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        LB_location = new javax.swing.JLabel();
+
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel3.setLayout(new java.awt.GridLayout(4, 2, 0, 10));
 
@@ -50,38 +61,72 @@ public class PanelLocation extends javax.swing.JPanel {
         jLabel10.setText("Phường/Xã (*)");
         jPanel3.add(jLabel10);
 
+        comboBoxWard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxWardActionPerformed(evt);
+            }
+        });
         jPanel3.add(comboBoxWard);
 
         jLabel11.setText("Số nhà (*)");
         jPanel3.add(jLabel11);
+
+        textFieldAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldAddressKeyTyped(evt);
+            }
+        });
         jPanel3.add(textFieldAddress);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        add(jPanel3);
+
+        LB_location.setText("Địa chỉ");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 474, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(LB_location, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 68, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(26, Short.MAX_VALUE)
+                    .addComponent(LB_location)
+                    .addContainerGap(26, Short.MAX_VALUE)))
         );
+
+        add(jPanel1);
     }// </editor-fold>//GEN-END:initComponents
 
     public void setProvince(String s) {
+        comboBoxProvince.removeAllItems();
         comboBoxProvince.addItem(s);
+
     }
 
     public void setDistrict(String s) {
+        comboBoxDistrict.removeAllItems();
         comboBoxDistrict.addItem(s);
+
     }
 
     public void setWard(String s) {
+        comboBoxWard.removeAllItems();
         comboBoxWard.addItem(s);
+
     }
 
     public void setAddress(String s) {
         textFieldAddress.setText(s);
+    }
+
+    public void setFullAddress() {
+        LB_location.setText(getAddress() + ", " + getWard() + ", " + getDistrict() + ", " + getProvince());
     }
 
     public String getProvince() {
@@ -100,9 +145,15 @@ public class PanelLocation extends javax.swing.JPanel {
         return (String) textFieldAddress.getText();
     }
 
+    public String getFullAddress() {
+        return (String) LB_location.getText();
+    }
+
 
     private void comboBoxDistrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDistrictActionPerformed
         String district = (String) comboBoxDistrict.getSelectedItem();
+        setFullAddress();
+
         if (district.equals("Thành phố Biên Hòa")) {
             comboBoxWard.removeAllItems();
             comboBoxWard.addItem("Phường Trảng Dài");
@@ -308,7 +359,16 @@ public class PanelLocation extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_comboBoxDistrictActionPerformed
 
+    private void textFieldAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAddressKeyTyped
+        setFullAddress();
+    }//GEN-LAST:event_textFieldAddressKeyTyped
+
+    private void comboBoxWardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxWardActionPerformed
+        setFullAddress();
+    }//GEN-LAST:event_comboBoxWardActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LB_location;
     private javax.swing.JComboBox<String> comboBoxDistrict;
     private javax.swing.JComboBox<String> comboBoxProvince;
     private javax.swing.JComboBox<String> comboBoxWard;
@@ -316,6 +376,7 @@ public class PanelLocation extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField textFieldAddress;
     // End of variables declaration//GEN-END:variables

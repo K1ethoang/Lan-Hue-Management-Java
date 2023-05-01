@@ -112,7 +112,8 @@ CREATE TABLE IF NOT EXISTS Party(
 	PartyID INT UNSIGNED AUTO_INCREMENT,
     PartyName TEXT,
     TableNumber TINYINT UNSIGNED,
-    `Time` TIMESTAMP,
+    Date DATE,
+    `Time` TIME,
     Location TEXT,
     Note TEXT,
     CustomerID INT UNSIGNED,
@@ -203,21 +204,29 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 ;
 
 use lanhuemanagement;
-SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber, hp.statusName AS happenName, ps.statusName AS paymentName
+SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber,
+hp.UN_StatusCode AS happenCode, hp.statusName AS happenName, 
+ps.UN_StatusCode AS paymentCode, ps.statusName AS paymentName
 FROM party p
 JOIN customer c ON p.customerID = c.customerID
 JOIN happenStatus hp ON p.HappenStatusID = hp.HappenStatusID
 JOIN paymentStatus ps ON p.PaymentStatusID = ps.PaymentStatusID
-JOIN typeParty tp ON p.typePartyID = tp.typePartyID;
+JOIN typeParty tp ON p.typePartyID = tp.typePartyID
+ORDER BY p.partyID DESC;
 
+SELECT * FROM customer
+WHERE CustomerID = 1;
 
-SELECT *, customer.name AS CustomerName, paymentstatus.StatusName AS PaymentStatusName
-FROM party
-JOIN customer ON party.CustomerID = Customer.CustomerID
-JOIN happenstatus ON party.HappenStatusID = happenstatus.HappenStatusID
-JOIN paymentstatus ON party.PaymentStatusID = paymentstatus.PaymentStatusID; 
+SELECT * FROM TypeParty WHERE TypePartyID=1;
+SELECT * FROM Party
+ORDER BY PartyID DESC;
 
+SELECT * FROM HappenStatus WHERE HappenStatusID = 1;
+SELECT * FROM PaymentStatus WHERE PaymentStatusID = 1;
 
+use lanhuemanagement;
+SELECT *
+FROM typeparty;
 
 
 -- 											Trigger

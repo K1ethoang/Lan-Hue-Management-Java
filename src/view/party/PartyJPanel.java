@@ -1,18 +1,20 @@
 package view.party;
 
+import dao.Party.PartyDAOImpl;
+import dao.TypeParty.TypePartyDAOImpl;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.CustomerModel;
 import model.PartyModel;
-import service.party.PartyServiceImpl;
+import model.TypePartyModel;
 import table.TableParty;
 
 public class PartyJPanel extends javax.swing.JPanel {
 
-    List<PartyModel> listParty = new PartyServiceImpl().getList();
-    PartyModel partyCurrent = new PartyModel();
+    List<PartyModel> gListParty = null;
+    PartyModel gPartyCurrent = new PartyModel();
+    protected static int gCurrentID = 0;
 
     public PartyJPanel() {
         initComponents();
@@ -23,29 +25,51 @@ public class PartyJPanel extends javax.swing.JPanel {
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableParty.fixTable(ScrollPaneTable);
 
+        // get data party
+        gListParty = PartyDAOImpl.getInstance().getList();
+        gCurrentID = gListParty.get(0).getID() + 1;
+
+        setComboBoxTypeParty();
         setPartyTable();
     }
 
     private void setPartyTable() {
         TableParty tb = new TableParty();
-        tb.setPartyDetailsToTable(listParty, tableParty);
-        sumParty.setText("Số lượng: " + listParty.size());
+        tb.setPartyDetailsToTable(gListParty, tableParty);
+        sumParty.setText("Số lượng: " + gListParty.size() + "");
     }
 
-    private void setPartyCurrent() {
-        int row = tableParty.getSelectedRow();
-        PartyModel party = listParty.get(row);
+    private void setComboBoxTypeParty() {
+        comboBoxTypeParty.removeAllItems();
+        List<TypePartyModel> list = TypePartyDAOImpl.getInstance().getList();
+        comboBoxTypeParty.addItem("Tất cả");
+        for (int i = 0; i < list.size(); i++) {
+            comboBoxTypeParty.addItem(list.get(i).getName());
+        }
+    }
 
-        partyCurrent.setPartyID(party.getPartyID());
-        partyCurrent.setPartyName(party.getPartyName());
-        partyCurrent.setTableNumber(party.getTableNumber());
-        partyCurrent.setTime(party.getTime());
-        partyCurrent.setLocation(party.getLocation());
-        partyCurrent.setTypeParty(party.getTypeParty());
-        partyCurrent.setHappenStatus(party.getHappenStatus());
-        partyCurrent.setPaymentStatus(party.getPaymentStatus());
-        partyCurrent.setNote(party.getNote());
-        partyCurrent.setCustomer(party.getCustomer());
+    private void setPartyCurrent(int row) {
+        PartyModel party = gListParty.get(row);
+
+        gPartyCurrent.setID(party.getID());
+        gPartyCurrent.setPartyName(party.getPartyName());
+        gPartyCurrent.setTableNumber(party.getTableNumber());
+        gPartyCurrent.setTime(party.getTime());
+        gPartyCurrent.setLocation(party.getLocation());
+        gPartyCurrent.setTypeParty(party.getTypeParty());
+        gPartyCurrent.setHappenStatus(party.getHappenStatus());
+        gPartyCurrent.setPaymentStatus(party.getPaymentStatus());
+        gPartyCurrent.setNote(party.getNote());
+        gPartyCurrent.setCustomer(party.getCustomer());
+    }
+
+    private int getIndexPartySelected() {
+        int row = tableParty.getSelectedRow();
+        return row;
+    }
+
+    private void printDialogErrorSelectParty() {
+        JOptionPane.showMessageDialog(this, "Tiệc không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")
@@ -71,7 +95,7 @@ public class PartyJPanel extends javax.swing.JPanel {
         filter = new javax.swing.JPanel();
         typeParty = new javax.swing.JPanel();
         labelGoogleIcon3 = new view.component.LabelGoogleIcon();
-        typePartyComboBox = new javax.swing.JComboBox<>();
+        comboBoxTypeParty = new javax.swing.JComboBox<>();
         payment = new javax.swing.JPanel();
         labelGoogleIcon1 = new view.component.LabelGoogleIcon();
         happenWait = new javax.swing.JCheckBox();
@@ -221,13 +245,12 @@ public class PartyJPanel extends javax.swing.JPanel {
         labelGoogleIcon3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         typeParty.add(labelGoogleIcon3);
 
-        typePartyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        typePartyComboBox.addActionListener(new java.awt.event.ActionListener() {
+        comboBoxTypeParty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typePartyComboBoxActionPerformed(evt);
+                comboBoxTypePartyActionPerformed(evt);
             }
         });
-        typeParty.add(typePartyComboBox);
+        typeParty.add(comboBoxTypeParty);
 
         filter.add(typeParty);
 
@@ -339,9 +362,9 @@ public class PartyJPanel extends javax.swing.JPanel {
         add(center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void typePartyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typePartyComboBoxActionPerformed
+    private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_typePartyComboBoxActionPerformed
+    }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
@@ -349,17 +372,9 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_paymentBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {
-//        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-//        topFrame.setExtendedState(JFrame.ICONIFIED);
         addParty addParty = new addParty();
         addParty.setVisible(true);
     }
-
-    private void tablePartyMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
-        if (evt.isPopupTrigger()) {
-            popupMenu.show(this, evt.getX(), evt.getY());
-        }
-    }// GEN-LAST:event_tablePartyMouseReleased
 
     private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenNowActionPerformed
         // TODO add your handling code here:
@@ -378,22 +393,41 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_paymentYesActionPerformed
 
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_seeBtnActionPerformed
-        try {
-            setPartyCurrent();
-            addParty addParty = new addParty(partyCurrent);
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            setPartyCurrent(row);
+            addParty addParty = new addParty(gPartyCurrent);
             addParty.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Tiệc không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            printDialogErrorSelectParty();
         }
-    }// GEN-LAST:event_seeBtnActionPerformed
+    }
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeBtnActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_removeBtnActionPerformed
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            PartyModel party = gListParty.get(row);
+            int id = party.getID();
+            if (PartyDAOImpl.getInstance().delete(id)) {
+                JOptionPane.showMessageDialog(this, "Xóa tiệc có ID: " + id + " thành công", "Xóa tiệc", JOptionPane.OK_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(this, "Có lỗi khi xóa tiệc có ID: " + id, "Xóa tiệc", JOptionPane.ERROR_MESSAGE
+                );
+
+            }
+        } else {
+            printDialogErrorSelectParty();
+        }
+    }
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBtnActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_editBtnActionPerformed
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            // code
+        } else {
+            printDialogErrorSelectParty();
+        }
+    }
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
@@ -404,6 +438,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     private rojeru_san.complementos.RSButtonHover addBtn;
     private javax.swing.JPanel button;
     private javax.swing.JPanel center;
+    private javax.swing.JComboBox<String> comboBoxTypeParty;
     private javax.swing.JMenuItem editBtn;
     private javax.swing.JPanel filter;
     private javax.swing.JPanel happen;
@@ -430,6 +465,5 @@ public class PartyJPanel extends javax.swing.JPanel {
     private view.component.table.Table tableParty;
     private javax.swing.JPanel top;
     private javax.swing.JPanel typeParty;
-    private javax.swing.JComboBox<String> typePartyComboBox;
     // End of variables declaration//GEN-END:variables
 }

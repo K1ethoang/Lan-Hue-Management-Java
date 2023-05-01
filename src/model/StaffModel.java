@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author Admin
- */
 public class StaffModel {
-    private int staffID;
+
+    private int ID;
     private String Name;
     private boolean sex;
     private String sdt;
@@ -20,12 +13,12 @@ public class StaffModel {
     public StaffModel() {
     }
 
-    public int getStaffID() {
-        return staffID;
+    public int getID() {
+        return ID;
     }
 
-    public void setStaffID(int staffID) {
-        this.staffID = staffID;
+    public void setID(int staffID) {
+        this.ID = staffID;
     }
 
     public String getName() {
@@ -78,7 +71,7 @@ public class StaffModel {
 
     @Override
     public String toString() {
-        return "StaffModel{" + "staffID=" + staffID + ", Name=" + Name + ", sex=" + sex + ", sdt=" + sdt + ", cccd=" + cccd + ", address=" + address + ", role=" + role + '}';
+        return "StaffModel{" + "staffID=" + ID + ", Name=" + Name + ", sex=" + sex + ", sdt=" + sdt + ", cccd=" + cccd + ", address=" + address + ", role=" + role + '}';
     }
-    
+
 }
