@@ -12,7 +12,7 @@ import view.component.scroll.ScrollBarCus;
 public class CustomerJPanel extends javax.swing.JPanel {
     List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
     CustomerModel customerCurrent = new CustomerModel();
-    
+    protected static int gCurrentID = 0;
     public CustomerJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -21,14 +21,17 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableCustomer.fixTable(ScrollPaneTable);
-
+        
+        gCurrentID = listCustomer.get(0).getID() + 1;
+        
         setCustomerTable();
     }
 
     public void setCustomerTable() {
-        List<CustomerModel> list = CustomerDAOImpl.getInstance().getList();
         TableCustomer tb = new TableCustomer();
-        tb.setCustomerDetailsToTable(list, tableCustomer);
+        tb.setCustomerDetailsToTable(listCustomer, tableCustomer);
+
+        sumCustomer.setText("Số lượng: " + listCustomer.size() + "");
     }
 
     private void setCustomerCurrent() {

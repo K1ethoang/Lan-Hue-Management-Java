@@ -22,8 +22,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     public List<CustomerModel> getList() {
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "SELECT * FROM customer";
-            
+            String sql = "SELECT * FROM customer\n"
+                        + "ORDER BY CustomerID DESC;";
             List<CustomerModel> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery(sql);

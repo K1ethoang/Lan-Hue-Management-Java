@@ -320,7 +320,7 @@ public class addParty extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TF_partyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyNameActionPerformed
-        //
+          //
     }//GEN-LAST:event_TF_partyNameActionPerformed
 
     private void TF_nameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_nameCustomerActionPerformed

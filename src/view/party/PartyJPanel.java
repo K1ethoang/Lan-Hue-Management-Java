@@ -37,6 +37,7 @@ public class PartyJPanel extends javax.swing.JPanel {
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(gListParty, tableParty);
         sumParty.setText("Số lượng: " + gListParty.size() + "");
+        
     }
 
     private void setComboBoxTypeParty() {

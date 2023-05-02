@@ -12,7 +12,8 @@ public class StaffJPanel extends javax.swing.JPanel {
 
     List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
     StaffModel staffCurrent = new StaffModel();
-
+    protected static int gCurrentID = 0;
+    
     public StaffJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -21,7 +22,8 @@ public class StaffJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
-
+        gCurrentID = listStaff.get(0).getID() + 1;
+        
         setStaffTable();
     }
 

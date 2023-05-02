@@ -6,6 +6,7 @@ import javax.swing.JScrollBar;
 import model.RoleModel;
 import model.StaffModel;
 import view.component.scroll.ScrollBarCus;
+import static view.staff.StaffJPanel.gCurrentID;
 
 /**
  *
@@ -26,6 +27,8 @@ public class addStaff extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Thêm Nhân Viên");
         gListRole = RoleDAOImpl.getInstance().getList();
+        TF_staffID.setEditable(false);
+        setTextFieldID();
         setComboboxRole();
 
     }
@@ -43,7 +46,11 @@ public class addStaff extends javax.swing.JFrame {
         // set button
         saveBtn2.setVisible(false);
     }
-
+    
+    private void setTextFieldID() {
+        TF_staffID.setText(gCurrentID + "");
+    }
+    
     private void setData(StaffModel _staffModel) {
         this.setTitle("Xem Nhân Viên");
         TF_staffID.setText(_staffModel.getID() + "");
@@ -52,6 +59,8 @@ public class addStaff extends javax.swing.JFrame {
         TF_phoneNumber.setText(_staffModel.getSdt());
         TF_CCCD.setText(_staffModel.getCccd());
         panelLocation2.setAddress(_staffModel.getAddress());
+        
+        setFieldEnable(false);
     }
 
     private void setReadOnly() {
@@ -60,14 +69,22 @@ public class addStaff extends javax.swing.JFrame {
         TF_phoneNumber.setEditable(false);
         TF_CCCD.setEditable(false);
     }
-
+    
+    
     private void setComboboxRole() {
         comboBoxRole.removeAllItems();
         for (int i = 0; i < gListRole.size(); i++) {
             comboBoxRole.addItem(gListRole.get(i).getRoleName());
         }
     }
-
+    private void setFieldEnable(boolean bool) {
+        TF_NameStaff.setEditable(bool);
+        TF_phoneNumber.setEditable(bool);
+        TF_CCCD.setEditable(bool);
+        TF_staffID.setEditable(bool);
+        panelLocation2.setEnable(bool);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +114,7 @@ public class addStaff extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -110,7 +128,7 @@ public class addStaff extends javax.swing.JFrame {
         panelStaff.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 298, 22));
 
         jLabel6.setText("SĐT liên hệ (*)");
-        panelStaff.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 298, 22));
+        panelStaff.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 290, 22));
 
         TF_phoneNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +139,7 @@ public class addStaff extends javax.swing.JFrame {
 
         jLabel3.setText("Căn cước công dân (CMND) (*):");
         panelStaff.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, -1));
-        panelStaff.add(TF_NameStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 297, -1));
+        panelStaff.add(TF_NameStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 10, 300, -1));
         panelStaff.add(TF_CCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 74, 297, -1));
 
         jPanel1.add(panelStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 107, -1, -1));
@@ -179,16 +197,7 @@ public class addStaff extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 24, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 623, 501));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

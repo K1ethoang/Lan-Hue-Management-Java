@@ -4,6 +4,7 @@ package view.customer;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
 import view.component.scroll.ScrollBarCus;
+import static view.customer.CustomerJPanel.gCurrentID;
 
 public class addCustomer extends javax.swing.JFrame {
     
@@ -16,6 +17,8 @@ public class addCustomer extends javax.swing.JFrame {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
         this.setTitle("Thêm Khách Hàng");
+        TF_customerID.setEditable(false);
+        setTextFieldID();
 //        gListRole = RoleDAOImpl.getInstance().getList();
     }
     
@@ -38,20 +41,34 @@ public class addCustomer extends javax.swing.JFrame {
         TF_customerID.setText(_customerModel.getID() + "");
         TF_NameCustomer.setText(_customerModel.getName());
         if(_customerModel.isSex()){
-            checkNam.setSelected(true);
+            rdoNam.setSelected(true);
         }
         else{
-            checkNu.setSelected(true);
+            rdoNu.setSelected(true);
         }
         TF_phoneNumber.setText(_customerModel.getPhoneNumber());
         TF_CCCD.setText(_customerModel.getCitizenNumber());
         panelLocation2.setAddress(_customerModel.getAddress());
+        
+        setFieldEnable(false);
     }
     
     private void setReadOnly() {
         TF_NameCustomer.setEditable(false);
         TF_phoneNumber.setEditable(false);
         TF_CCCD.setEditable(false);
+    }
+    
+    private void setFieldEnable(boolean bool) {
+        TF_NameCustomer.setEditable(bool);
+        TF_phoneNumber.setEditable(bool);
+        TF_CCCD.setEditable(bool);
+        TF_customerID.setEditable(bool);
+        panelLocation2.setEnable(bool);
+    }
+    
+    private void setTextFieldID() {
+        TF_customerID.setText(gCurrentID + "");
     }
     
     private void setCheckBoxSex() {
@@ -61,6 +78,7 @@ public class addCustomer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         panelLocation2 = new view.component.PanelLocation();
         panelStaff = new javax.swing.JPanel();
@@ -74,9 +92,8 @@ public class addCustomer extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         TF_customerID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        checkNam = new javax.swing.JCheckBox();
-        checkNu = new javax.swing.JCheckBox();
+        rdoNam = new javax.swing.JRadioButton();
+        rdoNu = new javax.swing.JRadioButton();
         bottom2 = new javax.swing.JPanel();
         saveBtn2 = new rojeru_san.complementos.RSButtonHover();
         cancelBtn2 = new rojeru_san.complementos.RSButtonHover();
@@ -100,7 +117,7 @@ public class addCustomer extends javax.swing.JFrame {
                 TF_phoneNumberActionPerformed(evt);
             }
         });
-        panelStaff.add(TF_phoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 42, 298, -1));
+        panelStaff.add(TF_phoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 42, 300, -1));
 
         jLabel3.setText("Căn cước công dân (CMND) (*):");
         panelStaff.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, -1));
@@ -110,8 +127,8 @@ public class addCustomer extends javax.swing.JFrame {
                 TF_NameCustomerActionPerformed(evt);
             }
         });
-        panelStaff.add(TF_NameCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 10, 300, -1));
-        panelStaff.add(TF_CCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 74, 297, -1));
+        panelStaff.add(TF_NameCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 10, 300, -1));
+        panelStaff.add(TF_CCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 74, 300, -1));
 
         jLabel1.setText("ID (*)");
 
@@ -123,40 +140,11 @@ public class addCustomer extends javax.swing.JFrame {
 
         jLabel2.setText("Giới tính:");
 
-        checkNam.setText("Nam");
-        checkNam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkNamActionPerformed(evt);
-            }
-        });
+        btnGrGender.add(rdoNam);
+        rdoNam.setText("Nam");
 
-        checkNu.setText("Nữ");
-        checkNu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkNuActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(checkNam)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkNu)
-                .addContainerGap(8, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkNam)
-                    .addComponent(checkNu))
-                .addContainerGap())
-        );
+        btnGrGender.add(rdoNu);
+        rdoNu.setText("Nữ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -168,20 +156,22 @@ public class addCustomer extends javax.swing.JFrame {
                 .addComponent(TF_customerID, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(131, 131, 131))
+                .addGap(18, 18, 18)
+                .addComponent(rdoNam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdoNu)
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TF_customerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TF_customerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(rdoNam)
+                    .addComponent(rdoNu))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -264,23 +254,6 @@ public class addCustomer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelBtn2ActionPerformed
 
-    private void checkNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNamActionPerformed
-        boolean check = checkNam.isSelected();
-        if(check){
-           checkNu.setSelected(false);
-           isSex = true; 
-       }
-    }//GEN-LAST:event_checkNamActionPerformed
-
-    private void checkNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNuActionPerformed
-        // TODO add your handling code here:
-        boolean check = checkNu.isSelected();
-        if(check){
-           checkNam.setSelected(false);
-           isSex = false;
-       }
-    }//GEN-LAST:event_checkNuActionPerformed
-
     private void TF_NameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NameCustomerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_NameCustomerActionPerformed
@@ -330,9 +303,8 @@ public class addCustomer extends javax.swing.JFrame {
     private javax.swing.JTextField TF_customerID;
     private javax.swing.JTextField TF_phoneNumber;
     private javax.swing.JPanel bottom2;
+    private javax.swing.ButtonGroup btnGrGender;
     private rojeru_san.complementos.RSButtonHover cancelBtn2;
-    private javax.swing.JCheckBox checkNam;
-    private javax.swing.JCheckBox checkNu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -340,9 +312,10 @@ public class addCustomer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private view.component.PanelLocation panelLocation2;
     private javax.swing.JPanel panelStaff;
+    private javax.swing.JRadioButton rdoNam;
+    private javax.swing.JRadioButton rdoNu;
     private rojeru_san.complementos.RSButtonHover saveBtn2;
     // End of variables declaration//GEN-END:variables
 }
