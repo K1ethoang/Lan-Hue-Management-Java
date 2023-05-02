@@ -3,13 +3,16 @@ package view.customer;
 import dao.Customer.CustomerDAOImpl;
 import dao.PaymentStatus.PaymentStatusDAOImpl;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
 import table.TableCustomer;
 import view.component.scroll.ScrollBarCus;
 
 public class CustomerJPanel extends javax.swing.JPanel {
-
+    List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
+    CustomerModel customerCurrent = new CustomerModel();
+    
     public CustomerJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -28,6 +31,18 @@ public class CustomerJPanel extends javax.swing.JPanel {
         tb.setCustomerDetailsToTable(list, tableCustomer);
     }
 
+    private void setCustomerCurrent() {
+        int row = tableCustomer.getSelectedRow();
+        CustomerModel customer = listCustomer.get(row);
+
+        customerCurrent.setID(customer.getID());
+        customerCurrent.setName(customer.getName());
+        customerCurrent.setPhoneNumber(customer.getPhoneNumber());
+        customerCurrent.setSex(customer.isSex());
+        customerCurrent.setCitizenNumber(customer.getCitizenNumber());
+        customerCurrent.setAddress(customer.getAddress());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -59,6 +74,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setMnemonic('X');
         seeBtn.setText("Xem chi tiết");
+        seeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
@@ -67,6 +87,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
@@ -74,6 +99,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(removeBtn);
 
         setBackground(new java.awt.Color(249, 245, 231));
@@ -216,13 +246,21 @@ public class CustomerJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        // TODO add your handling code here:
+        addCustomer addCustomer = new addCustomer();
+        addCustomer.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
-
+    
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_addBtnMouseClicked
-
+    
+    private void tableCustomerMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
+        if (evt.isPopupTrigger()) {
+            popupMenu.show(this, evt.getX(), evt.getY());
+        }
+    }
+     
+    
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentNoActionPerformed
@@ -230,6 +268,26 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentYesActionPerformed
+
+    private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
+        try {
+            setCustomerCurrent();
+            System.out.println("---------");
+            addCustomer addCustomer = new addCustomer(customerCurrent);
+            System.out.println(addCustomer);
+            addCustomer.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_seeBtnActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;

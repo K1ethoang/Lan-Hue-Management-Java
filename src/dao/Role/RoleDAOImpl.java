@@ -39,4 +39,33 @@ public class RoleDAOImpl implements RoleDAO {
         return null;
     }
 
+    @Override
+    public RoleModel getByID(int ID) {
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "SELECT * FROM role WHERE RoleID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, ID + "");
+
+            ResultSet rs = ps.executeQuery();
+
+            RoleModel roleModel = null;
+            if (rs.next()) {
+                roleModel = new RoleModel();
+                roleModel.setRoleID(rs.getInt("RoleID"));
+                roleModel.setRoleName(rs.getString("RoleName"));
+            }
+
+            ps.close();
+            rs.close();
+            con.close();
+            return roleModel;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

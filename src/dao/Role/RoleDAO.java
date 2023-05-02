@@ -7,4 +7,5 @@ import model.RoleModel;
 
 public interface RoleDAO {
     List<RoleModel> getList();
+    public RoleModel getByID(int ID);
 }

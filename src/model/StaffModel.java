@@ -8,7 +8,7 @@ public class StaffModel {
     private String sdt;
     private String cccd;
     private String address;
-    private String role;
+    private RoleModel role;
 
     public StaffModel() {
     }
@@ -61,11 +61,11 @@ public class StaffModel {
         this.address = address;
     }
 
-    public String getRole() {
+    public RoleModel getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(RoleModel role) {
         this.role = role;
     }
 

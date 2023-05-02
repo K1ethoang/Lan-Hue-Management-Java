@@ -6,6 +6,16 @@ public class RoleModel {
     private int roleID;
     private String roleName;
 
+    public RoleModel(){
+        super();
+    }
+
+    public RoleModel(int roleID, String roleName) {
+        this.roleID = roleID;
+        this.roleName = roleName;
+    }
+    
+    
     public int getRoleID() {
         return roleID;
     }

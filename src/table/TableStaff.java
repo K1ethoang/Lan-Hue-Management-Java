@@ -3,6 +3,7 @@ package table;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.RoleModel;
 import model.StaffModel;
 
 public class TableStaff {
@@ -10,7 +11,7 @@ public class TableStaff {
     public TableStaff() {
     }
     
-    public void setCustomerDetailsToTable(List<StaffModel> listStaff, view.component.table.Table tableStaff){
+    public void setStaffDetailsToTable(List<StaffModel> listStaff, view.component.table.Table tableStaff){
         System.out.println(listStaff.get(0));
         DefaultTableModel model;
         try{ 
@@ -24,7 +25,7 @@ public class TableStaff {
                     String sex = staff.isSex()== true ? "Nam" : "Nữ";
                     String staffCCCD = staff.getCccd();
                     String staffAddress = staff.getAddress();
-                    String staffRole = staff.getRole();
+                    String staffRole = staff.getRole().getRoleName();
                     
                     Object[] obj = {staffID, staffName, staffSDT, sex, staffCCCD, staffAddress, staffRole};
                     model = (DefaultTableModel) tableStaff.getModel();

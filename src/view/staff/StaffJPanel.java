@@ -28,7 +28,7 @@ public class StaffJPanel extends javax.swing.JPanel {
     public void setStaffTable() {
         System.out.println(listStaff);
         TableStaff tb = new TableStaff();
-        tb.setCustomerDetailsToTable(listStaff, tableStaff);
+        tb.setStaffDetailsToTable(listStaff, tableStaff);
         sumStaff.setText("Số lượng: " + listStaff.size());
     }
 

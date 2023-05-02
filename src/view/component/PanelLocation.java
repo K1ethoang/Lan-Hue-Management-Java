@@ -126,6 +126,7 @@ public class PanelLocation extends javax.swing.JPanel {
     }
 
     public void setFullAddress() {
+//        System.out.println(getAddress());
         LB_location.setText(getAddress() + ", " + getWard() + ", " + getDistrict() + ", " + getProvince());
     }
 

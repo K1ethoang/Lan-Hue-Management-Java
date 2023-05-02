@@ -47,7 +47,7 @@ public class addStaff extends javax.swing.JFrame {
     private void setData(StaffModel _staffModel) {
         this.setTitle("Xem Nhân Viên");
         TF_staffID.setText(_staffModel.getID() + "");
-        comboBoxRole.addItem(_staffModel.getRole());
+        comboBoxRole.addItem(_staffModel.getRole().getRoleName());
         TF_NameStaff.setText(_staffModel.getName());
         TF_phoneNumber.setText(_staffModel.getSdt());
         TF_CCCD.setText(_staffModel.getCccd());
@@ -96,7 +96,6 @@ public class addStaff extends javax.swing.JFrame {
         comboBoxRole = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(630, 570));
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -160,7 +159,7 @@ public class addStaff extends javax.swing.JFrame {
         });
         bottom2.add(cancelBtn2);
 
-        jPanel1.add(bottom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 596, 40));
+        jPanel1.add(bottom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 596, 40));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -188,7 +187,7 @@ public class addStaff extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
         );
 
         pack();

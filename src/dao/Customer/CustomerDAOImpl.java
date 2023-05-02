@@ -38,7 +38,9 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customer.setAddress(rs.getString("Address"));
                 
                 list.add(customer);
-            }
+                System.out.println(customer);
+            }  
+            System.out.println(list);
             ps.close();
             rs.close();
             con.close();
@@ -83,5 +85,15 @@ public class CustomerDAOImpl implements CustomerDAO {
     
     public static void main(String[] args) {
         System.out.println(CustomerDAOImpl.getInstance().getByID(1));
+    }
+
+    @Override
+    public boolean insert(CustomerModel customer) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

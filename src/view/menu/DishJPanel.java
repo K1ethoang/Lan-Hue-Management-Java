@@ -1,10 +1,16 @@
 package view.menu;
 
+import dao.Dish.DishDAOImpl;
+import java.util.List;
 import javax.swing.JScrollBar;
+import model.DishModel;
+import table.TableDish;
 import view.component.scroll.ScrollBarCus;
 
 public class DishJPanel extends javax.swing.JPanel {
-
+    
+    List<DishModel> listDish = DishDAOImpl.getInstance().getList();
+    DishModel dishCurrent = new DishModel();
     public DishJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -13,7 +19,25 @@ public class DishJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableDish.fixTable(ScrollPaneTable);
+        
+        setDishTable();
+    }
+    
+    public void setDishTable() {
+        System.out.println(listDish);
+        TableDish tb = new TableDish();
+        tb.setDishDetailsToTable(listDish, tableDish);
+        sumDish.setText("Số lượng: " + listDish.size());
+    }
+    
+    private void setStaffCurrent() {
+        int row = tableDish.getSelectedRow();
+        DishModel dish = listDish.get(row);
 
+        dishCurrent.setDishID(dish.getDishID());
+        dishCurrent.setDishName(dish.getDishName());
+        dishCurrent.setPrice(dish.getPrice());
+        dishCurrent.setTypeDish(dish.getTypeDish());
     }
 
     @SuppressWarnings("unchecked")
@@ -33,7 +57,7 @@ public class DishJPanel extends javax.swing.JPanel {
         button = new javax.swing.JPanel();
         addBtn = new rojeru_san.complementos.RSButtonHover();
         paymentBtn1 = new rojeru_san.complementos.RSButtonHover();
-        sumParty = new javax.swing.JLabel();
+        sumDish = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
         happen = new javax.swing.JPanel();
         labelGoogleIcon2 = new view.component.LabelGoogleIcon();
@@ -143,10 +167,9 @@ public class DishJPanel extends javax.swing.JPanel {
         });
         button.add(paymentBtn1);
 
-        sumParty.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sumParty.setForeground(new java.awt.Color(0, 0, 0));
-        sumParty.setText("Số lượng: 0");
-        button.add(sumParty);
+        sumDish.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        sumDish.setText("Số lượng: 0");
+        button.add(sumDish);
 
         searchAndButton.add(button);
 
@@ -157,7 +180,6 @@ public class DishJPanel extends javax.swing.JPanel {
 
         happen.setBackground(getBackground());
 
-        labelGoogleIcon2.setForeground(new java.awt.Color(0, 0, 0));
         labelGoogleIcon2.setText("Loại món ăn");
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         happen.add(labelGoogleIcon2);
@@ -175,8 +197,7 @@ public class DishJPanel extends javax.swing.JPanel {
 
         tableDish.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Lẩu hải sản", "250.000", "Lẩu"},
-                {"2", "Sữa chua", "120.000", "Tráng miệng"}
+
             },
             new String [] {
                 "ID", "Tên món", "Giá", "Loại"
@@ -209,6 +230,8 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
+//        addDish addStaff = new addDish();
+//        addStaff.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
@@ -242,7 +265,7 @@ public class DishJPanel extends javax.swing.JPanel {
     private rojerusan.RSMetroTextPlaceHolder searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JMenuItem seeBtn;
-    private javax.swing.JLabel sumParty;
+    private javax.swing.JLabel sumDish;
     private view.component.table.Table tableDish;
     private javax.swing.JPanel top;
     // End of variables declaration//GEN-END:variables
