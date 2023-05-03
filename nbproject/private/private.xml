@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/dao/Dish/DishDAOImpl.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/staff/StaffJPanel.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/view/menu/DishJPanel.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Lan-Hue-Management/src/model/DishModel.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/party/addParty.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/party/addPartyMenu.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/party/PartyJPanel.java</file>
         </group>
     </open-files>
 </project-private>

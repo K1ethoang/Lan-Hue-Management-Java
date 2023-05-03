@@ -1,8 +1,7 @@
-
 package model;
 
-
 public class TypeDishModel {
+
     private int typeDishID;
     private String UN_TypeName;
 
@@ -21,6 +20,5 @@ public class TypeDishModel {
     public void setUN_TypeName(String UN_TypeName) {
         this.UN_TypeName = UN_TypeName;
     }
-    
-    
+
 }

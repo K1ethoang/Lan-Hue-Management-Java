@@ -1,5 +1,3 @@
-
-
 INSERT INTO Customer (Name, PhoneNumber, Sex, UN_CitizenNumber, Address) 
 VALUES
 	('John Doe', '0123456789', 1, '123456789012', '123 Main St, Anytown, USA'),
@@ -82,7 +80,7 @@ VALUES
 	('2023-04-18 12:45:00', 550.00, 4, 4, 4),
 	('2023-04-17 20:00:00', 15000.00, 5, 5, 5);
 
-INSERT INTO OderItem(PartyID, DishID) 
+INSERT INTO `Order`(PartyID, DishID) 
 VALUES
 	(1, 1),
 	(1, 2),

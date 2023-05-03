@@ -4,104 +4,61 @@ import dao.Customer.CustomerDAOImpl;
 import dao.Party.PartyDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
 import java.util.List;
-import javax.swing.JScrollBar;
-import javax.swing.SwingUtilities;
 import model.CustomerModel;
 import model.PartyModel;
 import model.TypePartyModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import view.component.scroll.ScrollBarCus;
-import view.customer.addCustomer;
 import static view.party.PartyJPanel.gCurrentID;
 
 /**
  *
  * @author kieth
  */
-public class addParty extends javax.swing.JFrame {
+public class addPartyMenu extends javax.swing.JFrame {
 
     List<CustomerModel> gListCustomer = null;
     List<TypePartyModel> gListTypeParty = null;
     PartyModel gPartyModel = null;
     CustomerModel gCustomerModel = null;
 
-    public addParty() {
+    public addPartyMenu() {
+        initComponents();
+
+    }
+
+    public addPartyMenu(PartyModel _partyModel) {
         initComponents();
 
         AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
-        // set vertical and horizontal scroll bar
-        ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
-        ScrollBarCus sb = new ScrollBarCus();
-        sb.setOrientation(JScrollBar.HORIZONTAL);
-        ScrollPaneNote.setHorizontalScrollBar(sb);
 
-        setTextFieldID();
-        setComboBoxPhoneNumber();
-        setComboBoxTypeParty();
-    }
-
-    public addParty(PartyModel _partyModel) {
-        initComponents();
-
-        AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
-        // set vertical and horizontal scroll bar
-        ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
-        ScrollBarCus sb = new ScrollBarCus();
-        sb.setOrientation(JScrollBar.HORIZONTAL);
-        ScrollPaneNote.setHorizontalScrollBar(sb);
-
-        setDataSeeParty(_partyModel);
-
-        // set button
-        savePartyBtn.setVisible(false);
+        setDataSeePartyMenu(_partyModel);
 
     }
 
-    private void setComboBoxPhoneNumber() {
-        gListCustomer = CustomerDAOImpl.getInstance().getList();
-        comboBoxPhoneNumber.removeAllItems();
-        for (int i = 0; i < gListCustomer.size(); i++) {
-            comboBoxPhoneNumber.addItem(gListCustomer.get(i).getPhoneNumber());
-        }
+    private void setDataSeePartyMenu(PartyModel partyModel) {
+        this.setTitle("Xem món ăn");
+        setDataInformationParty(partyModel);
+        setFieldEnableInformationParty(false);
     }
 
-    private void setTextFieldID() {
-        TF_partyID.setText(gCurrentID + "");
-    }
-
-    private void setDataSeeParty(PartyModel partyModel) {
-        this.setTitle("Xem tiệc");
+    private void setDataInformationParty(PartyModel partyModel) {
         TF_partyID.setText(partyModel.getID() + "");
         TF_partyName.setText(partyModel.getPartyName());
         SP_partyNumber.setValue(partyModel.getTableNumber());
         SP_time.setValue(partyModel.getTime());
         TF_date.setDate(partyModel.getDate());
         comboBoxTypeParty.addItem(partyModel.getTypeParty().getName());
-        textAreaNote.setText(partyModel.getNote());
-        panelLocation2.setAddress(partyModel.getLocation());
-        panelLocation2.setFullAddress();
         comboBoxPhoneNumber.addItem(partyModel.getCustomer().getPhoneNumber());
         TF_nameCustomer.setText(partyModel.getCustomer().getName());
-        setFieldEnable(false);
     }
 
-    private void setComboBoxTypeParty() {
-        gListTypeParty = TypePartyDAOImpl.getInstance().getList();
-        comboBoxTypeParty.removeAllItems();
-        for (int i = 0; i < gListTypeParty.size(); i++) {
-            comboBoxTypeParty.addItem(gListTypeParty.get(i).getName());
-        }
-    }
-
-    private void setFieldEnable(boolean bool) {
+    private void setFieldEnableInformationParty(boolean bool) {
         TF_partyName.setEditable(bool);
         SP_partyNumber.setEnabled(bool);
         SP_time.setEnabled(bool);
         TF_date.setEnabled(bool);
-        textAreaNote.setEditable(bool);
         comboBoxPhoneNumber.setEditable(bool);
         TF_nameCustomer.setEditable(bool);
-        panelLocation2.setEnable(bool);
     }
 
     @SuppressWarnings("unchecked")
@@ -134,14 +91,9 @@ public class addParty extends javax.swing.JFrame {
         SP_time = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
         TF_date = new com.toedter.calendar.JDateChooser();
-        panelNote = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        ScrollPaneNote = new javax.swing.JScrollPane();
-        textAreaNote = new javax.swing.JTextArea();
-        panelLocation2 = new view.component.PanelLocation();
+        panelMenu = new javax.swing.JPanel();
         bottom = new javax.swing.JPanel();
         savePartyBtn = new rojeru_san.complementos.RSButtonHover();
-        savePartyBtn1 = new rojeru_san.complementos.RSButtonHover();
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -256,22 +208,18 @@ public class addParty extends javax.swing.JFrame {
 
         jPanel2.add(center);
 
-        panelNote.setLayout(new java.awt.GridLayout(1, 2, 0, 10));
+        javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
+        panelMenu.setLayout(panelMenuLayout);
+        panelMenuLayout.setHorizontalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelMenuLayout.setVerticalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        jLabel8.setText("Ghi chú");
-        panelNote.add(jLabel8);
-
-        textAreaNote.setColumns(30);
-        textAreaNote.setLineWrap(true);
-        textAreaNote.setRows(30);
-        ScrollPaneNote.setViewportView(textAreaNote);
-
-        panelNote.add(ScrollPaneNote);
-
-        jPanel2.add(panelNote);
-
-        panelLocation2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        jPanel2.add(panelLocation2);
+        jPanel2.add(panelMenu);
 
         bottom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
@@ -287,19 +235,6 @@ public class addParty extends javax.swing.JFrame {
             }
         });
         bottom.add(savePartyBtn);
-
-        savePartyBtn1.setBackground(new java.awt.Color(10, 77, 104));
-        savePartyBtn1.setText("Lưu và chọn món");
-        savePartyBtn1.setColorHover(new java.awt.Color(14, 112, 152));
-        savePartyBtn1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        savePartyBtn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        savePartyBtn1.setPreferredSize(new java.awt.Dimension(150, 40));
-        savePartyBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savePartyBtn1ActionPerformed(evt);
-            }
-        });
-        bottom.add(savePartyBtn1);
 
         cancelBtn.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn.setText("Hủy");
@@ -321,12 +256,12 @@ public class addParty extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 896, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
         );
 
         pack();
@@ -364,10 +299,6 @@ public class addParty extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_partyIDActionPerformed
 
-    private void savePartyBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_savePartyBtn1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -385,20 +316,21 @@ public class addParty extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addPartyMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addPartyMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addPartyMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addParty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(addPartyMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addParty().setVisible(true);
+                new addPartyMenu().setVisible(true);
             }
         });
     }
@@ -406,7 +338,6 @@ public class addParty extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.components.JSpinField SP_partyNumber;
     private javax.swing.JSpinner SP_time;
-    private javax.swing.JScrollPane ScrollPaneNote;
     private com.toedter.calendar.JDateChooser TF_date;
     private javax.swing.JTextField TF_nameCustomer;
     private javax.swing.JTextField TF_partyID;
@@ -425,7 +356,6 @@ public class addParty extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -433,11 +363,8 @@ public class addParty extends javax.swing.JFrame {
     private com.toedter.components.JSpinField jSpinField2;
     private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelLeft;
-    private view.component.PanelLocation panelLocation2;
-    private javax.swing.JPanel panelNote;
+    private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelRight;
     private rojeru_san.complementos.RSButtonHover savePartyBtn;
-    private rojeru_san.complementos.RSButtonHover savePartyBtn1;
-    private javax.swing.JTextArea textAreaNote;
     // End of variables declaration//GEN-END:variables
 }

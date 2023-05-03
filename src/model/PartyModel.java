@@ -106,4 +106,8 @@ public class PartyModel {
         this.tableNumber = tableNumber;
     }
 
+    @Override
+    public String toString() {
+        return "PartyModel{" + "ID=" + ID + ", partyName=" + partyName + ", tableNumber=" + tableNumber + ", date=" + date + ", time=" + time + ", location=" + location + ", note=" + note + ", typeParty=" + typeParty + ", happenStatus=" + happenStatus + ", paymentStatus=" + paymentStatus + ", customer=" + customer + '}';
+    }
 }
