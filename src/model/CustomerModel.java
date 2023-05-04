@@ -5,14 +5,14 @@ public class CustomerModel {
     private int ID;
     private String name;
     private String phoneNumber;
-    private boolean sex;
+    private int sex;
     private String citizenNumber;
     private String address;
 
     public CustomerModel() {
     }
 
-    public CustomerModel(int customerID, String name, String phoneNumber, boolean sex, String citizenNumber, String address) {
+    public CustomerModel(int customerID, String name, String phoneNumber, int sex, String citizenNumber, String address) {
         this.ID = customerID;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -45,11 +45,11 @@ public class CustomerModel {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isSex() {
+    public int isSex() {
         return sex;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

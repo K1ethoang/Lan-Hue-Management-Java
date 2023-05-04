@@ -85,7 +85,7 @@ public class StaffDAOImpl implements StaffDAO {
     
     @Override
     public boolean delete(int id) {
-        System.out.println("11111");
+        
         return true;
     }
 }

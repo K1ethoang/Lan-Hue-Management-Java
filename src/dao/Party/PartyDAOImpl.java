@@ -93,6 +93,7 @@ public class PartyDAOImpl implements PartyDAO {
             if (rs >= 0) {
                 isOk = true;
             }
+     
             ps.close();
             con.close();
         } catch (Exception e) {

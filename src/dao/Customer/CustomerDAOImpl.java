@@ -33,7 +33,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customer.setID(rs.getInt("CustomerID"));
                 customer.setName(rs.getString("Name"));
                 customer.setPhoneNumber(rs.getString("PhoneNumber"));
-                customer.setSex(rs.getBoolean("Sex"));
+                customer.setSex(rs.getInt("Sex"));
                 customer.setCitizenNumber(rs.getString("UN_CitizenNumber"));
                 customer.setAddress(rs.getString("Address"));
                 
@@ -68,7 +68,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customer.setID(rs.getInt("CustomerID"));
                 customer.setName(rs.getString("Name"));
                 customer.setPhoneNumber(rs.getString("PhoneNumber"));
-                customer.setSex(rs.getBoolean("Sex"));
+                customer.setSex(rs.getInt("Sex"));
                 customer.setCitizenNumber(rs.getString("UN_CitizenNumber"));
                 customer.setAddress(rs.getString("Address"));
             }
@@ -84,16 +84,76 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
     
     public static void main(String[] args) {
-        System.out.println(CustomerDAOImpl.getInstance().getByID(1));
+        
     }
 
     @Override
     public boolean insert(CustomerModel customer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean isOk = false;
+        try {
+            Connection con = DBConnection.getConnection();
+//            String sql = "insert into Customer(?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Customer(CustomerID, Name, PhoneNumber, Sex, UN_CitizenNumber, Address) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, customer.getID() + "");
+            ps.setString(2, customer.getName());
+            ps.setString(3, customer.getPhoneNumber());
+            ps.setInt(4, customer.isSex());
+            ps.setString(5, customer.getCitizenNumber());
+            ps.setString(6, customer.getAddress());
+            
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isOk = true;
+            } 
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isOk;
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean isDelete = false;
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "DELETE FROM Customer WHERE CustomerID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isDelete = true;
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isDelete;
+    }
+    @Override
+    public boolean update(CustomerModel customer) {
+        boolean isUpdated = false;
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "UPDATE CUSTOMER SET Name = ?, PhoneNumber = ?, Sex = ?, UN_CitizenNumber = ?, Address = ? WHERE CustomerID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getPhoneNumber());
+            ps.setInt(3, customer.isSex());
+            ps.setString(4, customer.getCitizenNumber());
+            ps.setString(5, customer.getAddress());
+            ps.setInt(6, customer.getID());
+            
+            int rs = ps.executeUpdate();
+            if (rs >= 0) {
+                isUpdated = true;
+            } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isUpdated;
     }
 }

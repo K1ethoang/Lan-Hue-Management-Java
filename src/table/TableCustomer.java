@@ -10,7 +10,7 @@ public class TableCustomer {
     }
 
     public void setCustomerDetailsToTable(List<CustomerModel> listCustomer, view.component.table.Table tableCustomer) {
-        System.out.println(listCustomer.get(0));
+        System.out.println("");
         DefaultTableModel model;
         try {
             int rows = listCustomer.size();
@@ -20,7 +20,7 @@ public class TableCustomer {
                     int customerID = customer.getID();
                     String customerName = customer.getName();
                     String customerSDT = customer.getPhoneNumber();
-                    String sex = customer.isSex() ? "Nam" : "Nữ";
+                    String sex = customer.isSex() == 0 ? "Nữ" : "Nam";
                     String customerCCCD = customer.getCitizenNumber();
                     String customerAddress = customer.getAddress();
 
