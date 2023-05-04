@@ -139,17 +139,18 @@ public class CustomerDAOImpl implements CustomerDAO {
             Connection con = DBConnection.getConnection();
             String sql = "UPDATE CUSTOMER SET Name = ?, PhoneNumber = ?, Sex = ?, UN_CitizenNumber = ?, Address = ? WHERE CustomerID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            
-            ps.setString(1, customer.getName());
-            ps.setString(2, customer.getPhoneNumber());
-            ps.setInt(3, customer.isSex());
-            ps.setString(4, customer.getCitizenNumber());
-            ps.setString(5, customer.getAddress());
-            ps.setInt(6, customer.getID());
-            
-            int rs = ps.executeUpdate();
-            if (rs >= 0) {
-                isUpdated = true;
+
+            if(!customer.getName().isEmpty() && !customer.getPhoneNumber().isEmpty() && (customer.isSex() == 0 || customer.isSex() == 1) && !customer.getCitizenNumber().isEmpty() && !customer.getAddress().isEmpty()){
+                ps.setString(1, customer.getName());
+                ps.setString(2, customer.getPhoneNumber());
+                ps.setInt(3, customer.isSex());
+                ps.setString(4, customer.getCitizenNumber());
+                ps.setString(5, customer.getAddress());
+                ps.setInt(6, customer.getID());
+                int rs = ps.executeUpdate();
+                if (rs > 0) {
+                    isUpdated = true;
+                }
             } 
         } catch (Exception e) {
             e.printStackTrace();

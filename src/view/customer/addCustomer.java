@@ -297,17 +297,40 @@ public class addCustomer extends javax.swing.JFrame {
 
         // STATUS: ADD
         
-        int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
-        if((insertCustomer() == true && a == 0) || (updateCustomer() == true && a == 0)){
-            cusJpn.setCustomerTable(); // xét lại table
-            setVisible(false); // tắt mà hình add
-            cusJpn.setVisible(true); // 
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu");
-        }
+//        int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+//        if((insertCustomer() == true && a == 0) || (updateCustomer() == true && a == 0)){
+//            cusJpn.setCustomerTable(); // xét lại table
+//            setVisible(false); // tắt mà hình add
+//            cusJpn.setVisible(true); // 
+//        }
+//        else{
+//            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu");
+//        }
         
+        
+        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+        if (a == 0) {
+            System.out.println("add: " + insertCustomer());
+            System.out.println("update: " + updateCustomer());
+            if (insertCustomer() == true || updateCustomer() == true) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công !");
+                cusJpn.setCustomerTable(); // xét lại table
+                setVisible(false); // tắt mà hình add
+                cusJpn.setVisible(true); // 
+//                clearTable();
+//                setCustomerTable();
+            } 
+//            else if(updateCustomer() == true){
+//                JOptionPane.showMessageDialog(this, "Chỉnh sửa thành công !");
+//                cusJpn.setCustomerTable(); // xét lại table
+//                setVisible(false); // tắt mà hình add
+//                cusJpn.setVisible(true); // 
+//            }
+            else {
+                JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+            }
 
+        }
         
         //STATUS: DELETE
     }//GEN-LAST:event_saveBtn2ActionPerformed

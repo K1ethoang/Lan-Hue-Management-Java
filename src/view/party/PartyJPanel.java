@@ -2,10 +2,13 @@ package view.party;
 
 import dao.Party.PartyDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import model.PartyModel;
 import model.TypePartyModel;
 import table.TableParty;
@@ -31,13 +34,16 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         setComboBoxTypeParty();
         setPartyTable();
+
+        // set short cut
+//        seeBtn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK));
     }
 
     private void setPartyTable() {
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(gListParty, tableParty);
         sumParty.setText("Số lượng: " + gListParty.size() + "");
-        
+
     }
 
     private void setComboBoxTypeParty() {
@@ -51,17 +57,7 @@ public class PartyJPanel extends javax.swing.JPanel {
 
     private void setPartyCurrent(int row) {
         PartyModel party = gListParty.get(row);
-
-        gPartyCurrent.setID(party.getID());
-        gPartyCurrent.setPartyName(party.getPartyName());
-        gPartyCurrent.setTableNumber(party.getTableNumber());
-        gPartyCurrent.setTime(party.getTime());
-        gPartyCurrent.setLocation(party.getLocation());
-        gPartyCurrent.setTypeParty(party.getTypeParty());
-        gPartyCurrent.setHappenStatus(party.getHappenStatus());
-        gPartyCurrent.setPaymentStatus(party.getPaymentStatus());
-        gPartyCurrent.setNote(party.getNote());
-        gPartyCurrent.setCustomer(party.getCustomer());
+        gPartyCurrent = party;
     }
 
     private int getIndexPartySelected() {
@@ -79,7 +75,11 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
-        seeBtn = new javax.swing.JMenuItem();
+        selectDishBtn = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        seeBtn = new javax.swing.JMenu();
+        seePartyBtn = new javax.swing.JMenuItem();
+        seeMenuBtn = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         editBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -110,16 +110,38 @@ public class PartyJPanel extends javax.swing.JPanel {
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableParty = new view.component.table.Table();
 
-        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        seeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
-        seeBtn.setMnemonic('X');
-        seeBtn.setText("Xem chi tiết");
-        seeBtn.addActionListener(new java.awt.event.ActionListener() {
+        selectDishBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        selectDishBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Numbered list.png"))); // NOI18N
+        selectDishBtn.setText("Chọn món ăn");
+        selectDishBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seeBtnActionPerformed(evt);
+                selectDishBtnActionPerformed(evt);
             }
         });
+        popupMenu.add(selectDishBtn);
+        popupMenu.add(jSeparator4);
+
+        seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
+        seeBtn.setText("Xem");
+
+        seePartyBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        seePartyBtn.setText("Tiệc");
+        seePartyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seePartyBtnActionPerformed(evt);
+            }
+        });
+        seeBtn.add(seePartyBtn);
+
+        seeMenuBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        seeMenuBtn.setText("Món ăn");
+        seeMenuBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeMenuBtnActionPerformed(evt);
+            }
+        });
+        seeBtn.add(seeMenuBtn);
+
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
@@ -196,7 +218,6 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         addBtn.setBackground(new java.awt.Color(148, 175, 159));
         addBtn.setText("Thêm tiệc");
-        addBtn.setToolTipText("Ctrl+N");
         addBtn.setColorHover(new java.awt.Color(187, 214, 184));
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -367,6 +388,39 @@ public class PartyJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
+    private void seeMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeMenuBtnActionPerformed
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            setPartyCurrent(row);
+            addPartyMenu addPartyMenu = new addPartyMenu(gPartyCurrent);
+            addPartyMenu.setVisible(true);
+        } else {
+            printDialogErrorSelectParty();
+        }
+    }//GEN-LAST:event_seeMenuBtnActionPerformed
+
+    private void seePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seePartyBtnActionPerformed
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            setPartyCurrent(row);
+            addParty addParty = new addParty(gPartyCurrent);
+            addParty.setVisible(true);
+        } else {
+            printDialogErrorSelectParty();
+        }
+    }//GEN-LAST:event_seePartyBtnActionPerformed
+
+    private void selectDishBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDishBtnActionPerformed
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            setPartyCurrent(row);
+            addPartyMenu addPartyMenu = new addPartyMenu(gPartyCurrent);
+            addPartyMenu.setVisible(true);
+        } else {
+            printDialogErrorSelectParty();
+        }
+    }//GEN-LAST:event_selectDishBtnActionPerformed
+
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
 
@@ -392,17 +446,6 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentYesActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_paymentYesActionPerformed
-
-    private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_seeBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
-            setPartyCurrent(row);
-            addParty addParty = new addParty(gPartyCurrent);
-            addParty.setVisible(true);
-        } else {
-            printDialogErrorSelectParty();
-        }
-    }
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeBtnActionPerformed
         int row = getIndexPartySelected();
@@ -448,6 +491,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox happenWait;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private view.component.LabelGoogleIcon labelGoogleIcon1;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
     private view.component.LabelGoogleIcon labelGoogleIcon3;
@@ -461,7 +505,10 @@ public class PartyJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;
     private javax.swing.JPanel searchPanel;
-    private javax.swing.JMenuItem seeBtn;
+    private javax.swing.JMenu seeBtn;
+    private javax.swing.JMenuItem seeMenuBtn;
+    private javax.swing.JMenuItem seePartyBtn;
+    private javax.swing.JMenuItem selectDishBtn;
     private javax.swing.JLabel sumParty;
     private view.component.table.Table tableParty;
     private javax.swing.JPanel top;

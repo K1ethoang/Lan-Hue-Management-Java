@@ -302,18 +302,17 @@ public class CustomerJPanel extends javax.swing.JPanel {
         try {
             setCustomerCurrent();
             addCustomer addCustomer = new addCustomer(customerCurrent, true);
-            if(addCustomer.deleteCustomer() == true){
-//                JOptionPane.showMessageDialog(this, "Xóa không thành công !");
-                int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
-                if(a == 0){
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+            if (a == 0) {
+                if (addCustomer.deleteCustomer() == true) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
                     clearTable();
                     setCustomerTable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
                 }
+
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Xóa không thành công !");
-            }
- 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }

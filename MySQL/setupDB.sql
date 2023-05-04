@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Customer(
 	CustomerID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(10) NOT NULL,
-    Sex INT NOT NULL,
+    Sex BIT NOT NULL,
     UN_CitizenNumber VARCHAR(12) UNIQUE,
     Address TEXT NOT NULL,
     CONSTRAINT PkCustomer_CustomerID PRIMARY KEY (CustomerId),
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS TypeDish(
 CREATE TABLE IF NOT EXISTS Staff(
 	StaffID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
-    Sex INT NOT NULL,
+    Sex BIT NOT NULL,
     PhoneNumber VARCHAR(10) NOT NULL,
 	UN_CitizenNumber VARCHAR(12) UNIQUE,
     Address VARCHAR(300),
@@ -146,14 +146,24 @@ CREATE TABLE Invoice(
 
 -- 				Tạo bảng OderItem
 -- DROP TABLE OderItem;
-CREATE TABLE OderItem(
+-- CREATE TABLE OderItem(
+-- 	PartyID INT UNSIGNED,
+--     DishID INT UNSIGNED,
+--     CONSTRAINT PkOrderItem_PartyID_DishID PRIMARY KEY (PartyID,DishID),
+--     CONSTRAINT FkOrderItem_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
+--     CONSTRAINT FkOrderItem_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID)
+-- );
+-- TRUNCATE TABLE OderItem;
+
+-- 				Tạo bảng Order
+-- DROP TABLE Order;
+CREATE TABLE `Order`(
 	PartyID INT UNSIGNED,
     DishID INT UNSIGNED,
-    CONSTRAINT PkOrderItem_PartyID_DishID PRIMARY KEY (PartyID,DishID),
-    CONSTRAINT FkOrderItem_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
-    CONSTRAINT FkOrderItem_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID)
+    CONSTRAINT PkOrder_PartyID_DishID PRIMARY KEY (PartyID,DishID),
+    CONSTRAINT FkOrder_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
+    CONSTRAINT FkOrder_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID)
 );
--- TRUNCATE TABLE OderItem;
 
 -- 				Tạo bảng DetailInvoice
 -- DROP TABLE DetailInvoice;
@@ -203,30 +213,32 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 ('2', 'staff', 'staff123')
 ;
 
-use lanhuemanagement;
-SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber,
-hp.UN_StatusCode AS happenCode, hp.statusName AS happenName, 
-ps.UN_StatusCode AS paymentCode, ps.statusName AS paymentName
-FROM party p
-JOIN customer c ON p.customerID = c.customerID
-JOIN happenStatus hp ON p.HappenStatusID = hp.HappenStatusID
-JOIN paymentStatus ps ON p.PaymentStatusID = ps.PaymentStatusID
-JOIN typeParty tp ON p.typePartyID = tp.typePartyID
-ORDER BY p.partyID DESC;
+-- use lanhuemanagement;
+-- SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber,
+-- hp.UN_StatusCode AS happenCode, hp.statusName AS happenName, 
+-- ps.UN_StatusCode AS paymentCode, ps.statusName AS paymentName
+-- FROM party p
+-- JOIN customer c ON p.customerID = c.customerID
+-- JOIN happenStatus hp ON p.HappenStatusID = hp.HappenStatusID
+-- JOIN paymentStatus ps ON p.PaymentStatusID = ps.PaymentStatusID
+-- JOIN typeParty tp ON p.typePartyID = tp.typePartyID
+-- ORDER BY p.partyID DESC;
 
-SELECT * FROM customer
-WHERE CustomerID = 1;
+-- SELECT * FROM customer
+-- WHERE CustomerID = 1;
 
-SELECT * FROM TypeParty WHERE TypePartyID=1;
-SELECT * FROM Party
-ORDER BY PartyID DESC;
+-- SELECT * FROM TypeParty WHERE TypePartyID=1;
+-- SELECT * FROM Party
+-- ORDER BY PartyID DESC;
 
-SELECT * FROM HappenStatus WHERE HappenStatusID = 1;
-SELECT * FROM PaymentStatus WHERE PaymentStatusID = 1;
+-- SELECT * FROM HappenStatus WHERE HappenStatusID = 1;
+-- SELECT * FROM PaymentStatus WHERE PaymentStatusID = 1;
 
-use lanhuemanagement;
-SELECT *
-FROM typeparty;
+-- DELETE FROM Party WHERE PartyID = 1;
+
+-- use lanhuemanagement;
+-- SELECT *
+-- FROM typeparty;
 
 
 -- 											Trigger
