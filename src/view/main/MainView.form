@@ -611,8 +611,8 @@
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="labelGoogleIcon1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
-                          <Component id="labelDateTime1" min="-2" pref="140" max="-2" attributes="0"/>
-                          <EmptySpace pref="155" max="32767" attributes="0"/>
+                          <Component id="labelDateTime1" min="-2" pref="231" max="-2" attributes="0"/>
+                          <EmptySpace pref="64" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

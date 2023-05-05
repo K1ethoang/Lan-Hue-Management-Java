@@ -8,7 +8,6 @@ import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 import model.PartyModel;
 import model.TypePartyModel;
 import table.TableParty;
@@ -35,8 +34,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         setComboBoxTypeParty();
         setPartyTable();
 
-        // set short cut
-//        seeBtn.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK));
     }
 
     private void setPartyTable() {
@@ -75,13 +72,13 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
-        selectDishBtn = new javax.swing.JMenuItem();
-        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         seeBtn = new javax.swing.JMenu();
         seePartyBtn = new javax.swing.JMenuItem();
         seeMenuBtn = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         editBtn = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        selectDishBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         removeBtn = new javax.swing.JMenuItem();
         top = new javax.swing.JPanel();
@@ -110,17 +107,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableParty = new view.component.table.Table();
 
-        selectDishBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        selectDishBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Numbered list.png"))); // NOI18N
-        selectDishBtn.setText("Chọn món ăn");
-        selectDishBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectDishBtnActionPerformed(evt);
-            }
-        });
-        popupMenu.add(selectDishBtn);
-        popupMenu.add(jSeparator4);
-
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setText("Xem");
 
@@ -143,12 +129,10 @@ public class PartyJPanel extends javax.swing.JPanel {
         seeBtn.add(seeMenuBtn);
 
         popupMenu.add(seeBtn);
-        popupMenu.add(jSeparator2);
+        popupMenu.add(jSeparator4);
 
-        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
-        editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
         editBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +140,17 @@ public class PartyJPanel extends javax.swing.JPanel {
             }
         });
         popupMenu.add(editBtn);
+        popupMenu.add(jSeparator2);
+
+        selectDishBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        selectDishBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Numbered list.png"))); // NOI18N
+        selectDishBtn.setText("Chọn món ăn");
+        selectDishBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectDishBtnActionPerformed(evt);
+            }
+        });
+        popupMenu.add(selectDishBtn);
         popupMenu.add(jSeparator3);
 
         removeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));

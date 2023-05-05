@@ -20,7 +20,7 @@ public class TableDish {
                     int dishID = dish.getDishID();
                     String dishName = dish.getDishName();  
                     Double dishPrice = dish.getPrice();
-                    String typeDish = dish.getTypeDish().getUN_TypeName();
+                    String typeDish = dish.getTypeDish().getTypeName();
                     
                     Object[] obj = {dishID, dishName, dishPrice, typeDish};
                     model = (DefaultTableModel) tableDish.getModel();

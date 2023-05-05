@@ -13,9 +13,9 @@ VALUES
     
 INSERT INTO HappenStatus (UN_StatusCode, StatusName)
 VALUES 
-	(-1, 'Sắp tới'), 
-	(0, 'Đang tổ chức'), 
-	(1, 'Đã xong');
+	(0, 'Sắp tới'), 
+	(1, 'Đang tổ chức'), 
+	(2, 'Đã xong');
 
 INSERT INTO Role (RoleName) VALUES
     ('Quản trị viên'),

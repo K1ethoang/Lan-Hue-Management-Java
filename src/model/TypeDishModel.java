@@ -3,7 +3,7 @@ package model;
 public class TypeDishModel {
 
     private int typeDishID;
-    private String UN_TypeName;
+    private String typeName;
 
     public int getTypeDishID() {
         return typeDishID;
@@ -13,12 +13,12 @@ public class TypeDishModel {
         this.typeDishID = typeDishID;
     }
 
-    public String getUN_TypeName() {
-        return UN_TypeName;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setUN_TypeName(String UN_TypeName) {
-        this.UN_TypeName = UN_TypeName;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
 }

@@ -1,17 +1,29 @@
 package view.party;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings;
 import dao.Customer.CustomerDAOImpl;
-import dao.Party.PartyDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
+import java.awt.Color;
+import java.sql.Time;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JScrollBar;
-import javax.swing.SwingUtilities;
+import javax.swing.text.DateFormatter;
 import model.CustomerModel;
 import model.PartyModel;
 import model.TypePartyModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import view.component.scroll.ScrollBarCus;
-import view.customer.addCustomer;
 import static view.party.PartyJPanel.gCurrentID;
 
 /**
@@ -29,26 +41,23 @@ public class addParty extends javax.swing.JFrame {
         initComponents();
 
         AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
-        // set vertical and horizontal scroll bar
-        ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
-        ScrollBarCus sb = new ScrollBarCus();
-        sb.setOrientation(JScrollBar.HORIZONTAL);
-        ScrollPaneNote.setHorizontalScrollBar(sb);
+
+        setScroll();
 
         setTextFieldID();
         setComboBoxPhoneNumber();
         setComboBoxTypeParty();
+        initDateTimeField();
     }
 
     public addParty(PartyModel _partyModel) {
         initComponents();
 
         AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
-        // set vertical and horizontal scroll bar
-        ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
-        ScrollBarCus sb = new ScrollBarCus();
-        sb.setOrientation(JScrollBar.HORIZONTAL);
-        ScrollPaneNote.setHorizontalScrollBar(sb);
+
+        setScroll();
+
+        initDateTimeField();
 
         setDataSeeParty(_partyModel);
 
@@ -57,12 +66,54 @@ public class addParty extends javax.swing.JFrame {
 
     }
 
+    private void setScroll() {
+        ScrollPaneNote.setVerticalScrollBar(new ScrollBarCus());
+        ScrollBarCus sb = new ScrollBarCus();
+        sb.setOrientation(JScrollBar.HORIZONTAL);
+        ScrollPaneNote.setHorizontalScrollBar(sb);
+    }
+
     private void setComboBoxPhoneNumber() {
         gListCustomer = CustomerDAOImpl.getInstance().getList();
         comboBoxPhoneNumber.removeAllItems();
         for (int i = 0; i < gListCustomer.size(); i++) {
             comboBoxPhoneNumber.addItem(gListCustomer.get(i).getPhoneNumber());
         }
+    }
+
+    private void initDateTimeField() {
+        // set time
+        SP_time.setTimeToNow();
+
+        SP_time.getSettings().setAllowEmptyTimes(false);
+
+        SP_time.getSettings().setDisplaySpinnerButtons(true);
+
+        SP_time.getSettings().setFormatForMenuTimes(DateTimeFormatter.ISO_LOCAL_TIME);
+        SP_time.getSettings().setFormatForDisplayTime(DateTimeFormatter.ISO_LOCAL_TIME);
+
+        // set date
+        TF_date.setDateToToday();
+
+        TF_date.getSettings().setAllowEmptyDates(false);
+
+        TF_date.getSettings().setFormatForDatesCommonEra("EEEE, d MMMM, y");
+        TF_date.getSettings().setFormatForTodayButton(DateTimeFormatter.ofPattern("d MMMM, y"));
+
+    }
+
+    private void setTimeField(Time time) {
+        LocalTime localTime = time.toLocalTime();
+        SP_time.setTime(localTime);
+        System.out.println(localTime);
+    }
+
+    private void setDateField(Date date) {
+        LocalDate localDate = Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        TF_date.setDate(localDate);
+
     }
 
     private void setTextFieldID() {
@@ -74,8 +125,8 @@ public class addParty extends javax.swing.JFrame {
         TF_partyID.setText(partyModel.getID() + "");
         TF_partyName.setText(partyModel.getPartyName());
         SP_partyNumber.setValue(partyModel.getTableNumber());
-        SP_time.setValue(partyModel.getTime());
-        TF_date.setDate(partyModel.getDate());
+        setTimeField(partyModel.getTime());
+        setDateField(partyModel.getDate());
         comboBoxTypeParty.addItem(partyModel.getTypeParty().getName());
         textAreaNote.setText(partyModel.getNote());
         panelLocation2.setAddress(partyModel.getLocation());
@@ -108,7 +159,6 @@ public class addParty extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSpinField2 = new com.toedter.components.JSpinField();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -131,9 +181,9 @@ public class addParty extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         comboBoxTypeParty = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        SP_time = new javax.swing.JSpinner();
+        SP_time = new com.github.lgooddatepicker.components.TimePicker();
         jLabel10 = new javax.swing.JLabel();
-        TF_date = new com.toedter.calendar.JDateChooser();
+        TF_date = new com.github.lgooddatepicker.components.DatePicker();
         panelNote = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         ScrollPaneNote = new javax.swing.JScrollPane();
@@ -241,15 +291,10 @@ public class addParty extends javax.swing.JFrame {
 
         jLabel4.setText("Thời gian (*)");
         panelRight.add(jLabel4);
-
-        SP_time.setModel(new javax.swing.SpinnerDateModel());
-        SP_time.setEditor(new javax.swing.JSpinner.DateEditor(SP_time, "HH:mm"));
         panelRight.add(SP_time);
 
         jLabel10.setText("Ngày (*)");
         panelRight.add(jLabel10);
-
-        TF_date.setDateFormatString("dd-MM-yyyy");
         panelRight.add(TF_date);
 
         center.add(panelRight);
@@ -321,12 +366,12 @@ public class addParty extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
         );
 
         pack();
@@ -342,7 +387,7 @@ public class addParty extends javax.swing.JFrame {
     }//GEN-LAST:event_TF_nameCustomerActionPerformed
 
     private void savePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyBtnActionPerformed
-        System.out.println(PartyDAOImpl.getInstance().insert(gPartyModel));
+
     }//GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -405,9 +450,9 @@ public class addParty extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.components.JSpinField SP_partyNumber;
-    private javax.swing.JSpinner SP_time;
+    private com.github.lgooddatepicker.components.TimePicker SP_time;
     private javax.swing.JScrollPane ScrollPaneNote;
-    private com.toedter.calendar.JDateChooser TF_date;
+    private com.github.lgooddatepicker.components.DatePicker TF_date;
     private javax.swing.JTextField TF_nameCustomer;
     private javax.swing.JTextField TF_partyID;
     private javax.swing.JTextField TF_partyName;
@@ -430,7 +475,6 @@ public class addParty extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private com.toedter.components.JSpinField jSpinField2;
     private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelLeft;
     private view.component.PanelLocation panelLocation2;

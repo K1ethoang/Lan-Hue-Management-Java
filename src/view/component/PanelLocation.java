@@ -126,7 +126,6 @@ public class PanelLocation extends javax.swing.JPanel {
     }
 
     public void setFullAddress() {
-//        System.out.println(getAddress());
         LB_location.setText(getAddress() + ", " + getWard() + ", " + getDistrict() + ", " + getProvince());
     }
 
@@ -153,7 +152,6 @@ public class PanelLocation extends javax.swing.JPanel {
 
     private void comboBoxDistrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDistrictActionPerformed
         String district = (String) comboBoxDistrict.getSelectedItem();
-        setFullAddress();
 
         if (district.equals("Thành phố Biên Hòa")) {
             comboBoxWard.removeAllItems();
@@ -358,6 +356,7 @@ public class PanelLocation extends javax.swing.JPanel {
             comboBoxWard.addItem("Xã Phước An");
 
         }
+        setFullAddress();
     }//GEN-LAST:event_comboBoxDistrictActionPerformed
 
     private void textFieldAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAddressKeyTyped

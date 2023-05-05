@@ -10,8 +10,7 @@ public class TableCustomer {
     }
 
     public void setCustomerDetailsToTable(List<CustomerModel> listCustomer, view.component.table.Table tableCustomer) {
-        System.out.println("");
-        DefaultTableModel model;
+        DefaultTableModel model = null;
         try {
             int rows = listCustomer.size();
             if (rows > 0) {
@@ -31,6 +30,7 @@ public class TableCustomer {
 
                 }
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

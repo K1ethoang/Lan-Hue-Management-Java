@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS Party(
 	PartyID INT UNSIGNED AUTO_INCREMENT,
     PartyName TEXT,
     TableNumber TINYINT UNSIGNED,
-    Date DATE,
+    `Date` DATE,
     `Time` TIME,
     Location TEXT,
     Note TEXT,
@@ -242,3 +242,4 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 
 
 -- 											Trigger
+

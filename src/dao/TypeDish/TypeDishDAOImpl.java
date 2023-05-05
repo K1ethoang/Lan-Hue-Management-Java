@@ -28,7 +28,7 @@ public class TypeDishDAOImpl implements TypeDishDAO{
             while (rs.next()) {
                 TypeDishModel typeDish = new TypeDishModel();
                 typeDish.setTypeDishID(rs.getInt("TypeDishID"));
-                typeDish.setUN_TypeName(rs.getString("UN_TypeName"));
+                typeDish.setTypeName(rs.getString("UN_TypeName"));
 
                 list.add(typeDish);
             }
@@ -57,7 +57,7 @@ public class TypeDishDAOImpl implements TypeDishDAO{
             if (rs.next()) {
                 typeDishModel = new TypeDishModel();
                 typeDishModel.setTypeDishID(rs.getInt("TypeDishID"));
-                typeDishModel.setUN_TypeName(rs.getString("UN_TypeName"));
+                typeDishModel.setTypeName(rs.getString("UN_TypeName"));
             }
 
             ps.close();
