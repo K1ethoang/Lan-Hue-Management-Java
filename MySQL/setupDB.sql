@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Customer(
     `Name` VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(10) NOT NULL,
     Sex BIT NOT NULL,
-    UN_CitizenNumber VARCHAR(12) UNIQUE,
+    UN_CitizenNumber VARCHAR(12),
     Address TEXT NOT NULL,
     CONSTRAINT PkCustomer_CustomerID PRIMARY KEY (CustomerId),
     CONSTRAINT UnCustomer_UN_CitizenNumber UNIQUE (UN_CitizenNumber),
@@ -125,6 +125,7 @@ CREATE TABLE IF NOT EXISTS Party(
     CONSTRAINT FkParty_HappenStatusID FOREIGN KEY (HappenStatusID) REFERENCES HappenStatus(HappenStatusID),
     CONSTRAINT FkParty_PaymentStatusID FOREIGN KEY (PaymentStatusID) REFERENCES PaymentStatus(PaymentStatusID),
     CONSTRAINT FkParty_TypePartyID FOREIGN KEY (TypePartyID) REFERENCES TypeParty(TypePartyID),
+    CONSTRAINT CkParty_Date CHECK (`Date` > sysdate()),
     CONSTRAINT CkParty_TableNumber CHECK (TableNumber >= 2)
 ) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 -- TRUNCATE TABLE Party;

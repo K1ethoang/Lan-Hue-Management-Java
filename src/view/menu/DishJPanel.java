@@ -2,8 +2,10 @@ package view.menu;
 
 import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JScrollBar;
+import javax.swing.table.DefaultTableModel;
 import model.DishModel;
 import model.TypeDishModel;
 import table.TableDish;
@@ -14,6 +16,7 @@ public class DishJPanel extends javax.swing.JPanel {
     List<DishModel> listDish = DishDAOImpl.getInstance().getList();
     DishModel dishCurrent = new DishModel();
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+    List<DishModel> gListSelectedDish = new ArrayList<>();
 
     public DishJPanel() {
         initComponents();
@@ -26,18 +29,22 @@ public class DishJPanel extends javax.swing.JPanel {
 
         // set data
         setComboBoxTypeDish();
-        setDishTable();
+        setDishTable(listDish);
     }
 
-    public void setDishTable() {
-        System.out.println(listDish);
+    public void setDishTable(List data) {
         TableDish tb = new TableDish();
-        tb.setDishDetailsToTable(listDish, tableDish);
-        sumDish.setText("Số lượng: " + listDish.size());
+        // clear row in table
+        DefaultTableModel dtm = (DefaultTableModel) tableDish.getModel();
+        dtm.setRowCount(0);
+        // set data for table and sum model
+        tb.setDishDetailsToTable(data, tableDish);
+        sumDish.setText("Số lượng: " + data.size());
     }
 
     private void setComboBoxTypeDish() {
         CB_typeDish.removeAllItems();
+        CB_typeDish.addItem("Tất cả");
         for (int i = 0; i < gListTypeDish.size(); i++) {
             CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
         }
@@ -265,7 +272,18 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
         String curTypeDish = (String) CB_typeDish.getSelectedItem();
-        System.out.println(curTypeDish);
+
+        if (curTypeDish.equals("Tất cả")) {
+            setDishTable(listDish);
+        } else {
+            gListSelectedDish.clear();
+            for (int i = 0; i < listDish.size(); i++) {
+                if (curTypeDish.equals(listDish.get(i).getTypeDish().getTypeName())) {
+                    gListSelectedDish.add(listDish.get(i));
+                }
+            }
+            setDishTable(gListSelectedDish);
+        }
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

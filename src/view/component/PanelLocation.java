@@ -12,6 +12,7 @@ public class PanelLocation extends javax.swing.JPanel {
         initComponents();
         AutoCompleteDecorator.decorate(comboBoxDistrict);
         AutoCompleteDecorator.decorate(comboBoxWard);
+        setComboBoxDistrict();
         setFullAddress();
     }
 
@@ -50,7 +51,6 @@ public class PanelLocation extends javax.swing.JPanel {
         jLabel9.setText("Quận/Huyện (*)");
         jPanel3.add(jLabel9);
 
-        comboBoxDistrict.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thành phố Biên Hòa", "Thành phố Long Khánh", "Huyện Tân Phú", "Huyện Vĩnh Cửu", "Huyện Định Quán", "Huyện Trảng Bom", "Huyện Thống Nhất", "Huyện Cẩm Mỹ", "Huyện Long Thành", "Huyện Xuân Lộc", "Huyện Nhơn Trạch" }));
         comboBoxDistrict.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxDistrictActionPerformed(evt);
@@ -147,6 +147,20 @@ public class PanelLocation extends javax.swing.JPanel {
 
     public String getFullAddress() {
         return (String) LB_location.getText();
+    }
+
+    private void setComboBoxDistrict() {
+        comboBoxDistrict.addItem("Thành phố Biên Hòa");
+        comboBoxDistrict.addItem("Thành phố Long Khánh");
+        comboBoxDistrict.addItem("Huyện Tân Phú");
+        comboBoxDistrict.addItem("Huyện Vĩnh Cửu");
+        comboBoxDistrict.addItem("Huyện Định Quán");
+        comboBoxDistrict.addItem("Huyện Trảng Bom");
+        comboBoxDistrict.addItem("Huyện Thống Nhất");
+        comboBoxDistrict.addItem("Huyện Cẩm Mỹ");
+        comboBoxDistrict.addItem("Huyện Long Thành");
+        comboBoxDistrict.addItem("Huyện Xuân Lộc");
+        comboBoxDistrict.addItem("Huyện Nhơn Trạch");
     }
 
 
