@@ -1,7 +1,6 @@
 package view.customer;
 
 import dao.Customer.CustomerDAOImpl;
-import dao.PaymentStatus.PaymentStatusDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -16,6 +15,7 @@ import table.TableCustomer;
 import view.component.scroll.ScrollBarCus;
 
 public class CustomerJPanel extends javax.swing.JPanel {
+
     List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
     CustomerModel customerCurrent = new CustomerModel();
     protected static int gCurrentID = 0;
@@ -31,7 +31,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableCustomer.fixTable(ScrollPaneTable);
         gCurrentID = listCustomer.get(0).getID() + 1;
-        
+
         setCustomerTable();
     }
 
@@ -72,7 +72,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         });
         
         sumCustomer.setText("Số lượng: " + listCustomer.size() + "");
-        System.out.println("setCustomerTable");
     }
 
     private void setCustomerCurrent() {
@@ -86,7 +85,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
         customerCurrent.setCitizenNumber(customer.getCitizenNumber());
         customerCurrent.setAddress(customer.getAddress());
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -199,16 +198,10 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
         addBtn.setBackground(new java.awt.Color(148, 175, 159));
         addBtn.setText("Thêm khách hàng");
-        addBtn.setToolTipText("Ctrl+N");
         addBtn.setColorHover(new java.awt.Color(187, 214, 184));
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addBtn.setPreferredSize(new java.awt.Dimension(150, 40));
-        addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addBtnMouseClicked(evt);
-            }
-        });
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
@@ -297,19 +290,9 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         addCustomer addCustomer = new addCustomer();
         addCustomer.setVisible(true);
+        refresh();
     }//GEN-LAST:event_addBtnActionPerformed
-    
-    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBtnMouseClicked
-    
-    private void tableCustomerMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
-        if (evt.isPopupTrigger()) {
-            popupMenu.show(this, evt.getX(), evt.getY());
-        }
-    }
-     
-    
+
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentNoActionPerformed
@@ -324,7 +307,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
             addCustomer addCustomer = new addCustomer(customerCurrent, false); // isSee == false thì chỉ đc xem, không được chỉnh sửa
             addCustomer.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_seeBtnActionPerformed
 
@@ -334,15 +317,15 @@ public class CustomerJPanel extends javax.swing.JPanel {
             addCustomer addCustomer = new addCustomer(customerCurrent, true);
             addCustomer.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editBtnActionPerformed
-    
-    public void clearTable(){
-        DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
-        model.setRowCount(0);
+
+    private void refresh() {
+        tableCustomer.removeAll();
+        setCustomerTable();
     }
-    
+
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setCustomerCurrent();
@@ -350,16 +333,15 @@ public class CustomerJPanel extends javax.swing.JPanel {
             int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
                 if (addCustomer.deleteCustomer() == true) {
+                    refresh();
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
-                    clearTable();
-                    setCustomerTable();
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công !");
                 }
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_removeBtnActionPerformed
 

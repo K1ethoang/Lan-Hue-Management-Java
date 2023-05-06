@@ -1,10 +1,10 @@
-
 package model;
 
 public class DishModel {
+
     private int dishID;
     private String dishName;
-    private Double price;
+    private double price;
     private TypeDishModel typeDish;
 
     public int getDishID() {
@@ -23,7 +23,7 @@ public class DishModel {
         this.dishName = dishName;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Component class="com.toedter.components.JSpinField" name="jSpinField2">
-    </Component>
-  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Th&#xea;m ti&#x1ec7;c"/>
@@ -30,14 +26,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel2" min="-2" pref="616" max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" pref="969" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel2" alignment="0" pref="580" max="32767" attributes="0"/>
+          <Component id="jPanel2" alignment="0" pref="595" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -224,25 +220,14 @@
                     <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian (*)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="SP_time">
-                  <Properties>
-                    <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="now" stepSize="5" type="date"/>
-                    </Property>
-                    <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
-                      <SpinnerEditor format="HH:mm" type="1"/>
-                    </Property>
-                  </Properties>
+                <Component class="com.github.lgooddatepicker.components.TimePicker" name="SP_time">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ng&#xe0;y (*)"/>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="TF_date">
-                  <Properties>
-                    <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
-                  </Properties>
+                <Component class="com.github.lgooddatepicker.components.DatePicker" name="TF_date">
                 </Component>
               </SubComponents>
             </Container>

@@ -84,16 +84,15 @@ public class PartyDAOImpl implements PartyDAO {
             ps.setString(4, party.getTime() + "");
             ps.setString(5, party.getLocation() + "");
             ps.setString(6, party.getNote() + "");
-            ps.setString(7, party.getCustomer() + "");
-            ps.setString(8, party.getHappenStatus() + "");
-            ps.setString(9, party.getPartyName() + "");
-            ps.setString(10, party.getTypeParty() + "");
+            ps.setString(7, party.getCustomer().getID() + "");
+            ps.setString(8, party.getHappenStatus().getID() + "");
+            ps.setString(9, party.getTypeParty().getID() + "");
 
             int rs = ps.executeUpdate();
             if (rs >= 0) {
                 isOk = true;
             }
-     
+
             ps.close();
             con.close();
         } catch (Exception e) {

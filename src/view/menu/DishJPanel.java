@@ -1,16 +1,20 @@
 package view.menu;
 
 import dao.Dish.DishDAOImpl;
+import dao.TypeDish.TypeDishDAOImpl;
 import java.util.List;
 import javax.swing.JScrollBar;
 import model.DishModel;
+import model.TypeDishModel;
 import table.TableDish;
 import view.component.scroll.ScrollBarCus;
 
 public class DishJPanel extends javax.swing.JPanel {
-    
+
     List<DishModel> listDish = DishDAOImpl.getInstance().getList();
     DishModel dishCurrent = new DishModel();
+    List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+
     public DishJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -19,18 +23,27 @@ public class DishJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableDish.fixTable(ScrollPaneTable);
-        
+
+        // set data
+        setComboBoxTypeDish();
         setDishTable();
     }
-    
+
     public void setDishTable() {
         System.out.println(listDish);
         TableDish tb = new TableDish();
         tb.setDishDetailsToTable(listDish, tableDish);
         sumDish.setText("Số lượng: " + listDish.size());
     }
-    
-    private void setStaffCurrent() {
+
+    private void setComboBoxTypeDish() {
+        CB_typeDish.removeAllItems();
+        for (int i = 0; i < gListTypeDish.size(); i++) {
+            CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
+        }
+    }
+
+    private void setDishCurrent() {
         int row = tableDish.getSelectedRow();
         DishModel dish = listDish.get(row);
 
@@ -61,7 +74,7 @@ public class DishJPanel extends javax.swing.JPanel {
         filter = new javax.swing.JPanel();
         happen = new javax.swing.JPanel();
         labelGoogleIcon2 = new view.component.LabelGoogleIcon();
-        comboBox = new javax.swing.JComboBox<>();
+        CB_typeDish = new javax.swing.JComboBox<>();
         center = new javax.swing.JPanel();
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableDish = new view.component.table.Table();
@@ -184,8 +197,12 @@ public class DishJPanel extends javax.swing.JPanel {
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         happen.add(labelGoogleIcon2);
 
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        happen.add(comboBox);
+        CB_typeDish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_typeDishActionPerformed(evt);
+            }
+        });
+        happen.add(CB_typeDish);
 
         filter.add(happen);
 
@@ -246,12 +263,17 @@ public class DishJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentBtn1ActionPerformed
 
+    private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
+        String curTypeDish = (String) CB_typeDish.getSelectedItem();
+        System.out.println(curTypeDish);
+    }//GEN-LAST:event_CB_typeDishActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CB_typeDish;
     private javax.swing.JScrollPane ScrollPaneTable;
     private rojeru_san.complementos.RSButtonHover addBtn;
     private javax.swing.JPanel button;
     private javax.swing.JPanel center;
-    private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JMenuItem editBtn;
     private javax.swing.JPanel filter;
     private javax.swing.JPanel happen;

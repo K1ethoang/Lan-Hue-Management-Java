@@ -1,10 +1,10 @@
 package model;
 
-/**
- *
- * @author Admin
- */
 public class PaymentStatusModel {
+
+    // set constant
+    public static final int UN_PAID = 0; // Chưa thanh toán
+    public static final int PAID = 1; // Đã thanh toán
 
     private int ID;
     private int statusCode;

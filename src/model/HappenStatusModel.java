@@ -1,10 +1,11 @@
 package model;
 
-/**
- *
- * @author Admin
- */
 public class HappenStatusModel {
+
+    // set constant
+    public static final int COMING_SOON = 0; // Sắp tới
+    public static final int GOING_ON = 1; // Đang tổ chức
+    public static final int DONE = 2; // Đã xong
 
     private int ID;
     private int statusCode;

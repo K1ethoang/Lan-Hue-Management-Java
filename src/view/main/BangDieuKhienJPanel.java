@@ -1,20 +1,60 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view.main;
 
-/**
- *
- * @author Admin
- */
+import dao.Customer.CustomerDAOImpl;
+import dao.Party.PartyDAOImpl;
+import dao.Staff.StaffDAOImpl;
+import java.util.List;
+import model.CustomerModel;
+import model.HappenStatusModel;
+import model.PartyModel;
+import model.PaymentStatusModel;
+import model.StaffModel;
+
 public class BangDieuKhienJPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form BangDieuKhienJPanel
-     */
+    List<StaffModel> gListStaff = StaffDAOImpl.getInstance().getList();
+    List<CustomerModel> gListCustomer = CustomerDAOImpl.getInstance().getList();
+    List<PartyModel> gListParty = PartyDAOImpl.getInstance().getList();
+
     public BangDieuKhienJPanel() {
         initComponents();
+        setCountPartyComingSoon();
+        setCountPartyNotPayment();
+        setCountCustomer();
+        setCountStaff();
+    }
+
+    private void setCountPartyComingSoon() {
+        int count = 0;
+        for (int i = 0; i < gListParty.size(); i++) {
+            if (HappenStatusModel.COMING_SOON == gListParty.get(i).getHappenStatus().getStatusCode()) {
+                count++;
+            }
+        }
+        countPartyComingSoon.setText(count + "");
+
+    }
+
+    private void setCountPartyNotPayment() {
+        int count = 0;
+        for (int i = 0; i < gListParty.size(); i++) {
+            if (PaymentStatusModel.UN_PAID == gListParty.get(i).getPaymentStatus().getStatusCode()) {
+                count++;
+            }
+        }
+        countPartyNotPayment.setText(count + "");
+    }
+
+    private void setCountCustomer() {
+        int count = 0;
+        count = gListCustomer.size();
+        countCustomer.setText(count + "");
+    }
+
+    private void setCountStaff() {
+        int count = 0;
+        count = gListStaff.size();
+        countStaff.setText(count + "");
     }
 
     /**
@@ -28,16 +68,16 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
 
         jpnRoot = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        labelGoogleIcon1 = new view.component.LabelGoogleIcon();
+        countPartyComingSoon = new view.component.LabelGoogleIcon();
         jPanel2 = new javax.swing.JPanel();
-        labelGoogleIcon5 = new view.component.LabelGoogleIcon();
+        countPartyNotPayment = new view.component.LabelGoogleIcon();
         jPanel3 = new javax.swing.JPanel();
-        labelGoogleIcon6 = new view.component.LabelGoogleIcon();
+        countCustomer = new view.component.LabelGoogleIcon();
         jPanel4 = new javax.swing.JPanel();
-        labelGoogleIcon7 = new view.component.LabelGoogleIcon();
+        countStaff = new view.component.LabelGoogleIcon();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        LB_customer = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1017, 576));
@@ -50,12 +90,12 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
 
-        labelGoogleIcon1.setForeground(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon1.setText("10");
-        labelGoogleIcon1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        labelGoogleIcon1.setGoogleIcon(icon.GoogleMaterialDesignIcons.CAKE);
-        labelGoogleIcon1.setIconColor(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon1.setIconSize(50.0F);
+        countPartyComingSoon.setForeground(new java.awt.Color(255, 255, 255));
+        countPartyComingSoon.setText("10");
+        countPartyComingSoon.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        countPartyComingSoon.setGoogleIcon(icon.GoogleMaterialDesignIcons.CAKE);
+        countPartyComingSoon.setIconColor(new java.awt.Color(255, 255, 255));
+        countPartyComingSoon.setIconSize(50.0F);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -63,25 +103,25 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 30, Short.MAX_VALUE)
-                .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(countPartyComingSoon, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(countPartyComingSoon, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(46, 11, 47)));
 
-        labelGoogleIcon5.setForeground(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon5.setText("4");
-        labelGoogleIcon5.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        labelGoogleIcon5.setGoogleIcon(icon.GoogleMaterialDesignIcons.CAMERA_FRONT);
-        labelGoogleIcon5.setIconColor(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon5.setIconSize(50.0F);
+        countPartyNotPayment.setForeground(new java.awt.Color(255, 255, 255));
+        countPartyNotPayment.setText("4");
+        countPartyNotPayment.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        countPartyNotPayment.setGoogleIcon(icon.GoogleMaterialDesignIcons.CAMERA_FRONT);
+        countPartyNotPayment.setIconColor(new java.awt.Color(255, 255, 255));
+        countPartyNotPayment.setIconSize(50.0F);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -89,25 +129,25 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(labelGoogleIcon5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(countPartyNotPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(labelGoogleIcon5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(countPartyNotPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
 
-        labelGoogleIcon6.setForeground(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon6.setText("25");
-        labelGoogleIcon6.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        labelGoogleIcon6.setGoogleIcon(icon.GoogleMaterialDesignIcons.ASSESSMENT);
-        labelGoogleIcon6.setIconColor(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon6.setIconSize(50.0F);
+        countCustomer.setForeground(new java.awt.Color(255, 255, 255));
+        countCustomer.setText("25");
+        countCustomer.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        countCustomer.setGoogleIcon(icon.GoogleMaterialDesignIcons.ASSESSMENT);
+        countCustomer.setIconColor(new java.awt.Color(255, 255, 255));
+        countCustomer.setIconSize(50.0F);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -115,25 +155,25 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 30, Short.MAX_VALUE)
-                .addComponent(labelGoogleIcon6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(countCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(labelGoogleIcon6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(countCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(46, 11, 47)));
 
-        labelGoogleIcon7.setForeground(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon7.setText("100");
-        labelGoogleIcon7.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        labelGoogleIcon7.setGoogleIcon(icon.GoogleMaterialDesignIcons.ASSIGNMENT_IND);
-        labelGoogleIcon7.setIconColor(new java.awt.Color(255, 255, 255));
-        labelGoogleIcon7.setIconSize(50.0F);
+        countStaff.setForeground(new java.awt.Color(255, 255, 255));
+        countStaff.setText("100");
+        countStaff.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        countStaff.setGoogleIcon(icon.GoogleMaterialDesignIcons.ASSIGNMENT_IND);
+        countStaff.setIconColor(new java.awt.Color(255, 255, 255));
+        countStaff.setIconSize(50.0F);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -141,13 +181,13 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 30, Short.MAX_VALUE)
-                .addComponent(labelGoogleIcon7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(countStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(labelGoogleIcon7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(countStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -161,10 +201,10 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("SL tiệc chưa thanh toán");
 
-        jLabel3.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("SL tiệc trong tháng");
+        LB_customer.setBackground(new java.awt.Color(102, 102, 102));
+        LB_customer.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        LB_customer.setForeground(new java.awt.Color(102, 102, 102));
+        LB_customer.setText("SL khách hàng");
 
         jLabel4.setBackground(new java.awt.Color(102, 102, 102));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -187,7 +227,7 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(LB_customer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -199,7 +239,7 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
             .addGroup(jpnRootLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
+                    .addComponent(LB_customer)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(jLabel1))
@@ -227,18 +267,18 @@ public class BangDieuKhienJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LB_customer;
+    private view.component.LabelGoogleIcon countCustomer;
+    private view.component.LabelGoogleIcon countPartyComingSoon;
+    private view.component.LabelGoogleIcon countPartyNotPayment;
+    private view.component.LabelGoogleIcon countStaff;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jpnRoot;
-    private view.component.LabelGoogleIcon labelGoogleIcon1;
-    private view.component.LabelGoogleIcon labelGoogleIcon5;
-    private view.component.LabelGoogleIcon labelGoogleIcon6;
-    private view.component.LabelGoogleIcon labelGoogleIcon7;
     // End of variables declaration//GEN-END:variables
 }

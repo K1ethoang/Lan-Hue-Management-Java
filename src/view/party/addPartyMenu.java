@@ -1,14 +1,18 @@
 package view.party;
 
-import dao.Customer.CustomerDAOImpl;
+import dao.Dish.DishDAOImpl;
 import dao.Party.PartyDAOImpl;
-import dao.TypeParty.TypePartyDAOImpl;
+import dao.TypeDish.TypeDishDAOImpl;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JScrollBar;
 import model.CustomerModel;
+import model.DishModel;
 import model.PartyModel;
-import model.TypePartyModel;
+import model.TypeDishModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import static view.party.PartyJPanel.gCurrentID;
+import utils.Helper;
+import view.component.scroll.ScrollBarCus;
 
 /**
  *
@@ -17,22 +21,45 @@ import static view.party.PartyJPanel.gCurrentID;
 public class addPartyMenu extends javax.swing.JFrame {
 
     List<CustomerModel> gListCustomer = null;
-    List<TypePartyModel> gListTypeParty = null;
+    List<DishModel> gListDish = DishDAOImpl.getInstance().getList();
+    List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     PartyModel gPartyModel = null;
     CustomerModel gCustomerModel = null;
 
+    DefaultListModel dlmSelectedMenuDish = new DefaultListModel();
+//    List<DishModel> gCurrentListMenuDish = null;
+
     public addPartyMenu() {
         initComponents();
+        setScrollPane();
+        setComboBoxTypeDish();
 
     }
 
     public addPartyMenu(PartyModel _partyModel) {
         initComponents();
-
+        setScrollPane();
         AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
 
+        // set Data
+        setComboBoxTypeDish();
         setDataSeePartyMenu(_partyModel);
+    }
 
+    private void setScrollPane() {
+        jScrollPane1.setVerticalScrollBar(new ScrollBarCus());
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCus());
+        ScrollBarCus sb = new ScrollBarCus();
+        sb.setOrientation(JScrollBar.HORIZONTAL);
+        jScrollPane1.setHorizontalScrollBar(sb);
+        jScrollPane3.setVerticalScrollBar(new ScrollBarCus());
+    }
+
+    private void setComboBoxTypeDish() {
+        CB_typeDish.removeAllItems();
+        for (int i = 0; i < gListTypeDish.size(); i++) {
+            CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
+        }
     }
 
     private void setDataSeePartyMenu(PartyModel partyModel) {
@@ -92,13 +119,32 @@ public class addPartyMenu extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         TF_date = new com.toedter.calendar.JDateChooser();
         panelMenu = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        menuList = new javax.swing.JList<>();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        CB_typeDish = new javax.swing.JComboBox<>();
+        addBtn = new javax.swing.JButton();
+        removeBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        selectedMenuList = new javax.swing.JList<>();
+        jPanel10 = new javax.swing.JPanel();
+        LB_totalPrice = new javax.swing.JLabel();
+        TF_totalPrice = new javax.swing.JFormattedTextField();
         bottom = new javax.swing.JPanel();
-        savePartyBtn = new rojeru_san.complementos.RSButtonHover();
+        savePartyMenuBtn = new rojeru_san.complementos.RSButtonHover();
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Thêm tiệc");
         setResizable(false);
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
@@ -212,29 +258,180 @@ public class addPartyMenu extends javax.swing.JFrame {
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 870, Short.MAX_VALUE)
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1, Short.MAX_VALUE)
         );
 
         jPanel2.add(panelMenu);
+        jPanel2.add(jSeparator1);
+
+        getContentPane().add(jPanel2);
+
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        jPanel6.setPreferredSize(new java.awt.Dimension(360, 260));
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.Y_AXIS));
+
+        menuList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(menuList);
+
+        jPanel6.add(jScrollPane1);
+
+        jPanel5.add(jPanel6, java.awt.BorderLayout.WEST);
+
+        jPanel9.setPreferredSize(new java.awt.Dimension(169, 191));
+
+        CB_typeDish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CB_typeDishActionPerformed(evt);
+            }
+        });
+
+        addBtn.setText("Thêm >>");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
+
+        removeBtn.setText("<< Xóa");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
+
+        clearBtn.setText("Xóa tất cả");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(CB_typeDish, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(CB_typeDish, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addComponent(addBtn)
+                .addGap(18, 18, 18)
+                .addComponent(removeBtn)
+                .addGap(18, 18, 18)
+                .addComponent(clearBtn)
+                .addGap(58, 58, 58))
+        );
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+        );
+
+        jPanel5.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        jPanel8.setPreferredSize(new java.awt.Dimension(360, 260));
+        jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.Y_AXIS));
+
+        selectedMenuList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        selectedMenuList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane3.setViewportView(selectedMenuList);
+
+        jPanel8.add(jScrollPane3);
+
+        jPanel10.setMinimumSize(new java.awt.Dimension(117, 10));
+        jPanel10.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel10.setRequestFocusEnabled(false);
+
+        LB_totalPrice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        LB_totalPrice.setText("Tổng: ");
+
+        TF_totalPrice.setEditable(false);
+        TF_totalPrice.setText("0");
+        TF_totalPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_totalPriceActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LB_totalPrice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TF_totalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LB_totalPrice)
+                    .addComponent(TF_totalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
+        );
+
+        jPanel8.add(jPanel10);
+
+        jPanel5.add(jPanel8, java.awt.BorderLayout.EAST);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
+        getContentPane().add(jPanel4);
 
         bottom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
-        savePartyBtn.setBackground(new java.awt.Color(10, 77, 104));
-        savePartyBtn.setText("Lưu");
-        savePartyBtn.setColorHover(new java.awt.Color(14, 112, 152));
-        savePartyBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        savePartyBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        savePartyBtn.setPreferredSize(new java.awt.Dimension(110, 40));
-        savePartyBtn.addActionListener(new java.awt.event.ActionListener() {
+        savePartyMenuBtn.setBackground(new java.awt.Color(10, 77, 104));
+        savePartyMenuBtn.setText("Lưu");
+        savePartyMenuBtn.setColorHover(new java.awt.Color(14, 112, 152));
+        savePartyMenuBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        savePartyMenuBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        savePartyMenuBtn.setPreferredSize(new java.awt.Dimension(110, 40));
+        savePartyMenuBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savePartyBtnActionPerformed(evt);
+                savePartyMenuBtnActionPerformed(evt);
             }
         });
-        bottom.add(savePartyBtn);
+        bottom.add(savePartyMenuBtn);
 
         cancelBtn.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn.setText("Hủy");
@@ -249,20 +446,7 @@ public class addPartyMenu extends javax.swing.JFrame {
         });
         bottom.add(cancelBtn);
 
-        jPanel2.add(bottom);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 896, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-        );
+        getContentPane().add(bottom);
 
         pack();
         setLocationRelativeTo(null);
@@ -276,9 +460,9 @@ public class addPartyMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_nameCustomerActionPerformed
 
-    private void savePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyBtnActionPerformed
+    private void savePartyMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyMenuBtnActionPerformed
         System.out.println(PartyDAOImpl.getInstance().insert(gPartyModel));
-    }//GEN-LAST:event_savePartyBtnActionPerformed
+    }//GEN-LAST:event_savePartyMenuBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
@@ -298,6 +482,59 @@ public class addPartyMenu extends javax.swing.JFrame {
     private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_partyIDActionPerformed
+
+//    private double calculatingTotalPriceSelectedDish(double beforeSum, int indexCurrentOfMenuList, boolean isAdd) {
+//        double newSum = 0;
+//        DishModel dish = gCurrentListMenuDish.get(indexCurrentOfMenuList);
+//        if (isAdd) {
+//            newSum = beforeSum + dish.getPrice();
+//        } else {
+//            newSum = beforeSum - dish.getPrice();
+//        }
+//        return newSum;
+//    }
+
+    private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
+        String curTypeDish = (String) CB_typeDish.getSelectedItem();
+        DefaultListModel dlmMenuDish = new DefaultListModel();
+//        gCurrentListMenuDish.clear();
+
+        for (int i = 0; i < gListDish.size(); i++) {
+            DishModel dish = gListDish.get(i);
+            if (curTypeDish.equals(dish.getTypeDish().getTypeName())) {
+//                gCurrentListMenuDish.add(dish);
+                dlmMenuDish.addElement(dish.getDishName() + " - " + Helper.formatPriceToDisplay(dish.getPrice()));
+
+            }
+        }
+        menuList.setModel(dlmMenuDish);
+    }//GEN-LAST:event_CB_typeDishActionPerformed
+
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        int index = selectedMenuList.getSelectedIndex();
+        if (index >= 0) {
+            dlmSelectedMenuDish.removeElementAt(index);
+            selectedMenuList.setModel(dlmSelectedMenuDish);
+        }
+    }//GEN-LAST:event_removeBtnActionPerformed
+
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        int index = menuList.getSelectedIndex();
+        dlmSelectedMenuDish.addElement(menuList.getSelectedValue());
+        selectedMenuList.setModel(dlmSelectedMenuDish);
+        System.out.println(selectedMenuList.getModel());
+
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        dlmSelectedMenuDish.clear();
+        selectedMenuList.setModel(dlmSelectedMenuDish);
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void TF_totalPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_totalPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_totalPriceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,15 +573,20 @@ public class addPartyMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CB_typeDish;
+    private javax.swing.JLabel LB_totalPrice;
     private com.toedter.components.JSpinField SP_partyNumber;
     private javax.swing.JSpinner SP_time;
     private com.toedter.calendar.JDateChooser TF_date;
     private javax.swing.JTextField TF_nameCustomer;
     private javax.swing.JTextField TF_partyID;
     private javax.swing.JTextField TF_partyName;
+    private javax.swing.JFormattedTextField TF_totalPrice;
+    private javax.swing.JButton addBtn;
     private javax.swing.JPanel bottom;
     private rojeru_san.complementos.RSButtonHover cancelBtn;
     private javax.swing.JPanel center;
+    private javax.swing.JButton clearBtn;
     private javax.swing.JComboBox<String> comboBoxPhoneNumber;
     private javax.swing.JComboBox<String> comboBoxTypeParty;
     private javax.swing.JLabel jLabel1;
@@ -358,13 +600,26 @@ public class addPartyMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     private com.toedter.components.JSpinField jSpinField2;
+    private javax.swing.JList<String> menuList;
     private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelLeft;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelRight;
-    private rojeru_san.complementos.RSButtonHover savePartyBtn;
+    private javax.swing.JButton removeBtn;
+    private rojeru_san.complementos.RSButtonHover savePartyMenuBtn;
+    private javax.swing.JList<String> selectedMenuList;
     // End of variables declaration//GEN-END:variables
 }
