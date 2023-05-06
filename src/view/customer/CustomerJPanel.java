@@ -5,7 +5,12 @@ import dao.PaymentStatus.PaymentStatusDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.CustomerModel;
 import table.TableCustomer;
 import view.component.scroll.ScrollBarCus;
@@ -14,6 +19,9 @@ public class CustomerJPanel extends javax.swing.JPanel {
     List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
     CustomerModel customerCurrent = new CustomerModel();
     protected static int gCurrentID = 0;
+    
+    private TableRowSorter<TableModel> rowSorter = null;
+    
     public CustomerJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -30,7 +38,39 @@ public class CustomerJPanel extends javax.swing.JPanel {
     public void setCustomerTable() {
         TableCustomer tb = new TableCustomer();
         tb.setCustomerDetailsToTable(listCustomer, tableCustomer);
+        
+        rowSorter = new TableRowSorter<>(tableCustomer.getModel());
+        tableCustomer.setRowSorter(rowSorter);
+        
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
 
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+        
         sumCustomer.setText("Số lượng: " + listCustomer.size() + "");
         System.out.println("setCustomerTable");
     }
@@ -130,6 +170,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
@@ -317,6 +362,10 @@ public class CustomerJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_removeBtnActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;
