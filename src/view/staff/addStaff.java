@@ -46,11 +46,11 @@ public class addStaff extends javax.swing.JFrame {
         // set button
         saveBtn2.setVisible(false);
     }
-    
+
     private void setTextFieldID() {
         TF_staffID.setText(gCurrentID + "");
     }
-    
+
     private void setData(StaffModel _staffModel) {
         this.setTitle("Xem Nhân Viên");
         TF_staffID.setText(_staffModel.getID() + "");
@@ -59,7 +59,7 @@ public class addStaff extends javax.swing.JFrame {
         TF_phoneNumber.setText(_staffModel.getSdt());
         TF_CCCD.setText(_staffModel.getCccd());
         panelLocation2.setAddress(_staffModel.getAddress());
-        
+
         setFieldEnable(false);
     }
 
@@ -69,14 +69,14 @@ public class addStaff extends javax.swing.JFrame {
         TF_phoneNumber.setEditable(false);
         TF_CCCD.setEditable(false);
     }
-    
-    
+
     private void setComboboxRole() {
         comboBoxRole.removeAllItems();
         for (int i = 0; i < gListRole.size(); i++) {
             comboBoxRole.addItem(gListRole.get(i).getRoleName());
         }
     }
+
     private void setFieldEnable(boolean bool) {
         TF_NameStaff.setEditable(bool);
         TF_phoneNumber.setEditable(bool);
@@ -84,7 +84,7 @@ public class addStaff extends javax.swing.JFrame {
         TF_staffID.setEditable(bool);
         panelLocation2.setEnable(bool);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,15 +214,15 @@ public class addStaff extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
-    private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_phoneNumberActionPerformed
-
     private void comboBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRoleActionPerformed
         if (gListRole != null) {
             gRoleModel = gListRole.get(comboBoxRole.getSelectedIndex());
         }
     }//GEN-LAST:event_comboBoxRoleActionPerformed
+
+    private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_phoneNumberActionPerformed
 
     /**
      * @param args the command line arguments

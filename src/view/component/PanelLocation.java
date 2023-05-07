@@ -72,8 +72,8 @@ public class PanelLocation extends javax.swing.JPanel {
         jPanel3.add(jLabel11);
 
         textFieldAddress.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                textFieldAddressKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldAddressKeyReleased(evt);
             }
         });
         jPanel3.add(textFieldAddress);
@@ -161,6 +161,11 @@ public class PanelLocation extends javax.swing.JPanel {
         comboBoxDistrict.addItem("Huyện Long Thành");
         comboBoxDistrict.addItem("Huyện Xuân Lộc");
         comboBoxDistrict.addItem("Huyện Nhơn Trạch");
+    }
+
+    public static void main(String[] args) {
+        PanelLocation pl = new PanelLocation();
+        pl.setVisible(true);
     }
 
 
@@ -373,13 +378,13 @@ public class PanelLocation extends javax.swing.JPanel {
         setFullAddress();
     }//GEN-LAST:event_comboBoxDistrictActionPerformed
 
-    private void textFieldAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAddressKeyTyped
-        setFullAddress();
-    }//GEN-LAST:event_textFieldAddressKeyTyped
-
     private void comboBoxWardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxWardActionPerformed
         setFullAddress();
     }//GEN-LAST:event_comboBoxWardActionPerformed
+
+    private void textFieldAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAddressKeyReleased
+        setFullAddress();
+    }//GEN-LAST:event_textFieldAddressKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LB_location;

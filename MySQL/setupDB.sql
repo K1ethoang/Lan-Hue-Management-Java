@@ -242,5 +242,11 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 -- FROM typeparty;
 
 
+
+SELECT AUTO_INCREMENT as `nextID`
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA = database()
+AND TABLE_NAME = "dish";
+
 -- 											Trigger
 

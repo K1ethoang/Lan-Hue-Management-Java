@@ -13,32 +13,32 @@ import model.CustomerModel;
  * @author Admin
  */
 public class CustomerDAOImpl implements CustomerDAO {
-    
+
     public static CustomerDAOImpl getInstance() {
         return new CustomerDAOImpl();
     }
-    
+
     @Override
     public List<CustomerModel> getList() {
         try {
             Connection con = DBConnection.getConnection();
             String sql = "SELECT * FROM customer\n"
-                        + "ORDER BY CustomerID DESC;";
+                    + "ORDER BY CustomerID DESC;";
             List<CustomerModel> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery(sql);
             while (rs.next()) {
                 CustomerModel customer = new CustomerModel();
-                
+
                 customer.setID(rs.getInt("CustomerID"));
                 customer.setName(rs.getString("Name"));
                 customer.setPhoneNumber(rs.getString("PhoneNumber"));
                 customer.setSex(rs.getInt("Sex"));
                 customer.setCitizenNumber(rs.getString("UN_CitizenNumber"));
                 customer.setAddress(rs.getString("Address"));
-                
+
                 list.add(customer);
-            }  
+            }
             ps.close();
             rs.close();
             con.close();
@@ -48,18 +48,18 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
-    
+
     @Override
     public CustomerModel getByID(int ID) {
         try {
             Connection con = DBConnection.getConnection();
             String sql = "SELECT * FROM customer WHERE CustomerID = ?";
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, ID + "");
-            
+
             ResultSet rs = ps.executeQuery();
-            
+
             CustomerModel customer = null;
             if (rs.next()) {
                 customer = new CustomerModel();
@@ -70,7 +70,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customer.setCitizenNumber(rs.getString("UN_CitizenNumber"));
                 customer.setAddress(rs.getString("Address"));
             }
-            
+
             ps.close();
             rs.close();
             con.close();
@@ -80,9 +80,9 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
-    
+
     public static void main(String[] args) {
-        
+
     }
 
     @Override
@@ -100,12 +100,12 @@ public class CustomerDAOImpl implements CustomerDAO {
             ps.setInt(4, customer.isSex());
             ps.setString(5, customer.getCitizenNumber());
             ps.setString(6, customer.getAddress());
-            
+
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 isOk = true;
-            } 
-            
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,16 +120,17 @@ public class CustomerDAOImpl implements CustomerDAO {
             String sql = "DELETE FROM Customer WHERE CustomerID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            
+
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 isDelete = true;
-            } 
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return isDelete;
     }
+
     @Override
     public boolean update(CustomerModel customer) {
         boolean isUpdated = false;
@@ -138,7 +139,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             String sql = "UPDATE CUSTOMER SET Name = ?, PhoneNumber = ?, Sex = ?, UN_CitizenNumber = ?, Address = ? WHERE CustomerID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            if(!customer.getName().isEmpty() && !customer.getPhoneNumber().isEmpty() && (customer.isSex() == 0 || customer.isSex() == 1) && !customer.getCitizenNumber().isEmpty() && !customer.getAddress().isEmpty()){
+            if (!customer.getName().isEmpty() && !customer.getPhoneNumber().isEmpty() && (customer.isSex() == 0 || customer.isSex() == 1) && !customer.getCitizenNumber().isEmpty() && !customer.getAddress().isEmpty()) {
                 ps.setString(1, customer.getName());
                 ps.setString(2, customer.getPhoneNumber());
                 ps.setInt(3, customer.isSex());
@@ -149,7 +150,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 if (rs > 0) {
                     isUpdated = true;
                 }
-            } 
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

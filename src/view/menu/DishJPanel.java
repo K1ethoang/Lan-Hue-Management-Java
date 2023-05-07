@@ -36,7 +36,7 @@ public class DishJPanel extends javax.swing.JPanel {
 
         // set data
         setComboBoxTypeDish();
-        setDishTable(listDish);
+        setDishTable();
     }
 
     public void setDishTable() {
@@ -188,7 +188,6 @@ public class DishJPanel extends javax.swing.JPanel {
 
         addBtn.setBackground(new java.awt.Color(148, 175, 159));
         addBtn.setText("Thêm món");
-        addBtn.setToolTipText("Ctrl+N");
         addBtn.setColorHover(new java.awt.Color(187, 214, 184));
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -260,9 +259,17 @@ public class DishJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Tên món", "Giá", "Loại"
+                "ID", "Tên món", "Giá (Đồng)", "Loại"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableDish.setComponentPopupMenu(popupMenu);
         tableDish.setShowGrid(true);
         tableDish.getTableHeader().setReorderingAllowed(false);
@@ -290,8 +297,8 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-//        addDish addStaff = new addDish();
-//        addStaff.setVisible(true);
+        addDish _addDish = new addDish();
+        _addDish.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
@@ -307,19 +314,19 @@ public class DishJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_paymentBtn1ActionPerformed
 
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
-        String curTypeDish = (String) CB_typeDish.getSelectedItem();
-
-        if (curTypeDish.equals("Tất cả")) {
-            setDishTable(listDish);
-        } else {
-            gListSelectedDish.clear();
-            for (int i = 0; i < listDish.size(); i++) {
-                if (curTypeDish.equals(listDish.get(i).getTypeDish().getTypeName())) {
-                    gListSelectedDish.add(listDish.get(i));
-                }
-            }
-            setDishTable(gListSelectedDish);
-        }
+//        String curTypeDish = (String) CB_typeDish.getSelectedItem();
+//
+//        if (curTypeDish.equals("Tất cả")) {
+//            setDishTable(listDish);
+//        } else {
+//            gListSelectedDish.clear();
+//            for (int i = 0; i < listDish.size(); i++) {
+//                if (curTypeDish.equals(listDish.get(i).getTypeDish().getTypeName())) {
+//                    gListSelectedDish.add(listDish.get(i));
+//                }
+//            }
+//            setDishTable(gListSelectedDish);
+//        }
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

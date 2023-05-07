@@ -86,7 +86,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldAddress">
           <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldAddressKeyTyped"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldAddressKeyReleased"/>
           </Events>
         </Component>
       </SubComponents>

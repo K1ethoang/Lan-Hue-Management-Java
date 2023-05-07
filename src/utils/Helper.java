@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.sql.Time;
+import java.util.Currency;
 
 /**
  *
@@ -34,10 +35,17 @@ public class Helper {
     }
 
     public static String formatPriceToDisplay(double number) {
-        Locale localeVN = new Locale("vi", "VN");
-        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-        String s = currencyVN.format(number);
+        // Create a new Locale
+        Locale vn = new Locale("vi", "VN");
+        // Create a formatter given the Locale
+        NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vn);
+        // Format the Number into a Currency String
+        String s = dongFormat.format(number);
         return s;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(formatPriceToDisplay(100000.0));
     }
 
 }

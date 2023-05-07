@@ -21,9 +21,9 @@ public class CustomerJPanel extends javax.swing.JPanel {
     
     CustomerModel customerCurrent = new CustomerModel();
     protected static int gCurrentID = 0;
-    
+
     private TableRowSorter<TableModel> rowSorter = null;
-    
+
     public CustomerJPanel() {
         List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
         System.out.println("customerrrrrrrrrrrrrrrrrrrrrrrr");
@@ -44,30 +44,28 @@ public class CustomerJPanel extends javax.swing.JPanel {
         List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
         TableCustomer tb = new TableCustomer();
         tb.setCustomerDetailsToTable(listCustomer, tableCustomer);
-        
+
         rowSorter = new TableRowSorter<>(tableCustomer.getModel());
         tableCustomer.setRowSorter(rowSorter);
-        
+
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
@@ -76,7 +74,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
-        
+
         sumCustomer.setText("Số lượng: " + listCustomer.size() + "");
     }
 
