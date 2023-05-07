@@ -1,11 +1,32 @@
 package view.customer;
 
+import dao.Customer.CustomerDAOImpl;
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import model.CustomerModel;
+import table.TableCustomer;
 import view.component.scroll.ScrollBarCus;
 
 public class CustomerJPanel extends javax.swing.JPanel {
 
+    
+    CustomerModel customerCurrent = new CustomerModel();
+    protected static int gCurrentID = 0;
+
+    private TableRowSorter<TableModel> rowSorter = null;
+
     public CustomerJPanel() {
+        List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
+        System.out.println("customerrrrrrrrrrrrrrrrrrrrrrrr");
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
@@ -13,7 +34,61 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableCustomer.fixTable(ScrollPaneTable);
+        gCurrentID = listCustomer.get(0).getID() + 1;
+        
+        clearTable(); 
+        setCustomerTable();
+    }
 
+    public void setCustomerTable() {
+        List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
+        TableCustomer tb = new TableCustomer();
+        tb.setCustomerDetailsToTable(listCustomer, tableCustomer);
+
+        rowSorter = new TableRowSorter<>(tableCustomer.getModel());
+        tableCustomer.setRowSorter(rowSorter);
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+
+        sumCustomer.setText("Số lượng: " + listCustomer.size() + "");
+    }
+
+    private void setCustomerCurrent() {
+        List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
+        int row = tableCustomer.getSelectedRow();
+        CustomerModel customer = listCustomer.get(row);
+
+        customerCurrent.setID(customer.getID());
+        customerCurrent.setName(customer.getName());
+        customerCurrent.setPhoneNumber(customer.getPhoneNumber());
+        customerCurrent.setSex(customer.isSex());
+        customerCurrent.setCitizenNumber(customer.getCitizenNumber());
+        customerCurrent.setAddress(customer.getAddress());
     }
 
     @SuppressWarnings("unchecked")
@@ -47,6 +122,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setMnemonic('X');
         seeBtn.setText("Xem chi tiết");
+        seeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
@@ -55,6 +135,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
@@ -62,6 +147,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(removeBtn);
 
         setBackground(new java.awt.Color(249, 245, 231));
@@ -84,6 +174,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
@@ -108,16 +203,10 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
         addBtn.setBackground(new java.awt.Color(148, 175, 159));
         addBtn.setText("Thêm khách hàng");
-        addBtn.setToolTipText("Ctrl+N");
         addBtn.setColorHover(new java.awt.Color(187, 214, 184));
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addBtn.setPreferredSize(new java.awt.Dimension(150, 40));
-        addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addBtnMouseClicked(evt);
-            }
-        });
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
@@ -126,7 +215,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         button.add(addBtn);
 
         sumCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sumCustomer.setForeground(new java.awt.Color(0, 0, 0));
         sumCustomer.setText("Số lượng: 0");
         button.add(sumCustomer);
 
@@ -139,13 +227,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
         sex.setBackground(getBackground());
 
-        labelGoogleIcon2.setForeground(new java.awt.Color(0, 0, 0));
         labelGoogleIcon2.setText("Giới tính:");
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sex.add(labelGoogleIcon2);
 
         paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setForeground(new java.awt.Color(0, 0, 0));
         paymentNo.setText("Nữ");
         paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentNo.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +242,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sex.add(paymentNo);
 
         paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setForeground(new java.awt.Color(0, 0, 0));
         paymentYes.setText("Nam");
         paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentYes.addActionListener(new java.awt.event.ActionListener() {
@@ -176,20 +261,15 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
         tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Hoàng Gia Kiệt", "0784265174", "Nam", "075277784981", "Biên Hòa"},
-                {"2", "Nguyễn Văn C", "0123123123", "Nữ", "123123123123", "Biên Hòa"}
+
             },
             new String [] {
                 "ID", "Tên KH", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ"
             }
         ));
+        tableCustomer.setComponentPopupMenu(popupMenu);
         tableCustomer.setShowGrid(true);
         tableCustomer.getTableHeader().setReorderingAllowed(false);
-        tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tableCustomerMouseReleased(evt);
-            }
-        });
         ScrollPaneTable.setViewportView(tableCustomer);
 
         javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
@@ -213,18 +293,10 @@ public class CustomerJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        // TODO add your handling code here:
+        addCustomer addCustomer = new addCustomer();
+        addCustomer.setVisible(true);
+//        refresh();
     }//GEN-LAST:event_addBtnActionPerformed
-
-    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBtnMouseClicked
-
-    private void tableCustomerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerMouseReleased
-        if (evt.isPopupTrigger()) {
-            popupMenu.show(this, evt.getX(), evt.getY());
-        }
-    }//GEN-LAST:event_tableCustomerMouseReleased
 
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
         // TODO add your handling code here:
@@ -233,6 +305,81 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_paymentYesActionPerformed
+
+    private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
+        try {
+            setCustomerCurrent();
+            addCustomer addCustomer = new addCustomer(customerCurrent, false); // isSee == false thì chỉ đc xem, không được chỉnh sửa
+            addCustomer.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_seeBtnActionPerformed
+    
+//    public void saveBtnActionPerformed(java.awt.event.ActionEvent evt){
+//        addCustomer addCustomer = new addCustomer(customerCurrent, true);
+//        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+//            if (a == 0) {
+//                System.out.println("updateCustoemr: " + updateCustomer());
+//                if (addCustomer.insertCustomer() == true || addCustomer.updateCustomer() == true) {
+//                    JOptionPane.showMessageDialog(this, "Lưu thành công !");
+//                    addCustomer.setVisible(false);
+//                    clearTable();
+//                    setCustomerTable();
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+//                }
+//
+//            }
+//
+//    }
+    
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        try {
+            setCustomerCurrent();
+            addCustomer addCustomer = new addCustomer(customerCurrent, true);
+            addCustomer.setVisible(true);
+//            clearTable();
+//            setCustomerTable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_editBtnActionPerformed
+    
+    public void clearTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
+        model.setRowCount(0);
+        System.out.println("clearrrrrrrrrrrrrrrrrr");
+    }
+    
+    
+    
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        try {
+            setCustomerCurrent();
+            addCustomer addCustomer = new addCustomer(customerCurrent, true);
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+            if (a == 0) {
+                if (addCustomer.deleteCustomer() == true) {
+                    clearTable();
+                    setCustomerTable();
+
+                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
+             
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_removeBtnActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;
@@ -257,4 +404,8 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private view.component.table.Table tableCustomer;
     private javax.swing.JPanel top;
     // End of variables declaration//GEN-END:variables
+
+    private String updateCustomer() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

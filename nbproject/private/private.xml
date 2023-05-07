@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Lan-Hue-Management/src/view/main/CustomerJPanel.java</file>
-            <file>file:/D:/Lan-Hue-Management/src/view/main/PartyJPanel.java</file>
-            <file>file:/D:/Lan-Hue-Management/src/view/main/TaiKhoanJPanel.java</file>
-            <file>file:/D:/Lan-Hue-Management/src/view/main/StaffJPanel.java</file>
-            <file>file:/D:/Lan-Hue-Management/Note.txt</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/menu/DishJPanel.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/controller/ChuyenManHinhController.java</file>
+            <file>file:/D:/Lan-Hue-Management/src/view/main/MainView.java</file>
         </group>
     </open-files>
 </project-private>

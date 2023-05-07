@@ -15,7 +15,7 @@ import view.main.DoanhThuJPanel;
 import view.customer.CustomerJPanel;
 import view.staff.StaffJPanel;
 import view.account.AccountJPanel;
-import view.main.ThucDonJPanel;
+import view.menu.DishJPanel;
 
 public class ChuyenManHinhController {
 
@@ -74,7 +74,7 @@ public class ChuyenManHinhController {
                     node = new StaffJPanel();
                     break;
                 case "ThucDon":
-                    node = new ThucDonJPanel();
+                    node = new DishJPanel();
                     break;
                 case "Tiec":
                     node = new PartyJPanel();
