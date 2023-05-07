@@ -17,6 +17,7 @@ public class PanelLocation extends javax.swing.JPanel {
     }
 
     public void setEnable(boolean bool) {
+        comboBoxProvince.setEnabled(bool);
         comboBoxDistrict.setEnabled(bool);
         comboBoxWard.setEnabled(bool);
         textFieldAddress.setEditable(bool);

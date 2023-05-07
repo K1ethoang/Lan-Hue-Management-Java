@@ -4,6 +4,7 @@ import dao.Account.AccountDAOImpl;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.text.Caret;
 import model.AccountModel;
 import view.main.MainView;
 
@@ -39,7 +40,6 @@ public class LoginView extends javax.swing.JFrame {
         showPassBtn = new view.component.LabelAwesomeIcon();
         hidePassBtn = new view.component.LabelAwesomeIcon();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(650, 350));
@@ -100,9 +100,9 @@ public class LoginView extends javax.swing.JFrame {
         passwordField.setText("matkhau");
         passwordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         passwordField.setCaretColor(new java.awt.Color(255, 255, 255));
-        passwordField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                passwordFieldMouseClicked(evt);
+        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordFieldFocusGained(evt);
             }
         });
         passwordField.addActionListener(new java.awt.event.ActionListener() {
@@ -125,9 +125,9 @@ public class LoginView extends javax.swing.JFrame {
         usernameField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         usernameField.setCaretColor(new java.awt.Color(255, 255, 255));
         usernameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        usernameField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usernameFieldMouseClicked(evt);
+        usernameField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usernameFieldFocusGained(evt);
             }
         });
         usernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -185,11 +185,6 @@ public class LoginView extends javax.swing.JFrame {
         loginBtn.setColorHover(new java.awt.Color(187, 214, 184));
         loginBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         loginBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loginBtnMouseClicked(evt);
-            }
-        });
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
@@ -301,28 +296,6 @@ public class LoginView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Liên hệ admin để lấy lại mật khẩu!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_forgotPasswordBtnMouseClicked
 
-    private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseClicked
-        login();
-    }//GEN-LAST:event_loginBtnMouseClicked
-
-    private void usernameFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameFieldMouseClicked
-        if (getUsername().toUpperCase().equals("TÀI KHOẢN")) {
-            usernameField.setText("");
-        }
-        if (getPassword().toUpperCase().equals("")) {
-            passwordField.setText("Matkhau");
-        }
-    }//GEN-LAST:event_usernameFieldMouseClicked
-
-    private void passwordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordFieldMouseClicked
-        if (getUsername().toUpperCase().equals("")) {
-            usernameField.setText("Tài khoản");
-        }
-        if (getPassword().toUpperCase().equals("MATKHAU")) {
-            passwordField.setText("");
-        }
-    }//GEN-LAST:event_passwordFieldMouseClicked
-
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
         System.exit(0);
     }//GEN-LAST:event_closeBtnMouseClicked
@@ -344,8 +317,26 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFieldKeyPressed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        // TODO add your handling code here:
+        login();
     }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
+        if (getUsername().toUpperCase().equals("")) {
+            usernameField.setText("Tài khoản");
+        }
+        if (getPassword().toUpperCase().equals("MATKHAU")) {
+            passwordField.setText("");
+        }
+    }//GEN-LAST:event_passwordFieldFocusGained
+
+    private void usernameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusGained
+        if (getUsername().toUpperCase().equals("TÀI KHOẢN")) {
+            usernameField.setText("");
+        }
+        if (getPassword().toUpperCase().equals("")) {
+            passwordField.setText("Matkhau");
+        }
+    }//GEN-LAST:event_usernameFieldFocusGained
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -401,9 +392,10 @@ public class LoginView extends javax.swing.JFrame {
             } else {
                 MainView mainView = new MainView();
                 mainView.setVisible(true);
-                this.dispose();
             }
         }
+        usernameField.setText("");
+        passwordField.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.component.LabelGoogleIcon closeBtn;

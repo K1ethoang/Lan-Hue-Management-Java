@@ -2,12 +2,14 @@ package view.party;
 
 import dao.Party.PartyDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
+import java.awt.PopupMenu;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -22,9 +24,9 @@ public class PartyJPanel extends javax.swing.JPanel {
     List<PartyModel> gListParty = null;
     PartyModel gPartyCurrent = new PartyModel();
     protected static int gCurrentID = 0;
-    
+
     private TableRowSorter<TableModel> rowSorter = null;
-    
+
     public PartyJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -44,32 +46,30 @@ public class PartyJPanel extends javax.swing.JPanel {
     }
 
     private void setPartyTable() {
-        
+
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(gListParty, tableParty);
-        
+
         rowSorter = new TableRowSorter<>(tableParty.getModel());
         tableParty.setRowSorter(rowSorter);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
@@ -78,7 +78,7 @@ public class PartyJPanel extends javax.swing.JPanel {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
-        
+
         sumParty.setText("Số lượng: " + gListParty.size() + "");
 
     }
@@ -116,7 +116,9 @@ public class PartyJPanel extends javax.swing.JPanel {
         seePartyBtn = new javax.swing.JMenuItem();
         seeMenuBtn = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        editBtn = new javax.swing.JMenuItem();
+        editBtn = new javax.swing.JMenu();
+        editPartyBtn = new javax.swing.JMenuItem();
+        editMenuBtn = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         selectDishBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -150,8 +152,8 @@ public class PartyJPanel extends javax.swing.JPanel {
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setText("Xem");
 
-        seePartyBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seePartyBtn.setText("Tiệc");
+        seePartyBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seePartyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seePartyBtnActionPerformed(evt);
@@ -159,8 +161,8 @@ public class PartyJPanel extends javax.swing.JPanel {
         });
         seeBtn.add(seePartyBtn);
 
-        seeMenuBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seeMenuBtn.setText("Món ăn");
+        seeMenuBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seeMenuBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seeMenuBtnActionPerformed(evt);
@@ -171,14 +173,27 @@ public class PartyJPanel extends javax.swing.JPanel {
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator4);
 
-        editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setText("Chỉnh sửa");
-        editBtn.addActionListener(new java.awt.event.ActionListener() {
+
+        editPartyBtn.setText("Tiệc");
+        editPartyBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        editPartyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtnActionPerformed(evt);
+                editPartyBtnActionPerformed(evt);
             }
         });
+        editBtn.add(editPartyBtn);
+
+        editMenuBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        editMenuBtn.setText("Món ăn");
+        editMenuBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editMenuBtnActionPerformed(evt);
+            }
+        });
+        editBtn.add(editMenuBtn);
+
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator2);
 
@@ -193,10 +208,9 @@ public class PartyJPanel extends javax.swing.JPanel {
         popupMenu.add(selectDishBtn);
         popupMenu.add(jSeparator3);
 
-        removeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
+        removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeBtnActionPerformed(evt);
@@ -217,13 +231,13 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         searchPanel.setBackground(getBackground());
 
-        searchField.setForeground(new java.awt.Color(0, 0, 0));
-        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.setBorderColor(new java.awt.Color(10, 77, 104));
         searchField.setBotonColor(new java.awt.Color(0, 0, 0));
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        searchField.setForeground(new java.awt.Color(0, 0, 0));
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -251,8 +265,8 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         button.setBackground(getBackground());
 
-        addBtn.setBackground(new java.awt.Color(148, 175, 159));
         addBtn.setText("Thêm tiệc");
+        addBtn.setBackground(new java.awt.Color(148, 175, 159));
         addBtn.setColorHover(new java.awt.Color(187, 214, 184));
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -426,8 +440,9 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void seeMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeMenuBtnActionPerformed
         int row = getIndexPartySelected();
         if (row >= 0) {
+            AddPartyMenuView.isPartyMenuEdit = false;
             setPartyCurrent(row);
-            addPartyMenu addPartyMenu = new addPartyMenu(gPartyCurrent);
+            AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } else {
             printDialogErrorSelectParty();
@@ -437,8 +452,9 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void seePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seePartyBtnActionPerformed
         int row = getIndexPartySelected();
         if (row >= 0) {
+            AddPartyView.isPartyEdit = false;
             setPartyCurrent(row);
-            addParty addParty = new addParty(gPartyCurrent);
+            AddPartyView addParty = new AddPartyView(gPartyCurrent);
             addParty.setVisible(true);
         } else {
             printDialogErrorSelectParty();
@@ -449,12 +465,36 @@ public class PartyJPanel extends javax.swing.JPanel {
         int row = getIndexPartySelected();
         if (row >= 0) {
             setPartyCurrent(row);
-            addPartyMenu addPartyMenu = new addPartyMenu(gPartyCurrent);
+            AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } else {
             printDialogErrorSelectParty();
         }
     }//GEN-LAST:event_selectDishBtnActionPerformed
+
+    private void editMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuBtnActionPerformed
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            AddPartyMenuView.isPartyMenuEdit = true;
+            setPartyCurrent(row);
+            AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
+            addPartyMenu.setVisible(true);
+        } else {
+            printDialogErrorSelectParty();
+        }
+    }//GEN-LAST:event_editMenuBtnActionPerformed
+
+    private void editPartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPartyBtnActionPerformed
+        int row = getIndexPartySelected();
+        if (row >= 0) {
+            AddPartyView.isPartyEdit = true;
+            setPartyCurrent(row);
+            AddPartyView addPartyView = new AddPartyView(gPartyCurrent);
+            addPartyView.setVisible(true);
+        } else {
+            printDialogErrorSelectParty();
+        }
+    }//GEN-LAST:event_editPartyBtnActionPerformed
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
@@ -462,7 +502,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_paymentBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        addParty addParty = new addParty();
+        AddPartyView addParty = new AddPartyView();
         addParty.setVisible(true);
     }
 
@@ -499,15 +539,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         }
     }
 
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
-            // code
-        } else {
-            printDialogErrorSelectParty();
-        }
-    }
-
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_searchFieldActionPerformed
@@ -518,7 +549,9 @@ public class PartyJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel button;
     private javax.swing.JPanel center;
     private javax.swing.JComboBox<String> comboBoxTypeParty;
-    private javax.swing.JMenuItem editBtn;
+    private javax.swing.JMenu editBtn;
+    private javax.swing.JMenuItem editMenuBtn;
+    private javax.swing.JMenuItem editPartyBtn;
     private javax.swing.JPanel filter;
     private javax.swing.JPanel happen;
     private javax.swing.JCheckBox happenDone;

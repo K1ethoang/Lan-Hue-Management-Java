@@ -175,10 +175,18 @@
                     <Property name="text" type="java.lang.String" value="S&#x1ed1; b&#xe0;n (*)"/>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.components.JSpinField" name="SP_partyNumber">
+                <Component class="javax.swing.JSpinner" name="SP_partyNumber">
                   <Properties>
-                    <Property name="value" type="int" value="2"/>
+                    <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
+                      <SpinnerEditor format="" type="3"/>
+                    </Property>
+                    <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="2" type="code"/>
+                    </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="SP_partyNumberStateChanged"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -292,13 +300,13 @@
                   <SubComponents>
                     <Component class="javax.swing.JList" name="menuList">
                       <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="14" style="0"/>
-                        </Property>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                           <StringArray count="0"/>
                         </Property>
                         <Property name="selectionMode" type="int" value="1"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="14" style="0"/>
+                        </Property>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -348,9 +356,9 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="clearBtn" min="-2" pref="111" max="-2" attributes="0"/>
-                                          <Component id="removeBtn" min="-2" pref="111" max="-2" attributes="0"/>
-                                          <Component id="addBtn" min="-2" pref="111" max="-2" attributes="0"/>
+                                          <Component id="clearDishBtn" min="-2" pref="111" max="-2" attributes="0"/>
+                                          <Component id="removeDishBtn" min="-2" pref="111" max="-2" attributes="0"/>
+                                          <Component id="addDishBtn" min="-2" pref="111" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   </Group>
@@ -365,11 +373,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="CB_typeDish" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="107" max="32767" attributes="0"/>
-                              <Component id="addBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="addDishBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="removeBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="removeDishBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="clearBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="clearDishBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -389,28 +397,28 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JButton" name="addBtn">
+                    <Component class="javax.swing.JButton" name="addDishBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Th&#xea;m &gt;&gt;"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addBtnActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addDishBtnActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="removeBtn">
+                    <Component class="javax.swing.JButton" name="removeDishBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="&lt;&lt; X&#xf3;a"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeBtnActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeDishBtnActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="clearBtn">
+                    <Component class="javax.swing.JButton" name="clearDishBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="X&#xf3;a t&#x1ea5;t c&#x1ea3;"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearBtnActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearDishBtnActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -495,10 +503,10 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="LB_totalPrice">
                       <Properties>
+                        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng: "/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="14" style="0"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng: "/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="TF_totalPrice">

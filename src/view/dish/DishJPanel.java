@@ -1,4 +1,4 @@
-package view.menu;
+package view.dish;
 
 import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
@@ -101,8 +101,6 @@ public class DishJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         popupMenu = new javax.swing.JPopupMenu();
-        seeBtn = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         editBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         removeBtn = new javax.swing.JMenuItem();
@@ -122,23 +120,12 @@ public class DishJPanel extends javax.swing.JPanel {
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableDish = new view.component.table.Table();
 
-        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        seeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
-        seeBtn.setMnemonic('X');
-        seeBtn.setText("Xem chi tiết");
-        popupMenu.add(seeBtn);
-        popupMenu.add(jSeparator2);
-
-        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
-        editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
-        removeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
@@ -297,7 +284,7 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-        addDish _addDish = new addDish();
+        AddDishView _addDish = new AddDishView();
         _addDish.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -338,7 +325,6 @@ public class DishJPanel extends javax.swing.JPanel {
     private javax.swing.JMenuItem editBtn;
     private javax.swing.JPanel filter;
     private javax.swing.JPanel happen;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
     private rojeru_san.complementos.RSButtonHover paymentBtn1;
@@ -347,7 +333,6 @@ public class DishJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;
     private javax.swing.JPanel searchPanel;
-    private javax.swing.JMenuItem seeBtn;
     private javax.swing.JLabel sumDish;
     private view.component.table.Table tableDish;
     private javax.swing.JPanel top;
