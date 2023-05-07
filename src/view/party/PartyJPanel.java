@@ -8,6 +8,11 @@ import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.PartyModel;
 import model.TypePartyModel;
 import table.TableParty;
@@ -17,7 +22,9 @@ public class PartyJPanel extends javax.swing.JPanel {
     List<PartyModel> gListParty = null;
     PartyModel gPartyCurrent = new PartyModel();
     protected static int gCurrentID = 0;
-
+    
+    private TableRowSorter<TableModel> rowSorter = null;
+    
     public PartyJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -37,8 +44,41 @@ public class PartyJPanel extends javax.swing.JPanel {
     }
 
     private void setPartyTable() {
+        
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(gListParty, tableParty);
+        
+        rowSorter = new TableRowSorter<>(tableParty.getModel());
+        tableParty.setRowSorter(rowSorter);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+        
         sumParty.setText("Số lượng: " + gListParty.size() + "");
 
     }

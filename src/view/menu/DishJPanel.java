@@ -4,6 +4,11 @@ import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
 import java.util.List;
 import javax.swing.JScrollBar;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.DishModel;
 import model.TypeDishModel;
 import table.TableDish;
@@ -11,9 +16,10 @@ import view.component.scroll.ScrollBarCus;
 
 public class DishJPanel extends javax.swing.JPanel {
 
-    List<DishModel> listDish = DishDAOImpl.getInstance().getList();
     DishModel dishCurrent = new DishModel();
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+    
+    private TableRowSorter<TableModel> rowSorter = null;
 
     public DishJPanel() {
         initComponents();
@@ -30,9 +36,41 @@ public class DishJPanel extends javax.swing.JPanel {
     }
 
     public void setDishTable() {
-        System.out.println(listDish);
+        List<DishModel> listDish = DishDAOImpl.getInstance().getList();
         TableDish tb = new TableDish();
         tb.setDishDetailsToTable(listDish, tableDish);
+        
+        rowSorter = new TableRowSorter<>(tableDish.getModel());
+        tableDish.setRowSorter(rowSorter);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+        
         sumDish.setText("Số lượng: " + listDish.size());
     }
 
@@ -44,6 +82,7 @@ public class DishJPanel extends javax.swing.JPanel {
     }
 
     private void setDishCurrent() {
+        List<DishModel> listDish = DishDAOImpl.getInstance().getList();
         int row = tableDish.getSelectedRow();
         DishModel dish = listDish.get(row);
 

@@ -38,9 +38,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customer.setAddress(rs.getString("Address"));
                 
                 list.add(customer);
-                System.out.println(customer);
             }  
-            System.out.println(list);
             ps.close();
             rs.close();
             con.close();

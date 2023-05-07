@@ -4,17 +4,23 @@ import dao.Staff.StaffDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.StaffModel;
 import table.TableStaff;
 import view.component.scroll.ScrollBarCus;
 
 public class StaffJPanel extends javax.swing.JPanel {
 
-    List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
     StaffModel staffCurrent = new StaffModel();
     protected static int gCurrentID = 0;
+    private TableRowSorter<TableModel> rowSorter = null;
     
     public StaffJPanel() {
+        List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
@@ -28,13 +34,46 @@ public class StaffJPanel extends javax.swing.JPanel {
     }
 
     public void setStaffTable() {
-        System.out.println(listStaff);
+        List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
         TableStaff tb = new TableStaff();
         tb.setStaffDetailsToTable(listStaff, tableStaff);
+        
+        rowSorter = new TableRowSorter<>(tableStaff.getModel());
+        tableStaff.setRowSorter(rowSorter);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = searchField.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }
+                else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+        
         sumStaff.setText("Số lượng: " + listStaff.size());
     }
 
     private void setStaffCurrent() {
+        List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
         int row = tableStaff.getSelectedRow();
         StaffModel staff = listStaff.get(row);
 

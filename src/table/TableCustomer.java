@@ -23,7 +23,6 @@ public class TableCustomer {
                     String customerCCCD = customer.getCitizenNumber();
                     String customerAddress = customer.getAddress();
 
-                    System.out.println(customer);
                     Object[] obj = {customerID, customerName, customerSDT, sex, customerCCCD, customerAddress};
                     model = (DefaultTableModel) tableCustomer.getModel();
                     model.addRow(obj);

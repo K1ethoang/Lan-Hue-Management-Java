@@ -9,11 +9,12 @@ import view.component.scroll.ScrollBarCus;
 import static view.customer.CustomerJPanel.gCurrentID;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class addCustomer extends javax.swing.JFrame {
 
     CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
-    CustomerJPanel cusJpn = new CustomerJPanel();
     boolean isSex = true;
 
     public addCustomer() {
@@ -48,7 +49,7 @@ public class addCustomer extends javax.swing.JFrame {
     }
 
     // add customer
-    private boolean insertCustomer() {
+    boolean insertCustomer() {
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(TF_NameCustomer.getText());
@@ -61,12 +62,12 @@ public class addCustomer extends javax.swing.JFrame {
         customer.setCitizenNumber(TF_CCCD.getText());
         customer.setAddress(panelLocation2.getAddress());
 
-//        System.out.println(customer);
+
         return customerDAOImpl.insert(customer);
     }
 
     // UPDATE CUSTOMER
-    private boolean updateCustomer() {
+    public boolean updateCustomer() {
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(TF_NameCustomer.getText());
@@ -90,7 +91,6 @@ public class addCustomer extends javax.swing.JFrame {
 
     private void setData(CustomerModel _customerModel, boolean isSee) {
         this.setTitle("Xem Khách Hàng");
-        System.out.println(_customerModel.isSex());
         TF_customerID.setText(_customerModel.getID() + "");
         TF_NameCustomer.setText(_customerModel.getName());
         if (_customerModel.isSex() == 1) {
@@ -115,10 +115,6 @@ public class addCustomer extends javax.swing.JFrame {
 
     private void setTextFieldID() {
         TF_customerID.setText(gCurrentID + "");
-    }
-
-    private void setCheckBoxSex() {
-
     }
 
     @SuppressWarnings("unchecked")
@@ -289,43 +285,31 @@ public class addCustomer extends javax.swing.JFrame {
     private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_phoneNumberActionPerformed
-
+    
+    public rojeru_san.complementos.RSButtonHover getBtnSave(){
+        return saveBtn2;
+    } 
+    
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
-
-        // STATUS: ADD
-//        int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
-//        if((insertCustomer() == true && a == 0) || (updateCustomer() == true && a == 0)){
-//            cusJpn.setCustomerTable(); // xét lại table
-//            setVisible(false); // tắt mà hình add
-//            cusJpn.setVisible(true); // 
-//        }
-//        else{
-//            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu");
-//        }
-        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
-        if (a == 0) {
-            System.out.println("add: " + insertCustomer());
-            System.out.println("update: " + updateCustomer());
-            if (insertCustomer() == true || updateCustomer() == true) {
+        
+//        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+//        if (a == 0) {
+            if (insertCustomer() == true || updateCustomer() == true) {    
                 JOptionPane.showMessageDialog(this, "Lưu thành công !");
-                cusJpn.setCustomerTable(); // xét lại table
-                setVisible(false); // tắt mà hình add
-                cusJpn.setVisible(true); // 
-//                clearTable();
-//                setCustomerTable();
-            } //            else if(updateCustomer() == true){
-            //                JOptionPane.showMessageDialog(this, "Chỉnh sửa thành công !");
-            //                cusJpn.setCustomerTable(); // xét lại table
-            //                setVisible(false); // tắt mà hình add
-            //                cusJpn.setVisible(true); // 
-            //            }
+                dispose();
+                CustomerJPanel customerJpn = new CustomerJPanel();
+                System.out.println("1");
+                customerJpn.clearTable();
+                System.out.println("2");
+                
+                customerJpn.setCustomerTable();
+                System.out.println("");
+            } 
             else {
                 JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
             }
 
-        }
-
-        //STATUS: DELETE
+//        }
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
     private void cancelBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtn2MouseClicked
