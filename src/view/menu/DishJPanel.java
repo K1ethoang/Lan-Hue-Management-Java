@@ -5,15 +5,13 @@ import dao.TypeDish.TypeDishDAOImpl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JScrollBar;
-<<<<<<< HEAD
+
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-=======
 import javax.swing.table.DefaultTableModel;
->>>>>>> 58b1d5f02664e3abcc7854faaa2fdca45caa1f52
 import model.DishModel;
 import model.TypeDishModel;
 import table.TableDish;
@@ -23,12 +21,9 @@ public class DishJPanel extends javax.swing.JPanel {
 
     DishModel dishCurrent = new DishModel();
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
-<<<<<<< HEAD
-    
+
     private TableRowSorter<TableModel> rowSorter = null;
-=======
     List<DishModel> gListSelectedDish = new ArrayList<>();
->>>>>>> 58b1d5f02664e3abcc7854faaa2fdca45caa1f52
 
     public DishJPanel() {
         initComponents();
@@ -44,34 +39,31 @@ public class DishJPanel extends javax.swing.JPanel {
         setDishTable(listDish);
     }
 
-<<<<<<< HEAD
     public void setDishTable() {
         List<DishModel> listDish = DishDAOImpl.getInstance().getList();
         TableDish tb = new TableDish();
         tb.setDishDetailsToTable(listDish, tableDish);
-        
+
         rowSorter = new TableRowSorter<>(tableDish.getModel());
         tableDish.setRowSorter(rowSorter);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
@@ -80,18 +72,9 @@ public class DishJPanel extends javax.swing.JPanel {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
-        
+
         sumDish.setText("Số lượng: " + listDish.size());
-=======
-    public void setDishTable(List data) {
-        TableDish tb = new TableDish();
-        // clear row in table
-        DefaultTableModel dtm = (DefaultTableModel) tableDish.getModel();
-        dtm.setRowCount(0);
-        // set data for table and sum model
-        tb.setDishDetailsToTable(data, tableDish);
-        sumDish.setText("Số lượng: " + data.size());
->>>>>>> 58b1d5f02664e3abcc7854faaa2fdca45caa1f52
+
     }
 
     private void setComboBoxTypeDish() {
