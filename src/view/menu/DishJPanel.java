@@ -2,13 +2,18 @@ package view.menu;
 
 import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JScrollBar;
+<<<<<<< HEAD
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+=======
+import javax.swing.table.DefaultTableModel;
+>>>>>>> 58b1d5f02664e3abcc7854faaa2fdca45caa1f52
 import model.DishModel;
 import model.TypeDishModel;
 import table.TableDish;
@@ -18,8 +23,12 @@ public class DishJPanel extends javax.swing.JPanel {
 
     DishModel dishCurrent = new DishModel();
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+<<<<<<< HEAD
     
     private TableRowSorter<TableModel> rowSorter = null;
+=======
+    List<DishModel> gListSelectedDish = new ArrayList<>();
+>>>>>>> 58b1d5f02664e3abcc7854faaa2fdca45caa1f52
 
     public DishJPanel() {
         initComponents();
@@ -32,9 +41,10 @@ public class DishJPanel extends javax.swing.JPanel {
 
         // set data
         setComboBoxTypeDish();
-        setDishTable();
+        setDishTable(listDish);
     }
 
+<<<<<<< HEAD
     public void setDishTable() {
         List<DishModel> listDish = DishDAOImpl.getInstance().getList();
         TableDish tb = new TableDish();
@@ -72,10 +82,21 @@ public class DishJPanel extends javax.swing.JPanel {
         });
         
         sumDish.setText("Số lượng: " + listDish.size());
+=======
+    public void setDishTable(List data) {
+        TableDish tb = new TableDish();
+        // clear row in table
+        DefaultTableModel dtm = (DefaultTableModel) tableDish.getModel();
+        dtm.setRowCount(0);
+        // set data for table and sum model
+        tb.setDishDetailsToTable(data, tableDish);
+        sumDish.setText("Số lượng: " + data.size());
+>>>>>>> 58b1d5f02664e3abcc7854faaa2fdca45caa1f52
     }
 
     private void setComboBoxTypeDish() {
         CB_typeDish.removeAllItems();
+        CB_typeDish.addItem("Tất cả");
         for (int i = 0; i < gListTypeDish.size(); i++) {
             CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
         }
@@ -304,7 +325,18 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
         String curTypeDish = (String) CB_typeDish.getSelectedItem();
-        System.out.println(curTypeDish);
+
+        if (curTypeDish.equals("Tất cả")) {
+            setDishTable(listDish);
+        } else {
+            gListSelectedDish.clear();
+            for (int i = 0; i < listDish.size(); i++) {
+                if (curTypeDish.equals(listDish.get(i).getTypeDish().getTypeName())) {
+                    gListSelectedDish.add(listDish.get(i));
+                }
+            }
+            setDishTable(gListSelectedDish);
+        }
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,9 +1,24 @@
 package view.party;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.DateHighlightPolicy;
 import dao.Dish.DishDAOImpl;
 import dao.Party.PartyDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
+import java.sql.Time;
+import java.text.DateFormatSymbols;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
@@ -30,9 +45,11 @@ public class addPartyMenu extends javax.swing.JFrame {
 //    List<DishModel> gCurrentListMenuDish = null;
 
     public addPartyMenu() {
+        this.setTitle("Xem món ăn");
         initComponents();
         setScrollPane();
         setComboBoxTypeDish();
+        initDateTimeField();
 
     }
 
@@ -44,6 +61,32 @@ public class addPartyMenu extends javax.swing.JFrame {
         // set Data
         setComboBoxTypeDish();
         setDataSeePartyMenu(_partyModel);
+
+        initDateTimeField();
+
+    }
+
+    private void initDateTimeField() {
+        Locale locale = new Locale("vi");
+        // set date
+
+        DatePickerSettings settings = new DatePickerSettings(locale);
+        settings.setAllowEmptyDates(false);
+        settings.setFormatForDatesCommonEra("EEEE, d MMMM, y");
+        settings.setFormatForTodayButton(DateTimeFormatter.ofPattern("d MMMM y", locale));
+        TF_date.setSettings(settings);
+
+        // set time
+        SP_time.setTimeToNow();
+
+        SP_time.setLocale(Locale.getDefault());
+
+        SP_time.getSettings().setAllowEmptyTimes(false);
+
+        SP_time.getSettings().setDisplaySpinnerButtons(true);
+
+        SP_time.getSettings().setFormatForMenuTimes(DateTimeFormatter.ofPattern("HH:mm", locale));
+        SP_time.getSettings().setFormatForDisplayTime(DateTimeFormatter.ofPattern("HH:mm", locale));
     }
 
     private void setScrollPane() {
@@ -72,11 +115,23 @@ public class addPartyMenu extends javax.swing.JFrame {
         TF_partyID.setText(partyModel.getID() + "");
         TF_partyName.setText(partyModel.getPartyName());
         SP_partyNumber.setValue(partyModel.getTableNumber());
-        SP_time.setValue(partyModel.getTime());
-        TF_date.setDate(partyModel.getDate());
+        setTimeField(partyModel.getTime());
+        setDateField(partyModel.getDate());
         comboBoxTypeParty.addItem(partyModel.getTypeParty().getName());
         comboBoxPhoneNumber.addItem(partyModel.getCustomer().getPhoneNumber());
         TF_nameCustomer.setText(partyModel.getCustomer().getName());
+    }
+
+    private void setTimeField(Time time) {
+        LocalTime localTime = time.toLocalTime();
+        SP_time.setTime(localTime);
+    }
+
+    private void setDateField(Date date) {
+        LocalDate localDate = Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.of("Asia/Ho_Chi_Minh"))
+                .toLocalDate();
+        TF_date.setDate(localDate);
     }
 
     private void setFieldEnableInformationParty(boolean bool) {
@@ -104,20 +159,20 @@ public class addPartyMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         center = new javax.swing.JPanel();
-        panelLeft = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        panelLeft1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         TF_partyID = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         TF_partyName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         SP_partyNumber = new com.toedter.components.JSpinField();
-        panelRight = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        panelRight1 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
         comboBoxTypeParty = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        SP_time = new javax.swing.JSpinner();
-        jLabel10 = new javax.swing.JLabel();
-        TF_date = new com.toedter.calendar.JDateChooser();
+        jLabel15 = new javax.swing.JLabel();
+        SP_time = new com.github.lgooddatepicker.components.TimePicker();
+        jLabel16 = new javax.swing.JLabel();
+        TF_date = new com.github.lgooddatepicker.components.DatePicker();
         panelMenu = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
@@ -142,7 +197,7 @@ public class addPartyMenu extends javax.swing.JFrame {
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Thêm tiệc");
+        setTitle("Chọn món ăn");
         setResizable(false);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
@@ -193,10 +248,10 @@ public class addPartyMenu extends javax.swing.JFrame {
         center.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 10, 0));
         center.setLayout(new java.awt.GridLayout(1, 2, 10, 0));
 
-        panelLeft.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
+        panelLeft1.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
 
-        jLabel1.setText("ID");
-        panelLeft.add(jLabel1);
+        jLabel8.setText("ID");
+        panelLeft1.add(jLabel8);
 
         TF_partyID.setEditable(false);
         TF_partyID.setText("0");
@@ -205,52 +260,47 @@ public class addPartyMenu extends javax.swing.JFrame {
                 TF_partyIDActionPerformed(evt);
             }
         });
-        panelLeft.add(TF_partyID);
+        panelLeft1.add(TF_partyID);
 
-        jLabel2.setText("Tên tiệc (*)");
-        panelLeft.add(jLabel2);
+        jLabel12.setText("Tên tiệc (*)");
+        panelLeft1.add(jLabel12);
 
         TF_partyName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TF_partyNameActionPerformed(evt);
             }
         });
-        panelLeft.add(TF_partyName);
+        panelLeft1.add(TF_partyName);
 
-        jLabel3.setText("Số bàn (*)");
-        panelLeft.add(jLabel3);
+        jLabel13.setText("Số bàn (*)");
+        panelLeft1.add(jLabel13);
 
         SP_partyNumber.setValue(2);
-        panelLeft.add(SP_partyNumber);
+        panelLeft1.add(SP_partyNumber);
 
-        center.add(panelLeft);
+        center.add(panelLeft1);
 
-        panelRight.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
+        panelRight1.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
 
-        jLabel7.setText("Loại tiệc (*)");
-        panelRight.add(jLabel7);
+        jLabel14.setText("Loại tiệc (*)");
+        panelRight1.add(jLabel14);
 
         comboBoxTypeParty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTypePartyActionPerformed(evt);
             }
         });
-        panelRight.add(comboBoxTypeParty);
+        panelRight1.add(comboBoxTypeParty);
 
-        jLabel4.setText("Thời gian (*)");
-        panelRight.add(jLabel4);
+        jLabel15.setText("Thời gian (*)");
+        panelRight1.add(jLabel15);
+        panelRight1.add(SP_time);
 
-        SP_time.setModel(new javax.swing.SpinnerDateModel());
-        SP_time.setEditor(new javax.swing.JSpinner.DateEditor(SP_time, "HH:mm"));
-        panelRight.add(SP_time);
+        jLabel16.setText("Ngày (*)");
+        panelRight1.add(jLabel16);
+        panelRight1.add(TF_date);
 
-        jLabel10.setText("Ngày (*)");
-        panelRight.add(jLabel10);
-
-        TF_date.setDateFormatString("dd-MM-yyyy");
-        panelRight.add(TF_date);
-
-        center.add(panelRight);
+        center.add(panelRight1);
 
         jPanel2.add(center);
 
@@ -258,11 +308,11 @@ public class addPartyMenu extends javax.swing.JFrame {
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
+            .addGap(0, 910, Short.MAX_VALUE)
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel2.add(panelMenu);
@@ -316,17 +366,18 @@ public class addPartyMenu extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(CB_typeDish, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20))
+                    .addComponent(CB_typeDish, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +396,10 @@ public class addPartyMenu extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,7 +461,7 @@ public class addPartyMenu extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,10 +506,6 @@ public class addPartyMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TF_partyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyNameActionPerformed
-        //
-    }//GEN-LAST:event_TF_partyNameActionPerformed
-
     private void TF_nameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_nameCustomerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_nameCustomerActionPerformed
@@ -474,14 +524,6 @@ public class addPartyMenu extends javax.swing.JFrame {
             TF_nameCustomer.setText(gCustomerModel.getName());
         }
     }//GEN-LAST:event_comboBoxPhoneNumberActionPerformed
-
-    private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxTypePartyActionPerformed
-
-    private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_partyIDActionPerformed
 
 //    private double calculatingTotalPriceSelectedDish(double beforeSum, int indexCurrentOfMenuList, boolean isAdd) {
 //        double newSum = 0;
@@ -521,8 +563,10 @@ public class addPartyMenu extends javax.swing.JFrame {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         int index = menuList.getSelectedIndex();
-        dlmSelectedMenuDish.addElement(menuList.getSelectedValue());
-        selectedMenuList.setModel(dlmSelectedMenuDish);
+        if (index >= 0) {
+            dlmSelectedMenuDish.addElement(menuList.getSelectedValue());
+            selectedMenuList.setModel(dlmSelectedMenuDish);
+        }
         System.out.println(selectedMenuList.getModel());
 
     }//GEN-LAST:event_addBtnActionPerformed
@@ -535,6 +579,18 @@ public class addPartyMenu extends javax.swing.JFrame {
     private void TF_totalPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_totalPriceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_totalPriceActionPerformed
+
+    private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_partyIDActionPerformed
+
+    private void TF_partyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyNameActionPerformed
+        //
+    }//GEN-LAST:event_TF_partyNameActionPerformed
+
+    private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -576,8 +632,8 @@ public class addPartyMenu extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CB_typeDish;
     private javax.swing.JLabel LB_totalPrice;
     private com.toedter.components.JSpinField SP_partyNumber;
-    private javax.swing.JSpinner SP_time;
-    private com.toedter.calendar.JDateChooser TF_date;
+    private com.github.lgooddatepicker.components.TimePicker SP_time;
+    private com.github.lgooddatepicker.components.DatePicker TF_date;
     private javax.swing.JTextField TF_nameCustomer;
     private javax.swing.JTextField TF_partyID;
     private javax.swing.JTextField TF_partyName;
@@ -589,15 +645,15 @@ public class addPartyMenu extends javax.swing.JFrame {
     private javax.swing.JButton clearBtn;
     private javax.swing.JComboBox<String> comboBoxPhoneNumber;
     private javax.swing.JComboBox<String> comboBoxTypeParty;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -615,9 +671,9 @@ public class addPartyMenu extends javax.swing.JFrame {
     private com.toedter.components.JSpinField jSpinField2;
     private javax.swing.JList<String> menuList;
     private javax.swing.JPanel panelCustomer;
-    private javax.swing.JPanel panelLeft;
+    private javax.swing.JPanel panelLeft1;
     private javax.swing.JPanel panelMenu;
-    private javax.swing.JPanel panelRight;
+    private javax.swing.JPanel panelRight1;
     private javax.swing.JButton removeBtn;
     private rojeru_san.complementos.RSButtonHover savePartyMenuBtn;
     private javax.swing.JList<String> selectedMenuList;

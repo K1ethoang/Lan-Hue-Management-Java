@@ -1,24 +1,18 @@
 package view.party;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.github.lgooddatepicker.components.TimePickerSettings;
 import dao.Customer.CustomerDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
-import java.awt.Color;
 import java.sql.Time;
-import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JScrollBar;
-import javax.swing.text.DateFormatter;
 import model.CustomerModel;
 import model.PartyModel;
 import model.TypePartyModel;
@@ -82,38 +76,38 @@ public class addParty extends javax.swing.JFrame {
     }
 
     private void initDateTimeField() {
+        Locale locale = new Locale("vi");
+        // set date
+
+        DatePickerSettings settings = new DatePickerSettings(locale);
+        settings.setAllowEmptyDates(false);
+        settings.setFormatForDatesCommonEra("EEEE, d MMMM, y");
+        settings.setFormatForTodayButton(DateTimeFormatter.ofPattern("d MMMM y", locale));
+        TF_date.setSettings(settings);
+
         // set time
         SP_time.setTimeToNow();
+
+        SP_time.setLocale(Locale.getDefault());
 
         SP_time.getSettings().setAllowEmptyTimes(false);
 
         SP_time.getSettings().setDisplaySpinnerButtons(true);
 
-        SP_time.getSettings().setFormatForMenuTimes(DateTimeFormatter.ISO_LOCAL_TIME);
-        SP_time.getSettings().setFormatForDisplayTime(DateTimeFormatter.ISO_LOCAL_TIME);
-
-        // set date
-        TF_date.setDateToToday();
-
-        TF_date.getSettings().setAllowEmptyDates(false);
-
-        TF_date.getSettings().setFormatForDatesCommonEra("EEEE, d MMMM, y");
-        TF_date.getSettings().setFormatForTodayButton(DateTimeFormatter.ofPattern("d MMMM, y"));
-
+        SP_time.getSettings().setFormatForMenuTimes(DateTimeFormatter.ofPattern("HH:mm", locale));
+        SP_time.getSettings().setFormatForDisplayTime(DateTimeFormatter.ofPattern("HH:mm", locale));
     }
 
     private void setTimeField(Time time) {
         LocalTime localTime = time.toLocalTime();
         SP_time.setTime(localTime);
-        System.out.println(localTime);
     }
 
     private void setDateField(Date date) {
         LocalDate localDate = Instant.ofEpochMilli(date.getTime())
-                .atZone(ZoneId.systemDefault())
+                .atZone(ZoneId.of("Asia/Ho_Chi_Minh"))
                 .toLocalDate();
         TF_date.setDate(localDate);
-
     }
 
     private void setTextFieldID() {
