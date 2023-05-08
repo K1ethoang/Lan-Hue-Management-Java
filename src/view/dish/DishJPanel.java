@@ -320,19 +320,15 @@ public class DishJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_paymentBtn1ActionPerformed
 
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
-//        String curTypeDish = (String) CB_typeDish.getSelectedItem();
-//
-//        if (curTypeDish.equals("Tất cả")) {
-//            setDishTable(listDish);
-//        } else {
-//            gListSelectedDish.clear();
-//            for (int i = 0; i < listDish.size(); i++) {
-//                if (curTypeDish.equals(listDish.get(i).getTypeDish().getTypeName())) {
-//                    gListSelectedDish.add(listDish.get(i));
-//                }
-//            }
-//            setDishTable(gListSelectedDish);
-//        }
+        String curTypeDish = (String) CB_typeDish.getSelectedItem();
+        int columnIndex = 3;
+        if (curTypeDish.equals("Tất cả")) {
+            tableDish.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
+        } else {
+            rowSorter = new TableRowSorter<>(tableDish.getModel());
+            tableDish.setRowSorter(rowSorter);
+            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
+        }
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed

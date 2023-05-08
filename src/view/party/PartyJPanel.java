@@ -434,7 +434,15 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
-        // TODO add your handling code here:
+        String curTypeParty = (String) comboBoxTypeParty.getSelectedItem();
+        int columnIndex = 2;
+        if (curTypeParty.equals("Tất cả")) {
+            tableParty.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
+        } else {
+            rowSorter = new TableRowSorter<>(tableParty.getModel());
+            tableParty.setRowSorter(rowSorter);
+            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeParty, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
+        }
     }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
     private void seeMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeMenuBtnActionPerformed
