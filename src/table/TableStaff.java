@@ -22,7 +22,7 @@ public class TableStaff {
                     int staffID = staff.getID();
                     String staffName = staff.getName();  
                     String staffSDT = staff.getSdt();
-                    String sex = staff.isSex()== true ? "Nam" : "Nữ";
+                    String sex = staff.isSex()== 0 ? "Nữ" : "Nam";
                     String staffCCCD = staff.getCccd();
                     String staffAddress = staff.getAddress();
                     String staffRole = staff.getRole().getRoleName();

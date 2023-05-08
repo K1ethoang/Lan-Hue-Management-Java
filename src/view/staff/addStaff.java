@@ -1,8 +1,11 @@
 package view.staff;
 
 import dao.Role.RoleDAOImpl;
+import dao.Staff.StaffDAOImpl;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.table.DefaultTableModel;
 import model.RoleModel;
 import model.StaffModel;
 import view.component.scroll.ScrollBarCus;
@@ -15,8 +18,10 @@ import static view.staff.StaffJPanel.gCurrentID;
 public class addStaff extends javax.swing.JFrame {
 
     StaffModel staffModel = null;
-    List<RoleModel> gListRole = null;
+    List<RoleModel> gListRole = RoleDAOImpl.getInstance().getList();
     RoleModel gRoleModel = null;
+    
+    StaffDAOImpl staffDAOImpl = new StaffDAOImpl();
 
     public addStaff() {
         initComponents();
@@ -33,34 +38,94 @@ public class addStaff extends javax.swing.JFrame {
 
     }
 
-    public addStaff(StaffModel _staffModel) {
+    public addStaff(StaffModel _staffModel, boolean isSee) {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         System.out.println("11111");
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
-
-        setData(_staffModel);
-        setReadOnly();
+        System.out.println("stafff update");
+        setComboboxRole();
+        setData(_staffModel, isSee);
+        
         // set button
-        saveBtn2.setVisible(false);
+        if (isSee == false) {
+            saveBtn2.setVisible(false);
+        }
+    }
+    
+    boolean insertStaff() {
+        StaffModel staff = new StaffModel();
+        staff.setID(Integer.parseInt(TF_staffID.getText()));
+        staff.setName(TF_NameStaff.getText());
+        if (rdoNam.isSelected()) {
+            staff.setSex(1);
+        } else if (rdoNu.isSelected()) {
+            staff.setSex(0);
+        }
+        staff.setSdt(TF_phoneNumber.getText());
+        staff.setCccd(TF_CCCD.getText());
+        staff.setAddress(panelLocation2.getAddress());
+        
+        for(int i = 0; i< gListRole.size(); i++){
+            if(comboBoxRole.getSelectedIndex() == i){
+                staff.setRole(gListRole.get(i)); 
+                break;
+            }
+        }
+        System.out.println(staff);
+        return staffDAOImpl.insert(staff);
+    }
+    
+    public boolean updateStaff() {
+        StaffModel staff = new StaffModel();
+        staff.setID(Integer.parseInt(TF_staffID.getText()));
+        staff.setName(TF_NameStaff.getText());
+        if (rdoNam.isSelected()) {
+            staff.setSex(1);
+        } else if (rdoNu.isSelected()) {
+            staff.setSex(0);
+        }
+        staff.setSdt(TF_phoneNumber.getText());
+        staff.setCccd(TF_CCCD.getText());
+        staff.setAddress(panelLocation2.getAddress());
+        
+        for(int i = 0; i< gListRole.size(); i++){
+            if(comboBoxRole.getSelectedIndex() == i){
+                staff.setRole(gListRole.get(i)); 
+                break;
+            }
+        }
+        return staffDAOImpl.update(staff);
+    }
+    
+    public boolean deleteStaff() {
+        int staffID = Integer.parseInt(TF_staffID.getText());
+        return staffDAOImpl.delete(staffID);
     }
 
     private void setTextFieldID() {
         TF_staffID.setText(gCurrentID + "");
     }
 
-    private void setData(StaffModel _staffModel) {
+    private void setData(StaffModel _staffModel, boolean isSee) {
+
         this.setTitle("Xem Nhân Viên");
         TF_staffID.setText(_staffModel.getID() + "");
-        comboBoxRole.addItem(_staffModel.getRole().getRoleName());
+        comboBoxRole.setSelectedItem(_staffModel.getRole().getRoleName());
+        
         TF_NameStaff.setText(_staffModel.getName());
         TF_phoneNumber.setText(_staffModel.getSdt());
+        if (_staffModel.isSex() == 1) {
+            rdoNam.setSelected(true);
+        } else {
+            rdoNu.setSelected(true);
+        }
         TF_CCCD.setText(_staffModel.getCccd());
         panelLocation2.setAddress(_staffModel.getAddress());
 
-        setFieldEnable(false);
+        setFieldEnable(isSee);
     }
 
     private void setReadOnly() {
@@ -73,6 +138,7 @@ public class addStaff extends javax.swing.JFrame {
     private void setComboboxRole() {
         comboBoxRole.removeAllItems();
         for (int i = 0; i < gListRole.size(); i++) {
+            System.out.println(gListRole.get(i).getRoleName());
             comboBoxRole.addItem(gListRole.get(i).getRoleName());
         }
     }
@@ -81,8 +147,9 @@ public class addStaff extends javax.swing.JFrame {
         TF_NameStaff.setEditable(bool);
         TF_phoneNumber.setEditable(bool);
         TF_CCCD.setEditable(bool);
-        TF_staffID.setEditable(bool);
+        TF_staffID.setEditable(false);
         panelLocation2.setEnable(bool);
+        comboBoxRole.setEditable(bool);
     }
 
     /**
@@ -106,20 +173,21 @@ public class addStaff extends javax.swing.JFrame {
         bottom2 = new javax.swing.JPanel();
         saveBtn2 = new rojeru_san.complementos.RSButtonHover();
         cancelBtn2 = new rojeru_san.complementos.RSButtonHover();
+        jPanel3 = new javax.swing.JPanel();
+        comboBoxRole = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TF_staffID = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        comboBoxRole = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        rdoNam = new javax.swing.JRadioButton();
+        rdoNu = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         panelLocation2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        jPanel1.add(panelLocation2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 243, 596, 149));
 
         panelStaff.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 10, 0));
         panelStaff.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -141,8 +209,6 @@ public class addStaff extends javax.swing.JFrame {
         panelStaff.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, -1));
         panelStaff.add(TF_NameStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 10, 300, -1));
         panelStaff.add(TF_CCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 74, 297, -1));
-
-        jPanel1.add(panelStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 107, -1, -1));
 
         bottom2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
@@ -177,25 +243,81 @@ public class addStaff extends javax.swing.JFrame {
         });
         bottom2.add(cancelBtn2);
 
-        jPanel1.add(bottom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 596, 40));
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("ID (*)");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 52, 28));
-        jPanel2.add(TF_staffID, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 15, 181, -1));
-
-        jLabel2.setText("Chức vụ (*)");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 18, 72, -1));
+        jPanel3.setLayout(new java.awt.GridLayout());
 
         comboBoxRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRoleActionPerformed(evt);
             }
         });
-        jPanel2.add(comboBoxRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 15, 215, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 24, -1, -1));
+        jLabel2.setText("Chức vụ (*)");
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("ID (*)");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 52, 28));
+
+        TF_staffID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_staffIDActionPerformed(evt);
+            }
+        });
+        jPanel2.add(TF_staffID, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 18, 181, -1));
+
+        jLabel4.setText("Giới tính:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 21, -1, -1));
+
+        rdoNam.setText("Nam");
+        jPanel2.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 19, -1, -1));
+
+        rdoNu.setText("Nữ");
+        jPanel2.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 19, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(285, 285, 285)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(comboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(panelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(panelLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(bottom2, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(5, 5, 5)
+                .addComponent(panelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(panelLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(bottom2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 623, 501));
 
@@ -211,7 +333,18 @@ public class addStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtn2MouseClicked
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
-        // TODO add your handling code here:
+        if (insertStaff() == true || updateStaff() == true) {
+            JOptionPane.showMessageDialog(this, "Lưu thành công !");
+            dispose();
+            StaffJPanel staffJpn = new StaffJPanel();
+
+            staffJpn.clearTable();
+
+            staffJpn.setStaffTable();
+            System.out.println("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+        }
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
     private void comboBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRoleActionPerformed
@@ -223,6 +356,10 @@ public class addStaff extends javax.swing.JFrame {
     private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_phoneNumberActionPerformed
+
+    private void TF_staffIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_staffIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_staffIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,12 +383,16 @@ public class addStaff extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private view.component.PanelLocation panelLocation2;
     private javax.swing.JPanel panelStaff;
+    private javax.swing.JRadioButton rdoNam;
+    private javax.swing.JRadioButton rdoNu;
     private rojeru_san.complementos.RSButtonHover saveBtn2;
     // End of variables declaration//GEN-END:variables
 }

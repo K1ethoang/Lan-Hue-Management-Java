@@ -15,7 +15,6 @@ import javax.swing.SwingUtilities;
 public class addCustomer extends javax.swing.JFrame {
 
     CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
-    boolean isSex = true;
 
     public addCustomer() {
         initComponents();
@@ -145,7 +144,11 @@ public class addCustomer extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setLayout(null);
+
         panelLocation2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        jPanel1.add(panelLocation2);
+        panelLocation2.setBounds(14, 243, 596, 149);
 
         panelStaff.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 10, 0));
         panelStaff.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -174,50 +177,34 @@ public class addCustomer extends javax.swing.JFrame {
         panelStaff.add(TF_NameCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 10, 300, -1));
         panelStaff.add(TF_CCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 74, 300, -1));
 
+        jPanel1.add(panelStaff);
+        panelStaff.setBounds(14, 107, 595, 96);
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setText("ID (*)");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 52, 28));
 
         TF_customerID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TF_customerIDActionPerformed(evt);
             }
         });
+        jPanel2.add(TF_customerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 18, 181, -1));
 
         jLabel2.setText("Giới tính:");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 21, -1, -1));
 
         btnGrGender.add(rdoNam);
         rdoNam.setText("Nam");
+        jPanel2.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 19, -1, -1));
 
         btnGrGender.add(rdoNu);
         rdoNu.setText("Nữ");
+        jPanel2.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 19, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_customerID, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(rdoNam)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rdoNu)
-                .addContainerGap(151, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TF_customerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(rdoNam)
-                    .addComponent(rdoNu))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(14, 24, 606, 49);
 
         bottom2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
@@ -252,30 +239,8 @@ public class addCustomer extends javax.swing.JFrame {
         });
         bottom2.add(cancelBtn2);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bottom2, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(panelStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(panelLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
-                .addComponent(bottom2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(bottom2);
+        bottom2.setBounds(0, 460, 610, 40);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 530));
 

@@ -7,6 +7,7 @@ import javax.swing.JScrollBar;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.StaffModel;
@@ -76,7 +77,6 @@ public class StaffJPanel extends javax.swing.JPanel {
         List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
         int row = tableStaff.getSelectedRow();
         StaffModel staff = listStaff.get(row);
-
         staffCurrent.setID(staff.getID());
         staffCurrent.setName(staff.getName());
         staffCurrent.setSdt(staff.getSdt());
@@ -85,6 +85,13 @@ public class StaffJPanel extends javax.swing.JPanel {
         staffCurrent.setAddress(staff.getAddress());
         staffCurrent.setRole(staff.getRole());
     }
+    
+    public void clearTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tableStaff.getModel();
+        model.setRowCount(0);
+    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -319,7 +326,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         try {
             setStaffCurrent();
             System.out.println("---------");
-            addStaff addStaff = new addStaff(staffCurrent);
+            addStaff addStaff = new addStaff(staffCurrent, false);
             System.out.println(addStaff);
             addStaff.setVisible(true);
         } catch (Exception e) {
@@ -328,11 +335,37 @@ public class StaffJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_seeBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            setStaffCurrent();
+            addStaff updateStaff = new addStaff(staffCurrent, true);
+            updateStaff.setVisible(true);
+//            clearTable();
+//            setCustomerTable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            setStaffCurrent();
+            addStaff addStaff = new addStaff(staffCurrent, true);
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+            if (a == 0) {
+                if (addStaff.deleteStaff() == true) {
+                    clearTable();
+                    setStaffTable();
+
+                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
+             
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_removeBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
