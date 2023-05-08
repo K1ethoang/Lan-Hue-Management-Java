@@ -69,6 +69,24 @@ public class PartyDAOImpl implements PartyDAO {
     }
 
     @Override
+    public int getNextID() {
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "SELECT MAX(partyID) + 1 as `nextID` FROM party";
+            int nextID = -1;
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nextID = rs.getInt("nextID");
+            }
+            System.out.println("nextID: " + nextID);
+            return nextID;
+        } catch (Exception e) {
+        }
+        return -1;
+    }
+
+    @Override
     public boolean insert(PartyModel party) {
         boolean isOk = false;
         try {

@@ -52,17 +52,14 @@ public class DishDAOImpl implements DishDAO {
     public int getNextID() {
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "SELECT AUTO_INCREMENT as `nextID`\n"
-                    + "FROM information_schema.TABLES\n"
-                    + "WHERE TABLE_SCHEMA = database()\n"
-                    + "AND TABLE_NAME = \"dish\";";
+            String sql = "SELECT MAX(dishID) + 1 as `nextID` FROM dish";
             int nextID = -1;
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 nextID = rs.getInt("nextID");
             }
-            System.out.println("nextID: "+nextID);
+            System.out.println("nextID: " + nextID);
             return nextID;
         } catch (Exception e) {
         }

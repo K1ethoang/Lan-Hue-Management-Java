@@ -22,15 +22,14 @@ public class DishJPanel extends javax.swing.JPanel {
 
     DishModel dishCurrent = new DishModel();
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
-    protected static int gCurrentID = 0;
-    
+
     private TableRowSorter<TableModel> rowSorter = null;
     List<DishModel> gListSelectedDish = new ArrayList<>();
 
     public DishJPanel() {
         List<DishModel> listDish = DishDAOImpl.getInstance().getList();
-        DishDAOImpl dishDAOIml = new DishDAOImpl();
-        
+        DishDAOImpl dishDAOImpl = new DishDAOImpl();
+
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
@@ -38,9 +37,7 @@ public class DishJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableDish.fixTable(ScrollPaneTable);
-        
-        gCurrentID = DishDAOImpl.getInstance().getNextID();
-        System.out.println(gCurrentID);
+
         // set data
         setComboBoxTypeDish();
         setDishTable();
@@ -102,13 +99,12 @@ public class DishJPanel extends javax.swing.JPanel {
         dishCurrent.setPrice(dish.getPrice());
         dishCurrent.setTypeDish(dish.getTypeDish());
     }
-    
-    public void clearTable(){
+
+    public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tableDish.getModel();
         model.setRowCount(0);
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -362,7 +358,7 @@ public class DishJPanel extends javax.swing.JPanel {
                     setDishTable();
 
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
-             
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công !");
                 }

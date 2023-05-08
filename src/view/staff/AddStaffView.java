@@ -20,7 +20,7 @@ public class AddStaffView extends javax.swing.JFrame {
     StaffModel staffModel = null;
     List<RoleModel> gListRole = RoleDAOImpl.getInstance().getList();
     RoleModel gRoleModel = null;
-    
+
     StaffDAOImpl staffDAOImpl = new StaffDAOImpl();
 
     public AddStaffView() {
@@ -46,14 +46,14 @@ public class AddStaffView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setComboboxRole();
         setData(_staffModel, isSee);
-        
+
         // set button
         if (isSee == false) {
             saveBtn2.setVisible(false);
         }
     }
-    
-    public boolean insertStaff() {
+
+    boolean insertStaff() {
         StaffModel staff = new StaffModel();
         staff.setID(Integer.parseInt(TF_staffID.getText()));
         staff.setName(TF_NameStaff.getText());
@@ -65,17 +65,17 @@ public class AddStaffView extends javax.swing.JFrame {
         staff.setSdt(FTF_phoneNumber.getText());
         staff.setCccd(FTF_CCCD.getText());
         staff.setAddress(panelLocation2.getAddress());
-        
-        for(int i = 0; i< gListRole.size(); i++){
-            if(comboBoxRole.getSelectedIndex() == i){
-                staff.setRole(gListRole.get(i)); 
+
+        for (int i = 0; i < gListRole.size(); i++) {
+            if (comboBoxRole.getSelectedIndex() == i) {
+                staff.setRole(gListRole.get(i));
                 break;
             }
         }
         System.out.println(staff);
         return staffDAOImpl.insert(staff);
     }
-    
+
     public boolean updateStaff() {
         StaffModel staff = new StaffModel();
         staff.setID(Integer.parseInt(TF_staffID.getText()));
@@ -88,16 +88,16 @@ public class AddStaffView extends javax.swing.JFrame {
         staff.setSdt(FTF_phoneNumber.getText());
         staff.setCccd(FTF_CCCD.getText());
         staff.setAddress(panelLocation2.getAddress());
-        
-        for(int i = 0; i< gListRole.size(); i++){
-            if(comboBoxRole.getSelectedIndex() == i){
-                staff.setRole(gListRole.get(i)); 
+
+        for (int i = 0; i < gListRole.size(); i++) {
+            if (comboBoxRole.getSelectedIndex() == i) {
+                staff.setRole(gListRole.get(i));
                 break;
             }
         }
         return staffDAOImpl.update(staff);
     }
-    
+
     public boolean deleteStaff() {
         int staffID = Integer.parseInt(TF_staffID.getText());
         return staffDAOImpl.delete(staffID);
@@ -112,7 +112,7 @@ public class AddStaffView extends javax.swing.JFrame {
         this.setTitle("Xem Nhân Viên");
         TF_staffID.setText(_staffModel.getID() + "");
         comboBoxRole.setSelectedItem(_staffModel.getRole().getRoleName());
-        
+
         TF_NameStaff.setText(_staffModel.getName());
         FTF_phoneNumber.setText(_staffModel.getSdt());
         if (_staffModel.isSex() == 1) {
@@ -242,7 +242,7 @@ public class AddStaffView extends javax.swing.JFrame {
         }
         panelStaff.add(FTF_phoneNumber);
 
-        jLabel3.setText("Căn cước công dân (CMND) (*):");
+        jLabel3.setText("Số  căn cước công dân:");
         panelStaff.add(jLabel3);
 
         try {

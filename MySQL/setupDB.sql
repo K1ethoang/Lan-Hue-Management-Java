@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Customer(
     `Name` VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(10) NOT NULL,
     Sex BIT NOT NULL,
-    UN_CitizenNumber VARCHAR(12),
+    UN_CitizenNumber VARCHAR(12) NOT NULL,
     Address TEXT NOT NULL,
     CONSTRAINT PkCustomer_CustomerID PRIMARY KEY (CustomerId),
     CONSTRAINT UnCustomer_UN_CitizenNumber UNIQUE (UN_CitizenNumber),
@@ -73,10 +73,13 @@ CREATE TABLE IF NOT EXISTS Staff(
     `Name` VARCHAR(255) NOT NULL,
     Sex BIT NOT NULL,
     PhoneNumber VARCHAR(10) NOT NULL,
-	UN_CitizenNumber VARCHAR(12) UNIQUE,
-    Address VARCHAR(300),
-    RoleID INT UNSIGNED,
+	UN_CitizenNumber VARCHAR(12) NOT NULL,
+    Address VARCHAR(300) NOT NULL,
+    RoleID INT UNSIGNED NOT NULL,
     CONSTRAINT PkStaff_StaffID PRIMARY KEY (StaffID),
+    CONSTRAINT UnStaff_UN_CitizenNumber UNIQUE (UN_CitizenNumber),
+	CONSTRAINT CkStaff_PhoneNumber CHECK (LENGTH(PhoneNumber) = 10),
+    CONSTRAINT CkStaff_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12),
     CONSTRAINT FkStaff_RoleID FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 ) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 -- TRUNCATE TABLE Staff;
@@ -111,10 +114,10 @@ CREATE TABLE IF NOT EXISTS TypeParty(
 CREATE TABLE IF NOT EXISTS Party(
 	PartyID INT UNSIGNED AUTO_INCREMENT,
     PartyName TEXT,
-    TableNumber TINYINT UNSIGNED,
-    `Date` DATE,
-    `Time` TIME,
-    Location TEXT,
+    TableNumber TINYINT UNSIGNED NOT NULL,
+    `Date` DATE NOT NULL,
+    `Time` TIME NOT NULL,
+    Location TEXT NOT NULL,
     Note TEXT,
     CustomerID INT UNSIGNED,
     HappenStatusID INT UNSIGNED,
@@ -134,7 +137,7 @@ CREATE TABLE IF NOT EXISTS Party(
 -- DROP TABLE Invoice;
 CREATE TABLE Invoice(
 	InvoiceID INT UNSIGNED AUTO_INCREMENT,
-    `Time` TIMESTAMP,
+    `Time` TIMESTAMP NOT NULL,
     Total DOUBLE DEFAULT 0,
 	StaffID INT UNSIGNED,
     PartyID INT UNSIGNED,
@@ -144,17 +147,6 @@ CREATE TABLE Invoice(
 	CONSTRAINT FkInvoice_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 ) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 -- TRUNCATE TABLE Invoice;
-
--- 				Tạo bảng OderItem
--- DROP TABLE OderItem;
--- CREATE TABLE OderItem(
--- 	PartyID INT UNSIGNED,
---     DishID INT UNSIGNED,
---     CONSTRAINT PkOrderItem_PartyID_DishID PRIMARY KEY (PartyID,DishID),
---     CONSTRAINT FkOrderItem_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
---     CONSTRAINT FkOrderItem_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID)
--- );
--- TRUNCATE TABLE OderItem;
 
 -- 				Tạo bảng Order
 -- DROP TABLE Order;
@@ -210,8 +202,7 @@ CREATE TABLE Account(
 -- TRUNCATE TABLE Account;
 
 INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`) VALUES 
-('1', 'admin', 'admin123'),
-('2', 'staff', 'staff123')
+('1', 'admin', 'admin')
 ;
 
 -- use lanhuemanagement;
@@ -241,12 +232,7 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 -- SELECT *
 -- FROM typeparty;
 
+-- lấy id tiếp theo
+-- SELECT MAX(customerID) + 1 as `nextID` FROM customer;
 
-
-SELECT AUTO_INCREMENT as `nextID`
-FROM information_schema.TABLES
-WHERE TABLE_SCHEMA = database()
-AND TABLE_NAME = "dish";
-
--- 											Trigger
 

@@ -279,7 +279,7 @@ public class AddPartyMenuView extends javax.swing.JFrame {
 
         panelLeft1.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
 
-        jLabel8.setText("ID");
+        jLabel8.setText("ID (*)");
         panelLeft1.add(jLabel8);
 
         TF_partyID.setEditable(false);
@@ -291,7 +291,7 @@ public class AddPartyMenuView extends javax.swing.JFrame {
         });
         panelLeft1.add(TF_partyID);
 
-        jLabel12.setText("Tên tiệc (*)");
+        jLabel12.setText("Tên tiệc");
         panelLeft1.add(jLabel12);
 
         TF_partyName.addActionListener(new java.awt.event.ActionListener() {

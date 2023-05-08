@@ -2,6 +2,8 @@ package view.party;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import dao.Customer.CustomerDAOImpl;
+import dao.Party.PartyDAO;
+import dao.Party.PartyDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
 import java.sql.Time;
 import java.time.Instant;
@@ -104,7 +106,7 @@ public class AddPartyView extends javax.swing.JFrame {
     }
 
     private void setTextFieldID() {
-        TF_partyID.setText(gCurrentID + "");
+        TF_partyID.setText(PartyDAOImpl.getInstance().getNextID() + "");
     }
 
     private void setDataParty(PartyModel partyModel, boolean isEdit) {
@@ -260,7 +262,7 @@ public class AddPartyView extends javax.swing.JFrame {
 
         panelLeft.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
 
-        jLabel1.setText("ID");
+        jLabel1.setText("ID (*)");
         panelLeft.add(jLabel1);
 
         TF_partyID.setEditable(false);
@@ -272,7 +274,7 @@ public class AddPartyView extends javax.swing.JFrame {
         });
         panelLeft.add(TF_partyID);
 
-        jLabel2.setText("Tên tiệc (*)");
+        jLabel2.setText("Tên tiệc");
         panelLeft.add(jLabel2);
 
         TF_partyName.addActionListener(new java.awt.event.ActionListener() {

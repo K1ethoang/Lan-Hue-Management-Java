@@ -1,74 +1,68 @@
 package view.customer;
 
 import dao.Customer.CustomerDAOImpl;
-import dao.DBConnection;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
 import view.component.scroll.ScrollBarCus;
-import static view.customer.CustomerJPanel.gCurrentID;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import utils.Helper;
 
 public class AddCustomerView extends javax.swing.JFrame {
 
-    CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
+    public static boolean isEditCustomer = false;
 
     public AddCustomerView() {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
-        this.setLocationRelativeTo(null);
-        this.setTitle("Thêm Khách Hàng");
-        TF_customerID.setEditable(false);
+
+        // set next id
         setTextFieldID();
-//        gListRole = RoleDAOImpl.getInstance().getList();
     }
 
-    // isSee == false thì các dữ liệu ở trạng thái chỉ đc xem, k đc chỉnh sửa
-    // Xem chi tiết: iSee == false
-    // Chỉnh sửa: isSee == true; 
-    // hơi nguocje ngược xíu nha
-    public AddCustomerView(CustomerModel _customerModel, boolean isSee) {
+    // isEditCustomer == true thì các dữ liệu ở trạng chỉnh sửa
+    // Chỉnh sửa: isEditCustomer == true; 
+    // Xem chi tiết: isEditCustomer == false
+    public AddCustomerView(CustomerModel _customerModel) {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
-        this.setLocationRelativeTo(null);
 
-        setData(_customerModel, isSee);
-        // set button
+        setData(_customerModel, isEditCustomer);
 
-        if (isSee == false) {
-            saveBtn2.setVisible(false);
-        }
+    }
+
+    private void setTextFieldID() {
+        TF_customerID.setText(CustomerDAOImpl.getInstance().getNextID() + "");
+    }
+
+    private String getPhoneNumber() {
+        return Helper.removeSpaceInString(FTF_phoneNumber.getText());
+    }
+
+    private String getCitizenNumber() {
+        return Helper.removeSpaceInString(FTF_CCCD.getText());
     }
 
     // add customer
     boolean insertCustomer() {
         Helper helper = new Helper();
         CustomerModel customer = new CustomerModel();
-        customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(TF_NameCustomer.getText());
         if (rdoNam.isSelected()) {
             customer.setSex(1);
         } else if (rdoNu.isSelected()) {
             customer.setSex(0);
         }
-        
-        String phoneNumber = helper.removeSpaceInString((String) FTF_phoneNumber.getValue());
-        customer.setPhoneNumber(phoneNumber);
-        
-        String cccd = helper.removeSpaceInString((String) FTF_CCCD.getValue());
-        customer.setCitizenNumber(cccd);
-        
-        customer.setAddress(panelLocation1.getAddress());
 
-        return customerDAOImpl.insert(customer);
+        customer.setPhoneNumber(getPhoneNumber());
+        customer.setCitizenNumber(getCitizenNumber());
+
+        customer.setAddress(panelLocation1.getFullAddress());
+
+        return CustomerDAOImpl.getInstance().insert(customer);
     }
 
     // UPDATE CUSTOMER
@@ -82,50 +76,48 @@ public class AddCustomerView extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             customer.setSex(0);
         }
-//        String phoneNumber = helper.removeSpaceInString((String) FTF_phoneNumber.getValue());
-//        customer.setPhoneNumber(phoneNumber);
-//        
-//        String cccd = helper.removeSpaceInString((String) FTF_CCCD.getValue());
-//        customer.setCitizenNumber(cccd);
-        
-        customer.setCitizenNumber(FTF_CCCD.getText());
-        customer.setAddress(panelLocation1.getAddress());
 
-        return customerDAOImpl.update(customer);
+        customer.setPhoneNumber(getPhoneNumber());
+        customer.setCitizenNumber(getCitizenNumber());
+
+        customer.setAddress(panelLocation1.getFullAddress());
+
+        return CustomerDAOImpl.getInstance().update(customer);
     }
 
-    // delete CUSTOMER
-    public boolean deleteCustomer() {
-        int customerID = Integer.parseInt(TF_customerID.getText());
-        return customerDAOImpl.delete(customerID);
-    }
+    private void setData(CustomerModel _customerModel, boolean isEditCustomer) {
+        if (isEditCustomer) {
+            this.setTitle("Chỉnh sửa thông tin khách hàng");
 
-    private void setData(CustomerModel _customerModel, boolean isSee) {
-        this.setTitle("Xem Khách Hàng");
+        } else {
+            this.setTitle("Xem thông tin khách hàng");
+            saveBtn2.setVisible(false);
+
+        }
+
         TF_customerID.setText(_customerModel.getID() + "");
         TF_NameCustomer.setText(_customerModel.getName());
+
         if (_customerModel.isSex() == 1) {
             rdoNam.setSelected(true);
         } else {
             rdoNu.setSelected(true);
         }
+
         FTF_phoneNumber.setText(_customerModel.getPhoneNumber());
         FTF_CCCD.setText(_customerModel.getCitizenNumber());
         panelLocation1.setAddress(_customerModel.getAddress());
 
-        setFieldEnable(isSee);
+        setFieldEnable(isEditCustomer);
     }
 
     private void setFieldEnable(boolean bool) {
+        rdoNam.setEnabled(bool);
+        rdoNu.setEnabled(bool);
         TF_NameCustomer.setEditable(bool);
         FTF_phoneNumber.setEditable(bool);
         FTF_CCCD.setEditable(bool);
-        TF_customerID.setEditable(false);
         panelLocation1.setEnable(bool);
-    }
-
-    private void setTextFieldID() {
-        TF_customerID.setText(gCurrentID + "");
     }
 
     @SuppressWarnings("unchecked")
@@ -169,11 +161,6 @@ public class AddCustomerView extends javax.swing.JFrame {
         jPanel5.add(jLabel4);
 
         TF_customerID.setEditable(false);
-        TF_customerID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_customerIDActionPerformed(evt);
-            }
-        });
         jPanel5.add(TF_customerID);
 
         jPanel3.add(jPanel5);
@@ -213,7 +200,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         }
         panelCustomer.add(FTF_phoneNumber);
 
-        jLabel10.setText("Căn cước công dân (CMND) (*):");
+        jLabel10.setText("Số  căn cước công dân (*):");
         panelCustomer.add(jLabel10);
 
         try {
@@ -228,8 +215,8 @@ public class AddCustomerView extends javax.swing.JFrame {
 
         bottom2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
-        saveBtn2.setText("Lưu");
         saveBtn2.setBackground(new java.awt.Color(10, 77, 104));
+        saveBtn2.setText("Lưu");
         saveBtn2.setColorHover(new java.awt.Color(14, 112, 152));
         saveBtn2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         saveBtn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -241,17 +228,12 @@ public class AddCustomerView extends javax.swing.JFrame {
         });
         bottom2.add(saveBtn2);
 
-        cancelBtn2.setText("Hủy");
         cancelBtn2.setBackground(new java.awt.Color(10, 77, 104));
+        cancelBtn2.setText("Hủy");
         cancelBtn2.setColorHover(new java.awt.Color(14, 112, 152));
         cancelBtn2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cancelBtn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cancelBtn2.setPreferredSize(new java.awt.Dimension(110, 40));
-        cancelBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelBtn2MouseClicked(evt);
-            }
-        });
         cancelBtn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtn2ActionPerformed(evt);
@@ -266,55 +248,45 @@ public class AddCustomerView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public rojeru_san.complementos.RSButtonHover getBtnSave() {
-        return saveBtn2;
-    }
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
 
-//        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
-//        if (a == 0) {
-        if (insertCustomer() == true || updateCustomer() == true) {
-            JOptionPane.showMessageDialog(this, "Lưu thành công !");
-            dispose();
-            CustomerJPanel customerJpn = new CustomerJPanel();
-            System.out.println("1");
-            customerJpn.clearTable();
-            System.out.println("2");
+        boolean isEditOk = false, isInsertOk = false;
 
-            customerJpn.setCustomerTable();
-            System.out.println("");
+        if (isEditCustomer) {
+            isEditOk = updateCustomer();
         } else {
-            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+            isInsertOk = insertCustomer();
         }
 
-//        }
+        if (isInsertOk) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            dispose();
+        } else if (isEditOk) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
+        }
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
-    private void cancelBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtn2MouseClicked
-        this.dispose();
-    }//GEN-LAST:event_cancelBtn2MouseClicked
-
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_cancelBtn2ActionPerformed
-
-    private void TF_customerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_customerIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_customerIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,16 +302,24 @@ public class AddCustomerView extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

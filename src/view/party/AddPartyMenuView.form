@@ -165,7 +165,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel8">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="ID"/>
+                        <Property name="text" type="java.lang.String" value="ID (*)"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="TF_partyID">
@@ -179,7 +179,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel12">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="T&#xea;n ti&#x1ec7;c (*)"/>
+                        <Property name="text" type="java.lang.String" value="T&#xea;n ti&#x1ec7;c"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="TF_partyName">

@@ -12,7 +12,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -30,16 +30,16 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,9 +82,6 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_customerIDActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -157,7 +154,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="C&#x103;n c&#x1b0;&#x1edb;c c&#xf4;ng d&#xe2;n (CMND) (*):"/>
+                <Property name="text" type="java.lang.String" value="S&#x1ed1;  c&#x103;n c&#x1b0;&#x1edb;c c&#xf4;ng d&#xe2;n (*):"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="FTF_CCCD">
@@ -179,10 +176,10 @@
           <SubComponents>
             <Component class="rojeru_san.complementos.RSButtonHover" name="saveBtn2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="68" green="4d" red="a" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
                 <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="98" green="70" red="e" type="rgb"/>
                 </Property>
@@ -200,10 +197,10 @@
             </Component>
             <Component class="rojeru_san.complementos.RSButtonHover" name="cancelBtn2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="68" green="4d" red="a" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
                 <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="98" green="70" red="e" type="rgb"/>
                 </Property>
@@ -216,7 +213,6 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cancelBtn2MouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBtn2ActionPerformed"/>
               </Events>
             </Component>

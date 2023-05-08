@@ -14,25 +14,24 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import model.DishModel;
 import model.TypeDishModel;
-import static view.dish.DishJPanel.gCurrentID;
 
 /**
  *
  * @author kieth
  */
 public class AddDishView extends javax.swing.JFrame {
-    
+
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
-    DishModel gCurrentDish = null; 
+    DishModel gCurrentDish = null;
     DishDAOImpl dishDAOImpl = new DishDAOImpl();
-    
+
     public AddDishView() {
         initComponents();
 
         initTextFieldPrice(false);
 
         // set data
-        setTextFieldID();   
+        setTextFieldID();
         setComboBoxTypeDish();
     }
 
@@ -56,14 +55,14 @@ public class AddDishView extends javax.swing.JFrame {
 
         FTF_price.setFormatterFactory(new DefaultFormatterFactory(
                 new NumberFormatter(dongFormat)));
-        if(isSee == false){
+        if (isSee == false) {
             FTF_price.setValue(50000);
         }
-        
+
     }
 
     private void setTextFieldID() {
-        TF_dishID.setText(gCurrentID + "");
+        TF_dishID.setText(DishDAOImpl.getInstance().getNextID() + "");
     }
 
     private void setDataSeeDish(DishModel dish, boolean isSee) {
@@ -75,7 +74,7 @@ public class AddDishView extends javax.swing.JFrame {
     }
 
     private void setComboBoxTypeDish() {
-//        gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+        // gListTypeDish = TypeDishDAOImpl.getInstance().getList();
         CB_typeDish.removeAllItems();
         for (int i = 0; i < gListTypeDish.size(); i++) {
             CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
@@ -88,31 +87,31 @@ public class AddDishView extends javax.swing.JFrame {
         CB_typeDish.setEditable(bool);
         FTF_price.setEditable(bool);
     }
-    
+
     public boolean insertDish() {
         DishModel dish = new DishModel();
         dish.setDishID(Integer.parseInt(TF_dishID.getText()));
         dish.setDishName(TF_nameDish.getText());
-        
+
         dish.setPrice(Double.parseDouble(FTF_price.getText()));
-        
-        for(int i = 0; i< gListTypeDish.size(); i++){
-            if(CB_typeDish.getSelectedIndex() == i){
-                dish.setTypeDish(gListTypeDish.get(i)); 
+
+        for (int i = 0; i < gListTypeDish.size(); i++) {
+            if (CB_typeDish.getSelectedIndex() == i) {
+                dish.setTypeDish(gListTypeDish.get(i));
                 break;
             }
         }
         return dishDAOImpl.insert(dish);
     }
-    
+
     public boolean updateDish() {
         DishModel dish = new DishModel();
         dish.setDishID(Integer.parseInt(TF_dishID.getText()));
         dish.setDishName(TF_nameDish.getText());
         dish.setPrice(Double.parseDouble(FTF_price.getText()));
-        for(int i = 0; i< gListTypeDish.size(); i++){
-            if(CB_typeDish.getSelectedIndex() == i){
-                dish.setTypeDish(gListTypeDish.get(i)); 
+        for (int i = 0; i < gListTypeDish.size(); i++) {
+            if (CB_typeDish.getSelectedIndex() == i) {
+                dish.setTypeDish(gListTypeDish.get(i));
                 break;
             }
         }
@@ -121,15 +120,16 @@ public class AddDishView extends javax.swing.JFrame {
         System.out.println("DISH: " + dish);
         return dishDAOImpl.update(dish);
     }
-    
+
     public boolean deleteDish() {
         int dishID = Integer.parseInt(TF_dishID.getText());
         return dishDAOImpl.delete(dishID);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -221,41 +221,40 @@ public class AddDishView extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TF_dishIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_dishIDActionPerformed
+    private void TF_dishIDActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_TF_dishIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TF_dishIDActionPerformed
+    }// GEN-LAST:event_TF_dishIDActionPerformed
 
-    private void FTF_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_priceActionPerformed
+    private void FTF_priceActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_FTF_priceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FTF_priceActionPerformed
+    }// GEN-LAST:event_FTF_priceActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savePartyBtnActionPerformed
         System.out.println("updateDish: " + updateDish());
-        if (insertDish() == true || updateDish() == true) {    
-                JOptionPane.showMessageDialog(this, "Lưu thành công !");
-                dispose();
-                DishJPanel dishJpn = new DishJPanel();
+        if (insertDish() == true || updateDish() == true) {
+            JOptionPane.showMessageDialog(this, "Lưu thành công !");
+            dispose();
+            DishJPanel dishJpn = new DishJPanel();
 
-                dishJpn.clearTable();
-                dishJpn.setDishTable();
-            } 
-            else {
-                JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
-            }
+            dishJpn.clearTable();
+            dishJpn.setDishTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+        }
     }// GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
@@ -283,13 +282,17 @@ public class AddDishView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
+                    ex);
         }
         // </editor-fold>
         // </editor-fold>

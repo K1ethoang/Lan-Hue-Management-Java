@@ -151,7 +151,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="C&#x103;n c&#x1b0;&#x1edb;c c&#xf4;ng d&#xe2;n (CMND) (*):"/>
+                <Property name="text" type="java.lang.String" value="S&#x1ed1;  c&#x103;n c&#x1b0;&#x1edb;c c&#xf4;ng d&#xe2;n:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="FTF_CCCD">

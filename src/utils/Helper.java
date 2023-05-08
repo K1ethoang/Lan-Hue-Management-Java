@@ -43,12 +43,14 @@ public class Helper {
         String s = dongFormat.format(number);
         return s;
     }
-    
+
     public static String removeSpaceInString(String s) {
-        String newS = s.replace(" ", "");
-        return newS;
+        if (s != null) {
+            return (String) s.replace(" ", "");
+        }
+        return null;
     }
-    
+
     public static void main(String[] args) {
         System.out.println(formatPriceToDisplay(100000.0));
     }

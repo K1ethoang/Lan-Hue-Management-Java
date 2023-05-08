@@ -81,6 +81,24 @@ public class CustomerDAOImpl implements CustomerDAO {
         return null;
     }
 
+    @Override
+    public int getNextID() {
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "SELECT MAX(customerID) + 1 as `nextID` FROM customer";
+            int nextID = -1;
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nextID = rs.getInt("nextID");
+            }
+            System.out.println("nextID: " + nextID);
+            return nextID;
+        } catch (Exception e) {
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
 
     }
@@ -91,15 +109,14 @@ public class CustomerDAOImpl implements CustomerDAO {
         try {
             Connection con = DBConnection.getConnection();
 //            String sql = "insert into Customer(?, ?, ?, ?, ?, ?)";
-            String sql = "INSERT INTO Customer(CustomerID, Name, PhoneNumber, Sex, UN_CitizenNumber, Address) "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Customer(Name, PhoneNumber, Sex, UN_CitizenNumber, Address)\n"
+                    + "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, customer.getID() + "");
-            ps.setString(2, customer.getName());
-            ps.setString(3, customer.getPhoneNumber());
-            ps.setInt(4, customer.isSex());
-            ps.setString(5, customer.getCitizenNumber());
-            ps.setString(6, customer.getAddress());
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getPhoneNumber());
+            ps.setInt(3, customer.isSex());
+            ps.setString(4, customer.getCitizenNumber());
+            ps.setString(5, customer.getAddress());
 
             int rs = ps.executeUpdate();
             if (rs > 0) {
@@ -139,17 +156,15 @@ public class CustomerDAOImpl implements CustomerDAO {
             String sql = "UPDATE CUSTOMER SET Name = ?, PhoneNumber = ?, Sex = ?, UN_CitizenNumber = ?, Address = ? WHERE CustomerID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            if (!customer.getName().isEmpty() && !customer.getPhoneNumber().isEmpty() && (customer.isSex() == 0 || customer.isSex() == 1) && !customer.getCitizenNumber().isEmpty() && !customer.getAddress().isEmpty()) {
-                ps.setString(1, customer.getName());
-                ps.setString(2, customer.getPhoneNumber());
-                ps.setInt(3, customer.isSex());
-                ps.setString(4, customer.getCitizenNumber());
-                ps.setString(5, customer.getAddress());
-                ps.setInt(6, customer.getID());
-                int rs = ps.executeUpdate();
-                if (rs > 0) {
-                    isUpdated = true;
-                }
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getPhoneNumber());
+            ps.setInt(3, customer.isSex());
+            ps.setString(4, customer.getCitizenNumber());
+            ps.setString(5, customer.getAddress());
+            ps.setInt(6, customer.getID());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isUpdated = true;
             }
         } catch (Exception e) {
             e.printStackTrace();
