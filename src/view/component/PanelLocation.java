@@ -81,6 +81,8 @@ public class PanelLocation extends javax.swing.JPanel {
 
         add(jPanel3);
 
+        jPanel1.setPreferredSize(null);
+
         LB_location.setText("Địa chỉ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

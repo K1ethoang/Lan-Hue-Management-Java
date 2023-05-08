@@ -18,7 +18,6 @@ import view.component.scroll.ScrollBarCus;
 
 public class CustomerJPanel extends javax.swing.JPanel {
 
-    
     CustomerModel customerCurrent = new CustomerModel();
     protected static int gCurrentID = 0;
 
@@ -35,8 +34,8 @@ public class CustomerJPanel extends javax.swing.JPanel {
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableCustomer.fixTable(ScrollPaneTable);
         gCurrentID = listCustomer.get(0).getID() + 1;
-        
-        clearTable(); 
+
+        clearTable();
         setCustomerTable();
     }
 
@@ -293,7 +292,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        addCustomer addCustomer = new addCustomer();
+        AddCustomerView addCustomer = new AddCustomerView();
         addCustomer.setVisible(true);
 //        refresh();
     }//GEN-LAST:event_addBtnActionPerformed
@@ -309,13 +308,13 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
         try {
             setCustomerCurrent();
-            addCustomer addCustomer = new addCustomer(customerCurrent, false); // isSee == false thì chỉ đc xem, không được chỉnh sửa
+            AddCustomerView addCustomer = new AddCustomerView(customerCurrent, false); // isSee == false thì chỉ đc xem, không được chỉnh sửa
             addCustomer.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_seeBtnActionPerformed
-    
+
 //    public void saveBtnActionPerformed(java.awt.event.ActionEvent evt){
 //        addCustomer addCustomer = new addCustomer(customerCurrent, true);
 //        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
@@ -333,11 +332,11 @@ public class CustomerJPanel extends javax.swing.JPanel {
 //            }
 //
 //    }
-    
+
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
             setCustomerCurrent();
-            addCustomer addCustomer = new addCustomer(customerCurrent, true);
+            AddCustomerView addCustomer = new AddCustomerView(customerCurrent, true);
             addCustomer.setVisible(true);
 //            clearTable();
 //            setCustomerTable();
@@ -345,20 +344,19 @@ public class CustomerJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editBtnActionPerformed
-    
-    public void clearTable(){
-        
+
+    public void clearTable() {
+
         DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
         model.setRowCount(0);
         System.out.println("clearrrrrrrrrrrrrrrrrr");
     }
-    
-    
-    
+
+
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setCustomerCurrent();
-            addCustomer addCustomer = new addCustomer(customerCurrent, true);
+            AddCustomerView addCustomer = new AddCustomerView(customerCurrent, true);
             int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
                 if (addCustomer.deleteCustomer() == true) {
@@ -366,7 +364,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
                     setCustomerTable();
 
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
-             
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công !");
                 }

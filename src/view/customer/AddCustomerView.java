@@ -12,11 +12,11 @@ import java.sql.PreparedStatement;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class addCustomer extends javax.swing.JFrame {
+public class AddCustomerView extends javax.swing.JFrame {
 
     CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
 
-    public addCustomer() {
+    public AddCustomerView() {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
@@ -32,7 +32,7 @@ public class addCustomer extends javax.swing.JFrame {
     // Xem chi tiết: iSee == false
     // Chỉnh sửa: isSee == true; 
     // hơi nguocje ngược xíu nha
-    public addCustomer(CustomerModel _customerModel, boolean isSee) {
+    public AddCustomerView(CustomerModel _customerModel, boolean isSee) {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
@@ -57,10 +57,9 @@ public class addCustomer extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             customer.setSex(0);
         }
-        customer.setPhoneNumber(TF_phoneNumber.getText());
-        customer.setCitizenNumber(TF_CCCD.getText());
-        customer.setAddress(panelLocation2.getAddress());
-
+        customer.setPhoneNumber(FTF_phoneNumber.getText());
+        customer.setCitizenNumber(FTF_CCCD.getText());
+        customer.setAddress(panelLocation1.getAddress());
 
         return customerDAOImpl.insert(customer);
     }
@@ -75,9 +74,9 @@ public class addCustomer extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             customer.setSex(0);
         }
-        customer.setPhoneNumber(TF_phoneNumber.getText());
-        customer.setCitizenNumber(TF_CCCD.getText());
-        customer.setAddress(panelLocation2.getAddress());
+        customer.setPhoneNumber(FTF_phoneNumber.getText());
+        customer.setCitizenNumber(FTF_CCCD.getText());
+        customer.setAddress(panelLocation1.getAddress());
 
         return customerDAOImpl.update(customer);
     }
@@ -97,19 +96,19 @@ public class addCustomer extends javax.swing.JFrame {
         } else {
             rdoNu.setSelected(true);
         }
-        TF_phoneNumber.setText(_customerModel.getPhoneNumber());
-        TF_CCCD.setText(_customerModel.getCitizenNumber());
-        panelLocation2.setAddress(_customerModel.getAddress());
+        FTF_phoneNumber.setText(_customerModel.getPhoneNumber());
+        FTF_CCCD.setText(_customerModel.getCitizenNumber());
+        panelLocation1.setAddress(_customerModel.getAddress());
 
         setFieldEnable(isSee);
     }
 
     private void setFieldEnable(boolean bool) {
         TF_NameCustomer.setEditable(bool);
-        TF_phoneNumber.setEditable(bool);
-        TF_CCCD.setEditable(bool);
+        FTF_phoneNumber.setEditable(bool);
+        FTF_CCCD.setEditable(bool);
         TF_customerID.setEditable(false);
-        panelLocation2.setEnable(bool);
+        panelLocation1.setEnable(bool);
     }
 
     private void setTextFieldID() {
@@ -122,94 +121,102 @@ public class addCustomer extends javax.swing.JFrame {
 
         btnGrGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        panelLocation2 = new view.component.PanelLocation();
-        panelStaff = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        TF_phoneNumber = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        TF_NameCustomer = new javax.swing.JTextField();
-        TF_CCCD = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         TF_customerID = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         rdoNam = new javax.swing.JRadioButton();
         rdoNu = new javax.swing.JRadioButton();
+        panelCustomer = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        TF_NameCustomer = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        FTF_phoneNumber = new javax.swing.JFormattedTextField();
+        jLabel10 = new javax.swing.JLabel();
+        FTF_CCCD = new javax.swing.JFormattedTextField();
+        panelLocation1 = new view.component.PanelLocation();
         bottom2 = new javax.swing.JPanel();
         saveBtn2 = new rojeru_san.complementos.RSButtonHover();
         cancelBtn2 = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Thêm khách hàng");
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(null);
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
-        panelLocation2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        jPanel1.add(panelLocation2);
-        panelLocation2.setBounds(14, 243, 596, 149);
+        jPanel3.setLayout(new java.awt.GridLayout(1, 2, 10, 0));
 
-        panelStaff.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        panelStaff.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 2));
 
-        jLabel5.setText("Tên khách hàng (*)");
-        panelStaff.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 298, 22));
+        jLabel4.setText("ID (*)");
+        jPanel5.add(jLabel4);
 
-        jLabel6.setText("SĐT liên hệ (*)");
-        panelStaff.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 298, 22));
-
-        TF_phoneNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_phoneNumberActionPerformed(evt);
-            }
-        });
-        panelStaff.add(TF_phoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 42, 300, -1));
-
-        jLabel3.setText("Căn cước công dân (CMND) (*):");
-        panelStaff.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 210, -1));
-
-        TF_NameCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_NameCustomerActionPerformed(evt);
-            }
-        });
-        panelStaff.add(TF_NameCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 10, 300, -1));
-        panelStaff.add(TF_CCCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 74, 300, -1));
-
-        jPanel1.add(panelStaff);
-        panelStaff.setBounds(14, 107, 595, 96);
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("ID (*)");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 52, 28));
-
+        TF_customerID.setEditable(false);
         TF_customerID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TF_customerIDActionPerformed(evt);
             }
         });
-        jPanel2.add(TF_customerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 18, 181, -1));
+        jPanel5.add(TF_customerID);
 
-        jLabel2.setText("Giới tính:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 21, -1, -1));
+        jPanel3.add(jPanel5);
+
+        jPanel6.setLayout(new java.awt.GridLayout(1, 3));
+
+        jLabel7.setText("Giới tính:");
+        jPanel6.add(jLabel7);
 
         btnGrGender.add(rdoNam);
+        rdoNam.setSelected(true);
         rdoNam.setText("Nam");
-        jPanel2.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 19, -1, -1));
+        jPanel6.add(rdoNam);
 
         btnGrGender.add(rdoNu);
         rdoNu.setText("Nữ");
-        jPanel2.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 19, -1, -1));
+        jPanel6.add(rdoNu);
 
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(14, 24, 606, 49);
+        jPanel3.add(jPanel6);
+
+        jPanel1.add(jPanel3);
+
+        panelCustomer.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        panelCustomer.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
+
+        jLabel8.setText("Tên khách hàng (*)");
+        panelCustomer.add(jLabel8);
+        panelCustomer.add(TF_NameCustomer);
+
+        jLabel9.setText("SĐT liên hệ (*)");
+        panelCustomer.add(jLabel9);
+
+        try {
+            FTF_phoneNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("0## ### ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        panelCustomer.add(FTF_phoneNumber);
+
+        jLabel10.setText("Căn cước công dân (CMND) (*):");
+        panelCustomer.add(jLabel10);
+
+        try {
+            FTF_CCCD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### # ## ######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        panelCustomer.add(FTF_CCCD);
+
+        jPanel1.add(panelCustomer);
+        jPanel1.add(panelLocation1);
 
         bottom2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
-        saveBtn2.setBackground(new java.awt.Color(10, 77, 104));
         saveBtn2.setText("Lưu");
+        saveBtn2.setBackground(new java.awt.Color(10, 77, 104));
         saveBtn2.setColorHover(new java.awt.Color(14, 112, 152));
         saveBtn2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         saveBtn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -221,8 +228,8 @@ public class addCustomer extends javax.swing.JFrame {
         });
         bottom2.add(saveBtn2);
 
-        cancelBtn2.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn2.setText("Hủy");
+        cancelBtn2.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn2.setColorHover(new java.awt.Color(14, 112, 152));
         cancelBtn2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cancelBtn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -240,39 +247,46 @@ public class addCustomer extends javax.swing.JFrame {
         bottom2.add(cancelBtn2);
 
         jPanel1.add(bottom2);
-        bottom2.setBounds(0, 460, 610, 40);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 530));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_phoneNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_phoneNumberActionPerformed
-    
-    public rojeru_san.complementos.RSButtonHover getBtnSave(){
+    public rojeru_san.complementos.RSButtonHover getBtnSave() {
         return saveBtn2;
-    } 
-    
+    }
+
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
-        
+
 //        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
 //        if (a == 0) {
-            if (insertCustomer() == true || updateCustomer() == true) {    
-                JOptionPane.showMessageDialog(this, "Lưu thành công !");
-                dispose();
-                CustomerJPanel customerJpn = new CustomerJPanel();
-                System.out.println("1");
-                customerJpn.clearTable();
-                System.out.println("2");
-                
-                customerJpn.setCustomerTable();
-                System.out.println("");
-            } 
-            else {
-                JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
-            }
+        if (insertCustomer() == true || updateCustomer() == true) {
+            JOptionPane.showMessageDialog(this, "Lưu thành công !");
+            dispose();
+            CustomerJPanel customerJpn = new CustomerJPanel();
+            System.out.println("1");
+            customerJpn.clearTable();
+            System.out.println("2");
+
+            customerJpn.setCustomerTable();
+            System.out.println("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+        }
 
 //        }
     }//GEN-LAST:event_saveBtn2ActionPerformed
@@ -284,10 +298,6 @@ public class addCustomer extends javax.swing.JFrame {
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelBtn2ActionPerformed
-
-    private void TF_NameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NameCustomerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_NameCustomerActionPerformed
 
     private void TF_customerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_customerIDActionPerformed
         // TODO add your handling code here:
@@ -310,41 +320,44 @@ public class addCustomer extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addCustomer().setVisible(true);
+                new AddCustomerView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TF_CCCD;
+    private javax.swing.JFormattedTextField FTF_CCCD;
+    private javax.swing.JFormattedTextField FTF_phoneNumber;
     private javax.swing.JTextField TF_NameCustomer;
     private javax.swing.JTextField TF_customerID;
-    private javax.swing.JTextField TF_phoneNumber;
     private javax.swing.JPanel bottom2;
     private javax.swing.ButtonGroup btnGrGender;
     private rojeru_san.complementos.RSButtonHover cancelBtn2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private view.component.PanelLocation panelLocation2;
-    private javax.swing.JPanel panelStaff;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel panelCustomer;
+    private view.component.PanelLocation panelLocation1;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNu;
     private rojeru_san.complementos.RSButtonHover saveBtn2;

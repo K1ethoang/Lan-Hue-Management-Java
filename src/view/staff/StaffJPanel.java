@@ -297,7 +297,7 @@ public class StaffJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-        addStaff addStaff = new addStaff();
+        AddStaffView addStaff = new AddStaffView();
         addStaff.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -326,7 +326,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         try {
             setStaffCurrent();
             System.out.println("---------");
-            addStaff addStaff = new addStaff(staffCurrent, false);
+            AddStaffView addStaff = new AddStaffView(staffCurrent, false);
             System.out.println(addStaff);
             addStaff.setVisible(true);
         } catch (Exception e) {
@@ -337,7 +337,7 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
             setStaffCurrent();
-            addStaff updateStaff = new addStaff(staffCurrent, true);
+            AddStaffView updateStaff = new AddStaffView(staffCurrent, true);
             updateStaff.setVisible(true);
 //            clearTable();
 //            setCustomerTable();
@@ -349,7 +349,7 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setStaffCurrent();
-            addStaff addStaff = new addStaff(staffCurrent, true);
+            AddStaffView addStaff = new AddStaffView(staffCurrent, true);
             int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
                 if (addStaff.deleteStaff() == true) {

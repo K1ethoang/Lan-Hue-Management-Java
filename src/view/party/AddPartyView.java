@@ -339,8 +339,8 @@ public class AddPartyView extends javax.swing.JFrame {
 
         bottom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
-        savePartyBtn.setBackground(new java.awt.Color(10, 77, 104));
         savePartyBtn.setText("Lưu");
+        savePartyBtn.setBackground(new java.awt.Color(10, 77, 104));
         savePartyBtn.setColorHover(new java.awt.Color(14, 112, 152));
         savePartyBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         savePartyBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -385,12 +385,14 @@ public class AddPartyView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
