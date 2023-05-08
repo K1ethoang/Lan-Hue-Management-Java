@@ -176,6 +176,11 @@ public class StaffJPanel extends javax.swing.JPanel {
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
@@ -325,9 +330,7 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         try {
             setStaffCurrent();
-            System.out.println("---------");
             AddStaffView addStaff = new AddStaffView(staffCurrent, false);
-            System.out.println(addStaff);
             addStaff.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
@@ -367,6 +370,10 @@ public class StaffJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_removeBtnActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;

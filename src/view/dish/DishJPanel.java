@@ -4,6 +4,7 @@ import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 
 import javax.swing.RowFilter;
@@ -21,11 +22,15 @@ public class DishJPanel extends javax.swing.JPanel {
 
     DishModel dishCurrent = new DishModel();
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
-
+    protected static int gCurrentID = 0;
+    
     private TableRowSorter<TableModel> rowSorter = null;
     List<DishModel> gListSelectedDish = new ArrayList<>();
 
     public DishJPanel() {
+        List<DishModel> listDish = DishDAOImpl.getInstance().getList();
+        DishDAOImpl dishDAOIml = new DishDAOImpl();
+        
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
@@ -33,7 +38,9 @@ public class DishJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableDish.fixTable(ScrollPaneTable);
-
+        
+        gCurrentID = DishDAOImpl.getInstance().getNextID();
+        System.out.println(gCurrentID);
         // set data
         setComboBoxTypeDish();
         setDishTable();
@@ -95,7 +102,13 @@ public class DishJPanel extends javax.swing.JPanel {
         dishCurrent.setPrice(dish.getPrice());
         dishCurrent.setTypeDish(dish.getTypeDish());
     }
-
+    
+    public void clearTable(){
+        DefaultTableModel model = (DefaultTableModel) tableDish.getModel();
+        model.setRowCount(0);
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,12 +136,22 @@ public class DishJPanel extends javax.swing.JPanel {
         editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
         editBtn.setText("Chỉnh sửa");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
         popupMenu.add(removeBtn);
 
         setBackground(new java.awt.Color(249, 245, 231));
@@ -315,6 +338,40 @@ public class DishJPanel extends javax.swing.JPanel {
 //            setDishTable(gListSelectedDish);
 //        }
     }//GEN-LAST:event_CB_typeDishActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        try {
+            setDishCurrent();
+            AddDishView updateDish = new AddDishView(dishCurrent, true);
+            updateDish.setVisible(true);
+//            clearTable();
+//            setCustomerTable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        try {
+            setDishCurrent();
+            AddDishView addDish = new AddDishView(dishCurrent, true);
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+            if (a == 0) {
+                if (addDish.deleteDish() == true) {
+                    clearTable();
+                    setDishTable();
+
+                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
+             
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_removeBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CB_typeDish;

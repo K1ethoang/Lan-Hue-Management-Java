@@ -42,10 +42,8 @@ public class AddStaffView extends javax.swing.JFrame {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
-        System.out.println("11111");
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
-        System.out.println("stafff update");
         setComboboxRole();
         setData(_staffModel, isSee);
         
@@ -55,7 +53,7 @@ public class AddStaffView extends javax.swing.JFrame {
         }
     }
     
-    boolean insertStaff() {
+    public boolean insertStaff() {
         StaffModel staff = new StaffModel();
         staff.setID(Integer.parseInt(TF_staffID.getText()));
         staff.setName(TF_NameStaff.getText());

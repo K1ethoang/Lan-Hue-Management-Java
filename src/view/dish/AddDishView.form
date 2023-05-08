@@ -75,6 +75,9 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_dishIDActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -89,6 +92,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="FTF_price">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FTF_priceActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -113,7 +119,7 @@
             <Property name="horizontalGap" type="int" value="20"/>
           </Layout>
           <SubComponents>
-            <Component class="rojeru_san.complementos.RSButtonHover" name="savePartyBtn">
+            <Component class="rojeru_san.complementos.RSButtonHover" name="saveBtn">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="68" green="4d" red="a" type="rgb"/>
@@ -131,7 +137,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePartyBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="rojeru_san.complementos.RSButtonHover" name="cancelBtn">

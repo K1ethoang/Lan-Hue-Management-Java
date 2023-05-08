@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import utils.Helper;
 
 public class AddCustomerView extends javax.swing.JFrame {
 
@@ -49,6 +50,7 @@ public class AddCustomerView extends javax.swing.JFrame {
 
     // add customer
     boolean insertCustomer() {
+        Helper helper = new Helper();
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(TF_NameCustomer.getText());
@@ -57,8 +59,13 @@ public class AddCustomerView extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             customer.setSex(0);
         }
-        customer.setPhoneNumber(FTF_phoneNumber.getText());
-        customer.setCitizenNumber(FTF_CCCD.getText());
+        
+        String phoneNumber = helper.removeSpaceInString((String) FTF_phoneNumber.getValue());
+        customer.setPhoneNumber(phoneNumber);
+        
+        String cccd = helper.removeSpaceInString((String) FTF_CCCD.getValue());
+        customer.setCitizenNumber(cccd);
+        
         customer.setAddress(panelLocation1.getAddress());
 
         return customerDAOImpl.insert(customer);
@@ -66,6 +73,7 @@ public class AddCustomerView extends javax.swing.JFrame {
 
     // UPDATE CUSTOMER
     public boolean updateCustomer() {
+        System.out.println("adadadad");
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(TF_NameCustomer.getText());
@@ -74,7 +82,12 @@ public class AddCustomerView extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             customer.setSex(0);
         }
-        customer.setPhoneNumber(FTF_phoneNumber.getText());
+//        String phoneNumber = helper.removeSpaceInString((String) FTF_phoneNumber.getValue());
+//        customer.setPhoneNumber(phoneNumber);
+//        
+//        String cccd = helper.removeSpaceInString((String) FTF_CCCD.getValue());
+//        customer.setCitizenNumber(cccd);
+        
         customer.setCitizenNumber(FTF_CCCD.getText());
         customer.setAddress(panelLocation1.getAddress());
 

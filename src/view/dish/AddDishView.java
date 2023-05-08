@@ -7,65 +7,75 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import model.DishModel;
 import model.TypeDishModel;
+import static view.dish.DishJPanel.gCurrentID;
 
 /**
  *
  * @author kieth
  */
 public class AddDishView extends javax.swing.JFrame {
-
-    List<TypeDishModel> gListTypeDish = null;
-    DishModel gCurrentDish = null;
-
+    
+    List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+    DishModel gCurrentDish = null; 
+    DishDAOImpl dishDAOImpl = new DishDAOImpl();
+    
     public AddDishView() {
         initComponents();
 
-        initTextFieldPrice();
+        initTextFieldPrice(false);
 
         // set data
-        setTextFieldID();
+        setTextFieldID();   
         setComboBoxTypeDish();
     }
 
-    public AddDishView(DishModel _dishModel) {
+    public AddDishView(DishModel _dishModel, boolean isSee) {
         initComponents();
 
-        initTextFieldPrice();
-
+        initTextFieldPrice(isSee);
+        setComboBoxTypeDish();
         // set data
-        setDataSeeDish(_dishModel);
+        setDataSeeDish(_dishModel, isSee);
 
         // set button
-        savePartyBtn.setVisible(false);
+        if (isSee == false) {
+            saveBtn.setVisible(false);
+        }
     }
 
-    private void initTextFieldPrice() {
+    private void initTextFieldPrice(boolean isSee) {
         Locale vn = new Locale("vi", "VN");
         NumberFormat dongFormat = NumberFormat.getNumberInstance(vn);
 
         FTF_price.setFormatterFactory(new DefaultFormatterFactory(
                 new NumberFormatter(dongFormat)));
-        FTF_price.setValue(50000);
+        if(isSee == false){
+            FTF_price.setValue(50000);
+        }
+        
     }
 
     private void setTextFieldID() {
-        TF_dishID.setText(DishDAOImpl.getInstance().getNextID() + "");
+        TF_dishID.setText(gCurrentID + "");
     }
 
-    private void setDataSeeDish(DishModel dish) {
+    private void setDataSeeDish(DishModel dish, boolean isSee) {
         this.setTitle("Xem món ăn");
         TF_dishID.setText(dish.getDishID() + "");
         TF_nameDish.setText(dish.getDishName());
-        setFieldEnable(false);
+        CB_typeDish.setSelectedItem(dish.getTypeDish().getTypeName());
+        setFieldEnable(isSee);
     }
 
     private void setComboBoxTypeDish() {
-        gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+//        gListTypeDish = TypeDishDAOImpl.getInstance().getList();
         CB_typeDish.removeAllItems();
         for (int i = 0; i < gListTypeDish.size(); i++) {
             CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
@@ -73,9 +83,50 @@ public class AddDishView extends javax.swing.JFrame {
     }
 
     private void setFieldEnable(boolean bool) {
-
+        TF_dishID.setEditable(false);
+        TF_nameDish.setEditable(bool);
+        CB_typeDish.setEditable(bool);
+        FTF_price.setEditable(bool);
     }
-
+    
+    public boolean insertDish() {
+        DishModel dish = new DishModel();
+        dish.setDishID(Integer.parseInt(TF_dishID.getText()));
+        dish.setDishName(TF_nameDish.getText());
+        
+        dish.setPrice(Double.parseDouble(FTF_price.getText()));
+        
+        for(int i = 0; i< gListTypeDish.size(); i++){
+            if(CB_typeDish.getSelectedIndex() == i){
+                dish.setTypeDish(gListTypeDish.get(i)); 
+                break;
+            }
+        }
+        return dishDAOImpl.insert(dish);
+    }
+    
+    public boolean updateDish() {
+        DishModel dish = new DishModel();
+        dish.setDishID(Integer.parseInt(TF_dishID.getText()));
+        dish.setDishName(TF_nameDish.getText());
+        dish.setPrice(Double.parseDouble(FTF_price.getText()));
+        for(int i = 0; i< gListTypeDish.size(); i++){
+            if(CB_typeDish.getSelectedIndex() == i){
+                dish.setTypeDish(gListTypeDish.get(i)); 
+                break;
+            }
+        }
+        System.out.println("name TypeDish: " + dish.getTypeDish().getTypeName());
+        System.out.println("ID TypeDish: " + dish.getTypeDish().getTypeDishID());
+        System.out.println("DISH: " + dish);
+        return dishDAOImpl.update(dish);
+    }
+    
+    public boolean deleteDish() {
+        int dishID = Integer.parseInt(TF_dishID.getText());
+        return dishDAOImpl.delete(dishID);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -92,7 +143,7 @@ public class AddDishView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         CB_typeDish = new javax.swing.JComboBox<>();
         bottom = new javax.swing.JPanel();
-        savePartyBtn = new rojeru_san.complementos.RSButtonHover();
+        saveBtn = new rojeru_san.complementos.RSButtonHover();
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -109,6 +160,11 @@ public class AddDishView extends javax.swing.JFrame {
         panelCustomer.add(jLabel6);
 
         TF_dishID.setEditable(false);
+        TF_dishID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_dishIDActionPerformed(evt);
+            }
+        });
         panelCustomer.add(TF_dishID);
 
         jLabel5.setText("Tên món ăn (*)");
@@ -117,6 +173,12 @@ public class AddDishView extends javax.swing.JFrame {
 
         jLabel7.setText("Giá (Đồng) (*)");
         panelCustomer.add(jLabel7);
+
+        FTF_price.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FTF_priceActionPerformed(evt);
+            }
+        });
         panelCustomer.add(FTF_price);
 
         jLabel8.setText("Loại món ăn (*)");
@@ -128,18 +190,18 @@ public class AddDishView extends javax.swing.JFrame {
 
         bottom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
-        savePartyBtn.setBackground(new java.awt.Color(10, 77, 104));
-        savePartyBtn.setText("Lưu");
-        savePartyBtn.setColorHover(new java.awt.Color(14, 112, 152));
-        savePartyBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        savePartyBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        savePartyBtn.setPreferredSize(new java.awt.Dimension(110, 40));
-        savePartyBtn.addActionListener(new java.awt.event.ActionListener() {
+        saveBtn.setBackground(new java.awt.Color(10, 77, 104));
+        saveBtn.setText("Lưu");
+        saveBtn.setColorHover(new java.awt.Color(14, 112, 152));
+        saveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        saveBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        saveBtn.setPreferredSize(new java.awt.Dimension(110, 40));
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savePartyBtnActionPerformed(evt);
+                saveBtnActionPerformed(evt);
             }
         });
-        bottom.add(savePartyBtn);
+        bottom.add(saveBtn);
 
         cancelBtn.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn.setText("Hủy");
@@ -173,8 +235,27 @@ public class AddDishView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void savePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savePartyBtnActionPerformed
+    private void TF_dishIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_dishIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_dishIDActionPerformed
 
+    private void FTF_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_priceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FTF_priceActionPerformed
+
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savePartyBtnActionPerformed
+        System.out.println("updateDish: " + updateDish());
+        if (insertDish() == true || updateDish() == true) {    
+                JOptionPane.showMessageDialog(this, "Lưu thành công !");
+                dispose();
+                DishJPanel dishJpn = new DishJPanel();
+
+                dishJpn.clearTable();
+                dishJpn.setDishTable();
+            } 
+            else {
+                JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+            }
     }// GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
@@ -240,6 +321,6 @@ public class AddDishView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelCustomer;
-    private rojeru_san.complementos.RSButtonHover savePartyBtn;
+    private rojeru_san.complementos.RSButtonHover saveBtn;
     // End of variables declaration//GEN-END:variables
 }
