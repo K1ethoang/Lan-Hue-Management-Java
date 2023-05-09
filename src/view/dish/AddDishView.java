@@ -242,23 +242,27 @@ public class AddDishView extends javax.swing.JFrame {
     }// GEN-LAST:event_FTF_priceActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savePartyBtnActionPerformed
-        boolean isEditOk = false, isInsertOk = false;
-
-        if (isEditDish) {
-            isEditOk = updateDish();
-        } else {
-            isInsertOk = insertDish();
-        }
-
-        if (isInsertOk) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+        System.out.println("dong: " + FTF_price.getText());
+        if (insertDish() == true || updateDish() == true) {
+            JOptionPane.showMessageDialog(this, "Lưu thành công !");
             dispose();
-        } else if (isEditOk) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
+            DishJPanel dishJpn = new DishJPanel();
         }
+        // if (isEditDish) {
+        //     isEditOk = updateDish();
+        // } else {
+        //     isInsertOk = insertDish();
+        // }
+
+        // if (isInsertOk) {
+        //     JOptionPane.showMessageDialog(this, "Thêm thành công !");
+        //     dispose();
+        // } else if (isEditOk) {
+        //     JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+        //     dispose();
+        // } else {
+        //     JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
+        // }
     }// GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed

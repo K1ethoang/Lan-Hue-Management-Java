@@ -1,8 +1,14 @@
 -- Tạo DB
-CREATE DATABASE IF NOT EXISTS LanHueManagement;
+DROP DATABASE IF EXISTS LanHueManagement;
+CREATE DATABASE LanHueManagement
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Sử dụng DB
 USE LanHueManagement;
+
+-- Cài đặt
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 -- 				Tạo bảng Customer
 -- DROP TABLE Customer;
@@ -17,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Customer(
     CONSTRAINT UnCustomer_UN_CitizenNumber UNIQUE (UN_CitizenNumber),
     CONSTRAINT CkCustomer_PhoneNumber CHECK (LENGTH(PhoneNumber) = 10),
     CONSTRAINT CkCustomer_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE Customer;
 -- NSERT INTO Customer(Name,PhoneNumber,UN_CitizenNumber,Address) VALUES ("Hoàng Gia Kiệt", "0784265174", "123123123123", "123");
 
@@ -29,7 +35,7 @@ CREATE TABLE IF NOT EXISTS PaymentStatus(
     StatusName VARCHAR(100) NOT NULL,
     CONSTRAINT PkPaymentStatus_PaymentStatusID PRIMARY KEY (PaymentStatusID),
     CONSTRAINT UnPaymentStatus_UN_StatusCode UNIQUE (UN_StatusCode)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE PaymentStatus;
 -- INSERT INTO PaymentStatus (UN_StatusCode, StatusName) VALUES (-1, "Sắp tới");
 
@@ -41,7 +47,7 @@ CREATE TABLE IF NOT EXISTS HappenStatus(
     StatusName VARCHAR(100) NOT NULL,
     CONSTRAINT PkHappenStatus_HappenStatusID PRIMARY KEY (HappenStatusID),
     CONSTRAINT UnHappenStatus_UN_StatusCode UNIQUE (UN_StatusCode)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE HappenStatus;
 -- INSERT INTO HappenStatus (UN_StatusCode, StatusName) VALUES (0, "Chưa thanh toán");
 
@@ -51,7 +57,7 @@ CREATE TABLE IF NOT EXISTS Role(
 	RoleID INT UNSIGNED AUTO_INCREMENT,
     RoleName VARCHAR(255) NOT NULL,
     CONSTRAINT PkRole_RoleID PRIMARY KEY (RoleID)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE Role;
 -- INSERT INTO Role (UN_RoleCode, RoleName) VALUES ("CT1", "Chạy tiệc")
 
@@ -62,7 +68,7 @@ CREATE TABLE IF NOT EXISTS TypeDish(
 	UN_TypeName VARCHAR(200) NOT NULL,
     CONSTRAINT PkTypeDish_TypeDishID PRIMARY KEY (TypeDishID),
     CONSTRAINT UnTypeDish_UN_TypeName UNIQUE (UN_TypeName)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE TypeDish;
 -- INSERT INTO TypeDish (UN_TypeName) VALUES ("Tráng miệng");
 
@@ -81,7 +87,7 @@ CREATE TABLE IF NOT EXISTS Staff(
 	CONSTRAINT CkStaff_PhoneNumber CHECK (LENGTH(PhoneNumber) = 10),
     CONSTRAINT CkStaff_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12),
     CONSTRAINT FkStaff_RoleID FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE Staff;
 -- INSERT INTO Staff (Name, PhoneNumber, UN_CitizenNumber, Address) VALUES ("Nguyễn Văn A", "037415782", "123123123123", "Quận 9, TP. Hồ Chí Minh");
 
@@ -90,11 +96,11 @@ CREATE TABLE IF NOT EXISTS Staff(
 CREATE TABLE IF NOT EXISTS Dish(
 	DishID INT UNSIGNED AUTO_INCREMENT,
     DishName VARCHAR(255) NOT NULL,
-    Price DOUBLE DEFAULT 0,
+    CostPrice DOUBLE DEFAULT 0,
     TypeDishID INT UNSIGNED,
     CONSTRAINT PkDish_DishID PRIMARY KEY (DishID),
     CONSTRAINT FkDish_TypeDishID FOREIGN KEY (TypeDishID) REFERENCES TypeDish(TypeDishID)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE Dish;
 -- INSERT INTO Dish (DishName) VALUES ("Cơm chiên cá mặn");
 
@@ -105,7 +111,7 @@ CREATE TABLE IF NOT EXISTS TypeParty(
     UN_TypeName VARCHAR(100) NOT NULL,
     CONSTRAINT PkTypeParty_TypePartyID PRIMARY KEY (TypePartyID) ,
     CONSTRAINT UnTypeParty_UN_TypeName UNIQUE (UN_TypeName)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE TypeParty;
 -- INSERT INTO TypeParty (UN_TypeName) VALUES ("Tiệc cưới");
 
@@ -130,7 +136,7 @@ CREATE TABLE IF NOT EXISTS Party(
     CONSTRAINT FkParty_TypePartyID FOREIGN KEY (TypePartyID) REFERENCES TypeParty(TypePartyID),
     CONSTRAINT CkParty_Date CHECK (`Date` > sysdate()),
     CONSTRAINT CkParty_TableNumber CHECK (TableNumber >= 2)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE Party;
 
 -- 				Tạo bảng Invoice
@@ -145,7 +151,7 @@ CREATE TABLE Invoice(
     CONSTRAINT PkInvoice_InvoiceID PRIMARY KEY (InvoiceID),
     CONSTRAINT FkInvoice_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
 	CONSTRAINT FkInvoice_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
-) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE Invoice;
 
 -- 				Tạo bảng Order
@@ -153,7 +159,8 @@ CREATE TABLE Invoice(
 CREATE TABLE `Order`(
 	PartyID INT UNSIGNED,
     DishID INT UNSIGNED,
-    CONSTRAINT PkOrder_PartyID_DishID PRIMARY KEY (PartyID,DishID),
+    Price DOUBLE DEFAULT 0,
+    CONSTRAINT PkOrder_PartyID_DishID PRIMARY KEY (PartyID, DishID),
     CONSTRAINT FkOrder_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
     CONSTRAINT FkOrder_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID)
 );
@@ -163,14 +170,12 @@ CREATE TABLE `Order`(
 CREATE TABLE DetailInvoice(
 	DetailInvoiceID INT UNSIGNED AUTO_INCREMENT,
     `Number` TINYINT UNSIGNED,
-    UnitPrice DOUBLE,
-    Total DOUBLE,
     DishID INT UNSIGNED,
     InvoiceID INT UNSIGNED,
     CONSTRAINT PkDetailInvoice_DetailInvoiceID PRIMARY KEY (DetailInvoiceID),
     CONSTRAINT FkDetailInvoice_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID),
     CONSTRAINT FkDetailInvoice_InvoiceID FOREIGN KEY (InvoiceID) REFERENCES Invoice(InvoiceID)
-) AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE DetailInvoice;
 
 -- 				Tạo bảng Work
@@ -198,7 +203,7 @@ CREATE TABLE Account(
     CONSTRAINT UnAccount_UN_Username UNIQUE (UN_Username),
     CONSTRAINT FkAccount_StaffID FOREIGN KEY (StaffID) REFERENCES Staff(StaffID),
 	CONSTRAINT FkAccount_RoleID FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
-) AUTO_INCREMENT=1;
+);
 -- TRUNCATE TABLE Account;
 
 INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`) VALUES 

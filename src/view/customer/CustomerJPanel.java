@@ -98,6 +98,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
         editBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         removeBtn = new javax.swing.JMenuItem();
+        sexGroup = new javax.swing.ButtonGroup();
         top = new javax.swing.JPanel();
         searchAndButton = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
@@ -108,8 +109,9 @@ public class CustomerJPanel extends javax.swing.JPanel {
         filter = new javax.swing.JPanel();
         sex = new javax.swing.JPanel();
         labelGoogleIcon2 = new view.component.LabelGoogleIcon();
-        paymentNo = new javax.swing.JCheckBox();
-        paymentYes = new javax.swing.JCheckBox();
+        rdoAll = new javax.swing.JRadioButton();
+        rdoMale = new javax.swing.JRadioButton();
+        rdoFemale = new javax.swing.JRadioButton();
         center = new javax.swing.JPanel();
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableCustomer = new view.component.table.Table();
@@ -222,25 +224,18 @@ public class CustomerJPanel extends javax.swing.JPanel {
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sex.add(labelGoogleIcon2);
 
-        paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setText("Nữ");
-        paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentNo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentNoActionPerformed(evt);
-            }
-        });
-        sex.add(paymentNo);
+        sexGroup.add(rdoAll);
+        rdoAll.setSelected(true);
+        rdoAll.setText("Tất cả");
+        sex.add(rdoAll);
 
-        paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setText("Nam");
-        paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentYes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentYesActionPerformed(evt);
-            }
-        });
-        sex.add(paymentYes);
+        sexGroup.add(rdoMale);
+        rdoMale.setText("Nam");
+        sex.add(rdoMale);
+
+        sexGroup.add(rdoFemale);
+        rdoFemale.setText("Nữ");
+        sex.add(rdoFemale);
 
         filter.add(sex);
 
@@ -284,7 +279,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(centerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -296,14 +291,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         addCustomer.setVisible(true);
 //        refresh();
     }//GEN-LAST:event_addBtnActionPerformed
-
-    private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentNoActionPerformed
-
-    private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentYesActionPerformed
 
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
         try {
@@ -374,15 +361,17 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
-    private javax.swing.JCheckBox paymentNo;
-    private javax.swing.JCheckBox paymentYes;
     private javax.swing.JPopupMenu popupMenu;
+    private javax.swing.JRadioButton rdoAll;
+    private javax.swing.JRadioButton rdoFemale;
+    private javax.swing.JRadioButton rdoMale;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JMenuItem seeBtn;
     private javax.swing.JPanel sex;
+    private javax.swing.ButtonGroup sexGroup;
     private javax.swing.JLabel sumCustomer;
     private view.component.table.Table tableCustomer;
     private javax.swing.JPanel top;

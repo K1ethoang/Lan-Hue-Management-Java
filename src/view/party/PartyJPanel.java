@@ -75,11 +75,11 @@ public class PartyJPanel extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
             }
         });
 
-        sumParty.setText("Số lượng: " + gListParty.size() + "");
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
 
     }
 
