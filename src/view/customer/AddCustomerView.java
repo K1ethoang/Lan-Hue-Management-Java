@@ -31,7 +31,6 @@ public class AddCustomerView extends javax.swing.JFrame {
         sb.setOrientation(JScrollBar.HORIZONTAL);
 
         setData(_customerModel, isEditCustomer);
-
     }
 
     private void setTextFieldID() {
@@ -48,7 +47,6 @@ public class AddCustomerView extends javax.swing.JFrame {
 
     // add customer
     boolean insertCustomer() {
-        Helper helper = new Helper();
         CustomerModel customer = new CustomerModel();
         customer.setName(TF_NameCustomer.getText());
         if (rdoNam.isSelected()) {
@@ -67,7 +65,7 @@ public class AddCustomerView extends javax.swing.JFrame {
 
     // UPDATE CUSTOMER
     public boolean updateCustomer() {
-        System.out.println("adadadad");
+
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(TF_NameCustomer.getText());
@@ -188,6 +186,12 @@ public class AddCustomerView extends javax.swing.JFrame {
 
         jLabel8.setText("Tên khách hàng (*)");
         panelCustomer.add(jLabel8);
+
+        TF_NameCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_NameCustomerActionPerformed(evt);
+            }
+        });
         panelCustomer.add(TF_NameCustomer);
 
         jLabel9.setText("SĐT liên hệ (*)");
@@ -198,6 +202,11 @@ public class AddCustomerView extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        FTF_phoneNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FTF_phoneNumberActionPerformed(evt);
+            }
+        });
         panelCustomer.add(FTF_phoneNumber);
 
         jLabel10.setText("Số  căn cước công dân (*):");
@@ -287,6 +296,14 @@ public class AddCustomerView extends javax.swing.JFrame {
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelBtn2ActionPerformed
+
+    private void FTF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_phoneNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FTF_phoneNumberActionPerformed
+
+    private void TF_NameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NameCustomerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_NameCustomerActionPerformed
 
     /**
      * @param args the command line arguments

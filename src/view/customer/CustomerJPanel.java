@@ -334,10 +334,8 @@ public class CustomerJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_editBtnActionPerformed
 
     public void clearTable() {
-
         DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
         model.setRowCount(0);
-        System.out.println("clearrrrrrrrrrrrrrrrrr");
     }
 
 

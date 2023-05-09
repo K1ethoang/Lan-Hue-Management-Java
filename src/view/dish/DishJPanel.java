@@ -3,6 +3,7 @@ package view.dish;
 import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -19,17 +20,15 @@ import table.TableDish;
 import view.component.scroll.ScrollBarCus;
 
 public class DishJPanel extends javax.swing.JPanel {
-
-    DishModel dishCurrent = new DishModel();
+    
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+    List<DishModel> listDish = null;
+    DishModel dishCurrent = new DishModel();
 
-    private TableRowSorter<TableModel> rowSorter = null;
-    List<DishModel> gListSelectedDish = new ArrayList<>();
+    private TableRowSorter<TableModel> rowSorter;
 
     public DishJPanel() {
         List<DishModel> listDish = DishDAOImpl.getInstance().getList();
-        DishDAOImpl dishDAOImpl = new DishDAOImpl();
-
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
@@ -39,58 +38,109 @@ public class DishJPanel extends javax.swing.JPanel {
         tableDish.fixTable(ScrollPaneTable);
 
         // set data
-        setComboBoxTypeDish();
         setDishTable();
+        setComboBoxTypeDish();
     }
 
     public void setDishTable() {
-        List<DishModel> listDish = DishDAOImpl.getInstance().getList();
+        // load data into the table
+        listDish = DishDAOImpl.getInstance().getList();
         TableDish tb = new TableDish();
         tb.setDishDetailsToTable(listDish, tableDish);
-
+        
+        // set up the row sorter
         rowSorter = new TableRowSorter<>(tableDish.getModel());
         tableDish.setRowSorter(rowSorter);
+        
+//        searchField.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                String text = searchField.getText();
+//                if (text.trim().length() == 0) {
+//                    rowSorter.setRowFilter(null);
+//                } else {
+//                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+//                }
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                String text = searchField.getText();
+//                if (text.trim().length() == 0) {
+//                    rowSorter.setRowFilter(null);
+//                } else {
+//                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+//                }
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//            }
+//        });
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = searchField.getText();
+                String curTypeDish = (String) CB_typeDish.getSelectedItem();
                 if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
+                    if (curTypeDish.equals("Tất cả")) {
+                        rowSorter.setRowFilter(null);
+                    } else {
+                        rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, 3));
+                    }
                 } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    if (curTypeDish.equals("Tất cả")) {
+                        rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    } else {
+                        List<RowFilter<Object, Object>> filters = new ArrayList<>();
+                        filters.add(RowFilter.regexFilter("(?i)" + text));
+                        filters.add(RowFilter.regexFilter(curTypeDish, 3));
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                    }
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                String curTypeDish = (String) CB_typeDish.getSelectedItem();
+                if (text.trim().length() == 0) { // nếu search k có kí tự nào
+                    if (curTypeDish.equals("Tất cả")) { // nếu chọn vào "Tất cả"
+                        rowSorter.setRowFilter(null); // bộ lọc đặt lại để hiển thị tất cả các hàng trong bảng
+                    } else { // nếu chọn vào 1 trong các giá trị còn lại của Cb trừ "tất cả"
+                        rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, 3));
+                    }
+                // nếu không có kí tự mà chọn vào tất cả thì bộ lọc đặt được đặt lại để hiển thị tất cả các hàng trong bảng
+                // chứa từ khóa tìm kiếm. Nếu không, bộ lọc của bảng được đặt lại để chỉ hiển thị các hàng có giá trị loại
+                // món ăn được chọn bởi người dùng và cũng chứa từ khóa tìm kiếm (text)
+                } else { // nếu search có kí tự
+                    if (curTypeDish.equals("Tất cả")) { // nếu chọn vào tất cả
+                        rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    } else {
+                        List<RowFilter<Object, Object>> filters = new ArrayList<>();
+                        filters.add(RowFilter.regexFilter("(?i)" + text));
+                        filters.add(RowFilter.regexFilter(curTypeDish, 3));
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                    }
                 }
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                // not used
             }
         });
-
-        sumDish.setText("Số lượng: " + listDish.size());
-
+       
+        setSumDish();
     }
-
-    private void setComboBoxTypeDish() {
-        CB_typeDish.removeAllItems();
-        CB_typeDish.addItem("Tất cả");
-        for (int i = 0; i < gListTypeDish.size(); i++) {
-            CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
-        }
+    
+    private void setSumDish() {
+        sumDish.setText("Số lượng: " + tableDish.getRowCount() + "");
     }
-
+    
     private void setDishCurrent() {
-        List<DishModel> listDish = DishDAOImpl.getInstance().getList();
+        listDish = DishDAOImpl.getInstance().getList();
         int row = tableDish.getSelectedRow();
         DishModel dish = listDish.get(row);
 
@@ -98,6 +148,14 @@ public class DishJPanel extends javax.swing.JPanel {
         dishCurrent.setDishName(dish.getDishName());
         dishCurrent.setPrice(dish.getPrice());
         dishCurrent.setTypeDish(dish.getTypeDish());
+    }
+    
+    private void setComboBoxTypeDish() {
+        CB_typeDish.removeAllItems();
+        CB_typeDish.addItem("Tất cả");
+        for (int i = 0; i < gListTypeDish.size(); i++) {
+            CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
+        }
     }
 
     public void clearTable() {
@@ -170,6 +228,11 @@ public class DishJPanel extends javax.swing.JPanel {
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
@@ -303,8 +366,8 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-        AddDishView _addDish = new AddDishView();
-        _addDish.setVisible(true);
+        AddDishView addDish = new AddDishView();
+        addDish.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
@@ -320,36 +383,50 @@ public class DishJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_paymentBtn1ActionPerformed
 
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
+//        String curTypeDish = (String) CB_typeDish.getSelectedItem();
+//        int columnIndex = 3;
+//        if (curTypeDish.equals("Tất cả")) {
+//            tableDish.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
+//        } else {
+//            rowSorter = new TableRowSorter<>(tableDish.getModel());
+//            tableDish.setRowSorter(rowSorter);
+//            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
+//        }   
         String curTypeDish = (String) CB_typeDish.getSelectedItem();
-        int columnIndex = 3;
+        int columnIndex = 3; // chỉ số cột chứa thông tin loại đồ ăn trong bảng, có thể thay đổi tùy vào cấu trúc bảng của bạn
         if (curTypeDish.equals("Tất cả")) {
-            tableDish.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
+            tableDish.setRowSorter(rowSorter); // Sử dụng lại RowSorter khi loại đồ ăn được chọn là Tất cả.
         } else {
-            rowSorter = new TableRowSorter<>(tableDish.getModel());
-            tableDish.setRowSorter(rowSorter);
-            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
+            if (rowSorter == null) {
+                rowSorter = new TableRowSorter<>(tableDish.getModel());
+                tableDish.setRowSorter(rowSorter);
+            }
+            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ ComboBox.
         }
+        
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
             setDishCurrent();
-            AddDishView updateDish = new AddDishView(dishCurrent, true);
-            updateDish.setVisible(true);
+
+            AddDishView.isEditDish = true;
+
+            AddDishView addDish = new AddDishView(dishCurrent);
+            addDish.setVisible(true);
 //            clearTable();
 //            setCustomerTable();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setDishCurrent();
-            AddDishView addDish = new AddDishView(dishCurrent, true);
             int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
-                if (addDish.deleteDish() == true) {
+                if (DishDAOImpl.getInstance().delete(dishCurrent.getDishID())) {
                     clearTable();
                     setDishTable();
 
@@ -361,9 +438,13 @@ public class DishJPanel extends javax.swing.JPanel {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Món ăn không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_removeBtnActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CB_typeDish;

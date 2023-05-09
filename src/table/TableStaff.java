@@ -12,8 +12,7 @@ public class TableStaff {
     }
     
     public void setStaffDetailsToTable(List<StaffModel> listStaff, view.component.table.Table tableStaff){
-        System.out.println(listStaff.get(0));
-        DefaultTableModel model;
+        DefaultTableModel model = null;
         try{ 
             int rows = listStaff.size();
             if (rows > 0) {

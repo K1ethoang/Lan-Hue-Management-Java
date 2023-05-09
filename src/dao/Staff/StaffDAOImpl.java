@@ -52,22 +52,38 @@ public class StaffDAOImpl implements StaffDAO {
     }
 
     @Override
+    public int getNextID() {
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "SELECT MAX(staffID) + 1 as `nextID` FROM staff";
+            int nextID = -1;
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nextID = rs.getInt("nextID");
+            }
+            System.out.println("nextID: " + nextID);
+            return nextID;
+        } catch (Exception e) {
+        }
+        return -1;
+    }
+    
+    @Override
     public boolean insert(StaffModel staff) {
-        System.out.println(staff.getID() + staff.getName() + staff.getSdt() + staff.getCccd() + staff.getAddress() + staff.getRole().getRoleName() + staff.getRole().getRoleID());
         boolean isOk = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "INSERT INTO staff(StaffID, Name, Sex, PhoneNumber, UN_CitizenNumber, Address, RoleID) "
-                    + "VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO staff(Name, Sex, PhoneNumber, UN_CitizenNumber, Address, RoleID) "
+                    + "VALUES (?,?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, staff.getID());
-            ps.setString(2, staff.getName());
-            ps.setInt(3, staff.isSex());
-            ps.setString(4, staff.getSdt());
-            ps.setString(5, staff.getCccd());
-            ps.setString(6, staff.getAddress());
-            ps.setInt(7, staff.getRole().getRoleID());
+            ps.setString(1, staff.getName());
+            ps.setInt(2, staff.isSex());
+            ps.setString(3, staff.getSdt());
+            ps.setString(4, staff.getCccd());
+            ps.setString(5, staff.getAddress());
+            ps.setInt(6, staff.getRole().getRoleID());
 
             int rs = ps.executeUpdate();
             if (rs > 0) {
@@ -130,4 +146,5 @@ public class StaffDAOImpl implements StaffDAO {
         }
         return isUpdated;
     }
+
 }

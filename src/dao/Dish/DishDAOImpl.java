@@ -75,14 +75,13 @@ public class DishDAOImpl implements DishDAO {
         boolean isOk = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "INSERT INTO dish(DishID, DishName, Price, TypeDishID) "
-                    + "VALUES (?,?,?,?)";
+            String sql = "INSERT INTO dish(DishName, Price, TypeDishID) "
+                    + "VALUES (?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, dish.getDishID());
-            ps.setString(2, dish.getDishName());
-            ps.setDouble(3, dish.getPrice());
-            ps.setInt(4, dish.getTypeDish().getTypeDishID());
+            ps.setString(1, dish.getDishName());
+            ps.setDouble(2, dish.getPrice());
+            ps.setInt(3, dish.getTypeDish().getTypeDishID());
 
             int rs = ps.executeUpdate();
             if (rs > 0) {
@@ -121,16 +120,15 @@ public class DishDAOImpl implements DishDAO {
             String sql = "UPDATE DISH SET DishName = ?, Price = ?, TypeDishID = ? WHERE DishID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            if (!dish.getDishName().isEmpty() && dish.getPrice() != 0 && !dish.getTypeDish().getTypeName().isEmpty()) {
-                ps.setString(1, dish.getDishName());
-                ps.setDouble(2, dish.getPrice());
-                ps.setInt(3, dish.getTypeDish().getTypeDishID());
-                ps.setInt(4, dish.getDishID());
-                int rs = ps.executeUpdate();
-                if (rs > 0) {
-                    isUpdated = true;
-                }
+            ps.setString(1, dish.getDishName());
+            ps.setDouble(2, dish.getPrice());
+            ps.setInt(3, dish.getTypeDish().getTypeDishID());
+            ps.setInt(4, dish.getDishID());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isUpdated = true;
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,42 +20,43 @@ import model.TypeDishModel;
  * @author kieth
  */
 public class AddDishView extends javax.swing.JFrame {
-
+    
+    public static boolean isEditDish = false;
+    
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
-    DishModel gCurrentDish = null;
+    TypeDishModel gTypeDishModel = null;
+    
     DishDAOImpl dishDAOImpl = new DishDAOImpl();
 
     public AddDishView() {
         initComponents();
 
-        initTextFieldPrice(false);
-
+        initTextFieldPrice(isEditDish);
+        
+        gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+        TF_dishID.setEditable(false);
         // set data
         setTextFieldID();
         setComboBoxTypeDish();
     }
 
-    public AddDishView(DishModel _dishModel, boolean isSee) {
+    public AddDishView(DishModel _dishModel) {
         initComponents();
 
-        initTextFieldPrice(isSee);
+//        initTextFieldPrice(isEditDish);
         setComboBoxTypeDish();
         // set data
-        setDataSeeDish(_dishModel, isSee);
+        setDataSeeDish(_dishModel, isEditDish);
 
-        // set button
-        if (isSee == false) {
-            saveBtn.setVisible(false);
-        }
     }
 
-    private void initTextFieldPrice(boolean isSee) {
+    private void initTextFieldPrice(boolean isEditDish) {
         Locale vn = new Locale("vi", "VN");
         NumberFormat dongFormat = NumberFormat.getNumberInstance(vn);
 
         FTF_price.setFormatterFactory(new DefaultFormatterFactory(
                 new NumberFormatter(dongFormat)));
-        if (isSee == false) {
+        if (isEditDish == false) {
             FTF_price.setValue(50000);
         }
 
@@ -63,29 +64,6 @@ public class AddDishView extends javax.swing.JFrame {
 
     private void setTextFieldID() {
         TF_dishID.setText(DishDAOImpl.getInstance().getNextID() + "");
-    }
-
-    private void setDataSeeDish(DishModel dish, boolean isSee) {
-        this.setTitle("Xem món ăn");
-        TF_dishID.setText(dish.getDishID() + "");
-        TF_nameDish.setText(dish.getDishName());
-        CB_typeDish.setSelectedItem(dish.getTypeDish().getTypeName());
-        setFieldEnable(isSee);
-    }
-
-    private void setComboBoxTypeDish() {
-        // gListTypeDish = TypeDishDAOImpl.getInstance().getList();
-        CB_typeDish.removeAllItems();
-        for (int i = 0; i < gListTypeDish.size(); i++) {
-            CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
-        }
-    }
-
-    private void setFieldEnable(boolean bool) {
-        TF_dishID.setEditable(false);
-        TF_nameDish.setEditable(bool);
-        CB_typeDish.setEditable(bool);
-        FTF_price.setEditable(bool);
     }
 
     public boolean insertDish() {
@@ -101,7 +79,7 @@ public class AddDishView extends javax.swing.JFrame {
                 break;
             }
         }
-        return dishDAOImpl.insert(dish);
+        return DishDAOImpl.getInstance().insert(dish);
     }
 
     public boolean updateDish() {
@@ -115,15 +93,35 @@ public class AddDishView extends javax.swing.JFrame {
                 break;
             }
         }
-        System.out.println("name TypeDish: " + dish.getTypeDish().getTypeName());
-        System.out.println("ID TypeDish: " + dish.getTypeDish().getTypeDishID());
-        System.out.println("DISH: " + dish);
-        return dishDAOImpl.update(dish);
+        return DishDAOImpl.getInstance().update(dish);
     }
 
     public boolean deleteDish() {
         int dishID = Integer.parseInt(TF_dishID.getText());
-        return dishDAOImpl.delete(dishID);
+        return DishDAOImpl.getInstance().delete(dishID);
+    }
+    
+    private void setDataSeeDish(DishModel dish, boolean isEditDish) {
+        this.setTitle("Chỉnh sửa thông tin món ăn");
+        TF_dishID.setText(dish.getDishID() + "");
+        TF_nameDish.setText(dish.getDishName());
+        FTF_price.setText(dish.getPrice() + "");
+        CB_typeDish.setSelectedItem(dish.getTypeDish().getTypeName());
+        setFieldEnable(isEditDish);
+    }
+    
+    private void setFieldEnable(boolean bool) {
+//        TF_dishID.setEditable(false);
+        TF_nameDish.setEditable(bool);
+        CB_typeDish.setEditable(bool);
+        FTF_price.setEditable(bool);
+    }
+    
+    private void setComboBoxTypeDish() {        
+        CB_typeDish.removeAllItems();
+        for (int i = 0; i < gListTypeDish.size(); i++) {
+            CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -244,16 +242,22 @@ public class AddDishView extends javax.swing.JFrame {
     }// GEN-LAST:event_FTF_priceActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savePartyBtnActionPerformed
-        System.out.println("updateDish: " + updateDish());
-        if (insertDish() == true || updateDish() == true) {
-            JOptionPane.showMessageDialog(this, "Lưu thành công !");
-            dispose();
-            DishJPanel dishJpn = new DishJPanel();
+        boolean isEditOk = false, isInsertOk = false;
 
-            dishJpn.clearTable();
-            dishJpn.setDishTable();
+        if (isEditDish) {
+            isEditOk = updateDish();
         } else {
-            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+            isInsertOk = insertDish();
+        }
+
+        if (isInsertOk) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            dispose();
+        } else if (isEditOk) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
         }
     }// GEN-LAST:event_savePartyBtnActionPerformed
 

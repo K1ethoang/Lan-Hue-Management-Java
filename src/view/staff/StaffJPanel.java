@@ -15,9 +15,10 @@ import table.TableStaff;
 import view.component.scroll.ScrollBarCus;
 
 public class StaffJPanel extends javax.swing.JPanel {
-
+    
+    List<StaffModel> listStaff = null;
     StaffModel staffCurrent = new StaffModel();
-    protected static int gCurrentID = 0;
+    
     private TableRowSorter<TableModel> rowSorter = null;
     
     public StaffJPanel() {
@@ -29,18 +30,18 @@ public class StaffJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
-        gCurrentID = listStaff.get(0).getID() + 1;
         
         setStaffTable();
     }
 
     public void setStaffTable() {
-        List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
+        listStaff = StaffDAOImpl.getInstance().getList();
         TableStaff tb = new TableStaff();
         tb.setStaffDetailsToTable(listStaff, tableStaff);
         
         rowSorter = new TableRowSorter<>(tableStaff.getModel());
         tableStaff.setRowSorter(rowSorter);
+        
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -70,13 +71,18 @@ public class StaffJPanel extends javax.swing.JPanel {
             }
         });
         
-        sumStaff.setText("Số lượng: " + listStaff.size());
+        setSumStaff();
     }
-
+  
+    private void setSumStaff() {
+        sumStaff.setText("Số lượng: " + tableStaff.getRowCount() + "");
+    }
+    
     private void setStaffCurrent() {
-        List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
+        listStaff = StaffDAOImpl.getInstance().getList();
         int row = tableStaff.getSelectedRow();
         StaffModel staff = listStaff.get(row);
+        
         staffCurrent.setID(staff.getID());
         staffCurrent.setName(staff.getName());
         staffCurrent.setSdt(staff.getSdt());
@@ -86,8 +92,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         staffCurrent.setRole(staff.getRole());
     }
     
-    public void clearTable(){
-        
+    public void clearTable(){       
         DefaultTableModel model = (DefaultTableModel) tableStaff.getModel();
         model.setRowCount(0);
     }
@@ -327,10 +332,12 @@ public class StaffJPanel extends javax.swing.JPanel {
 
     // xử lí sự kiện xem staff
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
-
         try {
             setStaffCurrent();
-            AddStaffView addStaff = new AddStaffView(staffCurrent, false);
+
+            AddStaffView.isEditStaff = false;
+
+            AddStaffView addStaff = new AddStaffView(staffCurrent);
             addStaff.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
@@ -340,27 +347,29 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
             setStaffCurrent();
-            AddStaffView updateStaff = new AddStaffView(staffCurrent, true);
-            updateStaff.setVisible(true);
+
+            AddStaffView.isEditStaff = true;
+
+            AddStaffView addStaff = new AddStaffView(staffCurrent);
+            addStaff.setVisible(true);
 //            clearTable();
 //            setCustomerTable();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setStaffCurrent();
-            AddStaffView addStaff = new AddStaffView(staffCurrent, true);
             int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
-                if (addStaff.deleteStaff() == true) {
+                if (StaffDAOImpl.getInstance().delete(staffCurrent.getID())) {
                     clearTable();
                     setStaffTable();
 
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
-             
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công !");
                 }

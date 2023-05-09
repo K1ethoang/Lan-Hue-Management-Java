@@ -8,16 +8,18 @@ import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 import model.RoleModel;
 import model.StaffModel;
+import utils.Helper;
 import view.component.scroll.ScrollBarCus;
-import static view.staff.StaffJPanel.gCurrentID;
 
 /**
  *
  * @author Admin
  */
 public class AddStaffView extends javax.swing.JFrame {
-
-    StaffModel staffModel = null;
+    
+    public static boolean isEditStaff = false;
+    
+//    StaffModel staffModel = null;
     List<RoleModel> gListRole = RoleDAOImpl.getInstance().getList();
     RoleModel gRoleModel = null;
 
@@ -25,45 +27,52 @@ public class AddStaffView extends javax.swing.JFrame {
 
     public AddStaffView() {
         initComponents();
-
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
-        this.setTitle("Thêm Nhân Viên");
+        
         gListRole = RoleDAOImpl.getInstance().getList();
         TF_staffID.setEditable(false);
+        // set nextID
         setTextFieldID();
         setComboboxRole();
-
     }
 
-    public AddStaffView(StaffModel _staffModel, boolean isSee) {
+    public AddStaffView(StaffModel _staffModel) {
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
+        
         setComboboxRole();
-        setData(_staffModel, isSee);
 
-        // set button
-        if (isSee == false) {
-            saveBtn2.setVisible(false);
-        }
+        setData(_staffModel, isEditStaff);     
     }
 
+    private void setTextFieldID() {
+        TF_staffID.setText(StaffDAOImpl.getInstance().getNextID() + "");
+    }
+    
+    private String getPhoneNumber() {
+        return Helper.removeSpaceInString(FTF_phoneNumber.getText());
+    }
+
+    private String getCitizenNumber() {
+        return Helper.removeSpaceInString(FTF_CCCD.getText());
+    }
+    
     boolean insertStaff() {
         StaffModel staff = new StaffModel();
-        staff.setID(Integer.parseInt(TF_staffID.getText()));
         staff.setName(TF_NameStaff.getText());
         if (rdoNam.isSelected()) {
             staff.setSex(1);
         } else if (rdoNu.isSelected()) {
             staff.setSex(0);
         }
-        staff.setSdt(FTF_phoneNumber.getText());
-        staff.setCccd(FTF_CCCD.getText());
+        staff.setSdt(getPhoneNumber());
+        staff.setCccd(getCitizenNumber());
         staff.setAddress(panelLocation2.getAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
@@ -72,8 +81,7 @@ public class AddStaffView extends javax.swing.JFrame {
                 break;
             }
         }
-        System.out.println(staff);
-        return staffDAOImpl.insert(staff);
+        return StaffDAOImpl.getInstance().insert(staff);
     }
 
     public boolean updateStaff() {
@@ -85,8 +93,8 @@ public class AddStaffView extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             staff.setSex(0);
         }
-        staff.setSdt(FTF_phoneNumber.getText());
-        staff.setCccd(FTF_CCCD.getText());
+        staff.setSdt(getPhoneNumber());
+        staff.setCccd(getCitizenNumber());
         staff.setAddress(panelLocation2.getAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
@@ -95,7 +103,7 @@ public class AddStaffView extends javax.swing.JFrame {
                 break;
             }
         }
-        return staffDAOImpl.update(staff);
+        return StaffDAOImpl.getInstance().update(staff);
     }
 
     public boolean deleteStaff() {
@@ -103,13 +111,14 @@ public class AddStaffView extends javax.swing.JFrame {
         return staffDAOImpl.delete(staffID);
     }
 
-    private void setTextFieldID() {
-        TF_staffID.setText(gCurrentID + "");
-    }
-
-    private void setData(StaffModel _staffModel, boolean isSee) {
-
-        this.setTitle("Xem Nhân Viên");
+    private void setData(StaffModel _staffModel, boolean isEditStaff) {
+        if (isEditStaff) {
+            this.setTitle("Chỉnh sửa thông tin nhân viên");
+        } else {
+            this.setTitle("Xem thông tin nhân viên");
+            saveBtn2.setVisible(false);
+        }
+        
         TF_staffID.setText(_staffModel.getID() + "");
         comboBoxRole.setSelectedItem(_staffModel.getRole().getRoleName());
 
@@ -123,29 +132,23 @@ public class AddStaffView extends javax.swing.JFrame {
         FTF_CCCD.setText(_staffModel.getCccd());
         panelLocation2.setAddress(_staffModel.getAddress());
 
-        setFieldEnable(isSee);
-    }
-
-    private void setReadOnly() {
-        comboBoxRole.setEditable(false);
-        TF_NameStaff.setEditable(false);
-        FTF_phoneNumber.setEditable(false);
-        FTF_CCCD.setEditable(false);
+        setFieldEnable(isEditStaff);
     }
 
     private void setComboboxRole() {
         comboBoxRole.removeAllItems();
         for (int i = 0; i < gListRole.size(); i++) {
-            System.out.println(gListRole.get(i).getRoleName());
             comboBoxRole.addItem(gListRole.get(i).getRoleName());
         }
     }
 
     private void setFieldEnable(boolean bool) {
+        rdoNam.setEnabled(bool);
+        rdoNu.setEnabled(bool);
         TF_NameStaff.setEditable(bool);
         FTF_phoneNumber.setEditable(bool);
         FTF_CCCD.setEditable(bool);
-        TF_staffID.setEditable(false);
+//        TF_staffID.setEditable(false);
         panelLocation2.setEnable(bool);
         comboBoxRole.setEditable(bool);
     }
@@ -323,17 +326,22 @@ public class AddStaffView extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtn2MouseClicked
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
-        if (insertStaff() == true || updateStaff() == true) {
-            JOptionPane.showMessageDialog(this, "Lưu thành công !");
-            dispose();
-            StaffJPanel staffJpn = new StaffJPanel();
+        boolean isEditOk = false, isInsertOk = false;
 
-            staffJpn.clearTable();
-
-            staffJpn.setStaffTable();
-            System.out.println("");
+        if (isEditStaff) {
+            isEditOk = updateStaff();
         } else {
-            JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
+            isInsertOk = insertStaff();
+        }
+
+        if (isInsertOk) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            dispose();
+        } else if (isEditOk) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
         }
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
