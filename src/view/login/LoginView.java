@@ -40,6 +40,7 @@ public class LoginView extends javax.swing.JFrame {
         showPassBtn = new view.component.LabelAwesomeIcon();
         hidePassBtn = new view.component.LabelAwesomeIcon();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAutoRequestFocus(false);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(650, 350));
@@ -390,6 +391,7 @@ public class LoginView extends javax.swing.JFrame {
             if (accountModel == null) {
                 JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không hợp lệ!");
             } else {
+                this.dispose();
                 MainView mainView = new MainView();
                 mainView.setVisible(true);
             }

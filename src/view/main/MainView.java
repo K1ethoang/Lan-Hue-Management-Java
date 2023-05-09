@@ -8,21 +8,22 @@ import java.util.List;
 import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import view.login.LoginView;
 
 public class MainView extends javax.swing.JFrame {
-
+    
     public MainView() {
         initComponents();
-
+        
         logoutBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+        
         setTitle("QUẢN LÍ TIỆC LAN HUỆ");
         // chuyển màn hình view
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
         controller.setView(jpnBangDieuKhien, jlbBangDieuKhien);
-
+        
         List<DanhMucBean> listItem = new ArrayList<>();
         listItem.add(new DanhMucBean("BangDieuKhien", jpnBangDieuKhien, jlbBangDieuKhien));
         listItem.add(new DanhMucBean("KhachHang", jpnKhachHang, jlbKhachHang));
@@ -30,10 +31,10 @@ public class MainView extends javax.swing.JFrame {
         listItem.add(new DanhMucBean("ThucDon", jpnThucDon, jlbThucDon));
         listItem.add(new DanhMucBean("Tiec", jpnDatTiec, jlbDatTiec));
         listItem.add(new DanhMucBean("TaiKhoan", jpnTaiKhoan, jlbTaiKhoan));
-
+        
         controller.setEvent(listItem);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
@@ -421,9 +422,11 @@ public class MainView extends javax.swing.JFrame {
         int option = JOptionPane.showConfirmDialog(this, "Bạn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (option == ConfirmationCallback.YES) {
             this.dispose();
+            LoginView login = new LoginView();
+            login.setVisible(true);
         }
     }//GEN-LAST:event_logoutBtnMouseClicked
-
+    
     private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_minimizeBtnMouseClicked
         this.setState(JFrame.ICONIFIED);
     }// GEN-LAST:event_minimizeBtnMouseClicked
@@ -439,7 +442,7 @@ public class MainView extends javax.swing.JFrame {
     }// GEN-LAST:event_topPanelMouseDragged
 
     private int x, y;
-
+    
     private void topPanelMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_topPanelMousePressed
         x = evt.getX();
         y = evt.getY();

@@ -33,7 +33,7 @@ public class DishDAOImpl implements DishDAO {
                 DishModel dish = new DishModel();
                 dish.setDishID(rs.getInt("DishID"));
                 dish.setDishName(rs.getString("DishName"));
-                dish.setPrice(rs.getDouble("Price"));
+                dish.setPrice(rs.getDouble("CostPrice"));
                 dish.setTypeDish(typeDishModel);
 
                 list.add(dish);

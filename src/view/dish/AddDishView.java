@@ -244,7 +244,7 @@ public class AddDishView extends javax.swing.JFrame {
     }// GEN-LAST:event_FTF_priceActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savePartyBtnActionPerformed
-        System.out.println("updateDish: " + updateDish());
+        System.out.println("dong: " + FTF_price.getText());
         if (insertDish() == true || updateDish() == true) {
             JOptionPane.showMessageDialog(this, "Lưu thành công !");
             dispose();

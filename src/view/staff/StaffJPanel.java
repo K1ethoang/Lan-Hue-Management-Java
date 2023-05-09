@@ -1,6 +1,8 @@
 package view.staff;
 
+import dao.Role.RoleDAOImpl;
 import dao.Staff.StaffDAOImpl;
+import dao.TypeParty.TypePartyDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -10,7 +12,9 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.RoleModel;
 import model.StaffModel;
+import model.TypePartyModel;
 import table.TableStaff;
 import view.component.scroll.ScrollBarCus;
 
@@ -19,7 +23,7 @@ public class StaffJPanel extends javax.swing.JPanel {
     StaffModel staffCurrent = new StaffModel();
     protected static int gCurrentID = 0;
     private TableRowSorter<TableModel> rowSorter = null;
-    
+
     public StaffJPanel() {
         List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
         initComponents();
@@ -30,7 +34,8 @@ public class StaffJPanel extends javax.swing.JPanel {
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
         gCurrentID = listStaff.get(0).getID() + 1;
-        
+
+        setComboBoxRole();
         setStaffTable();
     }
 
@@ -38,29 +43,27 @@ public class StaffJPanel extends javax.swing.JPanel {
         List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
         TableStaff tb = new TableStaff();
         tb.setStaffDetailsToTable(listStaff, tableStaff);
-        
+
         rowSorter = new TableRowSorter<>(tableStaff.getModel());
         tableStaff.setRowSorter(rowSorter);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 String text = searchField.getText();
-                if(text.trim().length() == 0){
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
-                }
-                else{
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
 
@@ -69,8 +72,17 @@ public class StaffJPanel extends javax.swing.JPanel {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
-        
-        sumStaff.setText("Số lượng: " + listStaff.size());
+
+        sumStaff.setText("Số lượng: " + rowSorter.getViewRowCount());
+    }
+
+    private void setComboBoxRole() {
+        comboBoxRole.removeAllItems();
+        List<RoleModel> list = RoleDAOImpl.getInstance().getList();
+        comboBoxRole.addItem("Tất cả");
+        for (int i = 0; i < list.size(); i++) {
+            comboBoxRole.addItem(list.get(i).getRoleName());
+        }
     }
 
     private void setStaffCurrent() {
@@ -85,13 +97,12 @@ public class StaffJPanel extends javax.swing.JPanel {
         staffCurrent.setAddress(staff.getAddress());
         staffCurrent.setRole(staff.getRole());
     }
-    
-    public void clearTable(){
-        
+
+    public void clearTable() {
+
         DefaultTableModel model = (DefaultTableModel) tableStaff.getModel();
         model.setRowCount(0);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -103,6 +114,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         editBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         removeBtn = new javax.swing.JMenuItem();
+        sexGroup = new javax.swing.ButtonGroup();
         top = new javax.swing.JPanel();
         searchAndButton = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
@@ -111,10 +123,14 @@ public class StaffJPanel extends javax.swing.JPanel {
         addBtn = new rojeru_san.complementos.RSButtonHover();
         sumStaff = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
+        position = new javax.swing.JPanel();
+        labelGoogleIcon3 = new view.component.LabelGoogleIcon();
+        comboBoxRole = new javax.swing.JComboBox<>();
         happen = new javax.swing.JPanel();
         labelGoogleIcon2 = new view.component.LabelGoogleIcon();
-        paymentNo = new javax.swing.JCheckBox();
-        paymentYes = new javax.swing.JCheckBox();
+        rdoAll = new javax.swing.JRadioButton();
+        rdoMale = new javax.swing.JRadioButton();
+        rdoFemale = new javax.swing.JRadioButton();
         center = new javax.swing.JPanel();
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableStaff = new view.component.table.Table();
@@ -169,13 +185,13 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         searchPanel.setBackground(getBackground());
 
-        searchField.setForeground(new java.awt.Color(0, 0, 0));
-        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.setBorderColor(new java.awt.Color(10, 77, 104));
         searchField.setBotonColor(new java.awt.Color(0, 0, 0));
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        searchField.setForeground(new java.awt.Color(0, 0, 0));
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -233,31 +249,39 @@ public class StaffJPanel extends javax.swing.JPanel {
         filter.setBackground(getBackground());
         filter.setLayout(new javax.swing.BoxLayout(filter, javax.swing.BoxLayout.Y_AXIS));
 
+        position.setBackground(getBackground());
+
+        labelGoogleIcon3.setText("Vị trí");
+        labelGoogleIcon3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        position.add(labelGoogleIcon3);
+
+        comboBoxRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxRoleActionPerformed(evt);
+            }
+        });
+        position.add(comboBoxRole);
+
+        filter.add(position);
+
         happen.setBackground(getBackground());
 
         labelGoogleIcon2.setText("Giới tính:");
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         happen.add(labelGoogleIcon2);
 
-        paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setText("Nữ");
-        paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentNo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentNoActionPerformed(evt);
-            }
-        });
-        happen.add(paymentNo);
+        sexGroup.add(rdoAll);
+        rdoAll.setSelected(true);
+        rdoAll.setText("Tất cả");
+        happen.add(rdoAll);
 
-        paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setText("Nam");
-        paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentYes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentYesActionPerformed(evt);
-            }
-        });
-        happen.add(paymentYes);
+        sexGroup.add(rdoMale);
+        rdoMale.setText("Nam");
+        happen.add(rdoMale);
+
+        sexGroup.add(rdoFemale);
+        rdoFemale.setText("Nữ");
+        happen.add(rdoFemale);
 
         filter.add(happen);
 
@@ -293,7 +317,7 @@ public class StaffJPanel extends javax.swing.JPanel {
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(centerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -310,14 +334,6 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_addBtnMouseClicked
-
-    private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentNoActionPerformed
-
-    private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentYesActionPerformed
 
     private void tableStaffMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
         if (evt.isPopupTrigger()) {
@@ -360,7 +376,7 @@ public class StaffJPanel extends javax.swing.JPanel {
                     setStaffTable();
 
                     JOptionPane.showMessageDialog(this, "Xóa thành công !");
-             
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công !");
                 }
@@ -375,25 +391,43 @@ public class StaffJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
+    private void comboBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRoleActionPerformed
+        String curRole = (String) comboBoxRole.getSelectedItem();
+        System.out.println(curRole);
+        int columnIndex = 2;
+        if (curRole.equals("Tất cả")) {
+            tableStaff.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
+        } else {
+            rowSorter = new TableRowSorter<>(tableStaff.getModel());
+            tableStaff.setRowSorter(rowSorter);
+            rowSorter.setRowFilter(RowFilter.regexFilter(curRole, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
+        }
+    }//GEN-LAST:event_comboBoxRoleActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;
     private rojeru_san.complementos.RSButtonHover addBtn;
     private javax.swing.JPanel button;
     private javax.swing.JPanel center;
+    private javax.swing.JComboBox<String> comboBoxRole;
     private javax.swing.JMenuItem editBtn;
     private javax.swing.JPanel filter;
     private javax.swing.JPanel happen;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
-    private javax.swing.JCheckBox paymentNo;
-    private javax.swing.JCheckBox paymentYes;
+    private view.component.LabelGoogleIcon labelGoogleIcon3;
     private javax.swing.JPopupMenu popupMenu;
+    private javax.swing.JPanel position;
+    private javax.swing.JRadioButton rdoAll;
+    private javax.swing.JRadioButton rdoFemale;
+    private javax.swing.JRadioButton rdoMale;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JMenuItem seeBtn;
+    private javax.swing.ButtonGroup sexGroup;
     private javax.swing.JLabel sumStaff;
     private view.component.table.Table tableStaff;
     private javax.swing.JPanel top;

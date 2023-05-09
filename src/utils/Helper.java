@@ -44,7 +44,7 @@ public class Helper {
         return s;
     }
 
-    public static String removeSpaceInString(String s) {
+    public static String replaceInString(String s) {
         if (s != null) {
             return (String) s.replace(" ", "");
         }

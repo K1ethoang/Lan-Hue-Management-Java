@@ -26,9 +26,9 @@ INSERT INTO Role (RoleName) VALUES
 	
  INSERT INTO TypeDish (UN_TypeName) 
  VALUES 
-	('khai vị'), 
-	('tráng miệng'), 
-	('lẩu');
+	('Khai vị'), 
+	('Tráng miệng'), 
+	('Lẩu');
 
 INSERT INTO Staff(Name, Sex, PhoneNumber, UN_CitizenNumber, Address, RoleID)
 VALUES
@@ -38,7 +38,7 @@ VALUES
 	('Lê Thị D', 1, '0456789012', '345678901234', 'Nha Trang', 2),
 	('Vũ Văn E', 0, '0567890123', '456789012345', 'Hải Phòng', 4);
 
-INSERT INTO Dish(DishName, Price, TypeDishID)
+INSERT INTO Dish(DishName, CostPrice, TypeDishID)
 VALUES 
 	('Phở bò', 50000, 1),
 	('Bún chả giò', 60000, 1),
