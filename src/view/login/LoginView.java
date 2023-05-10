@@ -2,16 +2,22 @@ package view.login;
 
 import dao.Account.AccountDAOImpl;
 import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import javax.swing.JOptionPane;
-import javax.swing.text.Caret;
+import main.Program;
 import model.AccountModel;
+import utils.Helper;
 import view.main.MainView;
 
 public class LoginView extends javax.swing.JFrame {
 
     public LoginView() {
         initComponents();
+        Helper.setIconImage4JFrame(this);
+
         // set cursor
         minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -41,6 +47,7 @@ public class LoginView extends javax.swing.JFrame {
         hidePassBtn = new view.component.LabelAwesomeIcon();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Đăng nhập");
         setAutoRequestFocus(false);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(650, 350));
@@ -86,7 +93,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(labelGoogleIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         rightPanel.setBackground(new java.awt.Color(124, 150, 171));
@@ -104,11 +111,6 @@ public class LoginView extends javax.swing.JFrame {
         passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passwordFieldFocusGained(evt);
-            }
-        });
-        passwordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordFieldActionPerformed(evt);
             }
         });
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -129,11 +131,6 @@ public class LoginView extends javax.swing.JFrame {
         usernameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usernameFieldFocusGained(evt);
-            }
-        });
-        usernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
             }
         });
         usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -195,7 +192,6 @@ public class LoginView extends javax.swing.JFrame {
 
         minimizeBtn.setBackground(new java.awt.Color(148, 175, 159));
         minimizeBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        minimizeBtn.setGoogleIcon(icon.GoogleMaterialDesignIcons.REMOVE);
         minimizeBtn.setIconColor(new java.awt.Color(219, 228, 198));
         minimizeBtn.setIconSize(32.0F);
         minimizeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -244,21 +240,15 @@ public class LoginView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(leftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
-
-    }//GEN-LAST:event_passwordFieldActionPerformed
-
-    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
-
-    }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void leftPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftPanelMouseDragged
         int gX = evt.getXOnScreen();
@@ -384,6 +374,7 @@ public class LoginView extends javax.swing.JFrame {
     private void login() {
         String usernameValue = this.getUsername();
         String passwordValue = this.getPassword();
+
         if (usernameValue.trim().isEmpty() || passwordValue.trim().isEmpty() || usernameValue.toUpperCase().equals("TÀI KHOẢN") && passwordValue.toUpperCase().equals("MATKHAU")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
         } else {
@@ -396,8 +387,6 @@ public class LoginView extends javax.swing.JFrame {
                 mainView.setVisible(true);
             }
         }
-        usernameField.setText("");
-        passwordField.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.component.LabelGoogleIcon closeBtn;

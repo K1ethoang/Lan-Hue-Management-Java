@@ -177,9 +177,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
                     </Property>
-                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                      <Value id="PEOPLE"/>
-                    </Property>
                     <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -229,9 +226,6 @@
                     <Property name="text" type="java.lang.String" value="  TH&#x1ef0;C &#x110;&#x1a0;N"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                      <Value id="IMPORT_CONTACTS"/>
                     </Property>
                     <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -283,9 +277,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
                     </Property>
-                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                      <Value id="SHOPPING_CART"/>
-                    </Property>
                     <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -335,9 +326,6 @@
                     <Property name="text" type="java.lang.String" value="  KH&#xc1;CH H&#xc0;NG"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                      <Value id="CONTACT_PHONE"/>
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                     <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -396,9 +384,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
                     </Property>
-                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                      <Value id="ACCOUNT_BALANCE"/>
-                    </Property>
                     <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
@@ -448,9 +433,6 @@
                     <Property name="text" type="java.lang.String" value="  B&#x1ea2;NG &#x110;I&#x1ec0;U KHI&#x1ec2;N"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                      <Value id="STORAGE"/>
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                     <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -526,9 +508,6 @@
                     <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; LAN HU&#x1ec6;"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
-                    </Property>
-                    <Property name="googleIcon" type="icon.GoogleMaterialDesignIcons" editor="org.netbeans.modules.form.editors.EnumEditor">
-                      <Value id="RESTAURANT"/>
                     </Property>
                     <Property name="iconColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>

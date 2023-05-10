@@ -81,8 +81,6 @@ public class PanelLocation extends javax.swing.JPanel {
 
         add(jPanel3);
 
-        jPanel1.setPreferredSize(null);
-
         LB_location.setText("Địa chỉ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -91,7 +89,7 @@ public class PanelLocation extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 474, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(LB_location, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
+                .addComponent(LB_location, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +127,8 @@ public class PanelLocation extends javax.swing.JPanel {
     }
 
     public void setFullAddress() {
-        LB_location.setText(getAddress() + ", " + getWard() + ", " + getDistrict() + ", " + getProvince());
+        LB_location.setText("<HTML>" + getAddress() + ", " + getWard() + ", " + getDistrict() + ", " + getProvince()
+                + "<HTML>");
     }
 
     public String getProvince() {
@@ -149,6 +148,9 @@ public class PanelLocation extends javax.swing.JPanel {
     }
 
     public String getFullAddress() {
+        if (getAddress().isEmpty()) {
+            return null;
+        }
         return (String) LB_location.getText();
     }
 

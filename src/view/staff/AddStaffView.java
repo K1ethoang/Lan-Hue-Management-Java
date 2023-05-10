@@ -16,9 +16,9 @@ import view.component.scroll.ScrollBarCus;
  * @author Admin
  */
 public class AddStaffView extends javax.swing.JFrame {
-    
+
     public static boolean isEditStaff = false;
-    
+
 //    StaffModel staffModel = null;
     List<RoleModel> gListRole = RoleDAOImpl.getInstance().getList();
     RoleModel gRoleModel = null;
@@ -27,11 +27,13 @@ public class AddStaffView extends javax.swing.JFrame {
 
     public AddStaffView() {
         initComponents();
+        Helper.setIconImage4JFrame(this);
+
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
-        
+
         gListRole = RoleDAOImpl.getInstance().getList();
         TF_staffID.setEditable(false);
         // set nextID
@@ -41,31 +43,33 @@ public class AddStaffView extends javax.swing.JFrame {
 
     public AddStaffView(StaffModel _staffModel) {
         initComponents();
+        Helper.setIconImage4JFrame(this);
+
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         this.setLocationRelativeTo(null);
-        
+
         setComboboxRole();
 
-        setData(_staffModel, isEditStaff);     
+        setData(_staffModel, isEditStaff);
     }
 
     private void setTextFieldID() {
         TF_staffID.setText(StaffDAOImpl.getInstance().getNextID() + "");
     }
-    
+
     private String getPhoneNumber() {
-        return Helper.removeSpaceInString(FTF_phoneNumber.getText());
+        return Helper.replaceInString(FTF_phoneNumber.getText(), " ", "");
     }
 
     private String getCitizenNumber() {
-        return Helper.removeSpaceInString(FTF_CCCD.getText());
+        return Helper.replaceInString(FTF_CCCD.getText(), " ", "");
     }
-    
+
     boolean insertStaff() {
         StaffModel staff = new StaffModel();
-        staff.setName(TF_NameStaff.getText());
+        staff.setName(TF_NameStaff.getText().trim());
         if (rdoNam.isSelected()) {
             staff.setSex(1);
         } else if (rdoNu.isSelected()) {
@@ -73,7 +77,7 @@ public class AddStaffView extends javax.swing.JFrame {
         }
         staff.setSdt(getPhoneNumber());
         staff.setCccd(getCitizenNumber());
-        staff.setAddress(panelLocation2.getAddress());
+        staff.setAddress(panelLocation2.getFullAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
             if (comboBoxRole.getSelectedIndex() == i) {
@@ -118,7 +122,7 @@ public class AddStaffView extends javax.swing.JFrame {
             this.setTitle("Xem thông tin nhân viên");
             saveBtn2.setVisible(false);
         }
-        
+
         TF_staffID.setText(_staffModel.getID() + "");
         comboBoxRole.setSelectedItem(_staffModel.getRole().getRoleName());
 
@@ -289,11 +293,6 @@ public class AddStaffView extends javax.swing.JFrame {
         cancelBtn2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cancelBtn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cancelBtn2.setPreferredSize(new java.awt.Dimension(110, 40));
-        cancelBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelBtn2MouseClicked(evt);
-            }
-        });
         cancelBtn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtn2ActionPerformed(evt);
@@ -318,12 +317,8 @@ public class AddStaffView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelBtn2ActionPerformed
-
-    private void cancelBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtn2MouseClicked
         this.dispose();
-    }//GEN-LAST:event_cancelBtn2MouseClicked
+    }//GEN-LAST:event_cancelBtn2ActionPerformed
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
         boolean isEditOk = false, isInsertOk = false;

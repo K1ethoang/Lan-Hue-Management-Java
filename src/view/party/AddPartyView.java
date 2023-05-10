@@ -19,6 +19,7 @@ import model.CustomerModel;
 import model.PartyModel;
 import model.TypePartyModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import utils.Helper;
 import view.component.scroll.ScrollBarCus;
 import static view.party.PartyJPanel.gCurrentID;
 
@@ -36,6 +37,7 @@ public class AddPartyView extends javax.swing.JFrame {
 
     public AddPartyView() {
         initComponents();
+        Helper.setIconImage4JFrame(this);
 
         AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
         AutoCompleteDecorator.decorate(comboBoxTypeParty);
@@ -50,6 +52,7 @@ public class AddPartyView extends javax.swing.JFrame {
 
     public AddPartyView(PartyModel _partyModel) {
         initComponents();
+        Helper.setIconImage4JFrame(this);
 
         AutoCompleteDecorator.decorate(comboBoxPhoneNumber);
         AutoCompleteDecorator.decorate(comboBoxTypeParty);

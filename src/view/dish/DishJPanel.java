@@ -20,7 +20,7 @@ import table.TableDish;
 import view.component.scroll.ScrollBarCus;
 
 public class DishJPanel extends javax.swing.JPanel {
-    
+
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     List<DishModel> listDish = null;
     DishModel dishCurrent = new DishModel();
@@ -47,11 +47,11 @@ public class DishJPanel extends javax.swing.JPanel {
         listDish = DishDAOImpl.getInstance().getList();
         TableDish tb = new TableDish();
         tb.setDishDetailsToTable(listDish, tableDish);
-        
+
         // set up the row sorter
         rowSorter = new TableRowSorter<>(tableDish.getModel());
         tableDish.setRowSorter(rowSorter);
-        
+
 //        searchField.getDocument().addDocumentListener(new DocumentListener() {
 //            @Override
 //            public void insertUpdate(DocumentEvent e) {
@@ -99,6 +99,7 @@ public class DishJPanel extends javax.swing.JPanel {
                         rowSorter.setRowFilter(RowFilter.andFilter(filters));
                     }
                 }
+                setSumDish();
             }
 
             @Override
@@ -111,9 +112,9 @@ public class DishJPanel extends javax.swing.JPanel {
                     } else { // nếu chọn vào 1 trong các giá trị còn lại của Cb trừ "tất cả"
                         rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, 3));
                     }
-                // nếu không có kí tự mà chọn vào tất cả thì bộ lọc đặt được đặt lại để hiển thị tất cả các hàng trong bảng
-                // chứa từ khóa tìm kiếm. Nếu không, bộ lọc của bảng được đặt lại để chỉ hiển thị các hàng có giá trị loại
-                // món ăn được chọn bởi người dùng và cũng chứa từ khóa tìm kiếm (text)
+                    // nếu không có kí tự mà chọn vào tất cả thì bộ lọc đặt được đặt lại để hiển thị tất cả các hàng trong bảng
+                    // chứa từ khóa tìm kiếm. Nếu không, bộ lọc của bảng được đặt lại để chỉ hiển thị các hàng có giá trị loại
+                    // món ăn được chọn bởi người dùng và cũng chứa từ khóa tìm kiếm (text)
                 } else { // nếu search có kí tự
                     if (curTypeDish.equals("Tất cả")) { // nếu chọn vào tất cả
                         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
@@ -124,6 +125,7 @@ public class DishJPanel extends javax.swing.JPanel {
                         rowSorter.setRowFilter(RowFilter.andFilter(filters));
                     }
                 }
+                setSumDish();
             }
 
             @Override
@@ -131,14 +133,15 @@ public class DishJPanel extends javax.swing.JPanel {
                 // not used
             }
         });
-       
+
         setSumDish();
     }
-    
+
     private void setSumDish() {
-        sumDish.setText("Số lượng: " + tableDish.getRowCount() + "");
+        // cập nhật lại số lượng
+        sumDish.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }
-    
+
     private void setDishCurrent() {
         listDish = DishDAOImpl.getInstance().getList();
         int row = tableDish.getSelectedRow();
@@ -149,7 +152,7 @@ public class DishJPanel extends javax.swing.JPanel {
         dishCurrent.setPrice(dish.getPrice());
         dishCurrent.setTypeDish(dish.getTypeDish());
     }
-    
+
     private void setComboBoxTypeDish() {
         CB_typeDish.removeAllItems();
         CB_typeDish.addItem("Tất cả");
@@ -177,7 +180,6 @@ public class DishJPanel extends javax.swing.JPanel {
         searchField = new rojerusan.RSMetroTextPlaceHolder();
         button = new javax.swing.JPanel();
         addBtn = new rojeru_san.complementos.RSButtonHover();
-        paymentBtn1 = new rojeru_san.complementos.RSButtonHover();
         sumDish = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
         happen = new javax.swing.JPanel();
@@ -222,7 +224,6 @@ public class DishJPanel extends javax.swing.JPanel {
         searchPanel.setBackground(getBackground());
 
         searchField.setForeground(new java.awt.Color(0, 0, 0));
-        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.setBorderColor(new java.awt.Color(10, 77, 104));
         searchField.setBotonColor(new java.awt.Color(0, 0, 0));
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -261,35 +262,12 @@ public class DishJPanel extends javax.swing.JPanel {
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addBtn.setPreferredSize(new java.awt.Dimension(120, 40));
-        addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addBtnMouseClicked(evt);
-            }
-        });
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
         button.add(addBtn);
-
-        paymentBtn1.setBackground(new java.awt.Color(10, 77, 104));
-        paymentBtn1.setText("In thực đơn");
-        paymentBtn1.setColorHover(new java.awt.Color(14, 112, 152));
-        paymentBtn1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        paymentBtn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        paymentBtn1.setPreferredSize(new java.awt.Dimension(110, 40));
-        paymentBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                paymentBtn1MouseClicked(evt);
-            }
-        });
-        paymentBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentBtn1ActionPerformed(evt);
-            }
-        });
-        button.add(paymentBtn1);
 
         sumDish.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sumDish.setText("Số lượng: 0");
@@ -370,18 +348,6 @@ public class DishJPanel extends javax.swing.JPanel {
         addDish.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
-    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBtnMouseClicked
-
-    private void paymentBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtn1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentBtn1MouseClicked
-
-    private void paymentBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentBtn1ActionPerformed
-
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
 //        String curTypeDish = (String) CB_typeDish.getSelectedItem();
 //        int columnIndex = 3;
@@ -403,7 +369,7 @@ public class DishJPanel extends javax.swing.JPanel {
             }
             rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ ComboBox.
         }
-        
+
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
@@ -417,7 +383,7 @@ public class DishJPanel extends javax.swing.JPanel {
 //            clearTable();
 //            setCustomerTable();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Món ăn không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editBtnActionPerformed
 
@@ -457,7 +423,6 @@ public class DishJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel happen;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
-    private rojeru_san.complementos.RSButtonHover paymentBtn1;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;

@@ -18,10 +18,10 @@ VALUES
 	(2, 'Đã xong');
 
 INSERT INTO Role (RoleName) VALUES
-    ('Quản trị viên'),
     ('Chạy bàn'),
     ('Nhà bếp'),
-    ('Tài xế');
+    ('Tài xế'),
+    ('Quản trị viên');
     
 	
  INSERT INTO TypeDish (UN_TypeName) 

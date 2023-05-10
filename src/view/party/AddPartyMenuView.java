@@ -49,6 +49,7 @@ public class AddPartyMenuView extends javax.swing.JFrame {
     public AddPartyMenuView() {
 
         initComponents();
+        Helper.setIconImage4JFrame(this);
 
         setScrollPane();
 
@@ -62,6 +63,8 @@ public class AddPartyMenuView extends javax.swing.JFrame {
 
     public AddPartyMenuView(PartyModel _partyModel) {
         initComponents();
+        Helper.setIconImage4JFrame(this);
+
         setScrollPane();
 
         AutoCompleteDecorator.decorate(comboBoxPhoneNumber);

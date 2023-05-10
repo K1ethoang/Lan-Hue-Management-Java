@@ -2,7 +2,6 @@ package view.staff;
 
 import dao.Role.RoleDAOImpl;
 import dao.Staff.StaffDAOImpl;
-import dao.TypeParty.TypePartyDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -14,15 +13,14 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.RoleModel;
 import model.StaffModel;
-import model.TypePartyModel;
 import table.TableStaff;
 import view.component.scroll.ScrollBarCus;
 
 public class StaffJPanel extends javax.swing.JPanel {
-    
+
     List<StaffModel> listStaff = null;
     StaffModel staffCurrent = new StaffModel();
-    
+
     private TableRowSorter<TableModel> rowSorter = null;
 
     public StaffJPanel() {
@@ -34,7 +32,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
-        
+
         setStaffTable();
     }
 
@@ -45,7 +43,7 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         rowSorter = new TableRowSorter<>(tableStaff.getModel());
         tableStaff.setRowSorter(rowSorter);
-        
+
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -72,19 +70,29 @@ public class StaffJPanel extends javax.swing.JPanel {
                 throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
-        
+
+        setComboBoxRole();
         setSumStaff();
     }
-  
+
+    private void setComboBoxRole() {
+        comboBoxRole.removeAllItems();
+        List<RoleModel> list = RoleDAOImpl.getInstance().getList();
+        comboBoxRole.addItem("Tất cả");
+        for (int i = 0; i < list.size(); i++) {
+            comboBoxRole.addItem(list.get(i).getRoleName());
+        }
+    }
+
     private void setSumStaff() {
         sumStaff.setText("Số lượng: " + tableStaff.getRowCount() + "");
     }
-    
+
     private void setStaffCurrent() {
         listStaff = StaffDAOImpl.getInstance().getList();
         int row = tableStaff.getSelectedRow();
         StaffModel staff = listStaff.get(row);
-        
+
         staffCurrent.setID(staff.getID());
         staffCurrent.setName(staff.getName());
         staffCurrent.setSdt(staff.getSdt());
@@ -93,8 +101,8 @@ public class StaffJPanel extends javax.swing.JPanel {
         staffCurrent.setAddress(staff.getAddress());
         staffCurrent.setRole(staff.getRole());
     }
-    
-    public void clearTable(){       
+
+    public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tableStaff.getModel();
         model.setRowCount(0);
     }
@@ -130,10 +138,8 @@ public class StaffJPanel extends javax.swing.JPanel {
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableStaff = new view.component.table.Table();
 
-        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         seeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
-        seeBtn.setMnemonic('X');
         seeBtn.setText("Xem chi tiết");
         seeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,10 +149,8 @@ public class StaffJPanel extends javax.swing.JPanel {
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
-        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
-        editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
         editBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +160,6 @@ public class StaffJPanel extends javax.swing.JPanel {
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
-        removeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
@@ -180,13 +183,13 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         searchPanel.setBackground(getBackground());
 
+        searchField.setForeground(new java.awt.Color(0, 0, 0));
+        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.setBorderColor(new java.awt.Color(10, 77, 104));
         searchField.setBotonColor(new java.awt.Color(0, 0, 0));
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        searchField.setForeground(new java.awt.Color(0, 0, 0));
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
-        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -216,7 +219,6 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         addBtn.setBackground(new java.awt.Color(148, 175, 159));
         addBtn.setText("Thêm nhân viên");
-        addBtn.setToolTipText("Ctrl+N");
         addBtn.setColorHover(new java.awt.Color(187, 214, 184));
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -246,7 +248,7 @@ public class StaffJPanel extends javax.swing.JPanel {
 
         position.setBackground(getBackground());
 
-        labelGoogleIcon3.setText("Vị trí");
+        labelGoogleIcon3.setText("Vị trí:");
         labelGoogleIcon3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         position.add(labelGoogleIcon3);
 
@@ -361,7 +363,7 @@ public class StaffJPanel extends javax.swing.JPanel {
 //            clearTable();
 //            setCustomerTable();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editBtnActionPerformed
 

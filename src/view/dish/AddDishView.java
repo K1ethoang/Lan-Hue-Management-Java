@@ -4,35 +4,34 @@ import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
 
 import java.text.NumberFormat;
-import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import model.DishModel;
 import model.TypeDishModel;
+import utils.Helper;
 
 /**
  *
  * @author kieth
  */
 public class AddDishView extends javax.swing.JFrame {
-    
+
     public static boolean isEditDish = false;
-    
+
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     TypeDishModel gTypeDishModel = null;
-    
+
     DishDAOImpl dishDAOImpl = new DishDAOImpl();
 
     public AddDishView() {
         initComponents();
+        Helper.setIconImage4JFrame(this);
 
         initTextFieldPrice(isEditDish);
-        
+
         gListTypeDish = TypeDishDAOImpl.getInstance().getList();
         TF_dishID.setEditable(false);
         // set data
@@ -42,12 +41,13 @@ public class AddDishView extends javax.swing.JFrame {
 
     public AddDishView(DishModel _dishModel) {
         initComponents();
+        Helper.setIconImage4JFrame(this);
 
-//        initTextFieldPrice(isEditDish);
+        initTextFieldPrice(isEditDish);
+
         setComboBoxTypeDish();
         // set data
         setDataSeeDish(_dishModel, isEditDish);
-
     }
 
     private void initTextFieldPrice(boolean isEditDish) {
@@ -66,12 +66,12 @@ public class AddDishView extends javax.swing.JFrame {
         TF_dishID.setText(DishDAOImpl.getInstance().getNextID() + "");
     }
 
-    public boolean insertDish() {
+    private boolean insertDish() {
         DishModel dish = new DishModel();
         dish.setDishID(Integer.parseInt(TF_dishID.getText()));
-        dish.setDishName(TF_nameDish.getText());
+        dish.setDishName(TF_nameDish.getText().trim());
 
-        dish.setPrice(Double.parseDouble(FTF_price.getText()));
+        dish.setPrice(Double.parseDouble(getDishPrice()));
 
         for (int i = 0; i < gListTypeDish.size(); i++) {
             if (CB_typeDish.getSelectedIndex() == i) {
@@ -82,11 +82,11 @@ public class AddDishView extends javax.swing.JFrame {
         return DishDAOImpl.getInstance().insert(dish);
     }
 
-    public boolean updateDish() {
+    private boolean updateDish() {
         DishModel dish = new DishModel();
         dish.setDishID(Integer.parseInt(TF_dishID.getText()));
         dish.setDishName(TF_nameDish.getText());
-        dish.setPrice(Double.parseDouble(FTF_price.getText()));
+        dish.setPrice(Double.parseDouble(getDishPrice()));
         for (int i = 0; i < gListTypeDish.size(); i++) {
             if (CB_typeDish.getSelectedIndex() == i) {
                 dish.setTypeDish(gListTypeDish.get(i));
@@ -96,38 +96,37 @@ public class AddDishView extends javax.swing.JFrame {
         return DishDAOImpl.getInstance().update(dish);
     }
 
-    public boolean deleteDish() {
-        int dishID = Integer.parseInt(TF_dishID.getText());
-        return DishDAOImpl.getInstance().delete(dishID);
-    }
-    
     private void setDataSeeDish(DishModel dish, boolean isEditDish) {
         this.setTitle("Chỉnh sửa thông tin món ăn");
         TF_dishID.setText(dish.getDishID() + "");
         TF_nameDish.setText(dish.getDishName());
-        FTF_price.setText(dish.getPrice() + "");
+        FTF_price.setValue(dish.getPrice());
         CB_typeDish.setSelectedItem(dish.getTypeDish().getTypeName());
         setFieldEnable(isEditDish);
     }
-    
+
     private void setFieldEnable(boolean bool) {
 //        TF_dishID.setEditable(false);
         TF_nameDish.setEditable(bool);
         CB_typeDish.setEditable(bool);
         FTF_price.setEditable(bool);
     }
-    
-    private void setComboBoxTypeDish() {        
+
+    private void setComboBoxTypeDish() {
         CB_typeDish.removeAllItems();
         for (int i = 0; i < gListTypeDish.size(); i++) {
             CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
         }
     }
 
+    private String getDishPrice() {
+        return Helper.replaceInString(FTF_price.getText(), ".", "");
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -219,15 +218,15 @@ public class AddDishView extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -242,36 +241,29 @@ public class AddDishView extends javax.swing.JFrame {
     }// GEN-LAST:event_FTF_priceActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_savePartyBtnActionPerformed
-        System.out.println("dong: " + FTF_price.getText());
-        if (insertDish() == true || updateDish() == true) {
-            JOptionPane.showMessageDialog(this, "Lưu thành công !");
-            dispose();
-            DishJPanel dishJpn = new DishJPanel();
-        }
-        // if (isEditDish) {
-        //     isEditOk = updateDish();
-        // } else {
-        //     isInsertOk = insertDish();
-        // }
+        boolean isEditOk = false, isInsertOk = false;
 
-        // if (isInsertOk) {
-        //     JOptionPane.showMessageDialog(this, "Thêm thành công !");
-        //     dispose();
-        // } else if (isEditOk) {
-        //     JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
-        //     dispose();
-        // } else {
-        //     JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
-        // }
+        if (isEditDish) {
+            isEditOk = updateDish();
+        } else {
+            isInsertOk = insertDish();
+        }
+
+        if (isInsertOk) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            dispose();
+        } else if (isEditOk) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
+        }
     }// GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
     }// GEN-LAST:event_cancelBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code

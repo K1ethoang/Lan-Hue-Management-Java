@@ -13,6 +13,8 @@ public class AddCustomerView extends javax.swing.JFrame {
 
     public AddCustomerView() {
         initComponents();
+        Helper.setIconImage4JFrame(this);
+
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
@@ -26,6 +28,8 @@ public class AddCustomerView extends javax.swing.JFrame {
     // Xem chi tiết: isEditCustomer == false
     public AddCustomerView(CustomerModel _customerModel) {
         initComponents();
+        Helper.setIconImage4JFrame(this);
+
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
@@ -38,17 +42,17 @@ public class AddCustomerView extends javax.swing.JFrame {
     }
 
     private String getPhoneNumber() {
-        return Helper.removeSpaceInString(FTF_phoneNumber.getText());
+        return Helper.replaceInString(FTF_phoneNumber.getText(), " ", "");
     }
 
     private String getCitizenNumber() {
-        return Helper.removeSpaceInString(FTF_CCCD.getText());
+        return Helper.replaceInString(FTF_CCCD.getText(), " ", "");
     }
 
     // add customer
     boolean insertCustomer() {
         CustomerModel customer = new CustomerModel();
-        customer.setName(TF_NameCustomer.getText());
+        customer.setName(TF_NameCustomer.getText().trim());
         if (rdoNam.isSelected()) {
             customer.setSex(1);
         } else if (rdoNu.isSelected()) {

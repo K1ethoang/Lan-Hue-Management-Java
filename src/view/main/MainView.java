@@ -8,22 +8,24 @@ import java.util.List;
 import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import utils.Helper;
 import view.login.LoginView;
 
 public class MainView extends javax.swing.JFrame {
-    
+
     public MainView() {
         initComponents();
-        
+        Helper.setIconImage4JFrame(this);
+
         logoutBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
+
         setTitle("QUẢN LÍ TIỆC LAN HUỆ");
         // chuyển màn hình view
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
         controller.setView(jpnBangDieuKhien, jlbBangDieuKhien);
-        
+
         List<DanhMucBean> listItem = new ArrayList<>();
         listItem.add(new DanhMucBean("BangDieuKhien", jpnBangDieuKhien, jlbBangDieuKhien));
         listItem.add(new DanhMucBean("KhachHang", jpnKhachHang, jlbKhachHang));
@@ -31,10 +33,10 @@ public class MainView extends javax.swing.JFrame {
         listItem.add(new DanhMucBean("ThucDon", jpnThucDon, jlbThucDon));
         listItem.add(new DanhMucBean("Tiec", jpnDatTiec, jlbDatTiec));
         listItem.add(new DanhMucBean("TaiKhoan", jpnTaiKhoan, jlbTaiKhoan));
-        
+
         controller.setEvent(listItem);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
@@ -101,7 +103,6 @@ public class MainView extends javax.swing.JFrame {
         jlbNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbNhanVien.setText("  NHÂN VIÊN");
         jlbNhanVien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbNhanVien.setGoogleIcon(icon.GoogleMaterialDesignIcons.PEOPLE);
         jlbNhanVien.setIconColor(new java.awt.Color(255, 255, 255));
         jlbNhanVien.setIconSize(26.0F);
 
@@ -127,7 +128,6 @@ public class MainView extends javax.swing.JFrame {
         jlbThucDon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbThucDon.setText("  THỰC ĐƠN");
         jlbThucDon.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbThucDon.setGoogleIcon(icon.GoogleMaterialDesignIcons.IMPORT_CONTACTS);
         jlbThucDon.setIconColor(new java.awt.Color(255, 255, 255));
         jlbThucDon.setIconSize(26.0F);
 
@@ -153,7 +153,6 @@ public class MainView extends javax.swing.JFrame {
         jlbDatTiec.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbDatTiec.setText("  TIỆC");
         jlbDatTiec.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbDatTiec.setGoogleIcon(icon.GoogleMaterialDesignIcons.SHOPPING_CART);
         jlbDatTiec.setIconColor(new java.awt.Color(255, 255, 255));
         jlbDatTiec.setIconSize(26.0F);
 
@@ -179,7 +178,6 @@ public class MainView extends javax.swing.JFrame {
         jlbKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbKhachHang.setText("  KHÁCH HÀNG");
         jlbKhachHang.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbKhachHang.setGoogleIcon(icon.GoogleMaterialDesignIcons.CONTACT_PHONE);
         jlbKhachHang.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jlbKhachHang.setIconColor(new java.awt.Color(255, 255, 255));
         jlbKhachHang.setIconSize(26.0F);
@@ -207,7 +205,6 @@ public class MainView extends javax.swing.JFrame {
         jlbTaiKhoan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbTaiKhoan.setText("  TÀI KHOẢN");
         jlbTaiKhoan.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbTaiKhoan.setGoogleIcon(icon.GoogleMaterialDesignIcons.ACCOUNT_BALANCE);
         jlbTaiKhoan.setIconColor(new java.awt.Color(255, 255, 255));
         jlbTaiKhoan.setIconSize(26.0F);
 
@@ -235,7 +232,6 @@ public class MainView extends javax.swing.JFrame {
         jlbBangDieuKhien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbBangDieuKhien.setText("  BẢNG ĐIỀU KHIỂN");
         jlbBangDieuKhien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbBangDieuKhien.setGoogleIcon(icon.GoogleMaterialDesignIcons.STORAGE);
         jlbBangDieuKhien.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jlbBangDieuKhien.setIconColor(new java.awt.Color(255, 255, 255));
         jlbBangDieuKhien.setIconSize(30.0F);
@@ -303,7 +299,6 @@ public class MainView extends javax.swing.JFrame {
         labelGoogleIcon1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelGoogleIcon1.setText("QUẢN LÝ LAN HUỆ");
         labelGoogleIcon1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelGoogleIcon1.setGoogleIcon(icon.GoogleMaterialDesignIcons.RESTAURANT);
         labelGoogleIcon1.setIconColor(new java.awt.Color(255, 255, 255));
         labelGoogleIcon1.setIconSize(40.0F);
 
@@ -426,7 +421,7 @@ public class MainView extends javax.swing.JFrame {
             login.setVisible(true);
         }
     }//GEN-LAST:event_logoutBtnMouseClicked
-    
+
     private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_minimizeBtnMouseClicked
         this.setState(JFrame.ICONIFIED);
     }// GEN-LAST:event_minimizeBtnMouseClicked
@@ -442,7 +437,7 @@ public class MainView extends javax.swing.JFrame {
     }// GEN-LAST:event_topPanelMouseDragged
 
     private int x, y;
-    
+
     private void topPanelMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_topPanelMousePressed
         x = evt.getX();
         y = evt.getY();

@@ -75,7 +75,7 @@ public class DishDAOImpl implements DishDAO {
         boolean isOk = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "INSERT INTO dish(DishName, Price, TypeDishID) "
+            String sql = "INSERT INTO dish(DishName, CostPrice, TypeDishID) "
                     + "VALUES (?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -117,7 +117,7 @@ public class DishDAOImpl implements DishDAO {
         boolean isUpdated = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "UPDATE DISH SET DishName = ?, Price = ?, TypeDishID = ? WHERE DishID = ?";
+            String sql = "UPDATE DISH SET DishName = ?, CostPrice = ?, TypeDishID = ? WHERE DishID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, dish.getDishName());
@@ -128,7 +128,7 @@ public class DishDAOImpl implements DishDAO {
             if (rs > 0) {
                 isUpdated = true;
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
