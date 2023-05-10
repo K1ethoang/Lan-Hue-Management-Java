@@ -26,7 +26,9 @@ public class DishJPanel extends javax.swing.JPanel {
     DishModel dishCurrent = new DishModel();
 
     private TableRowSorter<TableModel> rowSorter;
-
+    
+//    String curTypeDish; // giá trị của comboxBox hiện tại
+    
     public DishJPanel() {
         List<DishModel> listDish = DishDAOImpl.getInstance().getList();
         initComponents();
@@ -41,7 +43,32 @@ public class DishJPanel extends javax.swing.JPanel {
         setDishTable();
         setComboBoxTypeDish();
     }
-
+    
+    public void searchAndFilter() {
+        String curTypeDish = (String) CB_typeDish.getSelectedItem();
+        String text = searchField.getText();
+        if (text.trim().length() == 0) {
+            if (curTypeDish.equals("Tất cả")) {
+                rowSorter.setRowFilter(null); // bộ lọc đặt lại để hiển thị tất cả các hàng trong bảng
+            } else {
+                if (rowSorter == null) {
+                    rowSorter = new TableRowSorter<>(tableDish.getModel());
+                    tableDish.setRowSorter(rowSorter);
+                }
+                rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, 3));
+            }
+        } else {
+            if (curTypeDish.equals("Tất cả")) { // nếu chọn vào tất cả => thì hiển thị hàng có giá trị trong bảng chứa từ khóa tìm kiếm
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            } else { // nếu chọn vào các loại món ăn -> hiển thị hàng có giá trị là các loại món ăn và chứa từ khóa search text
+                List<RowFilter<Object, Object>> filters = new ArrayList<>();
+                filters.add(RowFilter.regexFilter("(?i)" + text));
+                filters.add(RowFilter.regexFilter(curTypeDish, 3));
+                rowSorter.setRowFilter(RowFilter.andFilter(filters));
+            }
+        }
+    }
+    
     public void setDishTable() {
         // load data into the table
         listDish = DishDAOImpl.getInstance().getList();
@@ -52,79 +79,16 @@ public class DishJPanel extends javax.swing.JPanel {
         rowSorter = new TableRowSorter<>(tableDish.getModel());
         tableDish.setRowSorter(rowSorter);
 
-//        searchField.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                String text = searchField.getText();
-//                if (text.trim().length() == 0) {
-//                    rowSorter.setRowFilter(null);
-//                } else {
-//                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-//                }
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                String text = searchField.getText();
-//                if (text.trim().length() == 0) {
-//                    rowSorter.setRowFilter(null);
-//                } else {
-//                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-//                }
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//            }
-//        });
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                String curTypeDish = (String) CB_typeDish.getSelectedItem();
-                if (text.trim().length() == 0) {
-                    if (curTypeDish.equals("Tất cả")) {
-                        rowSorter.setRowFilter(null);
-                    } else {
-                        rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, 3));
-                    }
-                } else {
-                    if (curTypeDish.equals("Tất cả")) {
-                        rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                    } else {
-                        List<RowFilter<Object, Object>> filters = new ArrayList<>();
-                        filters.add(RowFilter.regexFilter("(?i)" + text));
-                        filters.add(RowFilter.regexFilter(curTypeDish, 3));
-                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
-                    }
-                }
+                searchAndFilter();
                 setSumDish();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                String curTypeDish = (String) CB_typeDish.getSelectedItem();
-                if (text.trim().length() == 0) { // nếu search k có kí tự nào
-                    if (curTypeDish.equals("Tất cả")) { // nếu chọn vào "Tất cả"
-                        rowSorter.setRowFilter(null); // bộ lọc đặt lại để hiển thị tất cả các hàng trong bảng
-                    } else { // nếu chọn vào 1 trong các giá trị còn lại của Cb trừ "tất cả"
-                        rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, 3));
-                    }
-                    // nếu không có kí tự mà chọn vào tất cả thì bộ lọc đặt được đặt lại để hiển thị tất cả các hàng trong bảng
-                    // chứa từ khóa tìm kiếm. Nếu không, bộ lọc của bảng được đặt lại để chỉ hiển thị các hàng có giá trị loại
-                    // món ăn được chọn bởi người dùng và cũng chứa từ khóa tìm kiếm (text)
-                } else { // nếu search có kí tự
-                    if (curTypeDish.equals("Tất cả")) { // nếu chọn vào tất cả
-                        rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                    } else {
-                        List<RowFilter<Object, Object>> filters = new ArrayList<>();
-                        filters.add(RowFilter.regexFilter("(?i)" + text));
-                        filters.add(RowFilter.regexFilter(curTypeDish, 3));
-                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
-                    }
-                }
+                searchAndFilter();
                 setSumDish();
             }
 
@@ -349,26 +313,9 @@ public class DishJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
-//        String curTypeDish = (String) CB_typeDish.getSelectedItem();
-//        int columnIndex = 3;
-//        if (curTypeDish.equals("Tất cả")) {
-//            tableDish.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
-//        } else {
-//            rowSorter = new TableRowSorter<>(tableDish.getModel());
-//            tableDish.setRowSorter(rowSorter);
-//            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
-//        }   
-        String curTypeDish = (String) CB_typeDish.getSelectedItem();
-        int columnIndex = 3; // chỉ số cột chứa thông tin loại đồ ăn trong bảng, có thể thay đổi tùy vào cấu trúc bảng của bạn
-        if (curTypeDish.equals("Tất cả")) {
-            tableDish.setRowSorter(rowSorter); // Sử dụng lại RowSorter khi loại đồ ăn được chọn là Tất cả.
-        } else {
-            if (rowSorter == null) {
-                rowSorter = new TableRowSorter<>(tableDish.getModel());
-                tableDish.setRowSorter(rowSorter);
-            }
-            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeDish, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ ComboBox.
-        }
+        searchAndFilter();
+        setSumDish();
+
 
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
@@ -410,6 +357,8 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
+//        System.out.println("aaaaa");
+//        setDishTable();
     }//GEN-LAST:event_searchFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
