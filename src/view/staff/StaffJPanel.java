@@ -33,6 +33,7 @@ public class StaffJPanel extends javax.swing.JPanel {
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
 
+        setComboBoxRole();
         setStaffTable();
     }
 
@@ -71,7 +72,6 @@ public class StaffJPanel extends javax.swing.JPanel {
             }
         });
 
-        setComboBoxRole();
         setSumStaff();
     }
 
@@ -89,17 +89,8 @@ public class StaffJPanel extends javax.swing.JPanel {
     }
 
     private void setStaffCurrent() {
-        listStaff = StaffDAOImpl.getInstance().getList();
         int row = tableStaff.getSelectedRow();
-        StaffModel staff = listStaff.get(row);
-
-        staffCurrent.setID(staff.getID());
-        staffCurrent.setName(staff.getName());
-        staffCurrent.setSdt(staff.getSdt());
-        staffCurrent.setSex(staff.isSex());
-        staffCurrent.setCccd(staff.getCccd());
-        staffCurrent.setAddress(staff.getAddress());
-        staffCurrent.setRole(staff.getRole());
+        staffCurrent = listStaff.get(row);
     }
 
     public void clearTable() {
@@ -223,11 +214,6 @@ public class StaffJPanel extends javax.swing.JPanel {
         addBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addBtn.setPreferredSize(new java.awt.Dimension(140, 40));
-        addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addBtnMouseClicked(evt);
-            }
-        });
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
@@ -327,17 +313,6 @@ public class StaffJPanel extends javax.swing.JPanel {
         addStaff.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
-
-    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBtnMouseClicked
-
-    private void tableStaffMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tablePartyMouseReleased
-        if (evt.isPopupTrigger()) {
-            popupMenu.show(this, evt.getX(), evt.getY());
-        }
-    }
-
     // xử lí sự kiện xem staff
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
         try {
@@ -370,21 +345,21 @@ public class StaffJPanel extends javax.swing.JPanel {
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setStaffCurrent();
-            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
-            if (a == 0) {
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không?", "Lựa chọn", JOptionPane.YES_NO_OPTION);
+            if (a == JOptionPane.OK_OPTION) {
                 if (StaffDAOImpl.getInstance().delete(staffCurrent.getID())) {
                     clearTable();
                     setStaffTable();
 
-                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nhân viên không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_removeBtnActionPerformed
 

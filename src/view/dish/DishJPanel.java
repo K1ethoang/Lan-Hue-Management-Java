@@ -337,16 +337,16 @@ public class DishJPanel extends javax.swing.JPanel {
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setDishCurrent();
-            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Lựa chọn", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
                 if (DishDAOImpl.getInstance().delete(dishCurrent.getDishID())) {
                     clearTable();
                     setDishTable();
 
-                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

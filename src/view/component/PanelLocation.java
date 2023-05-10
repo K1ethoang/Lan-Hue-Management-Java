@@ -1,5 +1,7 @@
 package view.component;
 
+import java.util.Arrays;
+import javax.swing.SwingConstants;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -13,7 +15,42 @@ public class PanelLocation extends javax.swing.JPanel {
         AutoCompleteDecorator.decorate(comboBoxDistrict);
         AutoCompleteDecorator.decorate(comboBoxWard);
         setComboBoxDistrict();
+
         setFullAddress();
+    }
+
+    // cập nhật các trường theo 1 chuỗi địa chỉ
+    public void setAll(String fullAddress) {
+        String addressHome = new String();
+        int time = 0, count = 0;
+        for (int i = fullAddress.length() - 1; i >= 0; i--) {
+            count++;
+            if (fullAddress.charAt(i) == ',') {
+                String sub = fullAddress.substring(i + 2, i + count);
+                count = 0;
+                time++;
+                if (time == 1) {
+                    setProvince(sub);
+
+                }
+                if (time == 2) {
+                    setDistrict(sub);
+
+                }
+                if (time == 3) {
+                    setWard(sub);
+                    String address = fullAddress.substring(0, i);
+                    setAddress(address);
+                    break;
+                }
+            }
+        }
+        setFullAddress();
+    }
+
+    public static void main(String[] args) {
+        PanelLocation pb = new PanelLocation();
+        pb.setAll("135/4, tổ 28, khu phố 3, Phường Bình Đa, Thành phố Biên Hòa, Tỉnh Đồng Nai");
     }
 
     public void setEnable(boolean bool) {
@@ -105,20 +142,17 @@ public class PanelLocation extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void setProvince(String s) {
-        comboBoxProvince.removeAllItems();
-        comboBoxProvince.addItem(s);
+        comboBoxProvince.setSelectedItem(s);
 
     }
 
     public void setDistrict(String s) {
-        comboBoxDistrict.removeAllItems();
-        comboBoxDistrict.addItem(s);
+        comboBoxDistrict.setSelectedItem(s);
 
     }
 
     public void setWard(String s) {
-        comboBoxWard.removeAllItems();
-        comboBoxWard.addItem(s);
+        comboBoxWard.setSelectedItem(s);
 
     }
 
@@ -151,10 +185,11 @@ public class PanelLocation extends javax.swing.JPanel {
         if (getAddress().isEmpty()) {
             return null;
         }
-        return (String) LB_location.getText();
+        return (String) LB_location.getText().replace("<HTML>", "");
     }
 
     private void setComboBoxDistrict() {
+        comboBoxDistrict.removeAllItems();
         comboBoxDistrict.addItem("Thành phố Biên Hòa");
         comboBoxDistrict.addItem("Thành phố Long Khánh");
         comboBoxDistrict.addItem("Huyện Tân Phú");
@@ -168,15 +203,8 @@ public class PanelLocation extends javax.swing.JPanel {
         comboBoxDistrict.addItem("Huyện Nhơn Trạch");
     }
 
-    public static void main(String[] args) {
-        PanelLocation pl = new PanelLocation();
-        pl.setVisible(true);
-    }
-
-
     private void comboBoxDistrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDistrictActionPerformed
         String district = (String) comboBoxDistrict.getSelectedItem();
-
         if (district.equals("Thành phố Biên Hòa")) {
             comboBoxWard.removeAllItems();
             comboBoxWard.addItem("Phường Trảng Dài");

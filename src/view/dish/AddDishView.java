@@ -24,8 +24,6 @@ public class AddDishView extends javax.swing.JFrame {
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     TypeDishModel gTypeDishModel = null;
 
-    DishDAOImpl dishDAOImpl = new DishDAOImpl();
-
     public AddDishView() {
         initComponents();
         Helper.setIconImage4JFrame(this);
@@ -69,7 +67,7 @@ public class AddDishView extends javax.swing.JFrame {
     private boolean insertDish() {
         DishModel dish = new DishModel();
         dish.setDishID(Integer.parseInt(TF_dishID.getText()));
-        dish.setDishName(TF_nameDish.getText().trim());
+        dish.setDishName(TF_nameDish.getText());
 
         dish.setPrice(Double.parseDouble(getDishPrice()));
 
@@ -250,13 +248,13 @@ public class AddDishView extends javax.swing.JFrame {
         }
 
         if (isInsertOk) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else if (isEditOk) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }// GEN-LAST:event_savePartyBtnActionPerformed
 

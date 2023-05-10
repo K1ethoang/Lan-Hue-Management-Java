@@ -92,14 +92,14 @@ public class PartyJPanel extends javax.swing.JPanel {
         }
     }
 
-    private void setPartyCurrent(int row) {
-        PartyModel party = gListParty.get(row);
-        gPartyCurrent = party;
-    }
-
     private int getIndexPartySelected() {
         int row = tableParty.getSelectedRow();
         return row;
+    }
+
+    private void setCurrentParty() {
+        int row = tableParty.getSelectedRow();
+        gPartyCurrent = gListParty.get(row);
     }
 
     private void printDialogErrorSelectParty() {
@@ -446,60 +446,66 @@ public class PartyJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
     private void seeMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeMenuBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
+        try {
+            setCurrentParty();
+
             AddPartyMenuView.isPartyMenuEdit = false;
-            setPartyCurrent(row);
+
             AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
-        } else {
+        } catch (Exception e) {
             printDialogErrorSelectParty();
+
         }
     }//GEN-LAST:event_seeMenuBtnActionPerformed
 
     private void seePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seePartyBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
+        try {
+            setCurrentParty();
+
             AddPartyView.isPartyEdit = false;
-            setPartyCurrent(row);
-            AddPartyView addParty = new AddPartyView(gPartyCurrent);
-            addParty.setVisible(true);
-        } else {
+
+            AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
+            addPartyMenu.setVisible(true);
+        } catch (Exception e) {
             printDialogErrorSelectParty();
         }
     }//GEN-LAST:event_seePartyBtnActionPerformed
 
     private void selectDishBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDishBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
-            setPartyCurrent(row);
-            AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
+        try {
+            setCurrentParty();
+
+            AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
             addPartyMenu.setVisible(true);
-        } else {
+        } catch (Exception e) {
             printDialogErrorSelectParty();
         }
     }//GEN-LAST:event_selectDishBtnActionPerformed
 
     private void editMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
+        try {
+            setCurrentParty();
+
             AddPartyMenuView.isPartyMenuEdit = true;
-            setPartyCurrent(row);
+
             AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
-        } else {
+        } catch (Exception e) {
             printDialogErrorSelectParty();
+
         }
     }//GEN-LAST:event_editMenuBtnActionPerformed
 
     private void editPartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPartyBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
+        try {
+            setCurrentParty();
+
             AddPartyView.isPartyEdit = true;
-            setPartyCurrent(row);
-            AddPartyView addPartyView = new AddPartyView(gPartyCurrent);
-            addPartyView.setVisible(true);
-        } else {
+
+            AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
+            addPartyMenu.setVisible(true);
+        } catch (Exception e) {
             printDialogErrorSelectParty();
         }
     }//GEN-LAST:event_editPartyBtnActionPerformed
@@ -531,18 +537,20 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// GEN-LAST:event_paymentYesActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeBtnActionPerformed
-        int row = getIndexPartySelected();
-        if (row >= 0) {
-            PartyModel party = gListParty.get(row);
-            int id = party.getID();
-            if (PartyDAOImpl.getInstance().delete(id)) {
-                JOptionPane.showMessageDialog(this, "Xóa tiệc có ID: " + id + " thành công", "Xóa tiệc", JOptionPane.OK_OPTION);
-            } else {
-                JOptionPane.showMessageDialog(this, "Có lỗi khi xóa tiệc có ID: " + id, "Xóa tiệc", JOptionPane.ERROR_MESSAGE
-                );
+        try {
+            setCurrentParty();
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không?", "Lựa chọn", JOptionPane.YES_NO_OPTION);
+            if (a == 0) {
+                if (PartyDAOImpl.getInstance().delete(gPartyCurrent.getID())) {
+
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
-        } else {
+        } catch (Exception e) {
             printDialogErrorSelectParty();
         }
     }

@@ -108,7 +108,7 @@ public class AddCustomerView extends javax.swing.JFrame {
 
         FTF_phoneNumber.setText(_customerModel.getPhoneNumber());
         FTF_CCCD.setText(_customerModel.getCitizenNumber());
-        panelLocation1.setAddress(_customerModel.getAddress());
+        panelLocation1.setAll(_customerModel.getAddress());
 
         setFieldEnable(isEditCustomer);
     }
@@ -202,7 +202,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         panelCustomer.add(jLabel9);
 
         try {
-            FTF_phoneNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("0## ### ####")));
+            FTF_phoneNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("0### ### ###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -280,20 +280,24 @@ public class AddCustomerView extends javax.swing.JFrame {
 
         boolean isEditOk = false, isInsertOk = false;
 
-        if (isEditCustomer) {
-            isEditOk = updateCustomer();
-        } else {
-            isInsertOk = insertCustomer();
+        try {
+            if (isEditCustomer) {
+                isEditOk = updateCustomer();
+            } else {
+                isInsertOk = insertCustomer();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (isInsertOk) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else if (isEditOk) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
