@@ -20,6 +20,7 @@ import utils.Helper;
 public class AddDishView extends javax.swing.JFrame {
 
     public static boolean isEditDish = false;
+    int curID;
 
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     TypeDishModel gTypeDishModel = null;
@@ -53,7 +54,7 @@ public class AddDishView extends javax.swing.JFrame {
         NumberFormat dongFormat = NumberFormat.getNumberInstance(vn);
 
         FTF_price.setFormatterFactory(new DefaultFormatterFactory(
-                new NumberFormatter(dongFormat)));
+            new NumberFormatter(dongFormat)));
         if (isEditDish == false) {
             FTF_price.setValue(50000);
         }
@@ -61,7 +62,9 @@ public class AddDishView extends javax.swing.JFrame {
     }
 
     private void setTextFieldID() {
-        TF_dishID.setText(DishDAOImpl.getInstance().getNextID() + "");
+        curID = DishDAOImpl.getInstance().getNextID(); // chus is
+//        TF_dishID.setText(DishDAOImpl.getInstance().getNextID() + "");
+        TF_dishID.setText(curID + "");
     }
 
     private boolean insertDish() {
