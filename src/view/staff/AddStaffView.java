@@ -99,7 +99,7 @@ public class AddStaffView extends javax.swing.JFrame {
         }
         staff.setSdt(getPhoneNumber());
         staff.setCccd(getCitizenNumber());
-        staff.setAddress(panelLocation2.getAddress());
+        staff.setAddress(panelLocation2.getFullAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
             if (comboBoxRole.getSelectedIndex() == i) {
@@ -134,7 +134,7 @@ public class AddStaffView extends javax.swing.JFrame {
             rdoNu.setSelected(true);
         }
         FTF_CCCD.setText(_staffModel.getCccd());
-        panelLocation2.setAddress(_staffModel.getAddress());
+        panelLocation2.setAll(_staffModel.getAddress());
 
         setFieldEnable(isEditStaff);
     }
@@ -154,7 +154,7 @@ public class AddStaffView extends javax.swing.JFrame {
         FTF_CCCD.setEditable(bool);
 //        TF_staffID.setEditable(false);
         panelLocation2.setEnable(bool);
-        comboBoxRole.setEditable(bool);
+        comboBoxRole.setEnabled(bool);
     }
 
     /**
@@ -243,7 +243,7 @@ public class AddStaffView extends javax.swing.JFrame {
         panelStaff.add(jLabel6);
 
         try {
-            FTF_phoneNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("0## ### ####")));
+            FTF_phoneNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("0### ### ###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -306,11 +306,11 @@ public class AddStaffView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -330,13 +330,13 @@ public class AddStaffView extends javax.swing.JFrame {
         }
 
         if (isInsertOk) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công !");
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else if (isEditOk) {
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin");
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_saveBtn2ActionPerformed
 

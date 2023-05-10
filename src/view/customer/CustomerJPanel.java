@@ -76,16 +76,8 @@ public class CustomerJPanel extends javax.swing.JPanel {
     }
 
     private void setCustomerCurrent() {
-        listCustomer = CustomerDAOImpl.getInstance().getList();
         int row = tableCustomer.getSelectedRow();
-        CustomerModel customer = listCustomer.get(row);
-
-        customerCurrent.setID(customer.getID());
-        customerCurrent.setName(customer.getName());
-        customerCurrent.setPhoneNumber(customer.getPhoneNumber());
-        customerCurrent.setSex(customer.isSex());
-        customerCurrent.setCitizenNumber(customer.getCitizenNumber());
-        customerCurrent.setAddress(customer.getAddress());
+        customerCurrent = listCustomer.get(row);
     }
 
     @SuppressWarnings("unchecked")
@@ -301,6 +293,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
             AddCustomerView addCustomer = new AddCustomerView(customerCurrent);
             addCustomer.setVisible(true);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_seeBtnActionPerformed
@@ -329,16 +322,16 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setCustomerCurrent();
-            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không?", "Lựa chọn", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
                 if (CustomerDAOImpl.getInstance().delete(customerCurrent.getID())) {
                     clearTable();
                     setCustomerTable();
 
-                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
