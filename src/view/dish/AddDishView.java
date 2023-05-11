@@ -34,7 +34,6 @@ public class AddDishView extends javax.swing.JFrame {
         gListTypeDish = TypeDishDAOImpl.getInstance().getList();
         TF_dishID.setEditable(false);
         // set data
-        setTextFieldID();
         setComboBoxTypeDish();
     }
 
@@ -54,22 +53,15 @@ public class AddDishView extends javax.swing.JFrame {
         NumberFormat dongFormat = NumberFormat.getNumberInstance(vn);
 
         FTF_price.setFormatterFactory(new DefaultFormatterFactory(
-            new NumberFormatter(dongFormat)));
+                new NumberFormatter(dongFormat)));
         if (isEditDish == false) {
             FTF_price.setValue(50000);
         }
 
     }
 
-    private void setTextFieldID() {
-        curID = DishDAOImpl.getInstance().getNextID(); // chus is
-//        TF_dishID.setText(DishDAOImpl.getInstance().getNextID() + "");
-        TF_dishID.setText(curID + "");
-    }
-
     private boolean insertDish() {
         DishModel dish = new DishModel();
-        dish.setDishID(Integer.parseInt(TF_dishID.getText()));
         dish.setDishName(TF_nameDish.getText());
 
         dish.setPrice(Double.parseDouble(getDishPrice()));

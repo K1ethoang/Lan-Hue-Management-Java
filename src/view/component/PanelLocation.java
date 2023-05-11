@@ -182,10 +182,10 @@ public class PanelLocation extends javax.swing.JPanel {
     }
 
     public String getFullAddress() {
-        if (getAddress().isEmpty()) {
+        if (this.getAddress().isEmpty()) {
             return null;
         }
-        return (String) LB_location.getText().replace("<HTML>", "");
+        return (String) this.LB_location.getText().replace("<HTML>", "");
     }
 
     private void setComboBoxDistrict() {

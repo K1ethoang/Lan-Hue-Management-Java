@@ -18,9 +18,6 @@ public class AddCustomerView extends javax.swing.JFrame {
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
-
-        // set next id
-        setTextFieldID();
     }
 
     // isEditCustomer == true thì các dữ liệu ở trạng chỉnh sửa
@@ -35,10 +32,6 @@ public class AddCustomerView extends javax.swing.JFrame {
         sb.setOrientation(JScrollBar.HORIZONTAL);
 
         setData(_customerModel, isEditCustomer);
-    }
-
-    private void setTextFieldID() {
-        TF_customerID.setText(CustomerDAOImpl.getInstance().getNextID() + "");
     }
 
     private String getPhoneNumber() {

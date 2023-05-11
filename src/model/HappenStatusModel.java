@@ -11,6 +11,16 @@ public class HappenStatusModel {
     private int statusCode;
     private String statusName;
 
+    public HappenStatusModel(int ID, int statusCode, String statusName) {
+        this.ID = ID;
+        this.statusCode = statusCode;
+        this.statusName = statusName;
+    }
+
+    public HappenStatusModel() {
+
+    }
+
     public int getID() {
         return ID;
     }

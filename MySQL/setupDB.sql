@@ -15,13 +15,14 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE IF NOT EXISTS Customer(
 	CustomerID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
-    PhoneNumber VARCHAR(10) NOT NULL,
+    UN_PhoneNumber VARCHAR(10) NOT NULL,
     Sex BIT NOT NULL,
     UN_CitizenNumber VARCHAR(12) NOT NULL,
     Address TEXT NOT NULL,
     CONSTRAINT PkCustomer_CustomerID PRIMARY KEY (CustomerId),
+    CONSTRAINT UnCustomer_UN_PhoneNumber UNIQUE (UN_PhoneNumber),
     CONSTRAINT UnCustomer_UN_CitizenNumber UNIQUE (UN_CitizenNumber),
-    CONSTRAINT CkCustomer_PhoneNumber CHECK (LENGTH(PhoneNumber) = 10),
+    CONSTRAINT CkCustomer_UN_PhoneNumber CHECK (LENGTH(UN_PhoneNumber) = 10),
     CONSTRAINT CkCustomer_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12)
 );
 -- TRUNCATE TABLE Customer;
@@ -78,13 +79,14 @@ CREATE TABLE IF NOT EXISTS Staff(
 	StaffID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
     Sex BIT NOT NULL,
-    PhoneNumber VARCHAR(10) NOT NULL,
+    UN_PhoneNumber VARCHAR(10) NOT NULL,
 	UN_CitizenNumber VARCHAR(12) NOT NULL,
     Address VARCHAR(300) NOT NULL,
     RoleID INT UNSIGNED NOT NULL,
     CONSTRAINT PkStaff_StaffID PRIMARY KEY (StaffID),
+    CONSTRAINT UnStaff_UN_PhoneNumber UNIQUE (UN_PhoneNumber),
     CONSTRAINT UnStaff_UN_CitizenNumber UNIQUE (UN_CitizenNumber),
-	CONSTRAINT CkStaff_PhoneNumber CHECK (LENGTH(PhoneNumber) = 10),
+	CONSTRAINT CkStaff_UN_PhoneNumber CHECK (LENGTH(UN_PhoneNumber) = 10),
     CONSTRAINT CkStaff_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12),
     CONSTRAINT FkStaff_RoleID FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 );

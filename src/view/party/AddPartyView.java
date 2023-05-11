@@ -2,26 +2,30 @@ package view.party;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import dao.Customer.CustomerDAOImpl;
+import dao.HappenStatus.HappenStatusDAOImpl;
 import dao.Party.PartyDAO;
 import dao.Party.PartyDAOImpl;
+import dao.PaymentStatus.PaymentStatusDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
 import java.sql.Time;
+import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import static java.time.temporal.TemporalQueries.localDate;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
+import model.HappenStatusModel;
 import model.PartyModel;
+import model.PaymentStatusModel;
 import model.TypePartyModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import utils.Helper;
 import view.component.scroll.ScrollBarCus;
-import static view.party.PartyJPanel.gCurrentID;
 
 /**
  *
@@ -33,7 +37,9 @@ public class AddPartyView extends javax.swing.JFrame {
 
     List<CustomerModel> gListCustomer = null;
     List<TypePartyModel> gListTypeParty = null;
+
     CustomerModel gCustomerModel = null;
+    TypePartyModel gTypeParty = null;
 
     public AddPartyView() {
         initComponents();
@@ -44,7 +50,6 @@ public class AddPartyView extends javax.swing.JFrame {
 
         setScroll();
 
-        setTextFieldID();
         setComboBoxPhoneNumber();
         setComboBoxTypeParty();
         initDateTimeField();
@@ -71,6 +76,24 @@ public class AddPartyView extends javax.swing.JFrame {
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneNote.setHorizontalScrollBar(sb);
+    }
+
+    // add customer
+    boolean insertParty() {
+        PartyModel party = new PartyModel();
+        party.setCustomer(gCustomerModel);
+        party.setPartyName(TF_partyName.getText());
+        party.setTableNumber((int) SP_partyNumber.getValue());
+        party.setTypeParty(gTypeParty);
+        party.setTime(Time.valueOf(SP_time.getTime()));
+        party.setDate(Date.valueOf(TF_date.getDate()));
+        party.setNote(textAreaNote.getText());
+        party.setLocation(panelLocation2.getFullAddress());
+        party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
+        party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
+
+        System.out.println(PartyDAOImpl.getInstance().insert(party));
+        return false;
     }
 
     private void initDateTimeField() {
@@ -108,10 +131,6 @@ public class AddPartyView extends javax.swing.JFrame {
         TF_date.setDate(localDate);
     }
 
-    private void setTextFieldID() {
-        TF_partyID.setText(PartyDAOImpl.getInstance().getNextID() + "");
-    }
-
     private void setDataParty(PartyModel partyModel, boolean isEdit) {
         if (isEdit) {
             this.setTitle("Chỉnh sửa tiệc");
@@ -130,10 +149,9 @@ public class AddPartyView extends javax.swing.JFrame {
         TF_partyName.setText(partyModel.getPartyName());
         SP_partyNumber.setValue(partyModel.getTableNumber());
         setTimeField(partyModel.getTime());
-        setDateField(partyModel.getDate());
+        setDateField((Date) partyModel.getDate());
         textAreaNote.setText(partyModel.getNote());
-        panelLocation2.setAddress(partyModel.getLocation());
-        panelLocation2.setFullAddress();
+        panelLocation2.setAll(partyModel.getLocation());
         TF_nameCustomer.setText(partyModel.getCustomer().getName());
 
         setFieldEnable(isEdit);
@@ -269,7 +287,6 @@ public class AddPartyView extends javax.swing.JFrame {
         panelLeft.add(jLabel1);
 
         TF_partyID.setEditable(false);
-        TF_partyID.setText("0");
         TF_partyID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TF_partyIDActionPerformed(evt);
@@ -411,7 +428,7 @@ public class AddPartyView extends javax.swing.JFrame {
     }//GEN-LAST:event_TF_nameCustomerActionPerformed
 
     private void savePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyBtnActionPerformed
-
+        insertParty();
     }//GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -426,7 +443,9 @@ public class AddPartyView extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxPhoneNumberActionPerformed
 
     private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
-        // TODO add your handling code here:
+        if (gListTypeParty != null) {
+            gTypeParty = gListTypeParty.get(comboBoxTypeParty.getSelectedIndex());
+        }
     }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
     private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed

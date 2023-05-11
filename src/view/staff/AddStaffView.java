@@ -36,8 +36,6 @@ public class AddStaffView extends javax.swing.JFrame {
 
         gListRole = RoleDAOImpl.getInstance().getList();
         TF_staffID.setEditable(false);
-        // set nextID
-        setTextFieldID();
         setComboboxRole();
     }
 
@@ -53,10 +51,6 @@ public class AddStaffView extends javax.swing.JFrame {
         setComboboxRole();
 
         setData(_staffModel, isEditStaff);
-    }
-
-    private void setTextFieldID() {
-        TF_staffID.setText(StaffDAOImpl.getInstance().getNextID() + "");
     }
 
     private String getPhoneNumber() {

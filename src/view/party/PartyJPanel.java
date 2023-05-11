@@ -16,6 +16,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.PartyModel;
+import model.PaymentStatusModel;
 import model.TypePartyModel;
 import table.TableParty;
 
@@ -23,7 +24,6 @@ public class PartyJPanel extends javax.swing.JPanel {
 
     List<PartyModel> gListParty = null;
     PartyModel gPartyCurrent = new PartyModel();
-    protected static int gCurrentID = 0;
 
     private TableRowSorter<TableModel> rowSorter = null;
 
@@ -38,7 +38,6 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         // get data party
         gListParty = PartyDAOImpl.getInstance().getList();
-        gCurrentID = gListParty.get(0).getID() + 1;
 
         setComboBoxTypeParty();
         setPartyTable();
@@ -130,7 +129,6 @@ public class PartyJPanel extends javax.swing.JPanel {
         button = new javax.swing.JPanel();
         addBtn = new rojeru_san.complementos.RSButtonHover();
         paymentBtn = new rojeru_san.complementos.RSButtonHover();
-        printMenuBtn = new rojeru_san.complementos.RSButtonHover();
         sumParty = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
         typeParty = new javax.swing.JPanel();
@@ -148,6 +146,16 @@ public class PartyJPanel extends javax.swing.JPanel {
         center = new javax.swing.JPanel();
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableParty = new view.component.table.Table();
+
+        popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                popupMenuPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
         seeBtn.setText("Xem");
@@ -231,13 +239,13 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         searchPanel.setBackground(getBackground());
 
+        searchField.setForeground(new java.awt.Color(0, 0, 0));
+        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.setBorderColor(new java.awt.Color(10, 77, 104));
         searchField.setBotonColor(new java.awt.Color(0, 0, 0));
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        searchField.setForeground(new java.awt.Color(0, 0, 0));
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
-        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -290,14 +298,6 @@ public class PartyJPanel extends javax.swing.JPanel {
             }
         });
         button.add(paymentBtn);
-
-        printMenuBtn.setBackground(new java.awt.Color(10, 77, 104));
-        printMenuBtn.setText("In thực đơn");
-        printMenuBtn.setColorHover(new java.awt.Color(14, 112, 152));
-        printMenuBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        printMenuBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        printMenuBtn.setPreferredSize(new java.awt.Dimension(110, 40));
-        button.add(printMenuBtn);
 
         sumParty.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sumParty.setText("Số lượng: 0");
@@ -510,6 +510,19 @@ public class PartyJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editPartyBtnActionPerformed
 
+    private void popupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popupMenuPopupMenuWillBecomeVisible
+        try {
+            setCurrentParty();
+            if (gPartyCurrent.getPaymentStatus().getStatusCode() == PaymentStatusModel.PAID) {
+                editBtn.setEnabled(false);
+            } else {
+                editBtn.setEnabled(true);
+
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
+
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
 
@@ -584,7 +597,6 @@ public class PartyJPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox paymentNo;
     private javax.swing.JCheckBox paymentYes;
     private javax.swing.JPopupMenu popupMenu;
-    private rojeru_san.complementos.RSButtonHover printMenuBtn;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;
