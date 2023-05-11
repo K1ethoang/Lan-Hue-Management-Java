@@ -5,6 +5,7 @@ import dao.TypeParty.TypePartyDAOImpl;
 import java.awt.PopupMenu;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.PartyModel;
@@ -25,7 +27,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     List<PartyModel> gListParty = null;
     PartyModel gPartyCurrent = new PartyModel();
 
-    private TableRowSorter<TableModel> rowSorter = null;
+    private TableRowSorter<TableModel> rowSorter;
 
     public PartyJPanel() {
         initComponents();
@@ -38,14 +40,133 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         // get data party
         gListParty = PartyDAOImpl.getInstance().getList();
-
-        setComboBoxTypeParty();
+        
         setPartyTable();
-
+        setComboBoxTypeParty();
     }
-
+    
+    public void searchAndFilter(){
+        String text = searchField.getText();
+        String curTypeParty = (String) comboBoxTypeParty.getSelectedItem();
+        
+        int typePartyFilterIndex = 2;
+        int happenStatusFilterIndex = 9;
+        int paymentStatusFilterIndex = 10;
+        
+        List<RowFilter<Object, Object>> filters = new ArrayList<>();
+        
+        if(text.trim().length() == 0){
+            if(curTypeParty.equals("Tất cả")){
+                // nếu không có tk nào được chọn
+                if(happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false){
+                    rowSorter.setRowFilter(null);
+                    return;
+                }
+                else{ // nếu ít nhất 1 tk đc chọn 
+                    if(happenWait.isSelected()){
+                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    }
+                    if(happenNow.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
+                    }
+                    if(happenDone.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
+                    }
+                    if(paymentNo.isSelected()){
+                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
+                    }
+                    if(paymentYes.isSelected()){
+                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
+                    }
+                }
+            }
+            else {
+                filters.add(RowFilter.regexFilter(curTypeParty, typePartyFilterIndex));
+                // nếu không có tk nào đc chọn
+                if(happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false){
+                    rowSorter.setRowFilter(RowFilter.regexFilter(curTypeParty, typePartyFilterIndex));
+                    return;
+                }
+                else{ // có ít nhất 1 tk được chọn
+                    if(happenWait.isSelected()){
+                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    }
+                    if(happenNow.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
+                    }
+                    if(happenDone.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
+                    }
+                    if(paymentNo.isSelected()){
+                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
+                    }
+                    if(paymentYes.isSelected()){
+                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
+                    }
+                }
+            }
+        }
+        else {
+            filters.add(RowFilter.regexFilter("(?i)" + text));
+            if(curTypeParty.equals("Tất cả")){
+                if(happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false){
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    return;
+                }
+                else{ // có ít nhất 1 tk được chọn
+                    if(happenWait.isSelected()){
+                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    }
+                    if(happenNow.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
+                    }
+                    if(happenDone.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
+                    }
+                    if(paymentNo.isSelected()){
+                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
+                    }
+                    if(paymentYes.isSelected()){
+                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
+                    }
+                }
+            }
+            else{
+                filters.add(RowFilter.regexFilter(curTypeParty, typePartyFilterIndex));
+                if(happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false){
+                    rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                    return;
+                }
+                else{ // có ít nhất 1 tk được chọn
+                    if(happenWait.isSelected()){
+                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    }
+                    if(happenNow.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
+                    }
+                    if(happenDone.isSelected()){
+                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
+                    }
+                    if(paymentNo.isSelected()){
+                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
+                    }
+                    if(paymentYes.isSelected()){
+                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
+                    }
+                }
+            }
+        }
+        
+        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+    }
+    
+    private void clearTable(){
+        DefaultTableModel model = (DefaultTableModel) tableParty.getModel();
+        model.setRowCount(0);
+    }
+    
     private void setPartyTable() {
-
+        gListParty = PartyDAOImpl.getInstance().getList();
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(gListParty, tableParty);
 
@@ -54,34 +175,28 @@ public class PartyJPanel extends javax.swing.JPanel {
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilter();
+                sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilter();
+                sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+                
             }
         });
 
         sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
 
     }
-
+    
+    
+    
     private void setComboBoxTypeParty() {
         comboBoxTypeParty.removeAllItems();
         List<TypePartyModel> list = TypePartyDAOImpl.getInstance().getList();
@@ -334,6 +449,11 @@ public class PartyJPanel extends javax.swing.JPanel {
         happenWait.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         happenWait.setText("Sắp tới");
         happenWait.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        happenWait.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                happenWaitActionPerformed(evt);
+            }
+        });
         payment.add(happenWait);
 
         happenNow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -434,15 +554,8 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
-        String curTypeParty = (String) comboBoxTypeParty.getSelectedItem();
-        int columnIndex = 2;
-        if (curTypeParty.equals("Tất cả")) {
-            tableParty.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
-        } else {
-            rowSorter = new TableRowSorter<>(tableParty.getModel());
-            tableParty.setRowSorter(rowSorter);
-            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeParty, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
-        }
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
     private void seeMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeMenuBtnActionPerformed
@@ -523,6 +636,21 @@ public class PartyJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
 
+    private void happenWaitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_happenWaitActionPerformed
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+    }//GEN-LAST:event_happenWaitActionPerformed
+    
+    private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenNowActionPerformed
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+    }// GEN-LAST:event_happenNowActionPerformed
+
+    private void happenDoneActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenDoneActionPerformed
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+    }// GEN-LAST:event_happenDoneActionPerformed
+    
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
 
@@ -533,20 +661,14 @@ public class PartyJPanel extends javax.swing.JPanel {
         addParty.setVisible(true);
     }
 
-    private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenNowActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_happenNowActionPerformed
-
-    private void happenDoneActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenDoneActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_happenDoneActionPerformed
-
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentNoActionPerformed
-        // TODO add your handling code here:
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }// GEN-LAST:event_paymentNoActionPerformed
 
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentYesActionPerformed
-        // TODO add your handling code here:
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }// GEN-LAST:event_paymentYesActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeBtnActionPerformed
@@ -555,7 +677,9 @@ public class PartyJPanel extends javax.swing.JPanel {
             int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không?", "Lựa chọn", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
                 if (PartyDAOImpl.getInstance().delete(gPartyCurrent.getID())) {
-
+                    clearTable();
+//                    rdoAll.setSelected(true);
+                    setPartyTable();
                     JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {

@@ -101,6 +101,8 @@ public class PartyDAOImpl implements PartyDAO {
         }
         return isOk;
     }
+    
+    
 
     public static void main(String[] args) {
         PartyModel party = new PartyModel();
@@ -127,6 +129,37 @@ public class PartyDAOImpl implements PartyDAO {
         } catch (Exception e) {
         }
         return isOk;
+    }
+
+    @Override
+    public boolean update(PartyModel party) {
+        boolean isUpdated = false;
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "UPDATE PARTY SET PartyName = ?, TableNumber = ?, Date = ?, Time = ?, Location = ?, Note = ?, CustomerID = ?, HappenStatusID = ?, PaymentStatusID = ?, TypePartyID =? WHERE PartyID = ?";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, party.getPartyName());
+            ps.setInt(2, party.getTableNumber());
+            ps.setDate(3, (Date) party.getDate());
+            ps.setTime(4, party.getTime());
+            ps.setString(5, party.getLocation());
+            ps.setString(6, party.getNote() + "");
+            ps.setInt(7, party.getCustomer().getID());
+            ps.setInt(8, party.getHappenStatus().getID());
+            ps.setInt(9, party.getPaymentStatus().getID());
+            ps.setInt(10, party.getTypeParty().getID());
+            ps.setInt(11, party.getID());
+            int rs = ps.executeUpdate();
+            if (rs >= 0) {
+                isUpdated = true;
+            }
+
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+        }
+        return isUpdated;
     }
 
 }

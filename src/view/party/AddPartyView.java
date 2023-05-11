@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import static java.time.temporal.TemporalQueries.localDate;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
 import model.HappenStatusModel;
@@ -91,9 +92,25 @@ public class AddPartyView extends javax.swing.JFrame {
         party.setLocation(panelLocation2.getFullAddress());
         party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
         party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
-
-        System.out.println(PartyDAOImpl.getInstance().insert(party));
-        return false;
+//        System.out.println("True or False: "+PartyDAOImpl.getInstance().insert(party));
+        return PartyDAOImpl.getInstance().insert(party);
+//        return false;
+    }
+    
+    boolean updateParty(){
+        PartyModel party = new PartyModel();
+        party.setCustomer(gCustomerModel);
+        party.setPartyName(TF_partyName.getText());
+        party.setTableNumber((int) SP_partyNumber.getValue());
+        party.setTypeParty(gTypeParty);
+        party.setTime(Time.valueOf(SP_time.getTime()));
+        party.setDate(Date.valueOf(TF_date.getDate()));
+        party.setNote(textAreaNote.getText());
+        party.setLocation(panelLocation2.getFullAddress());
+        party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
+        party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
+        System.out.println("True or False: "+PartyDAOImpl.getInstance().insert(party));
+        return PartyDAOImpl.getInstance().update(party);
     }
 
     private void initDateTimeField() {
@@ -428,7 +445,23 @@ public class AddPartyView extends javax.swing.JFrame {
     }//GEN-LAST:event_TF_nameCustomerActionPerformed
 
     private void savePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyBtnActionPerformed
-        insertParty();
+        boolean isEditOk = false, isInsertOk = false;
+
+        if (isPartyEdit) {
+            isEditOk = updateParty();
+        } else {
+            isInsertOk = insertParty();
+        }
+
+        if (isInsertOk) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else if (isEditOk) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
