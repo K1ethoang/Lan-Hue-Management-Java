@@ -175,6 +175,11 @@ public class AddCustomerView extends javax.swing.JFrame {
         btnGrGender.add(rdoNam);
         rdoNam.setSelected(true);
         rdoNam.setText("Nam");
+        rdoNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoNamActionPerformed(evt);
+            }
+        });
         jPanel6.add(rdoNam);
 
         btnGrGender.add(rdoNu);
@@ -312,6 +317,10 @@ public class AddCustomerView extends javax.swing.JFrame {
     private void TF_NameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_NameCustomerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_NameCustomerActionPerformed
+
+    private void rdoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoNamActionPerformed
 
     /**
      * @param args the command line arguments

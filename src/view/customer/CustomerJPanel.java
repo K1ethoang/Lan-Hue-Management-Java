@@ -1,6 +1,7 @@
 package view.customer;
 
 import dao.Customer.CustomerDAOImpl;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -18,7 +19,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
 
     List<CustomerModel> listCustomer = null;
     CustomerModel customerCurrent = new CustomerModel();
-    private TableRowSorter<TableModel> rowSorter = null;
+    private TableRowSorter<TableModel> rowSorter ;
 
     public CustomerJPanel() {
         List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
@@ -33,7 +34,38 @@ public class CustomerJPanel extends javax.swing.JPanel {
         clearTable();
         setCustomerTable();
     }
-
+    
+    public void searchAndFilterGender(){
+        String text = searchField.getText();
+        if (text.trim().length() == 0) {
+            if(rdoAll.isSelected()){
+                rowSorter.setRowFilter(null);
+            }
+            else if(rdoFemale.isSelected()){
+                rowSorter.setRowFilter(RowFilter.regexFilter("Nữ", 3));
+            }
+            else if(rdoMale.isSelected()){
+                rowSorter.setRowFilter(RowFilter.regexFilter("Nam", 3));
+            }
+        } else {
+            if (rdoAll.isSelected()) { 
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            } else if(rdoMale.isSelected()){ 
+                List<RowFilter<Object, Object>> filters = new ArrayList<>();
+                filters.add(RowFilter.regexFilter("(?i)" + text));
+                filters.add(RowFilter.regexFilter("Nam", 3));
+                rowSorter.setRowFilter(RowFilter.andFilter(filters));
+            } else if(rdoFemale.isSelected()){
+                List<RowFilter<Object, Object>> filters = new ArrayList<>();
+                filters.add(RowFilter.regexFilter("(?i)" + text));
+                filters.add(RowFilter.regexFilter("Nữ", 3));
+                rowSorter.setRowFilter(RowFilter.andFilter(filters));
+            }
+            
+        }
+    }
+//    
+    
     public void setCustomerTable() {
         listCustomer = CustomerDAOImpl.getInstance().getList();
         TableCustomer tb = new TableCustomer();
@@ -45,22 +77,14 @@ public class CustomerJPanel extends javax.swing.JPanel {
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilterGender();
+                setSumCustomer();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilterGender();
+                setSumCustomer();
             }
 
             @Override
@@ -76,7 +100,9 @@ public class CustomerJPanel extends javax.swing.JPanel {
     }
 
     private void setCustomerCurrent() {
-        int row = tableCustomer.getSelectedRow();
+        int viewRowIndex = tableCustomer.getSelectedRow();
+        int row = tableCustomer.getRowSorter().convertRowIndexToModel(viewRowIndex);
+//        int row = tableCustomer.getSelectedRow();
         customerCurrent = listCustomer.get(row);
     }
 
@@ -219,14 +245,29 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sexGroup.add(rdoAll);
         rdoAll.setSelected(true);
         rdoAll.setText("Tất cả");
+        rdoAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoAllActionPerformed(evt);
+            }
+        });
         sex.add(rdoAll);
 
         sexGroup.add(rdoMale);
         rdoMale.setText("Nam");
+        rdoMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoMaleActionPerformed(evt);
+            }
+        });
         sex.add(rdoMale);
 
         sexGroup.add(rdoFemale);
         rdoFemale.setText("Nữ");
+        rdoFemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoFemaleActionPerformed(evt);
+            }
+        });
         sex.add(rdoFemale);
 
         filter.add(sex);
@@ -326,6 +367,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
             if (a == 0) {
                 if (CustomerDAOImpl.getInstance().delete(customerCurrent.getID())) {
                     clearTable();
+                    rdoAll.setSelected(true);
                     setCustomerTable();
 
                     JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -343,6 +385,21 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
+
+    private void rdoAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoAllActionPerformed
+        searchAndFilterGender();
+        setSumCustomer();
+    }//GEN-LAST:event_rdoAllActionPerformed
+
+    private void rdoMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoMaleActionPerformed
+        searchAndFilterGender();
+        setSumCustomer();
+    }//GEN-LAST:event_rdoMaleActionPerformed
+
+    private void rdoFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoFemaleActionPerformed
+        searchAndFilterGender();
+        setSumCustomer();
+    }//GEN-LAST:event_rdoFemaleActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;

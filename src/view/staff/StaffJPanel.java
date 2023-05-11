@@ -2,6 +2,7 @@ package view.staff;
 
 import dao.Role.RoleDAOImpl;
 import dao.Staff.StaffDAOImpl;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -21,7 +22,7 @@ public class StaffJPanel extends javax.swing.JPanel {
     List<StaffModel> listStaff = null;
     StaffModel staffCurrent = new StaffModel();
 
-    private TableRowSorter<TableModel> rowSorter = null;
+    private TableRowSorter<TableModel> rowSorter;
 
     public StaffJPanel() {
         List<StaffModel> listStaff = StaffDAOImpl.getInstance().getList();
@@ -32,10 +33,60 @@ public class StaffJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableStaff.fixTable(ScrollPaneTable);
-
-        setComboBoxRole();
+        
         setStaffTable();
+        
+        setComboBoxRole();
+        
     }
+
+    public void searchAndFilter() {
+        String text = searchField.getText();
+        String curRole = (String) comboBoxRole.getSelectedItem();
+
+        int genderFilterIndex = 3;
+        int roleFilterIndex = 6;
+        List<RowFilter<Object, Object>> filters = new ArrayList<>();
+
+        if (text.trim().length() == 0) {
+            if (curRole.equals("Tất cả")) {
+                if (rdoAll.isSelected()) {
+                    rowSorter.setRowFilter(null);
+                    return;
+                } else if (rdoFemale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nữ", genderFilterIndex));
+                } else if (rdoMale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nam", genderFilterIndex));
+                }
+            } else {
+                filters.add(RowFilter.regexFilter(curRole, roleFilterIndex));
+                if (rdoFemale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nữ", genderFilterIndex));
+                } else if (rdoMale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nam", genderFilterIndex));
+                }
+            }
+        } else {
+            filters.add(RowFilter.regexFilter("(?i)" + text));
+            if (curRole.equals("Tất cả")) {
+                if (rdoMale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nam", genderFilterIndex));
+                } else if (rdoFemale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nữ", genderFilterIndex));
+                }
+            } else {
+                filters.add(RowFilter.regexFilter(curRole, roleFilterIndex));
+                if (rdoMale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nam", genderFilterIndex));
+                } else if (rdoFemale.isSelected()) {
+                    filters.add(RowFilter.regexFilter("Nữ", genderFilterIndex));
+                }
+            }
+        }
+
+        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+    }
+
 
     public void setStaffTable() {
         listStaff = StaffDAOImpl.getInstance().getList();
@@ -48,27 +99,18 @@ public class StaffJPanel extends javax.swing.JPanel {
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilter();
+                setSumStaff();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilter();
+                setSumStaff();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
 
@@ -256,14 +298,29 @@ public class StaffJPanel extends javax.swing.JPanel {
         sexGroup.add(rdoAll);
         rdoAll.setSelected(true);
         rdoAll.setText("Tất cả");
+        rdoAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoAllActionPerformed(evt);
+            }
+        });
         happen.add(rdoAll);
 
         sexGroup.add(rdoMale);
         rdoMale.setText("Nam");
+        rdoMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoMaleActionPerformed(evt);
+            }
+        });
         happen.add(rdoMale);
 
         sexGroup.add(rdoFemale);
         rdoFemale.setText("Nữ");
+        rdoFemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoFemaleActionPerformed(evt);
+            }
+        });
         happen.add(rdoFemale);
 
         filter.add(happen);
@@ -349,6 +406,8 @@ public class StaffJPanel extends javax.swing.JPanel {
             if (a == JOptionPane.OK_OPTION) {
                 if (StaffDAOImpl.getInstance().delete(staffCurrent.getID())) {
                     clearTable();
+                    comboBoxRole.setSelectedItem("Tất cả");
+                    rdoAll.setSelected(true);
                     setStaffTable();
 
                     JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -368,17 +427,24 @@ public class StaffJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchFieldActionPerformed
 
     private void comboBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRoleActionPerformed
-        String curRole = (String) comboBoxRole.getSelectedItem();
-        System.out.println(curRole);
-        int columnIndex = 2;
-        if (curRole.equals("Tất cả")) {
-            tableStaff.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
-        } else {
-            rowSorter = new TableRowSorter<>(tableStaff.getModel());
-            tableStaff.setRowSorter(rowSorter);
-            rowSorter.setRowFilter(RowFilter.regexFilter(curRole, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
-        }
+        searchAndFilter();
+        setSumStaff();
     }//GEN-LAST:event_comboBoxRoleActionPerformed
+
+    private void rdoAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoAllActionPerformed
+        searchAndFilter();
+        setSumStaff();
+    }//GEN-LAST:event_rdoAllActionPerformed
+
+    private void rdoMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoMaleActionPerformed
+        searchAndFilter();
+        setSumStaff();
+    }//GEN-LAST:event_rdoMaleActionPerformed
+
+    private void rdoFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoFemaleActionPerformed
+        searchAndFilter();
+        setSumStaff();
+    }//GEN-LAST:event_rdoFemaleActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;
