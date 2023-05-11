@@ -33,7 +33,7 @@ public class DishDAOImpl implements DishDAO {
                 DishModel dish = new DishModel();
                 dish.setDishID(rs.getInt("DishID"));
                 dish.setDishName(rs.getString("DishName"));
-                dish.setPrice(rs.getDouble("Price"));
+                dish.setPrice(rs.getDouble("CostPrice"));
                 dish.setTypeDish(typeDishModel);
 
                 list.add(dish);
@@ -49,26 +49,67 @@ public class DishDAOImpl implements DishDAO {
     }
 
     @Override
-    public int getNextID() {
+    public boolean insert(DishModel dish) {
+        boolean isOk = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "SELECT AUTO_INCREMENT as `nextID`\n"
-                    + "FROM information_schema.TABLES\n"
-                    + "WHERE TABLE_SCHEMA = database()\n"
-                    + "AND TABLE_NAME = \"dish\";";
-            int nextID = -1;
+            String sql = "INSERT INTO dish(DishName, CostPrice, TypeDishID) "
+                    + "VALUES (?,?,?)";
+
             PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                nextID = rs.getInt("nextID");
+            ps.setString(1, dish.getDishName());
+            ps.setDouble(2, dish.getPrice());
+            ps.setInt(3, dish.getTypeDish().getTypeDishID());
+
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isOk = true;
             }
-            return nextID;
         } catch (Exception e) {
+            e.printStackTrace();
         }
-        return -1;
+        return isOk;
     }
 
-    public static void main(String[] args) {
-        System.out.println(DishDAOImpl.getInstance().getNextID());
+    @Override
+    public boolean delete(int id) {
+        boolean isDelete = false;
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "DELETE FROM Dish WHERE DishID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isDelete = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isDelete;
+    }
+
+    @Override
+    public boolean update(DishModel dish) {
+        boolean isUpdated = false;
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "UPDATE DISH SET DishName = ?, CostPrice = ?, TypeDishID = ? WHERE DishID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, dish.getDishName());
+            ps.setDouble(2, dish.getPrice());
+            ps.setInt(3, dish.getTypeDish().getTypeDishID());
+            ps.setInt(4, dish.getDishID());
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isUpdated = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isUpdated;
     }
 }

@@ -1,10 +1,10 @@
-INSERT INTO Customer (Name, PhoneNumber, Sex, UN_CitizenNumber, Address) 
+INSERT INTO Customer (Name, UN_PhoneNumber, Sex, UN_CitizenNumber, Address) 
 VALUES
-	('John Doe', '0123456789', 1, '123456789012', '123 Main St, Anytown, USA'),
-	('Jane Smith', '0234567890', 0, '234567890123', '456 Elm St, Anytown, USA'),
-	('Bob Johnson', '0345678901', 1, '345678901234', '789 Oak St, Anytown, USA'),
-	('Alice Williams', '0456789012', 0, '456789012345', '321 Pine St, Anytown, USA'),
-	('David Lee', '0567890123', 1, '567890123456', '654 Maple St, Anytown, USA');
+	('Nguyễn Văn Vũ', '0123456789', 1, '123456789012', '78 đường 17'),
+	('Nguyễn Ninh Ninh', '0234567890', 0, '234567890123', '76/2 đường Phạm Văn Đồng'),
+	('Lý Tiểu Long', '0345678901', 1, '345678901234', '26 đường 16'),
+	('Đoàn Thị Minh Nguyệt', '0456789012', 0, '456789012345', '34/2A'),
+	('Chu Văn Chương', '0567890123', 1, '567890123456', '24 đường Lê Văn Chí');
     
 INSERT INTO PaymentStatus (UN_StatusCode, StatusName)
 VALUES 
@@ -18,43 +18,84 @@ VALUES
 	(2, 'Đã xong');
 
 INSERT INTO Role (RoleName) VALUES
-    ('Quản trị viên'),
     ('Chạy bàn'),
     ('Nhà bếp'),
-    ('Tài xế');
+    ('Tài xế'),
+    ('Quản trị viên');
     
 	
  INSERT INTO TypeDish (UN_TypeName) 
  VALUES 
-	('khai vị'), 
-	('tráng miệng'), 
-	('lẩu');
+	('Tráng miệng'),
+    ('Món súp'),
+	('Khai vị'), 
+    ('Gỏi'),
+    ('Mực'),
+    ('Gà'),
+    ('Vịt'),
+    ('Bò'),
+    ('Cá'),
+    ('Tôm'),
+	('Lẩu');
 
-INSERT INTO Staff(Name, Sex, PhoneNumber, UN_CitizenNumber, Address, RoleID)
+INSERT INTO Staff(Name, Sex, UN_PhoneNumber, UN_CitizenNumber, Address, RoleID)
 VALUES
-	('Nguyễn Văn A', 0, '0123456789', '012345678901', 'Hà Nội', 1),
-	('Phạm Thị B', 1, '0234567890', '123456789012', 'TP.HCM', 2),
-	('Trần Văn C', 0, '0345678901', '234567890123', 'Đà Nẵng', 3),
-	('Lê Thị D', 1, '0456789012', '345678901234', 'Nha Trang', 2),
-	('Vũ Văn E', 0, '0567890123', '456789012345', 'Hải Phòng', 4);
+	('Nguyễn Văn Trí', 1, '0123456789', '012345678901', '78 đường 17', 1),
+	('Phạm Thị Trang', 0, '0234567890', '123456789012', '66/2 đường 18', 2),
+	('Trần Văn Nguyễn Ánh', 0, '0345678901', '234567890123', '64/2 đường 18', 3),
+	('Lê Quốc Công Thần', 1, '0456789012', '345678901234', '25 Phạm Văn Đồng', 2),
+	('Vũ Văn Phong', 1, '0567890123', '456789012345', '66 Trần Quang Diệu', 4);
 
-INSERT INTO Dish(DishName, Price, TypeDishID)
+INSERT INTO Dish(DishName, CostPrice, TypeDishID)
 VALUES 
-	('Phở bò', 50000, 1),
-	('Bún chả giò', 60000, 1),
-	('Bánh xèo', 45000, 1),
-	('Bánh mì thịt', 25000, 1),
-	('Gà chiên nước mắm', 80000, 2),
-	('Bò tái chanh', 120000, 2),
-	('Sườn non chiên giòn', 90000, 2),
-	('Cá lóc kho tộ', 150000, 2),
-	('Trái cây tươi', 40000, 3),
-	('Bánh flan', 45000, 3),
-	('Chè trôi nước', 35000, 3),
-	('Kem dâu', 50000, 3),
-	('Lẩu thái', 250000, 1),
-	('Lẩu gà', 200000, 2),
-	('Lẩu cá', 300000, 3);
+	('Rau câu', 20000, 1),
+    ('Trái cây', 30000, 1),
+    ('Sữa chua', 80000, 1),
+    ('Súp cua gà', 200000, 2),
+    ('Súp hải sản', 200000, 2),
+    ('Súp thập cẩm', 180000, 2),
+    ('Súp tóc tiên', 180000, 2),
+    ('Chả đùm - Bánh đa', 100000, 3),
+    ('Khai vị - Kim chi', 90000, 3),
+    ('Khai vị gỏi - Phồng tôm', 100000, 3),
+	('Gỏi dồi trường - phồng tôm', 100000, 4),
+    ('Gỏi bò Hồng Kông - phồng tôm', 90000, 4),
+    ('Gỏi trộn cải mầm - phồng tôm', 80000, 4),
+    ('Bò trộn ngũ sắc - phồng tôm', 110000, 4),
+    ('Bò tái thấu - phồng tôm', 100000, 4),
+    ('Mực hấp gừng', 150000, 5),
+    ('Mực xào sa tế', 140000, 5),
+    ('Mực chiên giòn', 160000, 5),
+    ('Mực chiên xù', 150000, 5),
+    ('Gà chiên giòn', 300000, 6),
+    ('Cánh gà quay', 200000, 6),
+    ('Gà hấp nấm - Xôi', 280000, 6),
+    ('Gà sốt Pa tê - Bánh mì', 300000, 6),
+    ('Gà nướng xí muội', 280000, 6),
+    ('Gà tiềm thuốc bắc - Xà lách Xoong', 320000, 6),
+    ('Vịt quay', 250000, 7), 
+    ('Vịt tiềm - Mì', 270000, 7),
+    ('Vịt nướng xí muội', 270000, 7),
+    ('Bò hầm tiêu xanh - Bánh mì', 280000, 8),
+    ('Bò nhúng dấm', 250000, 8),
+    ('Bò lúc lắc - Khoai tây chiên', 280000, 8),
+    ('Bò sốt rượu vang - Bánh mì', 300000, 8),
+    ('Bê né - Bông thiên lý', 260000, 8),
+    ('Cá lóc hấp bánh tráng', 200000, 9),
+    ('Cá tai tượng chiên xù', 210000, 9),
+    ('Cá chẻm phi lê chiên giòn', 190000, 9),
+    ('Tôm hấp bia', 200000, 10),
+    ('Tôm sốt me', 220000, 10),
+    ('Tôm chiên xù', 210000, 10),
+    ('Tôm sốt chanh dây', 220000, 10),
+    ('Tôm cháy tổi', 200000, 10),
+    ('Tôm nướng giấy bạc', 210000, 10),
+    ('Lẩu Thái bún', 200000, 11),
+    ('Lẩu gà lá giang', 200000, 11),
+    ('Lẩu hải sản nấm - bún', 220000, 11),
+    ('Lẩu thập cẩm - Mì vàng', 220000, 11),
+    ('Lẩu cua đồng - mồng tơi - bún', 200000, 11),
+	('Lẩu cá lăng - Bún', 300000, 11);
 
 INSERT INTO TypeParty (UN_TypeName) 
 VALUES

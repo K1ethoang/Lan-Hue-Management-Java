@@ -6,5 +6,10 @@ import model.DishModel;
 public interface DishDAO {
 
     public List<DishModel> getList();
-    public int getNextID();
+
+    public boolean insert(DishModel dish);
+
+    public boolean delete(int id);
+
+    public boolean update(DishModel dish);
 }

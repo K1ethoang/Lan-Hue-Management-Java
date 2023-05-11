@@ -12,8 +12,7 @@ public class TableStaff {
     }
     
     public void setStaffDetailsToTable(List<StaffModel> listStaff, view.component.table.Table tableStaff){
-        System.out.println(listStaff.get(0));
-        DefaultTableModel model;
+        DefaultTableModel model = null;
         try{ 
             int rows = listStaff.size();
             if (rows > 0) {
@@ -22,7 +21,7 @@ public class TableStaff {
                     int staffID = staff.getID();
                     String staffName = staff.getName();  
                     String staffSDT = staff.getSdt();
-                    String sex = staff.isSex()== true ? "Nam" : "Nữ";
+                    String sex = staff.isSex()== 0 ? "Nữ" : "Nam";
                     String staffCCCD = staff.getCccd();
                     String staffAddress = staff.getAddress();
                     String staffRole = staff.getRole().getRoleName();

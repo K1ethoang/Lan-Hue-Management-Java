@@ -5,14 +5,19 @@ import controller.ChuyenManHinhController;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.List;
+import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import utils.Helper;
+import view.login.LoginView;
 
 public class MainView extends javax.swing.JFrame {
 
     public MainView() {
         initComponents();
-        // set scroll style
+        Helper.setIconImage4JFrame(this);
 
+        logoutBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         minimizeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -27,9 +32,7 @@ public class MainView extends javax.swing.JFrame {
         listItem.add(new DanhMucBean("NhanVien", jpnNhanVien, jlbNhanVien));
         listItem.add(new DanhMucBean("ThucDon", jpnThucDon, jlbThucDon));
         listItem.add(new DanhMucBean("Tiec", jpnDatTiec, jlbDatTiec));
-        listItem.add(new DanhMucBean("DoanhThu", jpnDoanhThu, jlbDoanhThu));
         listItem.add(new DanhMucBean("TaiKhoan", jpnTaiKhoan, jlbTaiKhoan));
-        listItem.add(new DanhMucBean("DangXuat", jpnDangXuat, jlbDangXuat));
 
         controller.setEvent(listItem);
     }
@@ -52,12 +55,8 @@ public class MainView extends javax.swing.JFrame {
         jlbThucDon = new view.component.LabelGoogleIcon();
         jpnDatTiec = new javax.swing.JPanel();
         jlbDatTiec = new view.component.LabelGoogleIcon();
-        jpnDoanhThu = new javax.swing.JPanel();
-        jlbDoanhThu = new view.component.LabelGoogleIcon();
         jpnKhachHang = new javax.swing.JPanel();
         jlbKhachHang = new view.component.LabelGoogleIcon();
-        jpnDangXuat = new javax.swing.JPanel();
-        jlbDangXuat = new view.component.LabelGoogleIcon();
         jpnTaiKhoan = new javax.swing.JPanel();
         jlbTaiKhoan = new view.component.LabelGoogleIcon();
         jpnBangDieuKhien = new javax.swing.JPanel();
@@ -69,6 +68,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         closeBtn = new view.component.LabelGoogleIcon();
         minimizeBtn = new view.component.LabelGoogleIcon();
+        logoutBtn = new view.component.LabelAwesomeIcon();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -89,7 +89,7 @@ public class MainView extends javax.swing.JFrame {
         );
         jpnViewLayout.setVerticalGroup(
             jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 666, Short.MAX_VALUE)
         );
 
         jpnMenu.setBackground(new java.awt.Color(102, 102, 102));
@@ -103,7 +103,6 @@ public class MainView extends javax.swing.JFrame {
         jlbNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbNhanVien.setText("  NHÂN VIÊN");
         jlbNhanVien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbNhanVien.setGoogleIcon(icon.GoogleMaterialDesignIcons.PEOPLE);
         jlbNhanVien.setIconColor(new java.awt.Color(255, 255, 255));
         jlbNhanVien.setIconSize(26.0F);
 
@@ -129,7 +128,6 @@ public class MainView extends javax.swing.JFrame {
         jlbThucDon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbThucDon.setText("  THỰC ĐƠN");
         jlbThucDon.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbThucDon.setGoogleIcon(icon.GoogleMaterialDesignIcons.IMPORT_CONTACTS);
         jlbThucDon.setIconColor(new java.awt.Color(255, 255, 255));
         jlbThucDon.setIconSize(26.0F);
 
@@ -155,7 +153,6 @@ public class MainView extends javax.swing.JFrame {
         jlbDatTiec.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbDatTiec.setText("  TIỆC");
         jlbDatTiec.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbDatTiec.setGoogleIcon(icon.GoogleMaterialDesignIcons.SHOPPING_CART);
         jlbDatTiec.setIconColor(new java.awt.Color(255, 255, 255));
         jlbDatTiec.setIconSize(26.0F);
 
@@ -172,32 +169,6 @@ public class MainView extends javax.swing.JFrame {
             .addComponent(jlbDatTiec, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jpnDoanhThu.setBackground(new java.awt.Color(102, 102, 102));
-        jpnDoanhThu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jpnDoanhThu.setPreferredSize(new java.awt.Dimension(216, 60));
-
-        jlbDoanhThu.setBackground(jpnDoanhThu.getBackground());
-        jlbDoanhThu.setForeground(new java.awt.Color(255, 255, 255));
-        jlbDoanhThu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbDoanhThu.setText("  DOANH THU");
-        jlbDoanhThu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbDoanhThu.setGoogleIcon(icon.GoogleMaterialDesignIcons.ACCOUNT_BALANCE_WALLET);
-        jlbDoanhThu.setIconColor(new java.awt.Color(255, 255, 255));
-        jlbDoanhThu.setIconSize(26.0F);
-
-        javax.swing.GroupLayout jpnDoanhThuLayout = new javax.swing.GroupLayout(jpnDoanhThu);
-        jpnDoanhThu.setLayout(jpnDoanhThuLayout);
-        jpnDoanhThuLayout.setHorizontalGroup(
-            jpnDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnDoanhThuLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jlbDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jpnDoanhThuLayout.setVerticalGroup(
-            jpnDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
         jpnKhachHang.setBackground(new java.awt.Color(102, 102, 102));
         jpnKhachHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jpnKhachHang.setPreferredSize(new java.awt.Dimension(216, 60));
@@ -207,7 +178,6 @@ public class MainView extends javax.swing.JFrame {
         jlbKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbKhachHang.setText("  KHÁCH HÀNG");
         jlbKhachHang.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbKhachHang.setGoogleIcon(icon.GoogleMaterialDesignIcons.CONTACT_PHONE);
         jlbKhachHang.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jlbKhachHang.setIconColor(new java.awt.Color(255, 255, 255));
         jlbKhachHang.setIconSize(26.0F);
@@ -226,32 +196,6 @@ public class MainView extends javax.swing.JFrame {
             .addComponent(jlbKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jpnDangXuat.setBackground(new java.awt.Color(102, 102, 102));
-        jpnDangXuat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jpnDangXuat.setPreferredSize(new java.awt.Dimension(216, 60));
-
-        jlbDangXuat.setBackground(jpnDangXuat.getBackground());
-        jlbDangXuat.setForeground(new java.awt.Color(255, 255, 255));
-        jlbDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbDangXuat.setText("  ĐĂNG XUẤT");
-        jlbDangXuat.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbDangXuat.setGoogleIcon(icon.GoogleMaterialDesignIcons.INPUT);
-        jlbDangXuat.setIconColor(new java.awt.Color(255, 255, 255));
-        jlbDangXuat.setIconSize(26.0F);
-
-        javax.swing.GroupLayout jpnDangXuatLayout = new javax.swing.GroupLayout(jpnDangXuat);
-        jpnDangXuat.setLayout(jpnDangXuatLayout);
-        jpnDangXuatLayout.setHorizontalGroup(
-            jpnDangXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnDangXuatLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jlbDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jpnDangXuatLayout.setVerticalGroup(
-            jpnDangXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-
         jpnTaiKhoan.setBackground(new java.awt.Color(102, 102, 102));
         jpnTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jpnTaiKhoan.setPreferredSize(new java.awt.Dimension(216, 60));
@@ -261,7 +205,6 @@ public class MainView extends javax.swing.JFrame {
         jlbTaiKhoan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbTaiKhoan.setText("  TÀI KHOẢN");
         jlbTaiKhoan.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbTaiKhoan.setGoogleIcon(icon.GoogleMaterialDesignIcons.ACCOUNT_BALANCE);
         jlbTaiKhoan.setIconColor(new java.awt.Color(255, 255, 255));
         jlbTaiKhoan.setIconSize(26.0F);
 
@@ -289,7 +232,6 @@ public class MainView extends javax.swing.JFrame {
         jlbBangDieuKhien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlbBangDieuKhien.setText("  BẢNG ĐIỀU KHIỂN");
         jlbBangDieuKhien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbBangDieuKhien.setGoogleIcon(icon.GoogleMaterialDesignIcons.STORAGE);
         jlbBangDieuKhien.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jlbBangDieuKhien.setIconColor(new java.awt.Color(255, 255, 255));
         jlbBangDieuKhien.setIconSize(30.0F);
@@ -312,8 +254,6 @@ public class MainView extends javax.swing.JFrame {
         jpnMenu.setLayout(jpnMenuLayout);
         jpnMenuLayout.setHorizontalGroup(
             jpnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-            .addComponent(jpnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
             .addComponent(jpnThucDon, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
             .addComponent(jpnNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
             .addComponent(jpnKhachHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
@@ -335,12 +275,8 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnDatTiec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         topPanel.setBackground(new java.awt.Color(124, 150, 171));
@@ -363,7 +299,6 @@ public class MainView extends javax.swing.JFrame {
         labelGoogleIcon1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelGoogleIcon1.setText("QUẢN LÝ LAN HUỆ");
         labelGoogleIcon1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelGoogleIcon1.setGoogleIcon(icon.GoogleMaterialDesignIcons.RESTAURANT);
         labelGoogleIcon1.setIconColor(new java.awt.Color(255, 255, 255));
         labelGoogleIcon1.setIconSize(40.0F);
 
@@ -412,24 +347,41 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        logoutBtn.setToolTipText("Đăng xuất");
+        logoutBtn.setAwesomeIcon(icon.FontAwesome.SIGN_OUT);
+        logoutBtn.setIconColor(new java.awt.Color(244, 80, 80));
+        logoutBtn.setIconSize(40.0F);
+        logoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(504, Short.MAX_VALUE)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(minimizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(minimizeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(closeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(minimizeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(closeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(15, 15, 15))))
         );
 
         topPanel.add(jPanel1);
@@ -460,6 +412,15 @@ public class MainView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
+        int option = JOptionPane.showConfirmDialog(this, "Bạn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (option == ConfirmationCallback.YES) {
+            this.dispose();
+            LoginView login = new LoginView();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_logoutBtnMouseClicked
 
     private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_minimizeBtnMouseClicked
         this.setState(JFrame.ICONIFIED);
@@ -532,17 +493,13 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private view.component.LabelGoogleIcon jlbBangDieuKhien;
-    private view.component.LabelGoogleIcon jlbDangXuat;
     private view.component.LabelGoogleIcon jlbDatTiec;
-    private view.component.LabelGoogleIcon jlbDoanhThu;
     private view.component.LabelGoogleIcon jlbKhachHang;
     private view.component.LabelGoogleIcon jlbNhanVien;
     private view.component.LabelGoogleIcon jlbTaiKhoan;
     private view.component.LabelGoogleIcon jlbThucDon;
     private javax.swing.JPanel jpnBangDieuKhien;
-    private javax.swing.JPanel jpnDangXuat;
     private javax.swing.JPanel jpnDatTiec;
-    private javax.swing.JPanel jpnDoanhThu;
     private javax.swing.JPanel jpnKhachHang;
     private javax.swing.JPanel jpnMenu;
     private javax.swing.JPanel jpnNhanVien;
@@ -552,6 +509,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jpnView;
     private view.component.LabelDateTime labelDateTime1;
     private view.component.LabelGoogleIcon labelGoogleIcon1;
+    private view.component.LabelAwesomeIcon logoutBtn;
     private view.component.LabelGoogleIcon minimizeBtn;
     private javax.swing.JPanel topPanel;
     // End of variables declaration//GEN-END:variables

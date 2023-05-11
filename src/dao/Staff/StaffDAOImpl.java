@@ -29,12 +29,12 @@ public class StaffDAOImpl implements StaffDAO {
             while (rs.next()) {
                 RoleModel roleModel;
                 roleModel = RoleDAOImpl.getInstance().getByID(rs.getInt("RoleID"));
-                
+
                 StaffModel staff = new StaffModel();
                 staff.setID(rs.getInt("StaffID"));
                 staff.setName(rs.getString("Name"));
-                staff.setSex(rs.getBoolean("Sex"));
-                staff.setSdt(rs.getString("PhoneNumber"));
+                staff.setSex(rs.getInt("Sex"));
+                staff.setSdt(rs.getString("UN_PhoneNumber"));
                 staff.setCccd(rs.getString("UN_CitizenNumber"));
                 staff.setAddress(rs.getString("Address"));
                 staff.setRole(roleModel);
@@ -56,36 +56,77 @@ public class StaffDAOImpl implements StaffDAO {
         boolean isOk = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "INSERT INTO staff(Name, Sex, PhoneNumber, UN_CittizenNumber, Address, RoleID)\n"
+            String sql = "INSERT INTO staff(Name, Sex, UN_PhoneNumber, UN_CitizenNumber, Address, RoleID) "
                     + "VALUES (?,?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, staff.getName());
-            ps.setString(2, staff.isSex()+ "");
-            ps.setString(3, staff.getSdt()+ "");
-            ps.setString(4, staff.getCccd()+ "");
-            ps.setString(5, staff.getAddress()+ "");
-            ps.setString(6, staff.getRole()+ "");
+            ps.setInt(2, staff.isSex());
+            ps.setString(3, staff.getSdt());
+            ps.setString(4, staff.getCccd());
+            ps.setString(5, staff.getAddress());
+            ps.setInt(6, staff.getRole().getRoleID());
 
             int rs = ps.executeUpdate();
-            if (rs >= 0) {
+            if (rs > 0) {
                 isOk = true;
             }
-            ps.close();
-            con.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return isOk;
     }
-    
+
     public static void main(String[] args) {
         StaffModel staff = new StaffModel();
         StaffDAOImpl.getInstance().insert(staff);
     }
-    
+
     @Override
     public boolean delete(int id) {
-        
-        return true;
+
+        boolean isDelete = false;
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "DELETE FROM Staff WHERE StaffID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                isDelete = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isDelete;
     }
+
+    @Override
+    public boolean update(StaffModel staff) {
+        boolean isUpdated = false;
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "UPDATE STAFF SET Name = ?, Sex = ?, PhoneNumber = ?, UN_CitizenNumber = ?, Address = ?, RoleID = ? WHERE StaffID = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            if (!staff.getName().isEmpty() && !staff.getSdt().isEmpty() && (staff.isSex() == 0 || staff.isSex() == 1) && !staff.getCccd().isEmpty() && !staff.getAddress().isEmpty() && !staff.getRole().getRoleName().isEmpty()) {
+                ps.setString(1, staff.getName());
+                ps.setInt(2, staff.isSex());
+                ps.setString(3, staff.getSdt());
+                ps.setString(4, staff.getCccd());
+                ps.setString(5, staff.getAddress());
+                ps.setInt(6, staff.getRole().getRoleID());
+                ps.setInt(7, staff.getID());
+                int rs = ps.executeUpdate();
+                if (rs > 0) {
+                    isUpdated = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isUpdated;
+    }
+
 }

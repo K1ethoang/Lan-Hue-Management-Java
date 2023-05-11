@@ -6,6 +6,7 @@ import dao.DBConnection;
 import dao.HappenStatus.HappenStatusDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -79,14 +80,15 @@ public class PartyDAOImpl implements PartyDAO {
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, party.getPartyName());
-            ps.setString(2, party.getTableNumber() + "");
-            ps.setString(3, party.getDate() + "");
-            ps.setString(4, party.getTime() + "");
-            ps.setString(5, party.getLocation() + "");
+            ps.setInt(2, party.getTableNumber());
+            ps.setDate(3, (Date) party.getDate());
+            ps.setTime(4, party.getTime());
+            ps.setString(5, party.getLocation());
             ps.setString(6, party.getNote() + "");
-            ps.setString(7, party.getCustomer().getID() + "");
-            ps.setString(8, party.getHappenStatus().getID() + "");
-            ps.setString(9, party.getTypeParty().getID() + "");
+            ps.setInt(7, party.getCustomer().getID());
+            ps.setInt(8, party.getHappenStatus().getID());
+            ps.setInt(9, party.getPaymentStatus().getID());
+            ps.setInt(10, party.getTypeParty().getID());
 
             int rs = ps.executeUpdate();
             if (rs >= 0) {

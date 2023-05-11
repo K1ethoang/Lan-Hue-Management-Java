@@ -8,14 +8,12 @@ import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JPanel;
 import view.component.LabelGoogleIcon;
-import view.main.BangDieuKhienJPanel;
-import view.main.DangXuatJPanel;
+import view.main.DashBoardView;
 import view.party.PartyJPanel;
-import view.main.DoanhThuJPanel;
 import view.customer.CustomerJPanel;
 import view.staff.StaffJPanel;
 import view.account.AccountJPanel;
-import view.menu.DishJPanel;
+import view.dish.DishJPanel;
 
 public class ChuyenManHinhController {
 
@@ -34,7 +32,7 @@ public class ChuyenManHinhController {
 
         root.removeAll();
         root.setLayout(new BorderLayout());
-        root.add(new BangDieuKhienJPanel());
+        root.add(new DashBoardView());
         root.validate();
         root.repaint();
     }
@@ -65,7 +63,7 @@ public class ChuyenManHinhController {
         public void mouseClicked(MouseEvent e) {
             switch (kind) {
                 case "BangDieuKhien":
-                    node = new BangDieuKhienJPanel();
+                    node = new DashBoardView();
                     break;
                 case "KhachHang":
                     node = new CustomerJPanel();
@@ -80,14 +78,9 @@ public class ChuyenManHinhController {
                     node = new PartyJPanel();
                     break;
                 case "DoanhThu":
-                    node = new DoanhThuJPanel();
                     break;
                 case "TaiKhoan":
                     node = new AccountJPanel();
-                    break;
-                case "DangXuat":
-                    node = new DangXuatJPanel();
-                    break;
                 default:
                     break;
             }

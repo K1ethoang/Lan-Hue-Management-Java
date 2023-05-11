@@ -4,7 +4,7 @@ public class StaffModel {
 
     private int ID;
     private String Name;
-    private boolean sex;
+    private int sex;
     private String sdt;
     private String cccd;
     private String address;
@@ -29,11 +29,11 @@ public class StaffModel {
         this.Name = Name;
     }
 
-    public boolean isSex() {
+    public int isSex() {
         return sex;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

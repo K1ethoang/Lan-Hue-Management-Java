@@ -1,10 +1,9 @@
 package view.customer;
 
 import dao.Customer.CustomerDAOImpl;
-import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
@@ -18,15 +17,12 @@ import view.component.scroll.ScrollBarCus;
 
 public class CustomerJPanel extends javax.swing.JPanel {
 
-    
+    List<CustomerModel> listCustomer = null;
     CustomerModel customerCurrent = new CustomerModel();
-    protected static int gCurrentID = 0;
-
-    private TableRowSorter<TableModel> rowSorter = null;
+    private TableRowSorter<TableModel> rowSorter ;
 
     public CustomerJPanel() {
         List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
-        System.out.println("customerrrrrrrrrrrrrrrrrrrrrrrr");
         initComponents();
         // set vertical and horizontal scroll bar
         ScrollPaneTable.setVerticalScrollBar(new ScrollBarCus());
@@ -34,14 +30,44 @@ public class CustomerJPanel extends javax.swing.JPanel {
         sb.setOrientation(JScrollBar.HORIZONTAL);
         ScrollPaneTable.setHorizontalScrollBar(sb);
         tableCustomer.fixTable(ScrollPaneTable);
-        gCurrentID = listCustomer.get(0).getID() + 1;
-        
-        clearTable(); 
+
+        clearTable();
         setCustomerTable();
     }
-
+    
+    public void searchAndFilterGender(){
+        String text = searchField.getText();
+        if (text.trim().length() == 0) {
+            if(rdoAll.isSelected()){
+                rowSorter.setRowFilter(null);
+            }
+            else if(rdoFemale.isSelected()){
+                rowSorter.setRowFilter(RowFilter.regexFilter("Nữ", 3));
+            }
+            else if(rdoMale.isSelected()){
+                rowSorter.setRowFilter(RowFilter.regexFilter("Nam", 3));
+            }
+        } else {
+            if (rdoAll.isSelected()) { 
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            } else if(rdoMale.isSelected()){ 
+                List<RowFilter<Object, Object>> filters = new ArrayList<>();
+                filters.add(RowFilter.regexFilter("(?i)" + text));
+                filters.add(RowFilter.regexFilter("Nam", 3));
+                rowSorter.setRowFilter(RowFilter.andFilter(filters));
+            } else if(rdoFemale.isSelected()){
+                List<RowFilter<Object, Object>> filters = new ArrayList<>();
+                filters.add(RowFilter.regexFilter("(?i)" + text));
+                filters.add(RowFilter.regexFilter("Nữ", 3));
+                rowSorter.setRowFilter(RowFilter.andFilter(filters));
+            }
+            
+        }
+    }
+//    
+    
     public void setCustomerTable() {
-        List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
+        listCustomer = CustomerDAOImpl.getInstance().getList();
         TableCustomer tb = new TableCustomer();
         tb.setCustomerDetailsToTable(listCustomer, tableCustomer);
 
@@ -51,44 +77,33 @@ public class CustomerJPanel extends javax.swing.JPanel {
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilterGender();
+                setSumCustomer();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                searchAndFilterGender();
+                setSumCustomer();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
+        setSumCustomer();
 
-        sumCustomer.setText("Số lượng: " + listCustomer.size() + "");
+    }
+
+    private void setSumCustomer() {
+        sumCustomer.setText("Số lượng: " + tableCustomer.getRowCount() + "");
     }
 
     private void setCustomerCurrent() {
-        List<CustomerModel> listCustomer = CustomerDAOImpl.getInstance().getList();
-        int row = tableCustomer.getSelectedRow();
-        CustomerModel customer = listCustomer.get(row);
-
-        customerCurrent.setID(customer.getID());
-        customerCurrent.setName(customer.getName());
-        customerCurrent.setPhoneNumber(customer.getPhoneNumber());
-        customerCurrent.setSex(customer.isSex());
-        customerCurrent.setCitizenNumber(customer.getCitizenNumber());
-        customerCurrent.setAddress(customer.getAddress());
+        int viewRowIndex = tableCustomer.getSelectedRow();
+        int row = tableCustomer.getRowSorter().convertRowIndexToModel(viewRowIndex);
+//        int row = tableCustomer.getSelectedRow();
+        customerCurrent = listCustomer.get(row);
     }
 
     @SuppressWarnings("unchecked")
@@ -101,6 +116,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
         editBtn = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         removeBtn = new javax.swing.JMenuItem();
+        sexGroup = new javax.swing.ButtonGroup();
         top = new javax.swing.JPanel();
         searchAndButton = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
@@ -111,17 +127,16 @@ public class CustomerJPanel extends javax.swing.JPanel {
         filter = new javax.swing.JPanel();
         sex = new javax.swing.JPanel();
         labelGoogleIcon2 = new view.component.LabelGoogleIcon();
-        paymentNo = new javax.swing.JCheckBox();
-        paymentYes = new javax.swing.JCheckBox();
+        rdoAll = new javax.swing.JRadioButton();
+        rdoMale = new javax.swing.JRadioButton();
+        rdoFemale = new javax.swing.JRadioButton();
         center = new javax.swing.JPanel();
         ScrollPaneTable = new javax.swing.JScrollPane();
         tableCustomer = new view.component.table.Table();
 
-        seeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK));
         seeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         seeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Search.png"))); // NOI18N
-        seeBtn.setMnemonic('X');
-        seeBtn.setText("Xem chi tiết");
+        seeBtn.setText("Xem");
         seeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seeBtnActionPerformed(evt);
@@ -130,10 +145,8 @@ public class CustomerJPanel extends javax.swing.JPanel {
         popupMenu.add(seeBtn);
         popupMenu.add(jSeparator2);
 
-        editBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
         editBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Edit.png"))); // NOI18N
-        editBtn.setMnemonic('C');
         editBtn.setText("Chỉnh sửa");
         editBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +156,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         popupMenu.add(editBtn);
         popupMenu.add(jSeparator3);
 
-        removeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         removeBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         removeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/image/Delete.png"))); // NOI18N
         removeBtn.setText("Xóa");
@@ -168,7 +180,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
         searchPanel.setBackground(getBackground());
 
         searchField.setForeground(new java.awt.Color(0, 0, 0));
-        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.setBorderColor(new java.awt.Color(10, 77, 104));
         searchField.setBotonColor(new java.awt.Color(0, 0, 0));
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -231,25 +242,33 @@ public class CustomerJPanel extends javax.swing.JPanel {
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sex.add(labelGoogleIcon2);
 
-        paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentNo.setText("Nữ");
-        paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentNo.addActionListener(new java.awt.event.ActionListener() {
+        sexGroup.add(rdoAll);
+        rdoAll.setSelected(true);
+        rdoAll.setText("Tất cả");
+        rdoAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentNoActionPerformed(evt);
+                rdoAllActionPerformed(evt);
             }
         });
-        sex.add(paymentNo);
+        sex.add(rdoAll);
 
-        paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        paymentYes.setText("Nam");
-        paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        paymentYes.addActionListener(new java.awt.event.ActionListener() {
+        sexGroup.add(rdoMale);
+        rdoMale.setText("Nam");
+        rdoMale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentYesActionPerformed(evt);
+                rdoMaleActionPerformed(evt);
             }
         });
-        sex.add(paymentYes);
+        sex.add(rdoMale);
+
+        sexGroup.add(rdoFemale);
+        rdoFemale.setText("Nữ");
+        rdoFemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoFemaleActionPerformed(evt);
+            }
+        });
+        sex.add(rdoFemale);
 
         filter.add(sex);
 
@@ -266,7 +285,15 @@ public class CustomerJPanel extends javax.swing.JPanel {
             new String [] {
                 "ID", "Tên KH", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableCustomer.setComponentPopupMenu(popupMenu);
         tableCustomer.setShowGrid(true);
         tableCustomer.getTableHeader().setReorderingAllowed(false);
@@ -285,7 +312,7 @@ public class CustomerJPanel extends javax.swing.JPanel {
             centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(centerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(ScrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -293,51 +320,32 @@ public class CustomerJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        addCustomer addCustomer = new addCustomer();
+        AddCustomerView addCustomer = new AddCustomerView();
         addCustomer.setVisible(true);
 //        refresh();
     }//GEN-LAST:event_addBtnActionPerformed
 
-    private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentNoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentNoActionPerformed
-
-    private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentYesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paymentYesActionPerformed
-
     private void seeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeBtnActionPerformed
         try {
             setCustomerCurrent();
-            addCustomer addCustomer = new addCustomer(customerCurrent, false); // isSee == false thì chỉ đc xem, không được chỉnh sửa
+
+            AddCustomerView.isEditCustomer = false;
+
+            AddCustomerView addCustomer = new AddCustomerView(customerCurrent);
             addCustomer.setVisible(true);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_seeBtnActionPerformed
-    
-//    public void saveBtnActionPerformed(java.awt.event.ActionEvent evt){
-//        addCustomer addCustomer = new addCustomer(customerCurrent, true);
-//        int a = JOptionPane.showConfirmDialog(null, "Bạn có lưu hay không ?", "Select", JOptionPane.YES_NO_OPTION);
-//            if (a == 0) {
-//                System.out.println("updateCustoemr: " + updateCustomer());
-//                if (addCustomer.insertCustomer() == true || addCustomer.updateCustomer() == true) {
-//                    JOptionPane.showMessageDialog(this, "Lưu thành công !");
-//                    addCustomer.setVisible(false);
-//                    clearTable();
-//                    setCustomerTable();
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Bạn vui lòng nhập đầy đủ dữ liệu !");
-//                }
-//
-//            }
-//
-//    }
-    
+
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
             setCustomerCurrent();
-            addCustomer addCustomer = new addCustomer(customerCurrent, true);
+
+            AddCustomerView.isEditCustomer = true;
+
+            AddCustomerView addCustomer = new AddCustomerView(customerCurrent);
             addCustomer.setVisible(true);
 //            clearTable();
 //            setCustomerTable();
@@ -345,30 +353,27 @@ public class CustomerJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Khách hàng không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editBtnActionPerformed
-    
-    public void clearTable(){
-        
+
+    public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
         model.setRowCount(0);
-        System.out.println("clearrrrrrrrrrrrrrrrrr");
     }
-    
-    
-    
+
+
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         try {
             setCustomerCurrent();
-            addCustomer addCustomer = new addCustomer(customerCurrent, true);
-            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không ?", "Select", JOptionPane.YES_NO_OPTION);
+            int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không?", "Lựa chọn", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
-                if (addCustomer.deleteCustomer() == true) {
+                if (CustomerDAOImpl.getInstance().delete(customerCurrent.getID())) {
                     clearTable();
+                    rdoAll.setSelected(true);
                     setCustomerTable();
 
-                    JOptionPane.showMessageDialog(this, "Xóa thành công !");
-             
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
                 } else {
-                    JOptionPane.showMessageDialog(this, "Xóa không thành công !");
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -381,6 +386,21 @@ public class CustomerJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
+    private void rdoAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoAllActionPerformed
+        searchAndFilterGender();
+        setSumCustomer();
+    }//GEN-LAST:event_rdoAllActionPerformed
+
+    private void rdoMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoMaleActionPerformed
+        searchAndFilterGender();
+        setSumCustomer();
+    }//GEN-LAST:event_rdoMaleActionPerformed
+
+    private void rdoFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoFemaleActionPerformed
+        searchAndFilterGender();
+        setSumCustomer();
+    }//GEN-LAST:event_rdoFemaleActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPaneTable;
     private rojeru_san.complementos.RSButtonHover addBtn;
@@ -391,15 +411,17 @@ public class CustomerJPanel extends javax.swing.JPanel {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private view.component.LabelGoogleIcon labelGoogleIcon2;
-    private javax.swing.JCheckBox paymentNo;
-    private javax.swing.JCheckBox paymentYes;
     private javax.swing.JPopupMenu popupMenu;
+    private javax.swing.JRadioButton rdoAll;
+    private javax.swing.JRadioButton rdoFemale;
+    private javax.swing.JRadioButton rdoMale;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JMenuItem seeBtn;
     private javax.swing.JPanel sex;
+    private javax.swing.ButtonGroup sexGroup;
     private javax.swing.JLabel sumCustomer;
     private view.component.table.Table tableCustomer;
     private javax.swing.JPanel top;
