@@ -9,8 +9,6 @@ public interface CustomerDAO {
 
     public CustomerModel getByID(int id);
 
-    public int getNextID();
-
     public boolean insert(CustomerModel customer);
 
     public boolean update(CustomerModel customer);

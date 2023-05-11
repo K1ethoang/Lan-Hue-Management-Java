@@ -338,7 +338,15 @@ public class StaffJPanel extends javax.swing.JPanel {
             new String [] {
                 "ID", "Tên NV", "SĐT", "Giới tính", "Số CCCD", "Địa chỉ", "Vị trí"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableStaff.setComponentPopupMenu(popupMenu);
         tableStaff.setShowGrid(true);
         tableStaff.getTableHeader().setReorderingAllowed(false);

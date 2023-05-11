@@ -1,4 +1,4 @@
-INSERT INTO Customer (Name, PhoneNumber, Sex, UN_CitizenNumber, Address) 
+INSERT INTO Customer (Name, UN_PhoneNumber, Sex, UN_CitizenNumber, Address) 
 VALUES
 	('Nguyễn Văn Vũ', '0123456789', 1, '123456789012', '78 đường 17'),
 	('Nguyễn Ninh Ninh', '0234567890', 0, '234567890123', '76/2 đường Phạm Văn Đồng'),
@@ -38,7 +38,7 @@ INSERT INTO Role (RoleName) VALUES
     ('Tôm'),
 	('Lẩu');
 
-INSERT INTO Staff(Name, Sex, PhoneNumber, UN_CitizenNumber, Address, RoleID)
+INSERT INTO Staff(Name, Sex, UN_PhoneNumber, UN_CitizenNumber, Address, RoleID)
 VALUES
 	('Nguyễn Văn Trí', 1, '0123456789', '012345678901', '78 đường 17', 1),
 	('Phạm Thị Trang', 0, '0234567890', '123456789012', '66/2 đường 18', 2),

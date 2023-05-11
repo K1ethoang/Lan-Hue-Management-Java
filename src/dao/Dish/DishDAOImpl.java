@@ -49,28 +49,6 @@ public class DishDAOImpl implements DishDAO {
     }
 
     @Override
-    public int getNextID() {
-        try {
-            Connection con = DBConnection.getConnection();
-            String sql = "SELECT MAX(dishID) + 1 as `nextID` FROM dish";
-            int nextID = -1;
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                nextID = rs.getInt("nextID");
-            }
-            System.out.println("nextID: " + nextID);
-            return nextID;
-        } catch (Exception e) {
-        }
-        return -1;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(DishDAOImpl.getInstance().getNextID());
-    }
-
-    @Override
     public boolean insert(DishModel dish) {
         boolean isOk = false;
         try {

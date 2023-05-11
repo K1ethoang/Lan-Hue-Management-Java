@@ -32,7 +32,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
                 customer.setID(rs.getInt("CustomerID"));
                 customer.setName(rs.getString("Name"));
-                customer.setPhoneNumber(rs.getString("PhoneNumber"));
+                customer.setPhoneNumber(rs.getString("UN_PhoneNumber"));
                 customer.setSex(rs.getInt("Sex"));
                 customer.setCitizenNumber(rs.getString("UN_CitizenNumber"));
                 customer.setAddress(rs.getString("Address"));
@@ -65,7 +65,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customer = new CustomerModel();
                 customer.setID(rs.getInt("CustomerID"));
                 customer.setName(rs.getString("Name"));
-                customer.setPhoneNumber(rs.getString("PhoneNumber"));
+                customer.setPhoneNumber(rs.getString("UN_PhoneNumber"));
                 customer.setSex(rs.getInt("Sex"));
                 customer.setCitizenNumber(rs.getString("UN_CitizenNumber"));
                 customer.setAddress(rs.getString("Address"));
@@ -82,34 +82,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public int getNextID() {
-        try {
-            Connection con = DBConnection.getConnection();
-            String sql = "SELECT MAX(customerID) + 1 as `nextID` FROM customer";
-            int nextID = -1;
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                nextID = rs.getInt("nextID");
-            }
-            System.out.println("nextID: " + nextID);
-            return nextID;
-        } catch (Exception e) {
-        }
-        return -1;
-    }
-
-    public static void main(String[] args) {
-
-    }
-
-    @Override
     public boolean insert(CustomerModel customer) {
         boolean isOk = false;
         try {
             Connection con = DBConnection.getConnection();
 //            String sql = "insert into Customer(?, ?, ?, ?, ?, ?)";
-            String sql = "INSERT INTO Customer(Name, PhoneNumber, Sex, UN_CitizenNumber, Address)\n"
+            String sql = "INSERT INTO Customer(Name, UN_PhoneNumber, Sex, UN_CitizenNumber, Address)\n"
                     + "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, customer.getName());

@@ -7,8 +7,6 @@ public interface PartyDAO {
 
     public List<PartyModel> getList();
 
-    public int getNextID();
-
     public boolean insert(PartyModel party);
 
     public boolean delete(int id);
