@@ -53,6 +53,14 @@ public class AddStaffView extends javax.swing.JFrame {
         setData(_staffModel, isEditStaff);
     }
 
+    public String getName() {
+        String name = TF_NameStaff.getText().trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+        return name;
+    }
+
     private String getPhoneNumber() {
         return Helper.replaceInString(FTF_phoneNumber.getText(), " ", "");
     }
@@ -63,7 +71,7 @@ public class AddStaffView extends javax.swing.JFrame {
 
     boolean insertStaff() {
         StaffModel staff = new StaffModel();
-        staff.setName(TF_NameStaff.getText().trim());
+        staff.setName(getName());
         if (rdoNam.isSelected()) {
             staff.setSex(1);
         } else if (rdoNu.isSelected()) {
@@ -85,7 +93,7 @@ public class AddStaffView extends javax.swing.JFrame {
     public boolean updateStaff() {
         StaffModel staff = new StaffModel();
         staff.setID(Integer.parseInt(TF_staffID.getText()));
-        staff.setName(TF_NameStaff.getText());
+        staff.setName(getName());
         if (rdoNam.isSelected()) {
             staff.setSex(1);
         } else if (rdoNu.isSelected()) {
@@ -122,7 +130,7 @@ public class AddStaffView extends javax.swing.JFrame {
 
         TF_NameStaff.setText(_staffModel.getName());
         FTF_phoneNumber.setText(_staffModel.getPhoneNumber());
-        if (_staffModel.getSex()== 1) {
+        if (_staffModel.getSex() == 1) {
             rdoNam.setSelected(true);
         } else {
             rdoNu.setSelected(true);

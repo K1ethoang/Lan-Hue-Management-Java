@@ -77,11 +77,6 @@ public class StaffDAOImpl implements StaffDAO {
         return isOk;
     }
 
-    public static void main(String[] args) {
-        StaffModel staff = new StaffModel();
-        StaffDAOImpl.getInstance().insert(staff);
-    }
-
     @Override
     public boolean delete(int id) {
 
@@ -110,7 +105,7 @@ public class StaffDAOImpl implements StaffDAO {
             String sql = "UPDATE STAFF SET Name = ?, Sex = ?, UN_PhoneNumber = ?, UN_CitizenNumber = ?, Address = ?, RoleID = ? WHERE StaffID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            if (!staff.getName().isEmpty() && !staff.getPhoneNumber().isEmpty() && (staff.getSex()== 0 || staff.getSex()== 1) && !staff.getCitizenNumber().isEmpty() && !staff.getAddress().isEmpty() && !staff.getRole().getRoleName().isEmpty()) {
+            if (!staff.getName().isEmpty() && !staff.getPhoneNumber().isEmpty() && (staff.getSex() == 0 || staff.getSex() == 1) && !staff.getCitizenNumber().isEmpty() && !staff.getAddress().isEmpty() && !staff.getRole().getRoleName().isEmpty()) {
                 ps.setString(1, staff.getName());
                 ps.setInt(2, staff.getSex());
                 ps.setString(3, staff.getPhoneNumber());

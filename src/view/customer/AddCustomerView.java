@@ -34,6 +34,14 @@ public class AddCustomerView extends javax.swing.JFrame {
         setData(_customerModel, isEditCustomer);
     }
 
+    public String getName() {
+        String name = TF_NameCustomer.getText().trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+        return name;
+    }
+
     private String getPhoneNumber() {
         return Helper.replaceInString(FTF_phoneNumber.getText(), " ", "");
     }
@@ -45,7 +53,8 @@ public class AddCustomerView extends javax.swing.JFrame {
     // add customer
     boolean insertCustomer() {
         CustomerModel customer = new CustomerModel();
-        customer.setName(TF_NameCustomer.getText().trim());
+        customer.setName(getName());
+
         if (rdoNam.isSelected()) {
             customer.setSex(1);
         } else if (rdoNu.isSelected()) {
@@ -65,7 +74,7 @@ public class AddCustomerView extends javax.swing.JFrame {
 
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
-        customer.setName(TF_NameCustomer.getText());
+        customer.setName(getName());
         if (rdoNam.isSelected()) {
             customer.setSex(1);
         } else if (rdoNu.isSelected()) {
