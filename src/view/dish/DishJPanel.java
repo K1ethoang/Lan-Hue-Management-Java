@@ -20,11 +20,11 @@ import table.TableDish;
 import view.component.scroll.ScrollBarCus;
 
 public class DishJPanel extends javax.swing.JPanel {
-    
+
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     List<DishModel> listDish = null;
     DishModel dishCurrent = new DishModel();
-    
+
     private TableRowSorter<TableModel> rowSorter;
 
     public DishJPanel() {
@@ -41,7 +41,7 @@ public class DishJPanel extends javax.swing.JPanel {
         setDishTable();
         setComboBoxTypeDish();
     }
-    
+
     public void searchAndFilter() {
         String curTypeDish = (String) CB_typeDish.getSelectedItem();
         String text = searchField.getText();
@@ -66,7 +66,7 @@ public class DishJPanel extends javax.swing.JPanel {
             }
         }
     }
-    
+
     public void setDishTable() {
         // load data into the table
         listDish = DishDAOImpl.getInstance().getList();
@@ -76,46 +76,46 @@ public class DishJPanel extends javax.swing.JPanel {
         // set up the row sorter
         rowSorter = new TableRowSorter<>(tableDish.getModel());
         tableDish.setRowSorter(rowSorter);
-        
+
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 searchAndFilter();
                 setSumDish();
             }
-            
+
             @Override
             public void removeUpdate(DocumentEvent e) {
                 searchAndFilter();
                 setSumDish();
             }
-            
+
             @Override
             public void changedUpdate(DocumentEvent e) {
                 // not used
             }
         });
-        
+
         setSumDish();
     }
-    
+
     private void setSumDish() {
         // cập nhật lại số lượng
         sumDish.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }
-    
+
     private void setDishCurrent() {
         listDish = DishDAOImpl.getInstance().getList();
         int viewRowIndex = tableDish.getSelectedRow();
         int row = tableDish.getRowSorter().convertRowIndexToModel(viewRowIndex);
         DishModel dish = listDish.get(row);
-        
+
         dishCurrent.setDishID(dish.getDishID());
         dishCurrent.setDishName(dish.getDishName());
         dishCurrent.setPrice(dish.getPrice());
         dishCurrent.setTypeDish(dish.getTypeDish());
     }
-    
+
     private void setComboBoxTypeDish() {
         CB_typeDish.removeAllItems();
         CB_typeDish.addItem("Tất cả");
@@ -123,12 +123,12 @@ public class DishJPanel extends javax.swing.JPanel {
             CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
         }
     }
-    
+
     public void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tableDish.getModel();
         model.setRowCount(0);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -314,16 +314,16 @@ public class DishJPanel extends javax.swing.JPanel {
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
         searchAndFilter();
         setSumDish();
-        
+
 
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
             setDishCurrent();
-            
+
             AddDishView.isEditDish = true;
-            
+
             AddDishView addDish = new AddDishView(dishCurrent);
             addDish.setVisible(true);
 //            clearTable();
@@ -343,13 +343,13 @@ public class DishJPanel extends javax.swing.JPanel {
                     CB_typeDish.setSelectedItem("Tất cả");
                     setDishTable();
 //                    searchAndFilter();
-                    
+
                     JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
-                
+
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Món ăn không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
