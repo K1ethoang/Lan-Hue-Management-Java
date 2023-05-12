@@ -56,7 +56,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         customer.setCitizenNumber(getCitizenNumber());
 
         customer.setAddress(panelLocation1.getFullAddress());
-
+        System.out.println(customer);
         return CustomerDAOImpl.getInstance().insert(customer);
     }
 
@@ -93,7 +93,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         TF_customerID.setText(_customerModel.getID() + "");
         TF_NameCustomer.setText(_customerModel.getName());
 
-        if (_customerModel.isSex() == 1) {
+        if (_customerModel.getSex() == 1) {
             rdoNam.setSelected(true);
         } else {
             rdoNu.setSelected(true);

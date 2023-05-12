@@ -69,8 +69,8 @@ public class AddStaffView extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             staff.setSex(0);
         }
-        staff.setSdt(getPhoneNumber());
-        staff.setCccd(getCitizenNumber());
+        staff.setPhoneNumber(getPhoneNumber());
+        staff.setCitizenNumber(getCitizenNumber());
         staff.setAddress(panelLocation2.getFullAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
@@ -91,8 +91,8 @@ public class AddStaffView extends javax.swing.JFrame {
         } else if (rdoNu.isSelected()) {
             staff.setSex(0);
         }
-        staff.setSdt(getPhoneNumber());
-        staff.setCccd(getCitizenNumber());
+        staff.setPhoneNumber(getPhoneNumber());
+        staff.setCitizenNumber(getCitizenNumber());
         staff.setAddress(panelLocation2.getFullAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
@@ -121,13 +121,13 @@ public class AddStaffView extends javax.swing.JFrame {
         comboBoxRole.setSelectedItem(_staffModel.getRole().getRoleName());
 
         TF_NameStaff.setText(_staffModel.getName());
-        FTF_phoneNumber.setText(_staffModel.getSdt());
-        if (_staffModel.isSex() == 1) {
+        FTF_phoneNumber.setText(_staffModel.getPhoneNumber());
+        if (_staffModel.getSex()== 1) {
             rdoNam.setSelected(true);
         } else {
             rdoNu.setSelected(true);
         }
-        FTF_CCCD.setText(_staffModel.getCccd());
+        FTF_CCCD.setText(_staffModel.getCitizenNumber());
         panelLocation2.setAll(_staffModel.getAddress());
 
         setFieldEnable(isEditStaff);

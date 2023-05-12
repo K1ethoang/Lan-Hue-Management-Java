@@ -20,9 +20,9 @@ public class TableStaff {
                     StaffModel staff = listStaff.get(i);
                     int staffID = staff.getID();
                     String staffName = staff.getName();  
-                    String staffSDT = staff.getSdt();
-                    String sex = staff.isSex()== 0 ? "Nữ" : "Nam";
-                    String staffCCCD = staff.getCccd();
+                    String staffSDT = staff.getPhoneNumber();
+                    String sex = staff.getSex()== 0 ? "Nữ" : "Nam";
+                    String staffCCCD = staff.getCitizenNumber();
                     String staffAddress = staff.getAddress();
                     String staffRole = staff.getRole().getRoleName();
                     

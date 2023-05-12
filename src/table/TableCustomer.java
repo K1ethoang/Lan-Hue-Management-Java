@@ -19,7 +19,7 @@ public class TableCustomer {
                     int customerID = customer.getID();
                     String customerName = customer.getName();
                     String customerSDT = customer.getPhoneNumber();
-                    String sex = customer.isSex() == 0 ? "Nữ" : "Nam";
+                    String sex = customer.getSex() == 0 ? "Nữ" : "Nam";
                     String customerCCCD = customer.getCitizenNumber();
                     String customerAddress = customer.getAddress();
 

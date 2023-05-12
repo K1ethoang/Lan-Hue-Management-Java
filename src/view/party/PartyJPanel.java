@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.RowFilter;
@@ -17,6 +18,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.HappenStatusModel;
 import model.PartyModel;
 import model.PaymentStatusModel;
 import model.TypePartyModel;
@@ -45,6 +47,43 @@ public class PartyJPanel extends javax.swing.JPanel {
         setComboBoxTypeParty();
     }
     
+    void filterCheckBoxListHappenStatus(List<RowFilter<Object, Object>> filters, int happenStatusFilterIndex) {
+        List<String> selectedStatuses = new ArrayList<>();
+        if (happenWait.isSelected()) {
+            selectedStatuses.add("Sắp tới");
+        }
+        if (happenNow.isSelected()) {
+            selectedStatuses.add("Đang tổ chức");
+        }
+        if (happenDone.isSelected()) {
+            selectedStatuses.add("Đã xong");
+        }
+
+        RowFilter<Object, Object> filter = RowFilter.orFilter(selectedStatuses.stream()
+                .map(status -> RowFilter.regexFilter("(?i)" + status, happenStatusFilterIndex))
+                .collect(Collectors.toList()));      
+        filters.add(filter);
+//        sorter.setRowFilter(filter);
+//        tableParty.setRowSorter(sorter);
+    }
+    
+    void filterCheckBoxListPaymentStatus(List<RowFilter<Object, Object>> filters, int paymentStatusFilterIndex){
+        List<String> selectedStatuses = new ArrayList<>();
+        if (paymentYes.isSelected()) {
+            selectedStatuses.add("Xong");
+        }
+        if (paymentNo.isSelected()) {
+            selectedStatuses.add("Chưa");
+        }
+
+        RowFilter<Object, Object> filter = RowFilter.orFilter(selectedStatuses.stream()
+                .map(status -> RowFilter.regexFilter("(?i)" + status, paymentStatusFilterIndex))
+                .collect(Collectors.toList()));  
+        
+        System.out.println("filter happen: " + filter);
+        filters.add(filter);
+    }
+    
     public void searchAndFilter(){
         String text = searchField.getText();
         String curTypeParty = (String) comboBoxTypeParty.getSelectedItem();
@@ -63,21 +102,17 @@ public class PartyJPanel extends javax.swing.JPanel {
                     return;
                 }
                 else{ // nếu ít nhất 1 tk đc chọn 
-                    if(happenWait.isSelected()){
-                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    if(paymentNo.isSelected() == false && paymentYes.isSelected() == false){ // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;
+                        
                     }
-                    if(happenNow.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
+                    else{
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
                     }
-                    if(happenDone.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
-                    }
-                    if(paymentNo.isSelected()){
-                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
-                    }
-                    if(paymentYes.isSelected()){
-                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
-                    }
+                    
                 }
             }
             else {
@@ -88,20 +123,15 @@ public class PartyJPanel extends javax.swing.JPanel {
                     return;
                 }
                 else{ // có ít nhất 1 tk được chọn
-                    if(happenWait.isSelected()){
-                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    if(paymentNo.isSelected() == false && paymentYes.isSelected() == false){ // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;
+                        
                     }
-                    if(happenNow.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
-                    }
-                    if(happenDone.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
-                    }
-                    if(paymentNo.isSelected()){
-                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
-                    }
-                    if(paymentYes.isSelected()){
-                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
+                    else{
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
                     }
                 }
             }
@@ -114,20 +144,15 @@ public class PartyJPanel extends javax.swing.JPanel {
                     return;
                 }
                 else{ // có ít nhất 1 tk được chọn
-                    if(happenWait.isSelected()){
-                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    if(paymentNo.isSelected() == false && paymentYes.isSelected() == false){ // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;
+                        
                     }
-                    if(happenNow.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
-                    }
-                    if(happenDone.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
-                    }
-                    if(paymentNo.isSelected()){
-                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
-                    }
-                    if(paymentYes.isSelected()){
-                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
+                    else{
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
                     }
                 }
             }
@@ -138,20 +163,14 @@ public class PartyJPanel extends javax.swing.JPanel {
                     return;
                 }
                 else{ // có ít nhất 1 tk được chọn
-                    if(happenWait.isSelected()){
-                        filters.add(RowFilter.regexFilter("Sắp tới", happenStatusFilterIndex));
+                    if(paymentNo.isSelected() == false && paymentYes.isSelected() == false){ // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;    
                     }
-                    if(happenNow.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đang tổ chức", happenStatusFilterIndex));
-                    }
-                    if(happenDone.isSelected()){
-                        filters.add(RowFilter.regexFilter("Đã xong", happenStatusFilterIndex));
-                    }
-                    if(paymentNo.isSelected()){
-                        filters.add(RowFilter.regexFilter("Chưa", paymentStatusFilterIndex));
-                    }
-                    if(paymentYes.isSelected()){
-                        filters.add(RowFilter.regexFilter("Xong", paymentStatusFilterIndex));
+                    else{
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
                     }
                 }
             }
@@ -631,6 +650,13 @@ public class PartyJPanel extends javax.swing.JPanel {
             } else {
                 editBtn.setEnabled(true);
 
+            }
+            
+            if(gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.GOING_ON || gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.DONE){
+                selectDishBtn.setEnabled(false);
+            }
+            else{
+                selectDishBtn.setEnabled(true);
             }
         } catch (Exception e) {
         }
