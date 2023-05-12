@@ -240,6 +240,8 @@ public class AddPartyView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         ScrollPaneNote = new javax.swing.JScrollPane();
         textAreaNote = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         panelLocation2 = new view.component.PanelLocation();
         bottom = new javax.swing.JPanel();
         savePartyBtn = new rojeru_san.complementos.RSButtonHover();
@@ -372,6 +374,14 @@ public class AddPartyView extends javax.swing.JFrame {
         panelNote.add(ScrollPaneNote);
 
         jPanel2.add(panelNote);
+
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 5));
+
+        jLabel12.setText("Địa điểm tổ chức");
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jPanel4.add(jLabel12);
+
+        jPanel2.add(jPanel4);
 
         panelLocation2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
         jPanel2.add(panelLocation2);
@@ -548,6 +558,7 @@ public class AddPartyView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -559,6 +570,7 @@ public class AddPartyView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelLeft;
     private view.component.PanelLocation panelLocation2;

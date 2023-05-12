@@ -239,7 +239,6 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 -- SELECT *
 -- FROM typeparty;
 
--- lấy id tiếp theo
--- SELECT MAX(customerID) + 1 as `nextID` FROM customer;
+
 
 

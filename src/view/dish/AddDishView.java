@@ -60,9 +60,17 @@ public class AddDishView extends javax.swing.JFrame {
 
     }
 
+    public String getName() {
+        String name = TF_nameDish.getText().trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+        return name;
+    }
+
     private boolean insertDish() {
         DishModel dish = new DishModel();
-        dish.setDishName(TF_nameDish.getText());
+        dish.setDishName(getName());
 
         dish.setPrice(Double.parseDouble(getDishPrice()));
 
@@ -78,7 +86,7 @@ public class AddDishView extends javax.swing.JFrame {
     private boolean updateDish() {
         DishModel dish = new DishModel();
         dish.setDishID(Integer.parseInt(TF_dishID.getText()));
-        dish.setDishName(TF_nameDish.getText());
+        dish.setDishName(getName());
         dish.setPrice(Double.parseDouble(getDishPrice()));
         for (int i = 0; i < gListTypeDish.size(); i++) {
             if (CB_typeDish.getSelectedIndex() == i) {

@@ -19,7 +19,7 @@ public class DashBoardView extends javax.swing.JPanel {
     public DashBoardView() {
         initComponents();
         setCountPartyComingSoon();
-        setCountPartyNotPayment();
+        setCountPartyNotPaymentAndDone();
         setCountCustomer();
         setCountStaff();
     }
@@ -35,10 +35,10 @@ public class DashBoardView extends javax.swing.JPanel {
 
     }
 
-    private void setCountPartyNotPayment() {
+    private void setCountPartyNotPaymentAndDone() {
         int count = 0;
         for (int i = 0; i < gListParty.size(); i++) {
-            if (PaymentStatusModel.UN_PAID == gListParty.get(i).getPaymentStatus().getStatusCode()) {
+            if (PaymentStatusModel.UN_PAID == gListParty.get(i).getPaymentStatus().getStatusCode() && gListParty.get(i).getHappenStatus().getStatusCode() == HappenStatusModel.DONE) {
                 count++;
             }
         }
@@ -81,6 +81,8 @@ public class DashBoardView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         countStaff = new view.component.LabelGoogleIcon();
 
+        setPreferredSize(new java.awt.Dimension(1017, 576));
+
         jpnRoot.setBackground(new java.awt.Color(249, 245, 231));
         jpnRoot.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
         jpnRoot.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,7 +92,7 @@ public class DashBoardView extends javax.swing.JPanel {
 
         jPanel5.setBackground(jpnRoot.getBackground());
         jPanel5.setMinimumSize(new java.awt.Dimension(776, 140));
-        jPanel5.setLayout(new java.awt.GridLayout(1, 4, 20, 0));
+        jPanel5.setLayout(new java.awt.GridLayout(2, 2, 20, 10));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
@@ -100,9 +102,9 @@ public class DashBoardView extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 102));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SL tiệc sắp tới");
+        jLabel1.setText("Số lượng tiệc sắp tới");
         jPanel1.add(jLabel1);
 
         countPartyComingSoon.setForeground(new java.awt.Color(255, 255, 255));
@@ -116,16 +118,16 @@ public class DashBoardView extends javax.swing.JPanel {
         jPanel5.add(jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(46, 11, 47)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
         org.jdesktop.swingx.VerticalLayout verticalLayout2 = new org.jdesktop.swingx.VerticalLayout();
         verticalLayout2.setGap(10);
         jPanel2.setLayout(verticalLayout2);
 
         jLabel2.setBackground(new java.awt.Color(102, 102, 102));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setForeground(jLabel1.getForeground());
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("SL tiệc chưa thanh toán");
+        jLabel2.setText("Số lượng tiệc đã xong + chưa thanh toán");
         jPanel2.add(jLabel2);
 
         countPartyNotPayment.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,16 +141,16 @@ public class DashBoardView extends javax.swing.JPanel {
         jPanel5.add(jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(10, 77, 104)));
         org.jdesktop.swingx.VerticalLayout verticalLayout3 = new org.jdesktop.swingx.VerticalLayout();
         verticalLayout3.setGap(10);
         jPanel3.setLayout(verticalLayout3);
 
         LB_customer.setBackground(new java.awt.Color(102, 102, 102));
         LB_customer.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        LB_customer.setForeground(new java.awt.Color(102, 102, 102));
+        LB_customer.setForeground(jLabel1.getForeground());
         LB_customer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LB_customer.setText("SL khách hàng");
+        LB_customer.setText("Số lượng khách hàng");
         jPanel3.add(LB_customer);
 
         countCustomer.setForeground(new java.awt.Color(255, 255, 255));
@@ -162,16 +164,16 @@ public class DashBoardView extends javax.swing.JPanel {
         jPanel5.add(jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(46, 11, 47)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(10, 77, 104)));
         org.jdesktop.swingx.VerticalLayout verticalLayout4 = new org.jdesktop.swingx.VerticalLayout();
         verticalLayout4.setGap(10);
         jPanel4.setLayout(verticalLayout4);
 
         jLabel4.setBackground(new java.awt.Color(102, 102, 102));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setForeground(jLabel1.getForeground());
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("SL nhân viên");
+        jLabel4.setText("Số lượng nhân viên");
         jPanel4.add(jLabel4);
 
         countStaff.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,7 +197,7 @@ public class DashBoardView extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
