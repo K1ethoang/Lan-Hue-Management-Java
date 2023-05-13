@@ -17,7 +17,9 @@ import javax.swing.table.DefaultTableModel;
 import model.DishModel;
 import model.TypeDishModel;
 import table.TableDish;
+import utils.Helper;
 import view.component.scroll.ScrollBarCus;
+import view.main.MainView;
 
 public class DishJPanel extends javax.swing.JPanel {
 
@@ -40,6 +42,7 @@ public class DishJPanel extends javax.swing.JPanel {
         // set data
         setDishTable();
         setComboBoxTypeDish();
+
     }
 
     public void searchAndFilter() {
@@ -307,6 +310,7 @@ public class DishJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
+        AddDishView.isEditDish = false;
         AddDishView addDish = new AddDishView();
         addDish.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
@@ -314,8 +318,6 @@ public class DishJPanel extends javax.swing.JPanel {
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
         searchAndFilter();
         setSumDish();
-
-
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed

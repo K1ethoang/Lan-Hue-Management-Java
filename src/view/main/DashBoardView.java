@@ -3,12 +3,24 @@ package view.main;
 import dao.Customer.CustomerDAOImpl;
 import dao.Party.PartyDAOImpl;
 import dao.Staff.StaffDAOImpl;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.List;
 import model.CustomerModel;
 import model.HappenStatusModel;
 import model.PartyModel;
 import model.PaymentStatusModel;
 import model.StaffModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class DashBoardView extends javax.swing.JPanel {
 
@@ -22,6 +34,7 @@ public class DashBoardView extends javax.swing.JPanel {
         setCountPartyNotPaymentAndDone();
         setCountCustomer();
         setCountStaff();
+        showBarChart();
     }
 
     private void setCountPartyComingSoon() {
@@ -57,6 +70,37 @@ public class DashBoardView extends javax.swing.JPanel {
         countStaff.setText(count + "");
     }
 
+    private static CategoryDataset createDataset() {
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(200000000, "Doanh thu", "Tháng 1");
+        dataset.addValue(80000000, "Doanh thu", "Tháng 2");
+        dataset.addValue(88000000, "Doanh thu", "Tháng 3");
+        dataset.addValue(95000000, "Doanh thu", "Tháng 4");
+        return dataset;
+    }
+
+    private void showBarChart() {
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "DOANH THU THEO THÁNG TRONG NĂM 2023",
+                "", "Doanh thu (Đồng)",
+                createDataset(), PlotOrientation.VERTICAL, false, true, false);
+        barChart.setBackgroundPaint(new Color(249, 245, 231));
+
+        CategoryPlot categoryPlot = barChart.getCategoryPlot();
+        categoryPlot.setRangeGridlinePaint(Color.black);
+        Font font = new Font("Segoe UI", Font.BOLD, 16);
+        categoryPlot.getDomainAxis().setLabelFont(font);
+        categoryPlot.getRangeAxis().setLabelFont(font);
+
+        BarRenderer rendered = (BarRenderer) categoryPlot.getRenderer();
+        rendered.setSeriesPaint(0, new Color(148, 175, 159));
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setPreferredSize(barChartPanel.getSize());
+
+        barChartPanel.setLayout(new GridLayout(1, 1));
+        barChartPanel.add(chartPanel);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,11 +119,12 @@ public class DashBoardView extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         countPartyNotPayment = new view.component.LabelGoogleIcon();
         jPanel3 = new javax.swing.JPanel();
-        LB_customer = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         countCustomer = new view.component.LabelGoogleIcon();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         countStaff = new view.component.LabelGoogleIcon();
+        barChartPanel = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1017, 576));
 
@@ -88,14 +133,15 @@ public class DashBoardView extends javax.swing.JPanel {
         jpnRoot.setForeground(new java.awt.Color(255, 255, 255));
         jpnRoot.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jpnRoot.setPreferredSize(new java.awt.Dimension(1017, 576));
-        jpnRoot.setLayout(new java.awt.BorderLayout());
+        jpnRoot.setLayout(new java.awt.BorderLayout(0, 20));
 
         jPanel5.setBackground(jpnRoot.getBackground());
         jPanel5.setMinimumSize(new java.awt.Dimension(776, 140));
-        jPanel5.setLayout(new java.awt.GridLayout(2, 2, 20, 10));
+        jPanel5.setLayout(new java.awt.GridLayout(1, 4, 20, 10));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel1.setToolTipText("Số lượng tiệc sắp tới");
         org.jdesktop.swingx.VerticalLayout verticalLayout1 = new org.jdesktop.swingx.VerticalLayout();
         verticalLayout1.setGap(10);
         jPanel1.setLayout(verticalLayout1);
@@ -119,6 +165,7 @@ public class DashBoardView extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
+        jPanel2.setToolTipText("Số lượng tiệc đã xong + chưa thanh toán");
         org.jdesktop.swingx.VerticalLayout verticalLayout2 = new org.jdesktop.swingx.VerticalLayout();
         verticalLayout2.setGap(10);
         jPanel2.setLayout(verticalLayout2);
@@ -128,6 +175,7 @@ public class DashBoardView extends javax.swing.JPanel {
         jLabel2.setForeground(jLabel1.getForeground());
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Số lượng tiệc đã xong + chưa thanh toán");
+        jLabel2.setToolTipText("");
         jPanel2.add(jLabel2);
 
         countPartyNotPayment.setForeground(new java.awt.Color(255, 255, 255));
@@ -142,16 +190,17 @@ public class DashBoardView extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(10, 77, 104)));
+        jPanel3.setToolTipText("Số lượng khách hàng");
         org.jdesktop.swingx.VerticalLayout verticalLayout3 = new org.jdesktop.swingx.VerticalLayout();
         verticalLayout3.setGap(10);
         jPanel3.setLayout(verticalLayout3);
 
-        LB_customer.setBackground(new java.awt.Color(102, 102, 102));
-        LB_customer.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        LB_customer.setForeground(jLabel1.getForeground());
-        LB_customer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LB_customer.setText("Số lượng khách hàng");
-        jPanel3.add(LB_customer);
+        jLabel3.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel3.setForeground(jLabel1.getForeground());
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Số lượng khách hàng");
+        jPanel3.add(jLabel3);
 
         countCustomer.setForeground(new java.awt.Color(255, 255, 255));
         countCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -165,6 +214,7 @@ public class DashBoardView extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(10, 77, 104)));
+        jPanel4.setToolTipText("Số lượng nhân viên");
         org.jdesktop.swingx.VerticalLayout verticalLayout4 = new org.jdesktop.swingx.VerticalLayout();
         verticalLayout4.setGap(10);
         jPanel4.setLayout(verticalLayout4);
@@ -188,6 +238,19 @@ public class DashBoardView extends javax.swing.JPanel {
 
         jpnRoot.add(jPanel5, java.awt.BorderLayout.NORTH);
 
+        javax.swing.GroupLayout barChartPanelLayout = new javax.swing.GroupLayout(barChartPanel);
+        barChartPanel.setLayout(barChartPanelLayout);
+        barChartPanelLayout.setHorizontalGroup(
+            barChartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 977, Short.MAX_VALUE)
+        );
+        barChartPanelLayout.setVerticalGroup(
+            barChartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 495, Short.MAX_VALUE)
+        );
+
+        jpnRoot.add(barChartPanel, java.awt.BorderLayout.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,13 +266,14 @@ public class DashBoardView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LB_customer;
+    private javax.swing.JPanel barChartPanel;
     private view.component.LabelGoogleIcon countCustomer;
     private view.component.LabelGoogleIcon countPartyComingSoon;
     private view.component.LabelGoogleIcon countPartyNotPayment;
     private view.component.LabelGoogleIcon countStaff;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
