@@ -271,10 +271,12 @@ public class AddDishView extends JFrame {
     }// GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
-        String ObjButtons[] = {"Thoát", "Hủy"};
-        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-        if (PromptResult == JOptionPane.YES_OPTION) {
-            this.dispose();
+        if (isEditDish) {
+            String ObjButtons[] = {"Thoát", "Hủy"};
+            int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+            if (PromptResult == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
         }
     }// GEN-LAST:event_cancelBtnActionPerformed
 
