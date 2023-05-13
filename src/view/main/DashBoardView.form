@@ -55,7 +55,9 @@
         </Property>
       </Properties>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout">
+        <Property name="verticalGap" type="int" value="20"/>
+      </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="jPanel5">
           <Properties>
@@ -73,9 +75,9 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-            <Property name="columns" type="int" value="2"/>
+            <Property name="columns" type="int" value="4"/>
             <Property name="horizontalGap" type="int" value="20"/>
-            <Property name="rows" type="int" value="2"/>
+            <Property name="rows" type="int" value="1"/>
             <Property name="verticalGap" type="int" value="10"/>
           </Layout>
           <SubComponents>
@@ -91,6 +93,7 @@
                     </MatteColorBorder>
                   </Border>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng ti&#x1ec7;c s&#x1eaf;p t&#x1edb;i"/>
               </Properties>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel1">
@@ -214,6 +217,7 @@
                     </MatteColorBorder>
                   </Border>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng ti&#x1ec7;c &#x111;&#xe3; xong + ch&#x1b0;a thanh to&#xe1;n"/>
               </Properties>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel2">
@@ -229,6 +233,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng ti&#x1ec7;c &#x111;&#xe3; xong + ch&#x1b0;a thanh to&#xe1;n"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
                   </Properties>
                 </Component>
                 <Component class="view.component.LabelGoogleIcon" name="countPartyNotPayment">
@@ -337,9 +342,10 @@
                     </MatteColorBorder>
                   </Border>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng kh&#xe1;ch h&#xe0;ng"/>
               </Properties>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="LB_customer">
+                <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="66" green="66" red="66" type="rgb"/>
@@ -420,11 +426,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="14_LB_customer">
-                      <CodeVariable name="LB_customer" type="8194" declaredType="javax.swing.JLabel"/>
+                    <CodeExpression id="14_jLabel3">
+                      <CodeVariable name="jLabel3" type="8194" declaredType="javax.swing.JLabel"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="LB_customer"/>
+                          <ComponentRef name="jLabel3"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -460,6 +466,7 @@
                     </MatteColorBorder>
                   </Border>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng nh&#xe2;n vi&#xea;n"/>
               </Properties>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel4">
@@ -572,6 +579,26 @@
               </LayoutCode>
             </Container>
           </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="barChartPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+              <BorderConstraints direction="Center"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="977" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="495" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
         </Container>
       </SubComponents>
     </Container>
