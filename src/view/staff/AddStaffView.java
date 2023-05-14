@@ -37,6 +37,8 @@ public class AddStaffView extends javax.swing.JFrame {
         gListRole = RoleDAOImpl.getInstance().getList();
         TF_staffID.setEditable(false);
         setComboboxRole();
+        
+        Helper.setQuestionBeforeClose(this);
     }
 
     public AddStaffView(StaffModel _staffModel) {
@@ -51,6 +53,8 @@ public class AddStaffView extends javax.swing.JFrame {
         setComboboxRole();
 
         setData(_staffModel, isEditStaff);
+        
+        Helper.setQuestionBeforeClose(this);
     }
 
     public String getName() {
@@ -319,7 +323,13 @@ public class AddStaffView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
-        this.dispose();
+        if (isEditStaff) {
+            String ObjButtons[] = {"Thoát", "Hủy"};
+            int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+            if (PromptResult == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_cancelBtn2ActionPerformed
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed

@@ -54,6 +54,8 @@ public class AddPartyView extends javax.swing.JFrame {
         setComboBoxPhoneNumber();
         setComboBoxTypeParty();
         initDateTimeField();
+        
+        Helper.setQuestionBeforeClose(this);
     }
 
     public AddPartyView(PartyModel _partyModel) {
@@ -69,7 +71,8 @@ public class AddPartyView extends javax.swing.JFrame {
         initDateTimeField();
 
         setDataParty(_partyModel, isPartyEdit);
-
+        
+        Helper.setQuestionBeforeClose(this);
     }
 
     private void setScroll() {
@@ -475,7 +478,13 @@ public class AddPartyView extends javax.swing.JFrame {
     }//GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        this.dispose();
+        if (isPartyEdit) {
+            String ObjButtons[] = {"Thoát", "Hủy"};
+            int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+            if (PromptResult == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void comboBoxPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPhoneNumberActionPerformed

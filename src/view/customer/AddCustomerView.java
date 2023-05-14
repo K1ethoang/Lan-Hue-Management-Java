@@ -18,6 +18,8 @@ public class AddCustomerView extends javax.swing.JFrame {
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
+        
+        Helper.setQuestionBeforeClose(this);
     }
 
     // isEditCustomer == true thì các dữ liệu ở trạng chỉnh sửa
@@ -32,6 +34,8 @@ public class AddCustomerView extends javax.swing.JFrame {
         sb.setOrientation(JScrollBar.HORIZONTAL);
 
         setData(_customerModel, isEditCustomer);
+        
+        Helper.setQuestionBeforeClose(this);
     }
 
     public String getName() {
@@ -309,7 +313,13 @@ public class AddCustomerView extends javax.swing.JFrame {
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
-        this.dispose();
+        if (isEditCustomer) {
+            String ObjButtons[] = {"Thoát", "Hủy"};
+            int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+            if (PromptResult == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_cancelBtn2ActionPerformed
 
     private void FTF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_phoneNumberActionPerformed

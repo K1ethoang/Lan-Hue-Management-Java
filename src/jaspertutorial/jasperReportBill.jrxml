@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jasperReportBill" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="44792bf5-6bf9-46e1-9e61-29c460347a97">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[bGFuaHVlbWFuYWdlbWVudC5jdXN0b21lciBBUyAsMjYsNDQsMTIwOGMwNTQtMmFlYi00NTc4LWFj
+ZTQtN2I5MmJlNzJkY2ZkOw==]]>
+	</property>
+	<parameter name="cusID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT `CustomerID`,
+	`Name`,
+	`UN_PhoneNumber`,
+	`UN_CitizenNumber`,
+	`Address`
+FROM lanhuemanagement.customer
+WHERE 
+	 lanhuemanagement.customer.`CustomerID` = '$P!{cusID}']]>
+	</queryString>
+	<field name="CustomerID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="CustomerID"/>
+		<property name="com.jaspersoft.studio.field.label" value="CustomerID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="UN_PhoneNumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UN_PhoneNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="UN_PhoneNumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="UN_CitizenNumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UN_CitizenNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="UN_CitizenNumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Address"/>
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="0" width="595" height="51" forecolor="#3880B0" uuid="733cb135-a9d7-4e48-a493-783e807b0661"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="26" isBold="true" isItalic="true" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[HÓA ĐƠN TIỆC LAN HUỆ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="230" height="30" forecolor="#3880B0" uuid="6d0ef97b-0672-4dfa-ae91-ad18133c19bf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="20" isBold="true" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Thông tin khách hàng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="10" width="30" height="30" uuid="27b20de3-94b0-4e53-b876-d495e108fa9e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" isBold="true" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="470" y="10" width="105" height="30" uuid="d06f9872-04f1-4457-abe2-49d1aa1265dc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CustomerID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="70" height="30" uuid="6a0c8b29-0589-4eb6-bcff-dc738bef11a2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" isBold="true" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tên KH:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="30" width="70" height="30" uuid="7a26f8c4-bd37-4537-8a64-e116b8dfae3a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" isBold="true" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[SĐT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="60" width="70" height="30" uuid="b1e16026-87e4-4879-9481-f57fa6009050"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" isBold="true" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[CCCD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="90" width="70" height="30" uuid="dd9717d9-82f8-4a19-a388-b468c5878062"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" isBold="true" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Địa chỉ:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="0" width="190" height="30" uuid="e3a8c673-f8d2-4491-9dbd-8bef5c2960fe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="30" width="190" height="30" uuid="921ea708-8fd5-4c12-80cb-740048faae2e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UN_PhoneNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="60" width="190" height="30" uuid="bae5e7cb-73d5-4fcf-8ba7-654cdc0abdea"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UN_CitizenNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="90" width="190" height="30" uuid="91ec68d7-7b4c-4b8b-a63d-0d6c6eaacf2f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="Symbol" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
