@@ -161,7 +161,7 @@ CREATE TABLE Invoice(
 CREATE TABLE `Order`(
 	PartyID INT UNSIGNED,
     DishID INT UNSIGNED,
-    Price DOUBLE DEFAULT 0,
+    Price DOUBLE NOT NULL,
     CONSTRAINT PkOrder_PartyID_DishID PRIMARY KEY (PartyID, DishID),
     CONSTRAINT FkOrder_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
     CONSTRAINT FkOrder_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID)
@@ -234,6 +234,9 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 -- SELECT * FROM PaymentStatus WHERE PaymentStatusID = 1;
 
 -- DELETE FROM Party WHERE PartyID = 1;
+
+-- SELECT o.DishID, d.DishName, o.price FROM `order`o, dish d
+-- WHERE d.DishID = o.DishID AND o.partyID = 1;
 
 -- use lanhuemanagement;
 -- SELECT *

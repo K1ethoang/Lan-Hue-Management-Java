@@ -54,7 +54,7 @@ public class AddPartyView extends javax.swing.JFrame {
         setComboBoxPhoneNumber();
         setComboBoxTypeParty();
         initDateTimeField();
-        
+
         Helper.setQuestionBeforeClose(this);
     }
 
@@ -71,7 +71,7 @@ public class AddPartyView extends javax.swing.JFrame {
         initDateTimeField();
 
         setDataParty(_partyModel, isPartyEdit);
-        
+
         Helper.setQuestionBeforeClose(this);
     }
 
@@ -99,8 +99,8 @@ public class AddPartyView extends javax.swing.JFrame {
         return PartyDAOImpl.getInstance().insert(party);
 //        return false;
     }
-    
-    boolean updateParty(){
+
+    boolean updateParty() {
         PartyModel party = new PartyModel();
         party.setCustomer(gCustomerModel);
         party.setPartyName(TF_partyName.getText());
@@ -112,7 +112,7 @@ public class AddPartyView extends javax.swing.JFrame {
         party.setLocation(panelLocation2.getFullAddress());
         party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
         party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
-        System.out.println("True or False: "+PartyDAOImpl.getInstance().insert(party));
+        System.out.println("True or False: " + PartyDAOImpl.getInstance().insert(party));
         return PartyDAOImpl.getInstance().update(party);
     }
 
@@ -478,12 +478,10 @@ public class AddPartyView extends javax.swing.JFrame {
     }//GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        if (isPartyEdit) {
-            String ObjButtons[] = {"Thoát", "Hủy"};
-            int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-            if (PromptResult == JOptionPane.YES_OPTION) {
-                this.dispose();
-            }
+        String ObjButtons[] = {"Thoát", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+            this.dispose();
         }
     }//GEN-LAST:event_cancelBtnActionPerformed
 

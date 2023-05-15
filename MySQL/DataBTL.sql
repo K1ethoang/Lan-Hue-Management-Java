@@ -107,7 +107,7 @@ VALUES
     
 INSERT INTO Party(PartyName, TableNumber, Date, Time, Location, Note, CustomerID, HappenStatusID, PaymentStatusID, TypePartyID)
 VALUES 
-	('Đám cưới Ngọc và Huy', 100, '2023-05-15', ' 15:00:00', 'Hanoi', 'Note for Party A', 1, 1, 1, 1),
+	('Đám cưới Ngọc và Huy', 100, '2023-05-20', ' 15:00:00', 'Hanoi', 'Note for Party A', 1, 1, 1, 1),
 	('Khai trương Phát Đạt', 8, '2023-06-20','18:30:00', 'Ho Chi Minh City', 'Note for Party B', 2, 2, 2, 2),
 	('Sinh nhật Gia Bảo', 10, '2023-07-10','12:00:00', 'Da Nang', 'Note for Party C', 3, 3, 2, 1),
 	('Khai trương Thuận Phát', 6, '2023-08-05', '19:00:00', 'Nha Trang', 'Note for Party D', 4, 2, 1, 3),
@@ -121,17 +121,17 @@ VALUES
 	('2023-04-18 12:45:00', 550.00, 4, 4, 4),
 	('2023-04-17 20:00:00', 15000.00, 5, 5, 5);
 
-INSERT INTO `Order`(PartyID, DishID) 
+INSERT INTO `Order`(PartyID, DishID, Price) 
 VALUES
-	(1, 1),
-	(1, 2),
-	(2, 3),
-	(2, 4),
-	(3, 5),
-	(4, 1),
-	(4, 3),
-	(5, 2),
-	(5, 5);
+	(1, 1, 100000),
+	(1, 2, 100000),
+	(2, 3, 50000),
+	(2, 4, 50000),
+	(3, 5, 50000),
+	(4, 1, 50000),
+	(4, 3, 50000),
+	(5, 2, 50000),
+	(5, 5, 50000);
 
 
 

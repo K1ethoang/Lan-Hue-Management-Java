@@ -271,12 +271,10 @@ public class AddDishView extends JFrame {
     }// GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
-        if (isEditDish) {
-            String ObjButtons[] = {"Thoát", "Hủy"};
-            int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-            if (PromptResult == JOptionPane.YES_OPTION) {
-                this.dispose();
-            }
+        String ObjButtons[] = {"Thoát", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+            this.dispose();
         }
     }// GEN-LAST:event_cancelBtnActionPerformed
 
@@ -295,20 +293,28 @@ public class AddDishView extends JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
         }
         // </editor-fold>
         // </editor-fold>

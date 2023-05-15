@@ -37,7 +37,7 @@ public class AddStaffView extends javax.swing.JFrame {
         gListRole = RoleDAOImpl.getInstance().getList();
         TF_staffID.setEditable(false);
         setComboboxRole();
-        
+
         Helper.setQuestionBeforeClose(this);
     }
 
@@ -53,7 +53,7 @@ public class AddStaffView extends javax.swing.JFrame {
         setComboboxRole();
 
         setData(_staffModel, isEditStaff);
-        
+
         Helper.setQuestionBeforeClose(this);
     }
 
@@ -329,7 +329,8 @@ public class AddStaffView extends javax.swing.JFrame {
             if (PromptResult == JOptionPane.YES_OPTION) {
                 this.dispose();
             }
-        }
+        } else
+            this.dispose();
     }//GEN-LAST:event_cancelBtn2ActionPerformed
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
