@@ -15,6 +15,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.view.JasperViewer;
+
+
 //import net.sf.jasperreports.engine.util.JRProperties;
 import java.awt.GraphicsEnvironment;
 
@@ -23,6 +25,7 @@ public class Print {
         
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("chid", customerID);
+        parameters.put("net.sf.jasperreports.default.font.name", "Times New Roman");
         
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
@@ -34,7 +37,7 @@ public class Print {
         
         try {
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream("/jaspertutorial/jasperReportBillLanHue.jasper"));
-            
+            jasperReport.setDefaultFontName("Times New Roman");
             JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, con);
 //            jp.setDefaultFontName("Times New Roman");
             JasperViewer.viewReport(jp, true);
