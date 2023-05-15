@@ -49,6 +49,8 @@ CREATE TABLE IF NOT EXISTS HappenStatus(
     CONSTRAINT PkHappenStatus_HappenStatusID PRIMARY KEY (HappenStatusID),
     CONSTRAINT UnHappenStatus_UN_StatusCode UNIQUE (UN_StatusCode)
 );
+-- Cập nhật UN_StatusCode trong bảng HappenStatus dựa trên Date trong bảng Party
+
 -- TRUNCATE TABLE HappenStatus;
 -- INSERT INTO HappenStatus (UN_StatusCode, StatusName) VALUES (0, "Chưa thanh toán");
 
@@ -121,7 +123,7 @@ CREATE TABLE IF NOT EXISTS TypeParty(
 -- DROP TABLE Party;
 CREATE TABLE IF NOT EXISTS Party(
 	PartyID INT UNSIGNED AUTO_INCREMENT,
-    PartyName TEXT,
+    PartyName TEXT NOT NULL,
     TableNumber TINYINT UNSIGNED NOT NULL,
     `Date` DATE NOT NULL,
     `Time` TIME NOT NULL,
@@ -161,7 +163,7 @@ CREATE TABLE Invoice(
 CREATE TABLE `Order`(
 	PartyID INT UNSIGNED,
     DishID INT UNSIGNED,
-    Price DOUBLE DEFAULT 0,
+    Price DOUBLE NOT NULL,
     CONSTRAINT PkOrder_PartyID_DishID PRIMARY KEY (PartyID, DishID),
     CONSTRAINT FkOrder_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
     CONSTRAINT FkOrder_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID)
@@ -212,6 +214,18 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 ('1', 'admin', 'admin')
 ;
 
+UPDATE HappenStatus
+JOIN Party ON HappenStatus.HappenStatusID = Party.HappenStatusID
+SET HappenStatus.UN_StatusCode = (
+    CASE
+        WHEN Party.`Date` < CURDATE() THEN 2 -- Đã xong
+        WHEN Party.`Date` > CURDATE() THEN 0 -- Sắp tới
+        ELSE 1 -- Đang tổ chức
+    END
+)
+WHERE HappenStatus.HappenStatusID > 0;
+
+
 -- use lanhuemanagement;
 -- SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber,
 -- hp.UN_StatusCode AS happenCode, hp.statusName AS happenName, 
@@ -235,11 +249,13 @@ INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`
 
 -- DELETE FROM Party WHERE PartyID = 1;
 
+-- SELECT o.DishID, d.DishName, o.price FROM `order`o, dish d
+-- WHERE d.DishID = o.DishID AND o.partyID = 1;
+
 -- use lanhuemanagement;
 -- SELECT *
 -- FROM typeparty;
 
--- lấy id tiếp theo
--- SELECT MAX(customerID) + 1 as `nextID` FROM customer;
+
 
 

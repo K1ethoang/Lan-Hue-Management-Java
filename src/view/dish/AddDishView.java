@@ -2,10 +2,15 @@ package view.dish;
 
 import dao.Dish.DishDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
@@ -17,10 +22,10 @@ import utils.Helper;
  *
  * @author kieth
  */
-public class AddDishView extends javax.swing.JFrame {
+public class AddDishView extends JFrame {
 
     public static boolean isEditDish = false;
-    int curID;
+//    int curID;
 
     List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     TypeDishModel gTypeDishModel = null;
@@ -35,6 +40,8 @@ public class AddDishView extends javax.swing.JFrame {
         TF_dishID.setEditable(false);
         // set data
         setComboBoxTypeDish();
+
+        Helper.setQuestionBeforeClose(this);
     }
 
     public AddDishView(DishModel _dishModel) {
@@ -46,6 +53,8 @@ public class AddDishView extends javax.swing.JFrame {
         setComboBoxTypeDish();
         // set data
         setDataSeeDish(_dishModel, isEditDish);
+
+        Helper.setQuestionBeforeClose(this);
     }
 
     private void initTextFieldPrice(boolean isEditDish) {
@@ -60,9 +69,17 @@ public class AddDishView extends javax.swing.JFrame {
 
     }
 
+    public String getName() {
+        String name = TF_nameDish.getText().trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+        return name;
+    }
+
     private boolean insertDish() {
         DishModel dish = new DishModel();
-        dish.setDishName(TF_nameDish.getText());
+        dish.setDishName(getName());
 
         dish.setPrice(Double.parseDouble(getDishPrice()));
 
@@ -78,7 +95,7 @@ public class AddDishView extends javax.swing.JFrame {
     private boolean updateDish() {
         DishModel dish = new DishModel();
         dish.setDishID(Integer.parseInt(TF_dishID.getText()));
-        dish.setDishName(TF_nameDish.getText());
+        dish.setDishName(getName());
         dish.setPrice(Double.parseDouble(getDishPrice()));
         for (int i = 0; i < gListTypeDish.size(); i++) {
             if (CB_typeDish.getSelectedIndex() == i) {
@@ -136,7 +153,7 @@ public class AddDishView extends javax.swing.JFrame {
         saveBtn = new rojeru_san.complementos.RSButtonHover();
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thêm món ăn");
         setResizable(false);
 
@@ -254,7 +271,11 @@ public class AddDishView extends javax.swing.JFrame {
     }// GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
-        this.dispose();
+        String ObjButtons[] = {"Thoát", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }// GEN-LAST:event_cancelBtnActionPerformed
 
     public static void main(String args[]) {
@@ -272,20 +293,28 @@ public class AddDishView extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddDishView.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            java.util.logging.Logger.getLogger(AddDishView.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null,
+                            ex);
         }
         // </editor-fold>
         // </editor-fold>
@@ -297,11 +326,12 @@ public class AddDishView extends javax.swing.JFrame {
         // </editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddDishView().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+        //            public void run() {
+        //                new AddDishView().setVisible(true);
+        //            }
+        //        });
+        //    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

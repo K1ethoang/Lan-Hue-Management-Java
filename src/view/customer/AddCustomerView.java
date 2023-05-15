@@ -18,6 +18,8 @@ public class AddCustomerView extends javax.swing.JFrame {
         // set vertical and horizontal scroll bar
         ScrollBarCus sb = new ScrollBarCus();
         sb.setOrientation(JScrollBar.HORIZONTAL);
+
+        Helper.setQuestionBeforeClose(this);
     }
 
     // isEditCustomer == true thì các dữ liệu ở trạng chỉnh sửa
@@ -32,6 +34,16 @@ public class AddCustomerView extends javax.swing.JFrame {
         sb.setOrientation(JScrollBar.HORIZONTAL);
 
         setData(_customerModel, isEditCustomer);
+
+        Helper.setQuestionBeforeClose(this);
+    }
+
+    public String getName() {
+        String name = TF_NameCustomer.getText().trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+        return name;
     }
 
     private String getPhoneNumber() {
@@ -45,7 +57,8 @@ public class AddCustomerView extends javax.swing.JFrame {
     // add customer
     boolean insertCustomer() {
         CustomerModel customer = new CustomerModel();
-        customer.setName(TF_NameCustomer.getText().trim());
+        customer.setName(getName());
+
         if (rdoNam.isSelected()) {
             customer.setSex(1);
         } else if (rdoNu.isSelected()) {
@@ -56,7 +69,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         customer.setCitizenNumber(getCitizenNumber());
 
         customer.setAddress(panelLocation1.getFullAddress());
-
+        System.out.println(customer);
         return CustomerDAOImpl.getInstance().insert(customer);
     }
 
@@ -65,7 +78,7 @@ public class AddCustomerView extends javax.swing.JFrame {
 
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
-        customer.setName(TF_NameCustomer.getText());
+        customer.setName(getName());
         if (rdoNam.isSelected()) {
             customer.setSex(1);
         } else if (rdoNu.isSelected()) {
@@ -93,7 +106,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         TF_customerID.setText(_customerModel.getID() + "");
         TF_NameCustomer.setText(_customerModel.getName());
 
-        if (_customerModel.isSex() == 1) {
+        if (_customerModel.getSex() == 1) {
             rdoNam.setSelected(true);
         } else {
             rdoNu.setSelected(true);
@@ -300,7 +313,11 @@ public class AddCustomerView extends javax.swing.JFrame {
     }//GEN-LAST:event_saveBtn2ActionPerformed
 
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
-        this.dispose();
+        String ObjButtons[] = {"Thoát", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_cancelBtn2ActionPerformed
 
     private void FTF_phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_phoneNumberActionPerformed

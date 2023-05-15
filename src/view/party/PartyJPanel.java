@@ -5,28 +5,33 @@ import dao.TypeParty.TypePartyDAOImpl;
 import java.awt.PopupMenu;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.HappenStatusModel;
 import model.PartyModel;
 import model.PaymentStatusModel;
 import model.TypePartyModel;
 import table.TableParty;
+import utils.Helper;
 
 public class PartyJPanel extends javax.swing.JPanel {
-
+    
     List<PartyModel> gListParty = null;
     PartyModel gPartyCurrent = new PartyModel();
-
-    private TableRowSorter<TableModel> rowSorter = null;
-
+    
+    private TableRowSorter<TableModel> rowSorter;
+    
     public PartyJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -38,50 +43,167 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         // get data party
         gListParty = PartyDAOImpl.getInstance().getList();
-
-        setComboBoxTypeParty();
+        
         setPartyTable();
-
+        setComboBoxTypeParty();
     }
-
+    
+    void filterCheckBoxListHappenStatus(List<RowFilter<Object, Object>> filters, int happenStatusFilterIndex) {
+        List<String> selectedStatuses = new ArrayList<>();
+        if (happenWait.isSelected()) {
+            selectedStatuses.add("Sắp tới");
+        }
+        if (happenNow.isSelected()) {
+            selectedStatuses.add("Đang tổ chức");
+        }
+        if (happenDone.isSelected()) {
+            selectedStatuses.add("Đã xong");
+        }
+        
+        RowFilter<Object, Object> filter = RowFilter.orFilter(selectedStatuses.stream()
+                .map(status -> RowFilter.regexFilter("(?i)" + status, happenStatusFilterIndex))
+                .collect(Collectors.toList()));
+        filters.add(filter);
+//        sorter.setRowFilter(filter);
+//        tableParty.setRowSorter(sorter);
+    }
+    
+    void filterCheckBoxListPaymentStatus(List<RowFilter<Object, Object>> filters, int paymentStatusFilterIndex) {
+        List<String> selectedStatuses = new ArrayList<>();
+        if (paymentYes.isSelected()) {
+            selectedStatuses.add("Xong");
+        }
+        if (paymentNo.isSelected()) {
+            selectedStatuses.add("Chưa");
+        }
+        
+        RowFilter<Object, Object> filter = RowFilter.orFilter(selectedStatuses.stream()
+                .map(status -> RowFilter.regexFilter("(?i)" + status, paymentStatusFilterIndex))
+                .collect(Collectors.toList()));
+        
+        System.out.println("filter happen: " + filter);
+        filters.add(filter);
+    }
+    
+    public void searchAndFilter() {
+        String text = searchField.getText();
+        String curTypeParty = (String) comboBoxTypeParty.getSelectedItem();
+        
+        int typePartyFilterIndex = 2;
+        int happenStatusFilterIndex = 9;
+        int paymentStatusFilterIndex = 10;
+        
+        List<RowFilter<Object, Object>> filters = new ArrayList<>();
+        
+        if (text.trim().length() == 0) {
+            if (curTypeParty.equals("Tất cả")) {
+                // nếu không có tk nào được chọn
+                if (happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false) {
+                    rowSorter.setRowFilter(null);
+                    return;
+                } else { // nếu ít nhất 1 tk đc chọn 
+                    if (paymentNo.isSelected() == false && paymentYes.isSelected() == false) { // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;
+                        
+                    } else {
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
+                    }
+                    
+                }
+            } else {
+                filters.add(RowFilter.regexFilter(curTypeParty, typePartyFilterIndex));
+                // nếu không có tk nào đc chọn
+                if (happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false) {
+                    rowSorter.setRowFilter(RowFilter.regexFilter(curTypeParty, typePartyFilterIndex));
+                    return;
+                } else { // có ít nhất 1 tk được chọn
+                    if (paymentNo.isSelected() == false && paymentYes.isSelected() == false) { // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;
+                        
+                    } else {
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
+                    }
+                }
+            }
+        } else {
+            filters.add(RowFilter.regexFilter("(?i)" + text));
+            if (curTypeParty.equals("Tất cả")) {
+                if (happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false) {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    return;
+                } else { // có ít nhất 1 tk được chọn
+                    if (paymentNo.isSelected() == false && paymentYes.isSelected() == false) { // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;
+                        
+                    } else {
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
+                    }
+                }
+            } else {
+                filters.add(RowFilter.regexFilter(curTypeParty, typePartyFilterIndex));
+                if (happenWait.isSelected() == false && happenNow.isSelected() == false && happenDone.isSelected() == false && paymentNo.isSelected() == false && paymentYes.isSelected() == false) {
+                    rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                    return;
+                } else { // có ít nhất 1 tk được chọn
+                    if (paymentNo.isSelected() == false && paymentYes.isSelected() == false) { // nếu paymentstatus không có tk đc chọn
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+                        return;
+                    } else {
+                        filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
+                        filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
+                    }
+                }
+            }
+        }
+        
+        rowSorter.setRowFilter(RowFilter.andFilter(filters));
+    }
+    
+    private void clearTable() {
+        DefaultTableModel model = (DefaultTableModel) tableParty.getModel();
+        model.setRowCount(0);
+    }
+    
     private void setPartyTable() {
-
+        gListParty = PartyDAOImpl.getInstance().getList();
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(gListParty, tableParty);
-
+        
         rowSorter = new TableRowSorter<>(tableParty.getModel());
         tableParty.setRowSorter(rowSorter);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                String text = searchField.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
+                searchAndFilter();
                 sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
             }
+            
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchAndFilter();
+                sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+            }
+            
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                
+            }
         });
-
+        
         sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
-
+        
     }
-
+    
     private void setComboBoxTypeParty() {
         comboBoxTypeParty.removeAllItems();
         List<TypePartyModel> list = TypePartyDAOImpl.getInstance().getList();
@@ -90,21 +212,21 @@ public class PartyJPanel extends javax.swing.JPanel {
             comboBoxTypeParty.addItem(list.get(i).getName());
         }
     }
-
+    
     private int getIndexPartySelected() {
         int row = tableParty.getSelectedRow();
         return row;
     }
-
+    
     private void setCurrentParty() {
         int row = tableParty.getSelectedRow();
         gPartyCurrent = gListParty.get(row);
     }
-
+    
     private void printDialogErrorSelectParty() {
         JOptionPane.showMessageDialog(this, "Tiệc không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -128,6 +250,7 @@ public class PartyJPanel extends javax.swing.JPanel {
         searchField = new rojerusan.RSMetroTextPlaceHolder();
         button = new javax.swing.JPanel();
         addBtn = new rojeru_san.complementos.RSButtonHover();
+        printBill = new rojeru_san.complementos.RSButtonHover();
         paymentBtn = new rojeru_san.complementos.RSButtonHover();
         sumParty = new javax.swing.JLabel();
         filter = new javax.swing.JPanel();
@@ -239,13 +362,13 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         searchPanel.setBackground(getBackground());
 
-        searchField.setForeground(new java.awt.Color(0, 0, 0));
-        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.setBorderColor(new java.awt.Color(10, 77, 104));
         searchField.setBotonColor(new java.awt.Color(0, 0, 0));
         searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        searchField.setForeground(new java.awt.Color(0, 0, 0));
         searchField.setPhColor(new java.awt.Color(10, 77, 104));
         searchField.setPlaceholder("Tìm kiếm");
+        searchField.setToolTipText("Nhấn Enter để tìm");
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
@@ -286,8 +409,21 @@ public class PartyJPanel extends javax.swing.JPanel {
         });
         button.add(addBtn);
 
-        paymentBtn.setBackground(new java.awt.Color(10, 77, 104));
+        printBill.setText("Xem hóa đơn");
+        printBill.setBackground(new java.awt.Color(10, 77, 104));
+        printBill.setColorHover(new java.awt.Color(14, 112, 152));
+        printBill.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        printBill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        printBill.setPreferredSize(new java.awt.Dimension(130, 40));
+        printBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printBillActionPerformed(evt);
+            }
+        });
+        button.add(printBill);
+
         paymentBtn.setText("Thanh toán");
+        paymentBtn.setBackground(new java.awt.Color(10, 77, 104));
         paymentBtn.setColorHover(new java.awt.Color(14, 112, 152));
         paymentBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         paymentBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -331,14 +467,19 @@ public class PartyJPanel extends javax.swing.JPanel {
         labelGoogleIcon1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         payment.add(labelGoogleIcon1);
 
-        happenWait.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         happenWait.setText("Sắp tới");
         happenWait.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        happenWait.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        happenWait.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                happenWaitActionPerformed(evt);
+            }
+        });
         payment.add(happenWait);
 
-        happenNow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         happenNow.setText("Đang tổ chức");
         happenNow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        happenNow.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         happenNow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 happenNowActionPerformed(evt);
@@ -346,9 +487,9 @@ public class PartyJPanel extends javax.swing.JPanel {
         });
         payment.add(happenNow);
 
-        happenDone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         happenDone.setText("Đã xong");
         happenDone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        happenDone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         happenDone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 happenDoneActionPerformed(evt);
@@ -364,9 +505,9 @@ public class PartyJPanel extends javax.swing.JPanel {
         labelGoogleIcon2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         happen.add(labelGoogleIcon2);
 
-        paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         paymentNo.setText("Chưa");
         paymentNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paymentNo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         paymentNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentNoActionPerformed(evt);
@@ -374,9 +515,9 @@ public class PartyJPanel extends javax.swing.JPanel {
         });
         happen.add(paymentNo);
 
-        paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         paymentYes.setText("Xong");
         paymentYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paymentYes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         paymentYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentYesActionPerformed(evt);
@@ -434,37 +575,30 @@ public class PartyJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
-        String curTypeParty = (String) comboBoxTypeParty.getSelectedItem();
-        int columnIndex = 2;
-        if (curTypeParty.equals("Tất cả")) {
-            tableParty.setRowSorter(null); // Không sử dụng RowSorter nếu loại đồ ăn được chọn là Tất cả.
-        } else {
-            rowSorter = new TableRowSorter<>(tableParty.getModel());
-            tableParty.setRowSorter(rowSorter);
-            rowSorter.setRowFilter(RowFilter.regexFilter(curTypeParty, columnIndex)); // Lọc dữ liệu trên bảng theo giá trị được chọn từ combobox.
-        }
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }//GEN-LAST:event_comboBoxTypePartyActionPerformed
 
     private void seeMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeMenuBtnActionPerformed
         try {
             setCurrentParty();
-
+            
             AddPartyMenuView.isPartyMenuEdit = false;
-
+            
             AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
             printDialogErrorSelectParty();
-
+            
         }
     }//GEN-LAST:event_seeMenuBtnActionPerformed
 
     private void seePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seePartyBtnActionPerformed
         try {
             setCurrentParty();
-
+            
             AddPartyView.isPartyEdit = false;
-
+            
             AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
@@ -475,7 +609,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void selectDishBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDishBtnActionPerformed
         try {
             setCurrentParty();
-
+            
             AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
@@ -486,23 +620,23 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void editMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuBtnActionPerformed
         try {
             setCurrentParty();
-
+            
             AddPartyMenuView.isPartyMenuEdit = true;
-
+            
             AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
             printDialogErrorSelectParty();
-
+            
         }
     }//GEN-LAST:event_editMenuBtnActionPerformed
 
     private void editPartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPartyBtnActionPerformed
         try {
             setCurrentParty();
-
+            
             AddPartyView.isPartyEdit = true;
-
+            
             AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
@@ -517,36 +651,59 @@ public class PartyJPanel extends javax.swing.JPanel {
                 editBtn.setEnabled(false);
             } else {
                 editBtn.setEnabled(true);
-
+                
+            }
+            
+            if (gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.GOING_ON || gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.DONE) {
+                selectDishBtn.setEnabled(false);
+            } else {
+                selectDishBtn.setEnabled(true);
             }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
 
-    private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
-        // TODO add your handling code here:
+    private void happenWaitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_happenWaitActionPerformed
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+    }//GEN-LAST:event_happenWaitActionPerformed
 
+    private void printBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBillActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printBillActionPerformed
+    
+    private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenNowActionPerformed
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+    }// GEN-LAST:event_happenNowActionPerformed
+
+    private void happenDoneActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenDoneActionPerformed
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
+    }// GEN-LAST:event_happenDoneActionPerformed
+
+    private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
+        String ObjButtons[] = {"Thanh toán", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(Helper.getWindow(this), "Xác nhận thanh toán?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+//
+        }
+        
     }// GEN-LAST:event_paymentBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {
         AddPartyView addParty = new AddPartyView();
         addParty.setVisible(true);
     }
-
-    private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenNowActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_happenNowActionPerformed
-
-    private void happenDoneActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenDoneActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_happenDoneActionPerformed
-
+    
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentNoActionPerformed
-        // TODO add your handling code here:
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }// GEN-LAST:event_paymentNoActionPerformed
 
     private void paymentYesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentYesActionPerformed
-        // TODO add your handling code here:
+        searchAndFilter();
+        sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }// GEN-LAST:event_paymentYesActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeBtnActionPerformed
@@ -555,19 +712,21 @@ public class PartyJPanel extends javax.swing.JPanel {
             int a = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa hay không?", "Lựa chọn", JOptionPane.YES_NO_OPTION);
             if (a == 0) {
                 if (PartyDAOImpl.getInstance().delete(gPartyCurrent.getID())) {
-
+                    clearTable();
+//                    rdoAll.setSelected(true);
+                    setPartyTable();
                     JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
-
+                
             }
         } catch (Exception e) {
             printDialogErrorSelectParty();
         }
     }
-
+    
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_searchFieldActionPerformed
@@ -597,6 +756,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox paymentNo;
     private javax.swing.JCheckBox paymentYes;
     private javax.swing.JPopupMenu popupMenu;
+    private rojeru_san.complementos.RSButtonHover printBill;
     private javax.swing.JMenuItem removeBtn;
     private javax.swing.JPanel searchAndButton;
     private rojerusan.RSMetroTextPlaceHolder searchField;

@@ -92,7 +92,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getPhoneNumber());
-            ps.setInt(3, customer.isSex());
+            ps.setInt(3, customer.getSex());
             ps.setString(4, customer.getCitizenNumber());
             ps.setString(5, customer.getAddress());
 
@@ -131,12 +131,12 @@ public class CustomerDAOImpl implements CustomerDAO {
         boolean isUpdated = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "UPDATE CUSTOMER SET Name = ?, PhoneNumber = ?, Sex = ?, UN_CitizenNumber = ?, Address = ? WHERE CustomerID = ?";
+            String sql = "UPDATE CUSTOMER SET Name = ?, UN_PhoneNumber = ?, Sex = ?, UN_CitizenNumber = ?, Address = ? WHERE CustomerID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getPhoneNumber());
-            ps.setInt(3, customer.isSex());
+            ps.setInt(3, customer.getSex());
             ps.setString(4, customer.getCitizenNumber());
             ps.setString(5, customer.getAddress());
             ps.setInt(6, customer.getID());

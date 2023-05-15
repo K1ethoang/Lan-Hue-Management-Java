@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import static java.time.temporal.TemporalQueries.localDate;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
 import model.HappenStatusModel;
@@ -53,6 +54,8 @@ public class AddPartyView extends javax.swing.JFrame {
         setComboBoxPhoneNumber();
         setComboBoxTypeParty();
         initDateTimeField();
+
+        Helper.setQuestionBeforeClose(this);
     }
 
     public AddPartyView(PartyModel _partyModel) {
@@ -69,6 +72,7 @@ public class AddPartyView extends javax.swing.JFrame {
 
         setDataParty(_partyModel, isPartyEdit);
 
+        Helper.setQuestionBeforeClose(this);
     }
 
     private void setScroll() {
@@ -91,9 +95,25 @@ public class AddPartyView extends javax.swing.JFrame {
         party.setLocation(panelLocation2.getFullAddress());
         party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
         party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
+//        System.out.println("True or False: "+PartyDAOImpl.getInstance().insert(party));
+        return PartyDAOImpl.getInstance().insert(party);
+//        return false;
+    }
 
-        System.out.println(PartyDAOImpl.getInstance().insert(party));
-        return false;
+    boolean updateParty() {
+        PartyModel party = new PartyModel();
+        party.setCustomer(gCustomerModel);
+        party.setPartyName(TF_partyName.getText());
+        party.setTableNumber((int) SP_partyNumber.getValue());
+        party.setTypeParty(gTypeParty);
+        party.setTime(Time.valueOf(SP_time.getTime()));
+        party.setDate(Date.valueOf(TF_date.getDate()));
+        party.setNote(textAreaNote.getText());
+        party.setLocation(panelLocation2.getFullAddress());
+        party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
+        party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
+        System.out.println("True or False: " + PartyDAOImpl.getInstance().insert(party));
+        return PartyDAOImpl.getInstance().update(party);
     }
 
     private void initDateTimeField() {
@@ -223,6 +243,8 @@ public class AddPartyView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         ScrollPaneNote = new javax.swing.JScrollPane();
         textAreaNote = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         panelLocation2 = new view.component.PanelLocation();
         bottom = new javax.swing.JPanel();
         savePartyBtn = new rojeru_san.complementos.RSButtonHover();
@@ -356,6 +378,14 @@ public class AddPartyView extends javax.swing.JFrame {
 
         jPanel2.add(panelNote);
 
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 5));
+
+        jLabel12.setText("Địa điểm tổ chức");
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jPanel4.add(jLabel12);
+
+        jPanel2.add(jPanel4);
+
         panelLocation2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
         jPanel2.add(panelLocation2);
 
@@ -428,11 +458,31 @@ public class AddPartyView extends javax.swing.JFrame {
     }//GEN-LAST:event_TF_nameCustomerActionPerformed
 
     private void savePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePartyBtnActionPerformed
-        insertParty();
+        boolean isEditOk = false, isInsertOk = false;
+
+        if (isPartyEdit) {
+            isEditOk = updateParty();
+        } else {
+            isInsertOk = insertParty();
+        }
+
+        if (isInsertOk) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else if (isEditOk) {
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_savePartyBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        this.dispose();
+        String ObjButtons[] = {"Thoát", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void comboBoxPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPhoneNumberActionPerformed
@@ -515,6 +565,7 @@ public class AddPartyView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -526,6 +577,7 @@ public class AddPartyView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelLeft;
     private view.component.PanelLocation panelLocation2;

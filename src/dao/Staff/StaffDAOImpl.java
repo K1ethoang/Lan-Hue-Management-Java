@@ -34,8 +34,8 @@ public class StaffDAOImpl implements StaffDAO {
                 staff.setID(rs.getInt("StaffID"));
                 staff.setName(rs.getString("Name"));
                 staff.setSex(rs.getInt("Sex"));
-                staff.setSdt(rs.getString("UN_PhoneNumber"));
-                staff.setCccd(rs.getString("UN_CitizenNumber"));
+                staff.setPhoneNumber(rs.getString("UN_PhoneNumber"));
+                staff.setCitizenNumber(rs.getString("UN_CitizenNumber"));
                 staff.setAddress(rs.getString("Address"));
                 staff.setRole(roleModel);
 
@@ -61,9 +61,9 @@ public class StaffDAOImpl implements StaffDAO {
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, staff.getName());
-            ps.setInt(2, staff.isSex());
-            ps.setString(3, staff.getSdt());
-            ps.setString(4, staff.getCccd());
+            ps.setInt(2, staff.getSex());
+            ps.setString(3, staff.getPhoneNumber());
+            ps.setString(4, staff.getCitizenNumber());
             ps.setString(5, staff.getAddress());
             ps.setInt(6, staff.getRole().getRoleID());
 
@@ -75,11 +75,6 @@ public class StaffDAOImpl implements StaffDAO {
             e.printStackTrace();
         }
         return isOk;
-    }
-
-    public static void main(String[] args) {
-        StaffModel staff = new StaffModel();
-        StaffDAOImpl.getInstance().insert(staff);
     }
 
     @Override
@@ -107,14 +102,14 @@ public class StaffDAOImpl implements StaffDAO {
         boolean isUpdated = false;
         try {
             Connection con = DBConnection.getConnection();
-            String sql = "UPDATE STAFF SET Name = ?, Sex = ?, PhoneNumber = ?, UN_CitizenNumber = ?, Address = ?, RoleID = ? WHERE StaffID = ?";
+            String sql = "UPDATE STAFF SET Name = ?, Sex = ?, UN_PhoneNumber = ?, UN_CitizenNumber = ?, Address = ?, RoleID = ? WHERE StaffID = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            if (!staff.getName().isEmpty() && !staff.getSdt().isEmpty() && (staff.isSex() == 0 || staff.isSex() == 1) && !staff.getCccd().isEmpty() && !staff.getAddress().isEmpty() && !staff.getRole().getRoleName().isEmpty()) {
+            if (!staff.getName().isEmpty() && !staff.getPhoneNumber().isEmpty() && (staff.getSex() == 0 || staff.getSex() == 1) && !staff.getCitizenNumber().isEmpty() && !staff.getAddress().isEmpty() && !staff.getRole().getRoleName().isEmpty()) {
                 ps.setString(1, staff.getName());
-                ps.setInt(2, staff.isSex());
-                ps.setString(3, staff.getSdt());
-                ps.setString(4, staff.getCccd());
+                ps.setInt(2, staff.getSex());
+                ps.setString(3, staff.getPhoneNumber());
+                ps.setString(4, staff.getCitizenNumber());
                 ps.setString(5, staff.getAddress());
                 ps.setInt(6, staff.getRole().getRoleID());
                 ps.setInt(7, staff.getID());

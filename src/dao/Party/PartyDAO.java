@@ -8,6 +8,6 @@ public interface PartyDAO {
     public List<PartyModel> getList();
 
     public boolean insert(PartyModel party);
-
+    public boolean update(PartyModel party);
     public boolean delete(int id);
 }

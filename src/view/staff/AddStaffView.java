@@ -37,6 +37,8 @@ public class AddStaffView extends javax.swing.JFrame {
         gListRole = RoleDAOImpl.getInstance().getList();
         TF_staffID.setEditable(false);
         setComboboxRole();
+
+        Helper.setQuestionBeforeClose(this);
     }
 
     public AddStaffView(StaffModel _staffModel) {
@@ -51,6 +53,16 @@ public class AddStaffView extends javax.swing.JFrame {
         setComboboxRole();
 
         setData(_staffModel, isEditStaff);
+
+        Helper.setQuestionBeforeClose(this);
+    }
+
+    public String getName() {
+        String name = TF_NameStaff.getText().trim();
+        if (name.isEmpty()) {
+            return null;
+        }
+        return name;
     }
 
     private String getPhoneNumber() {
@@ -63,14 +75,14 @@ public class AddStaffView extends javax.swing.JFrame {
 
     boolean insertStaff() {
         StaffModel staff = new StaffModel();
-        staff.setName(TF_NameStaff.getText().trim());
+        staff.setName(getName());
         if (rdoNam.isSelected()) {
             staff.setSex(1);
         } else if (rdoNu.isSelected()) {
             staff.setSex(0);
         }
-        staff.setSdt(getPhoneNumber());
-        staff.setCccd(getCitizenNumber());
+        staff.setPhoneNumber(getPhoneNumber());
+        staff.setCitizenNumber(getCitizenNumber());
         staff.setAddress(panelLocation2.getFullAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
@@ -85,14 +97,14 @@ public class AddStaffView extends javax.swing.JFrame {
     public boolean updateStaff() {
         StaffModel staff = new StaffModel();
         staff.setID(Integer.parseInt(TF_staffID.getText()));
-        staff.setName(TF_NameStaff.getText());
+        staff.setName(getName());
         if (rdoNam.isSelected()) {
             staff.setSex(1);
         } else if (rdoNu.isSelected()) {
             staff.setSex(0);
         }
-        staff.setSdt(getPhoneNumber());
-        staff.setCccd(getCitizenNumber());
+        staff.setPhoneNumber(getPhoneNumber());
+        staff.setCitizenNumber(getCitizenNumber());
         staff.setAddress(panelLocation2.getFullAddress());
 
         for (int i = 0; i < gListRole.size(); i++) {
@@ -121,13 +133,13 @@ public class AddStaffView extends javax.swing.JFrame {
         comboBoxRole.setSelectedItem(_staffModel.getRole().getRoleName());
 
         TF_NameStaff.setText(_staffModel.getName());
-        FTF_phoneNumber.setText(_staffModel.getSdt());
-        if (_staffModel.isSex() == 1) {
+        FTF_phoneNumber.setText(_staffModel.getPhoneNumber());
+        if (_staffModel.getSex() == 1) {
             rdoNam.setSelected(true);
         } else {
             rdoNu.setSelected(true);
         }
-        FTF_CCCD.setText(_staffModel.getCccd());
+        FTF_CCCD.setText(_staffModel.getCitizenNumber());
         panelLocation2.setAll(_staffModel.getAddress());
 
         setFieldEnable(isEditStaff);
@@ -311,7 +323,14 @@ public class AddStaffView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtn2ActionPerformed
-        this.dispose();
+        if (isEditStaff) {
+            String ObjButtons[] = {"Thoát", "Hủy"};
+            int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+            if (PromptResult == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        } else
+            this.dispose();
     }//GEN-LAST:event_cancelBtn2ActionPerformed
 
     private void saveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtn2ActionPerformed
