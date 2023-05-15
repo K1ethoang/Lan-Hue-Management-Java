@@ -107,7 +107,7 @@ VALUES
     
 INSERT INTO Party(PartyName, TableNumber, Date, Time, Location, Note, CustomerID, HappenStatusID, PaymentStatusID, TypePartyID)
 VALUES 
-	('Đám cưới Ngọc và Huy', 100, '2023-05-16', ' 15:00:00', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party A', 1, 1, 1, 1),
+	('Đám cưới Ngọc và Huy', 100, '2023-05-30', ' 15:00:00', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party A', 1, 1, 1, 1),
 	('Khai trương Phát Đạt', 8, '2023-06-20','18:30:00', '64/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party B', 2, 2, 2, 2),
 	('Sinh nhật Gia Bảo', 10, '2023-07-10','12:00:00', '66/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party C', 3, 3, 2, 1),
 	('Khai trương Thuận Phát', 6, '2023-08-05', '19:00:00', '66 Trần Quang Diệu, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai'	, 'Note for Party D', 4, 2, 1, 3),
