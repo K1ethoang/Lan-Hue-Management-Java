@@ -104,9 +104,6 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxPhoneNumberActionPerformed"/>
-                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -117,9 +114,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="TF_nameCustomer">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_nameCustomerActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -173,9 +167,6 @@
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_partyIDActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel12">
                       <Properties>
@@ -183,9 +174,6 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="TF_partyName">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_partyNameActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel13">
                       <Properties>
@@ -201,9 +189,6 @@
                           <Connection code="2" type="code"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="SP_partyNumberStateChanged"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -226,9 +211,6 @@
                           <StringArray count="0"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxTypePartyActionPerformed"/>
-                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>

@@ -1,25 +1,20 @@
 package view.party;
 
-import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.github.lgooddatepicker.components.TimePickerSettings;
-import com.github.lgooddatepicker.optionalusertools.DateHighlightPolicy;
 import dao.Dish.DishDAOImpl;
 import dao.Party.PartyDAOImpl;
 import dao.TypeDish.TypeDishDAOImpl;
 import java.sql.Time;
-import java.text.DateFormatSymbols;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import model.CustomerModel;
 import model.DishModel;
@@ -37,11 +32,11 @@ public class AddPartyMenuView extends javax.swing.JFrame {
 
     protected static boolean isPartyMenuEdit = false;
 
-    List<CustomerModel> gListCustomer = null;
-    List<DishModel> gListDish = DishDAOImpl.getInstance().getList();
-    List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
+//    List<CustomerModel> gListCustomer = null;
+//    List<DishModel> gListDish = DishDAOImpl.getInstance().getList();
+//    List<TypeDishModel> gListTypeDish = TypeDishDAOImpl.getInstance().getList();
     PartyModel gPartyModel = null;
-    CustomerModel gCustomerModel = null;
+//    CustomerModel gCustomerModel = null;
 
     DefaultListModel dlmSelectedMenuDish = new DefaultListModel();
 //    List<DishModel> gCurrentListMenuDish = null;
@@ -112,9 +107,7 @@ public class AddPartyMenuView extends javax.swing.JFrame {
 
     private void setComboBoxTypeDish() {
         CB_typeDish.removeAllItems();
-        for (int i = 0; i < gListTypeDish.size(); i++) {
-            CB_typeDish.addItem(gListTypeDish.get(i).getTypeName());
-        }
+        CB_typeDish.addItem(gPartyModel.getTypeParty().getName());
     }
 
     private void setDataSeePartyMenu(PartyModel partyModel, boolean isEdit) {
@@ -250,21 +243,10 @@ public class AddPartyMenuView extends javax.swing.JFrame {
         jLabel6.setText("SĐT liên hệ (*)");
         panelCustomer.add(jLabel6);
 
-        comboBoxPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxPhoneNumberActionPerformed(evt);
-            }
-        });
         panelCustomer.add(comboBoxPhoneNumber);
 
         jLabel5.setText("Khách hàng (*)");
         panelCustomer.add(jLabel5);
-
-        TF_nameCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_nameCustomerActionPerformed(evt);
-            }
-        });
         panelCustomer.add(TF_nameCustomer);
 
         jPanel2.add(panelCustomer);
@@ -287,21 +269,10 @@ public class AddPartyMenuView extends javax.swing.JFrame {
 
         TF_partyID.setEditable(false);
         TF_partyID.setText("0");
-        TF_partyID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_partyIDActionPerformed(evt);
-            }
-        });
         panelLeft1.add(TF_partyID);
 
         jLabel12.setText("Tên tiệc");
         panelLeft1.add(jLabel12);
-
-        TF_partyName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TF_partyNameActionPerformed(evt);
-            }
-        });
         panelLeft1.add(TF_partyName);
 
         jLabel13.setText("Số bàn (*)");
@@ -309,11 +280,6 @@ public class AddPartyMenuView extends javax.swing.JFrame {
 
         SP_partyNumber.setEditor(new javax.swing.JSpinner.NumberEditor(SP_partyNumber, ""));
         SP_partyNumber.setValue(2);
-        SP_partyNumber.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                SP_partyNumberStateChanged(evt);
-            }
-        });
         panelLeft1.add(SP_partyNumber);
 
         center.add(panelLeft1);
@@ -323,11 +289,6 @@ public class AddPartyMenuView extends javax.swing.JFrame {
         jLabel14.setText("Loại tiệc (*)");
         panelRight1.add(jLabel14);
 
-        comboBoxTypeParty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxTypePartyActionPerformed(evt);
-            }
-        });
         panelRight1.add(comboBoxTypeParty);
 
         jLabel15.setText("Thời gian (*)");
@@ -499,7 +460,7 @@ public class AddPartyMenuView extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,7 +523,11 @@ public class AddPartyMenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_savePartyMenuBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        this.dispose();
+        String ObjButtons[] = {"Thoát", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+            this.dispose();
+        }
     }//GEN-LAST:event_cancelBtnActionPerformed
 
 //    private double calculatingTotalPriceSelectedDish(double beforeSum, int indexCurrentOfMenuList, boolean isAdd) {
@@ -577,19 +542,6 @@ public class AddPartyMenuView extends javax.swing.JFrame {
 //    }
 
     private void CB_typeDishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_typeDishActionPerformed
-        String curTypeDish = (String) CB_typeDish.getSelectedItem();
-        DefaultListModel dlmMenuDish = new DefaultListModel();
-//        gCurrentListMenuDish.clear();
-
-        for (int i = 0; i < gListDish.size(); i++) {
-            DishModel dish = gListDish.get(i);
-            if (curTypeDish.equals(dish.getTypeDish().getTypeName())) {
-//                gCurrentListMenuDish.add(dish);
-                dlmMenuDish.addElement(dish.getDishName() + " - " + Helper.formatPriceToDisplay(dish.getPrice()));
-
-            }
-        }
-        menuList.setModel(dlmMenuDish);
     }//GEN-LAST:event_CB_typeDishActionPerformed
 
     private void removeDishBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeDishBtnActionPerformed
@@ -619,36 +571,6 @@ public class AddPartyMenuView extends javax.swing.JFrame {
     private void TF_totalPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_totalPriceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_totalPriceActionPerformed
-
-    private void comboBoxTypePartyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTypePartyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxTypePartyActionPerformed
-
-    private void SP_partyNumberStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SP_partyNumberStateChanged
-        int number = (int) SP_partyNumber.getValue();
-        if (number < 2) {
-            SP_partyNumber.setValue(2);
-        }
-    }//GEN-LAST:event_SP_partyNumberStateChanged
-
-    private void TF_partyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyNameActionPerformed
-        //
-    }//GEN-LAST:event_TF_partyNameActionPerformed
-
-    private void TF_partyIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_partyIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_partyIDActionPerformed
-
-    private void TF_nameCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_nameCustomerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF_nameCustomerActionPerformed
-
-    private void comboBoxPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPhoneNumberActionPerformed
-        if (gListCustomer != null) {
-            gCustomerModel = gListCustomer.get(comboBoxPhoneNumber.getSelectedIndex());
-            TF_nameCustomer.setText(gCustomerModel.getName());
-        }
-    }//GEN-LAST:event_comboBoxPhoneNumberActionPerformed
 
     /**
      * @param args the command line arguments

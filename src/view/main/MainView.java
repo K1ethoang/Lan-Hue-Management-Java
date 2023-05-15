@@ -414,7 +414,7 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        int option = JOptionPane.showConfirmDialog(this, "Bạn muốn đăng xuất?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        int option = JOptionPane.showConfirmDialog(this, "Bạn muốn đăng xuất?", "Quản lý tiệc Lan Huệ", JOptionPane.YES_NO_OPTION);
         if (option == ConfirmationCallback.YES) {
             this.dispose();
             LoginView login = new LoginView();
@@ -427,7 +427,11 @@ public class MainView extends javax.swing.JFrame {
     }// GEN-LAST:event_minimizeBtnMouseClicked
 
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_closeBtnMouseClicked
-        System.exit(0);
+        String ObjButtons[] = {"Thoát", "Hủy"};
+        int PromptResult = JOptionPane.showOptionDialog(this, "Bạn thực sự muốn thoát?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+        if (PromptResult == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }// GEN-LAST:event_closeBtnMouseClicked
 
     private void topPanelMouseDragged(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_topPanelMouseDragged
