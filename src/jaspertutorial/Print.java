@@ -15,19 +15,29 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.view.JasperViewer;
+//import net.sf.jasperreports.engine.util.JRProperties;
+import java.awt.GraphicsEnvironment;
 
 public class Print {
     public Print(String customerID, Connection con){
         
         HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("cusID", customerID);
+        parameters.put("chid", customerID);
+        
+        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+
+        // In ra danh sách các font chữ
+        for (String font : fonts) {
+            System.out.println(font);
+        }
+//        JRProperties.setProperty(JRProperties.DEFAULT_FONT_FACE, "Times New Roman");
         
         try {
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream("/jaspertutorial/jasperReportBill.jasper"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream("/jaspertutorial/jasperReportBillLanHue.jasper"));
             
             JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, con);
-            
-//            JasperViewer.viewReport(jp, true);
+//            jp.setDefaultFontName("Times New Roman");
+            JasperViewer.viewReport(jp, true);
 //            JasperExportManager.exportReportToPdf(jp, new FileOutputStream(new File("C:/printJasperReport/reportBill.pdf")));
 
 //            File file = new File("C:/printJasperReport/report.pdf");

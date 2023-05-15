@@ -1,10 +1,10 @@
 INSERT INTO Customer (Name, UN_PhoneNumber, Sex, UN_CitizenNumber, Address) 
 VALUES
-	('Nguyễn Văn Vũ', '0123456789', 1, '123456789012', '78 đường 17'),
-	('Nguyễn Ninh Ninh', '0234567890', 0, '234567890123', '76/2 đường Phạm Văn Đồng'),
-	('Lý Tiểu Long', '0345678901', 1, '345678901234', '26 đường 16'),
-	('Đoàn Thị Minh Nguyệt', '0456789012', 0, '456789012345', '34/2A'),
-	('Chu Văn Chương', '0567890123', 1, '567890123456', '24 đường Lê Văn Chí');
+	('Nguyễn Văn Vũ', '0123456789', 1, '123456789012', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai'),
+	('Nguyễn Ninh Ninh', '0234567890', 0, '234567890123', '76/2 đường Phạm Văn Đồng, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai'),
+	('Lý Tiểu Long', '0345678901', 1, '345678901234', '26 đường 16, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai'),
+	('Đoàn Thị Minh Nguyệt', '0456789012', 0, '456789012345', '34/2A, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai'),
+	('Chu Văn Chương', '0567890123', 1, '567890123456', '24 đường Lê Văn Chí, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai');
     
 INSERT INTO PaymentStatus (UN_StatusCode, StatusName)
 VALUES 
@@ -40,11 +40,11 @@ INSERT INTO Role (RoleName) VALUES
 
 INSERT INTO Staff(Name, Sex, UN_PhoneNumber, UN_CitizenNumber, Address, RoleID)
 VALUES
-	('Nguyễn Văn Trí', 1, '0123456789', '012345678901', '78 đường 17', 1),
-	('Phạm Thị Trang', 0, '0234567890', '123456789012', '66/2 đường 18', 2),
-	('Trần Văn Nguyễn Ánh', 0, '0345678901', '234567890123', '64/2 đường 18', 3),
-	('Lê Quốc Công Thần', 1, '0456789012', '345678901234', '25 Phạm Văn Đồng', 2),
-	('Vũ Văn Phong', 1, '0567890123', '456789012345', '66 Trần Quang Diệu', 4);
+	('Nguyễn Văn Trí', 1, '0123456789', '012345678901', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 1),
+	('Phạm Thị Trang', 0, '0234567890', '123456789012', '66/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 2),
+	('Trần Văn Nguyễn Ánh', 0, '0345678901', '234567890123', '64/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 3),
+	('Lê Quốc Công Thần', 1, '0456789012', '345678901234', '25 Phạm Văn Đồng, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 2),
+	('Vũ Văn Phong', 1, '0567890123', '456789012345', '66 Trần Quang Diệu, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 4);
 
 INSERT INTO Dish(DishName, CostPrice, TypeDishID)
 VALUES 
@@ -107,11 +107,11 @@ VALUES
     
 INSERT INTO Party(PartyName, TableNumber, Date, Time, Location, Note, CustomerID, HappenStatusID, PaymentStatusID, TypePartyID)
 VALUES 
-	('Đám cưới Ngọc và Huy', 100, '2023-05-15', ' 15:00:00', 'Hanoi', 'Note for Party A', 1, 1, 1, 1),
-	('Khai trương Phát Đạt', 8, '2023-06-20','18:30:00', 'Ho Chi Minh City', 'Note for Party B', 2, 2, 2, 2),
-	('Sinh nhật Gia Bảo', 10, '2023-07-10','12:00:00', 'Da Nang', 'Note for Party C', 3, 3, 2, 1),
-	('Khai trương Thuận Phát', 6, '2023-08-05', '19:00:00', 'Nha Trang', 'Note for Party D', 4, 2, 1, 3),
-	('Đám cưới Tần và Thủy', 120, '2023-09-02', '16:00:00', 'Ha Long', 'Note for Party E', 5, 1, 2, 4);
+	('Đám cưới Ngọc và Huy', 100, '2023-05-16', ' 15:00:00', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party A', 1, 1, 1, 1),
+	('Khai trương Phát Đạt', 8, '2023-06-20','18:30:00', '64/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party B', 2, 2, 2, 2),
+	('Sinh nhật Gia Bảo', 10, '2023-07-10','12:00:00', '66/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party C', 3, 3, 2, 1),
+	('Khai trương Thuận Phát', 6, '2023-08-05', '19:00:00', '66 Trần Quang Diệu, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai'	, 'Note for Party D', 4, 2, 1, 3),
+	('Đám cưới Tần và Thủy', 120, '2023-09-02', '16:00:00', '25 Phạm Văn Đồng, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party E', 5, 1, 2, 4);
     
 INSERT INTO Invoice(`Time`, Total, StaffID, PartyID, CustomerID)
 VALUES 
@@ -132,6 +132,40 @@ VALUES
 	(4, 3),
 	(5, 2),
 	(5, 5);
+    
+INSERT INTO work(PartyID, StaffID, Salary)
+VALUES
+	(1, 1, 400000),
+    (1, 2, 600000),
+    (1, 3, 400000),
+    (1, 4, 600000),
+    (1, 5, 400000),
+    
+    (2, 1, 400000),
+    (2, 2, 600000),
+    (2, 3, 400000),
+    (2, 4, 600000),
+    (2, 5, 400000),
+    
+    (3, 1, 400000),
+    (3, 2, 600000),
+    (3, 3, 400000),
+    (3, 4, 600000),
+    (3, 5, 400000),
+    
+    (4, 1, 400000),
+    (4, 2, 600000),
+    (4, 3, 400000),
+    (4, 4, 600000),
+    (4, 5, 400000),
+    
+    (5, 1, 400000),
+    (5, 2, 600000),
+    (5, 3, 400000),
+    (5, 4, 600000),
+    (5, 5, 400000);
+    
+    
 
 
 

@@ -49,6 +49,8 @@ CREATE TABLE IF NOT EXISTS HappenStatus(
     CONSTRAINT PkHappenStatus_HappenStatusID PRIMARY KEY (HappenStatusID),
     CONSTRAINT UnHappenStatus_UN_StatusCode UNIQUE (UN_StatusCode)
 );
+-- Cập nhật UN_StatusCode trong bảng HappenStatus dựa trên Date trong bảng Party
+
 -- TRUNCATE TABLE HappenStatus;
 -- INSERT INTO HappenStatus (UN_StatusCode, StatusName) VALUES (0, "Chưa thanh toán");
 
@@ -211,6 +213,18 @@ CREATE TABLE Account(
 INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`) VALUES 
 ('1', 'admin', 'admin')
 ;
+
+UPDATE HappenStatus
+JOIN Party ON HappenStatus.HappenStatusID = Party.HappenStatusID
+SET HappenStatus.UN_StatusCode = (
+    CASE
+        WHEN Party.`Date` < CURDATE() THEN 2 -- Đã xong
+        WHEN Party.`Date` > CURDATE() THEN 0 -- Sắp tới
+        ELSE 1 -- Đang tổ chức
+    END
+)
+WHERE HappenStatus.HappenStatusID > 0;
+
 
 -- use lanhuemanagement;
 -- SELECT p.*, tp.UN_TypeName AS typeParty, c.name AS customerName, c.phoneNumber as customerPhoneNumber,

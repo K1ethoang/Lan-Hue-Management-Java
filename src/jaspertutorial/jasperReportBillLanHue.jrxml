@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jasperReportBillLanHue" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="42e0bdff-c0c9-4964-ba2d-c1f125bd39b8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[bGFuaHVlbWFuYWdlbWVudC5wYXJ0eSBBUyAsMjMsMzUsYTMxNGE0YmYtNmVhZi00ZjMzLWIyYTYt
+ZDc0NTQxNDUxZGYzO2xhbmh1ZW1hbmFnZW1lbnQuY3VzdG9tZXIgQVMgLDIxMSwzMyw1N2I0Yjgy
+MC1hNDQ1LTQ5YjMtYjQyOS00MmMwMzFkNjdjZDA7]]>
+	</property>
+	<parameter name="chid" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT lanhuemanagement.party.`PartyID`,
+	lanhuemanagement.party.`PartyName`,
+	lanhuemanagement.party.`TableNumber`,
+	lanhuemanagement.party.`Date`,
+	lanhuemanagement.party.`Time`,
+	lanhuemanagement.party.`Location`,
+	lanhuemanagement.party.`CustomerID`,
+	lanhuemanagement.customer.`CustomerID`,
+	lanhuemanagement.customer.`Name`,
+	lanhuemanagement.customer.`UN_PhoneNumber`,
+	lanhuemanagement.customer.`Sex`,
+	lanhuemanagement.customer.`UN_CitizenNumber`,
+	lanhuemanagement.customer.`Address`
+FROM lanhuemanagement.party
+	INNER JOIN lanhuemanagement.customer ON 
+	 lanhuemanagement.party.`CustomerID` = lanhuemanagement.customer.`CustomerID` 
+WHERE 
+	 lanhuemanagement.party.`PartyID` = '$P!{chid}']]>
+	</queryString>
+	<field name="PartyID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="PartyID"/>
+		<property name="com.jaspersoft.studio.field.label" value="PartyID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="party"/>
+	</field>
+	<field name="PartyName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PartyName"/>
+		<property name="com.jaspersoft.studio.field.label" value="PartyName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="party"/>
+	</field>
+	<field name="TableNumber" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="TableNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="TableNumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="party"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="party"/>
+	</field>
+	<field name="Time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="Time"/>
+		<property name="com.jaspersoft.studio.field.label" value="Time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="party"/>
+	</field>
+	<field name="Location" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Location"/>
+		<property name="com.jaspersoft.studio.field.label" value="Location"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="party"/>
+	</field>
+	<field name="CustomerID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="CustomerID"/>
+		<property name="com.jaspersoft.studio.field.label" value="CustomerID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="party"/>
+	</field>
+	<field name="COLUMN_8" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="CustomerID"/>
+		<property name="com.jaspersoft.studio.field.label" value="CustomerID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="UN_PhoneNumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UN_PhoneNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="UN_PhoneNumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Sex" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="Sex"/>
+		<property name="com.jaspersoft.studio.field.label" value="Sex"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="UN_CitizenNumber" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="UN_CitizenNumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="UN_CitizenNumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Address"/>
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="0" width="595" height="50" forecolor="#3399CC" uuid="31ef63f0-f933-45d6-80ca-fd0a3c173138"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="28" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[HÓA ĐƠN TIỆC LAN HUỆ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="424" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="50" width="280" height="30" forecolor="#3399CC" uuid="6d55022b-14e7-42bc-83b9-bae426aeca1a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Thông tin khách hàng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="50" width="40" height="30" uuid="59f50951-33b8-4807-b0d7-d8ebfc00efa9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="90" width="90" height="30" uuid="f765d13a-184a-408f-b5dc-5de07e99e498"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tên:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="120" width="90" height="30" uuid="de3ce90f-aa73-43f8-a773-07a2d3bdc311"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SĐT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="150" width="90" height="30" uuid="0c7ba78e-1d00-43de-8f10-b1562d48203d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CCCD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="180" width="90" height="30" uuid="937aa094-f107-4042-b6f6-b3d38c379889"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Địa chỉ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="220" width="280" height="30" forecolor="#3399CC" uuid="557f9a19-ce96-4d27-9dd5-e02685dee851"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Thông tin tiệc:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="260" width="90" height="30" uuid="b4ede0e1-d8db-4379-a93c-5ca9d1cf78e2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tên tiệc:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="290" width="90" height="30" uuid="2f962d90-a01f-4f0f-a571-9e9da25fe3bb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số bàn:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="320" width="90" height="30" uuid="6eec59b7-080b-44f0-a873-26c6516b1604"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thời gian:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="350" width="90" height="30" uuid="e2dff0f5-7c61-41c0-a188-39413050523a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Địa điểm:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="220" width="40" height="30" uuid="1c6a392d-4540-4065-ba43-9f48bbf4368b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="390" y="220" width="110" height="30" uuid="a4f06467-eae0-4cfe-b235-122f04c3e6b0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PartyID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="50" width="110" height="30" uuid="14a34edf-0901-4a78-962a-8b6a39b4781a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CustomerID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="260" width="200" height="30" uuid="7c28f63b-2575-4120-a47e-ca7d605172b4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PartyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="290" width="200" height="30" uuid="d0739ced-afd2-4593-b087-6f7d667c7aa6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TableNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="350" width="200" height="30" uuid="343ba719-ecfa-4b43-bf0e-dc93bfb69700"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Location}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="320" width="100" height="30" uuid="1936ccc8-2af2-41a2-b882-e73829c13047"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{Date})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="320" width="100" height="30" uuid="42b098b5-583c-4e12-b823-3baa055050e4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm:ss").format($F{Time})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="90" width="200" height="30" uuid="c95afa8c-c881-43ab-98f8-f1d0339d840e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="120" width="200" height="30" uuid="50bc1545-9a24-47e0-8122-5034557a7d20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UN_PhoneNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="150" width="200" height="30" uuid="2713d916-4df0-4257-9835-cf5804166234"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UN_CitizenNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="180" width="200" height="30" uuid="bf7d502d-fa5a-4279-8ed8-2cc2cb158322"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="90" width="70" height="30" uuid="c63b9ac6-50d1-484c-ad9e-80ede5462eb5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Giới tính:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="90" width="80" height="30" uuid="655de886-c57a-4a6b-8185-b201f74c5f99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Sex} == true ? "Nam" : "Nữ"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="210" height="30" uuid="f3db1dff-ccdd-412d-8fd4-caabd0f995b7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
