@@ -138,10 +138,15 @@ CREATE TABLE IF NOT EXISTS Party(
     CONSTRAINT FkParty_HappenStatusID FOREIGN KEY (HappenStatusID) REFERENCES HappenStatus(HappenStatusID),
     CONSTRAINT FkParty_PaymentStatusID FOREIGN KEY (PaymentStatusID) REFERENCES PaymentStatus(PaymentStatusID),
     CONSTRAINT FkParty_TypePartyID FOREIGN KEY (TypePartyID) REFERENCES TypeParty(TypePartyID),
-    CONSTRAINT CkParty_Date CHECK (`Date` > sysdate()),
+    CONSTRAINT CkParty_Date CHECK (`Date` >= date(sysdate())),
+--     CONSTRAINT CkParty_Time CHECK (`time` > time(sysdate())) > 0),
     CONSTRAINT CkParty_TableNumber CHECK (TableNumber >= 2)
 );
 -- TRUNCATE TABLE Party;
+
+-- select hour('17:00:34') - hour(current_time()) >= 6 ;
+
+-- select time();
 
 -- 				Tạo bảng Invoice
 -- DROP TABLE Invoice;
@@ -210,20 +215,39 @@ CREATE TABLE Account(
 );
 -- TRUNCATE TABLE Account;
 
-INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`) VALUES 
-('1', 'admin', 'admin')
-;
 
 UPDATE HappenStatus
 JOIN Party ON HappenStatus.HappenStatusID = Party.HappenStatusID
-SET HappenStatus.UN_StatusCode = (
+SET Party.happenstatusID = (
     CASE
-        WHEN Party.`Date` < CURDATE() THEN 2 -- Đã xong
-        WHEN Party.`Date` > CURDATE() THEN 0 -- Sắp tới
-        ELSE 1 -- Đang tổ chức
+        WHEN Party.`Date` <  DATE(sysdate()) THEN 3 -- Đã xong
+        WHEN Party.`Date` >  DATE(sysdate()) THEN 1 -- Sắp tới
+        ELSE 2 -- Đang tổ chức
     END
 )
 WHERE HappenStatus.HappenStatusID > 0;
+
+-- Kiệt
+SELECT s.staffID, s.Name, s.UN_PhoneNumber, COUNT(w.staffID) as `số tiệc đã làm` 
+FROM Work w, Staff s
+WHERE s.staffID = w.staffID
+GROUP BY w.staffID;
+
+-- Hậu
+SELECT d.DishID, d.DishName, COUNT(o.DishID) AS `Số lần được đặt`
+FROM `Order` o
+JOIN Dish d ON d.DishID = o.DishID
+GROUP BY o.DishID
+HAVING COUNT(o.DishID) = (
+    SELECT MAX(`Số lần được đặt`)
+    FROM (
+        SELECT COUNT(DishID) AS `Số lần được đặt`
+        FROM `Order`
+        GROUP BY DishID
+    ) AS Counts
+);
+
+
 
 
 -- use lanhuemanagement;
@@ -255,7 +279,3 @@ WHERE HappenStatus.HappenStatusID > 0;
 -- use lanhuemanagement;
 -- SELECT *
 -- FROM typeparty;
-
-
-
-
