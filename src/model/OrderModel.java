@@ -1,21 +1,14 @@
 package model;
 
+import utils.Helper;
+
 /**
  *
  * @author kieth
  */
-public class OrderModel {
+public class OrderModel extends DishModel {
 
-    private DishModel dish;
     private double price;
-
-    public DishModel getDish() {
-        return dish;
-    }
-
-    public void setDish(DishModel dish) {
-        this.dish = dish;
-    }
 
     public double getPrice() {
         return price;
@@ -27,7 +20,7 @@ public class OrderModel {
 
     @Override
     public String toString() {
-        return "OrderModel{" + "dish=" + dish + ", price=" + price + '}';
+        return getDishName() + " ; " + Helper.formatPriceToDisplay(price);
     }
 
 }

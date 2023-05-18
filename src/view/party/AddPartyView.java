@@ -41,6 +41,7 @@ public class AddPartyView extends javax.swing.JFrame {
 
     CustomerModel gCustomerModel = null;
     TypePartyModel gTypeParty = null;
+    PartyModel gPartyModel = null;
 
     public AddPartyView() {
         initComponents();
@@ -95,9 +96,8 @@ public class AddPartyView extends javax.swing.JFrame {
         party.setLocation(panelLocation2.getFullAddress());
         party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
         party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
-//        System.out.println("True or False: "+PartyDAOImpl.getInstance().insert(party));
+        gPartyModel = party;
         return PartyDAOImpl.getInstance().insert(party);
-//        return false;
     }
 
     boolean updateParty() {
@@ -178,7 +178,6 @@ public class AddPartyView extends javax.swing.JFrame {
         // set button
         savePartyBtn.setText("Cập nhật");
         savePartyBtn.setVisible(isEdit);
-        saveAndSelectPartyBtn.setVisible(false);
     }
 
     private void setComboBoxPhoneNumber() {
@@ -248,10 +247,9 @@ public class AddPartyView extends javax.swing.JFrame {
         panelLocation2 = new view.component.PanelLocation();
         bottom = new javax.swing.JPanel();
         savePartyBtn = new rojeru_san.complementos.RSButtonHover();
-        saveAndSelectPartyBtn = new rojeru_san.complementos.RSButtonHover();
         cancelBtn = new rojeru_san.complementos.RSButtonHover();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thêm tiệc");
         setResizable(false);
 
@@ -404,19 +402,6 @@ public class AddPartyView extends javax.swing.JFrame {
         });
         bottom.add(savePartyBtn);
 
-        saveAndSelectPartyBtn.setText("Lưu và chọn món");
-        saveAndSelectPartyBtn.setBackground(new java.awt.Color(10, 77, 104));
-        saveAndSelectPartyBtn.setColorHover(new java.awt.Color(14, 112, 152));
-        saveAndSelectPartyBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        saveAndSelectPartyBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        saveAndSelectPartyBtn.setPreferredSize(new java.awt.Dimension(150, 40));
-        saveAndSelectPartyBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveAndSelectPartyBtnActionPerformed(evt);
-            }
-        });
-        bottom.add(saveAndSelectPartyBtn);
-
         cancelBtn.setBackground(new java.awt.Color(10, 77, 104));
         cancelBtn.setText("Hủy");
         cancelBtn.setColorHover(new java.awt.Color(14, 112, 152));
@@ -502,10 +487,6 @@ public class AddPartyView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_partyIDActionPerformed
 
-    private void saveAndSelectPartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndSelectPartyBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saveAndSelectPartyBtnActionPerformed
-
     private void SP_partyNumberStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SP_partyNumberStateChanged
         int number = (int) SP_partyNumber.getValue();
         if (number < 2) {
@@ -583,7 +564,6 @@ public class AddPartyView extends javax.swing.JFrame {
     private view.component.PanelLocation panelLocation2;
     private javax.swing.JPanel panelNote;
     private javax.swing.JPanel panelRight;
-    private rojeru_san.complementos.RSButtonHover saveAndSelectPartyBtn;
     private rojeru_san.complementos.RSButtonHover savePartyBtn;
     private javax.swing.JTextArea textAreaNote;
     // End of variables declaration//GEN-END:variables

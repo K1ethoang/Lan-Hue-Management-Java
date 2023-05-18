@@ -1,12 +1,14 @@
 package view.main;
 
 import dao.Customer.CustomerDAOImpl;
+import dao.Invoice.InvoiceDAOImpl;
 import dao.Party.PartyDAOImpl;
 import dao.Staff.StaffDAOImpl;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
+import java.util.Map;
 import model.CustomerModel;
 import model.HappenStatusModel;
 import model.PartyModel;
@@ -18,7 +20,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -72,10 +73,12 @@ public class DashBoardView extends javax.swing.JPanel {
 
     private static CategoryDataset createDataset() {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(200000000, "Doanh thu", "Tháng 1");
-        dataset.addValue(80000000, "Doanh thu", "Tháng 2");
-        dataset.addValue(88000000, "Doanh thu", "Tháng 3");
-        dataset.addValue(95000000, "Doanh thu", "Tháng 4");
+        Map<Integer, Double> mapData = InvoiceDAOImpl.getInstance().getRevenueByMonthAtNowYear();
+
+        for (int i = 1; i <= 12; i++) {
+            dataset.addValue(mapData.get(i), "Doanh thu", "Tháng " + i);
+        }
+
         return dataset;
     }
 

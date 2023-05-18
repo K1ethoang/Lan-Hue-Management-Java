@@ -95,6 +95,7 @@ public class Helper {
 
     public static void setQuestionBeforeClose(Window window) {
         window.addWindowListener(new java.awt.event.WindowAdapter() {
+
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 String ObjButtons[] = {"Thoát", "Hủy"};
@@ -102,6 +103,7 @@ public class Helper {
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     window.dispose();
                 }
+
             }
         });
     }

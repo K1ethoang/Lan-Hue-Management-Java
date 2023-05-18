@@ -154,7 +154,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         saveBtn2 = new rojeru_san.complementos.RSButtonHover();
         cancelBtn2 = new rojeru_san.complementos.RSButtonHover();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thêm khách hàng");
         setResizable(false);
 

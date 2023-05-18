@@ -1,5 +1,6 @@
 package main;
 
+import dao.Party.PartyDAOImpl;
 import view.login.LoginView;
 
 public class Program {

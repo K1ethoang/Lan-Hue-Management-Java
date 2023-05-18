@@ -1,17 +1,14 @@
 package view.party;
 
+import dao.Order.OrderDAOImpl;
 import dao.Party.PartyDAOImpl;
 import dao.TypeParty.TypePartyDAOImpl;
-import java.awt.PopupMenu;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JScrollBar;
 import view.component.scroll.ScrollBarCus;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -26,12 +23,12 @@ import table.TableParty;
 import utils.Helper;
 
 public class PartyJPanel extends javax.swing.JPanel {
-    
+
     List<PartyModel> gListParty = null;
     PartyModel gPartyCurrent = new PartyModel();
-    
+
     private TableRowSorter<TableModel> rowSorter;
-    
+
     public PartyJPanel() {
         initComponents();
         // set vertical and horizontal scroll bar
@@ -43,11 +40,11 @@ public class PartyJPanel extends javax.swing.JPanel {
 
         // get data party
         gListParty = PartyDAOImpl.getInstance().getList();
-        
+
         setPartyTable();
         setComboBoxTypeParty();
     }
-    
+
     void filterCheckBoxListHappenStatus(List<RowFilter<Object, Object>> filters, int happenStatusFilterIndex) {
         List<String> selectedStatuses = new ArrayList<>();
         if (happenWait.isSelected()) {
@@ -59,7 +56,7 @@ public class PartyJPanel extends javax.swing.JPanel {
         if (happenDone.isSelected()) {
             selectedStatuses.add("Đã xong");
         }
-        
+
         RowFilter<Object, Object> filter = RowFilter.orFilter(selectedStatuses.stream()
                 .map(status -> RowFilter.regexFilter("(?i)" + status, happenStatusFilterIndex))
                 .collect(Collectors.toList()));
@@ -67,7 +64,7 @@ public class PartyJPanel extends javax.swing.JPanel {
 //        sorter.setRowFilter(filter);
 //        tableParty.setRowSorter(sorter);
     }
-    
+
     void filterCheckBoxListPaymentStatus(List<RowFilter<Object, Object>> filters, int paymentStatusFilterIndex) {
         List<String> selectedStatuses = new ArrayList<>();
         if (paymentYes.isSelected()) {
@@ -76,25 +73,25 @@ public class PartyJPanel extends javax.swing.JPanel {
         if (paymentNo.isSelected()) {
             selectedStatuses.add("Chưa");
         }
-        
+
         RowFilter<Object, Object> filter = RowFilter.orFilter(selectedStatuses.stream()
                 .map(status -> RowFilter.regexFilter("(?i)" + status, paymentStatusFilterIndex))
                 .collect(Collectors.toList()));
-        
+
         System.out.println("filter happen: " + filter);
         filters.add(filter);
     }
-    
+
     public void searchAndFilter() {
         String text = searchField.getText();
         String curTypeParty = (String) comboBoxTypeParty.getSelectedItem();
-        
+
         int typePartyFilterIndex = 2;
         int happenStatusFilterIndex = 9;
         int paymentStatusFilterIndex = 10;
-        
+
         List<RowFilter<Object, Object>> filters = new ArrayList<>();
-        
+
         if (text.trim().length() == 0) {
             if (curTypeParty.equals("Tất cả")) {
                 // nếu không có tk nào được chọn
@@ -106,12 +103,12 @@ public class PartyJPanel extends javax.swing.JPanel {
                         filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
                         rowSorter.setRowFilter(RowFilter.andFilter(filters));
                         return;
-                        
+
                     } else {
                         filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
                         filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
                     }
-                    
+
                 }
             } else {
                 filters.add(RowFilter.regexFilter(curTypeParty, typePartyFilterIndex));
@@ -124,7 +121,7 @@ public class PartyJPanel extends javax.swing.JPanel {
                         filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
                         rowSorter.setRowFilter(RowFilter.andFilter(filters));
                         return;
-                        
+
                     } else {
                         filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
                         filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
@@ -142,7 +139,7 @@ public class PartyJPanel extends javax.swing.JPanel {
                         filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
                         rowSorter.setRowFilter(RowFilter.andFilter(filters));
                         return;
-                        
+
                     } else {
                         filterCheckBoxListHappenStatus(filters, happenStatusFilterIndex);
                         filterCheckBoxListPaymentStatus(filters, paymentStatusFilterIndex);
@@ -165,20 +162,20 @@ public class PartyJPanel extends javax.swing.JPanel {
                 }
             }
         }
-        
+
         rowSorter.setRowFilter(RowFilter.andFilter(filters));
     }
-    
+
     private void clearTable() {
         DefaultTableModel model = (DefaultTableModel) tableParty.getModel();
         model.setRowCount(0);
     }
-    
+
     private void setPartyTable() {
         gListParty = PartyDAOImpl.getInstance().getList();
         TableParty tb = new TableParty();
         tb.setPartyDetailsToTable(gListParty, tableParty);
-        
+
         rowSorter = new TableRowSorter<>(tableParty.getModel());
         tableParty.setRowSorter(rowSorter);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
@@ -187,23 +184,23 @@ public class PartyJPanel extends javax.swing.JPanel {
                 searchAndFilter();
                 sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
             }
-            
+
             @Override
             public void removeUpdate(DocumentEvent e) {
                 searchAndFilter();
                 sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
             }
-            
+
             @Override
             public void changedUpdate(DocumentEvent e) {
-                
+
             }
         });
-        
+
         sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
-        
+
     }
-    
+
     private void setComboBoxTypeParty() {
         comboBoxTypeParty.removeAllItems();
         List<TypePartyModel> list = TypePartyDAOImpl.getInstance().getList();
@@ -212,21 +209,21 @@ public class PartyJPanel extends javax.swing.JPanel {
             comboBoxTypeParty.addItem(list.get(i).getName());
         }
     }
-    
+
     private int getIndexPartySelected() {
         int row = tableParty.getSelectedRow();
         return row;
     }
-    
+
     private void setCurrentParty() {
         int row = tableParty.getSelectedRow();
         gPartyCurrent = gListParty.get(row);
     }
-    
+
     private void printDialogErrorSelectParty() {
         JOptionPane.showMessageDialog(this, "Tiệc không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -582,23 +579,23 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void seeMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeMenuBtnActionPerformed
         try {
             setCurrentParty();
-            
+
             AddPartyMenuView.isPartyMenuEdit = false;
-            
+
             AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
             printDialogErrorSelectParty();
-            
+
         }
     }//GEN-LAST:event_seeMenuBtnActionPerformed
 
     private void seePartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seePartyBtnActionPerformed
         try {
             setCurrentParty();
-            
+
             AddPartyView.isPartyEdit = false;
-            
+
             AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
@@ -609,8 +606,10 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void selectDishBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDishBtnActionPerformed
         try {
             setCurrentParty();
-            
-            AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
+
+            AddPartyMenuView.isPartyMenuEdit = true;
+
+            AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
             printDialogErrorSelectParty();
@@ -620,23 +619,23 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void editMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMenuBtnActionPerformed
         try {
             setCurrentParty();
-            
+
             AddPartyMenuView.isPartyMenuEdit = true;
-            
+
             AddPartyMenuView addPartyMenu = new AddPartyMenuView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
             printDialogErrorSelectParty();
-            
+
         }
     }//GEN-LAST:event_editMenuBtnActionPerformed
 
     private void editPartyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPartyBtnActionPerformed
         try {
             setCurrentParty();
-            
+
             AddPartyView.isPartyEdit = true;
-            
+
             AddPartyView addPartyMenu = new AddPartyView(gPartyCurrent);
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
@@ -647,19 +646,20 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void popupMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popupMenuPopupMenuWillBecomeVisible
         try {
             setCurrentParty();
-            if (gPartyCurrent.getPaymentStatus().getStatusCode() == PaymentStatusModel.PAID) {
+            if (gPartyCurrent.getPaymentStatus().getStatusCode() == PaymentStatusModel.PAID || gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.GOING_ON || gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.DONE) {
                 editBtn.setEnabled(false);
             } else {
                 editBtn.setEnabled(true);
-                
+
             }
-            
-            if (gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.GOING_ON || gPartyCurrent.getHappenStatus().getStatusCode() == HappenStatusModel.DONE) {
+
+            if (OrderDAOImpl.getInstance().isHasMenu(gPartyCurrent.getID())) {
                 selectDishBtn.setEnabled(false);
             } else {
                 selectDishBtn.setEnabled(true);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
 
@@ -671,7 +671,7 @@ public class PartyJPanel extends javax.swing.JPanel {
     private void printBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBillActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_printBillActionPerformed
-    
+
     private void happenNowActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_happenNowActionPerformed
         searchAndFilter();
         sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
@@ -688,14 +688,14 @@ public class PartyJPanel extends javax.swing.JPanel {
         if (PromptResult == JOptionPane.YES_OPTION) {
 //
         }
-        
+
     }// GEN-LAST:event_paymentBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {
         AddPartyView addParty = new AddPartyView();
         addParty.setVisible(true);
     }
-    
+
     private void paymentNoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentNoActionPerformed
         searchAndFilter();
         sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
@@ -716,17 +716,17 @@ public class PartyJPanel extends javax.swing.JPanel {
 //                    rdoAll.setSelected(true);
                     setPartyTable();
                     JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
-                
+
             }
         } catch (Exception e) {
             printDialogErrorSelectParty();
         }
     }
-    
+
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_searchFieldActionPerformed
