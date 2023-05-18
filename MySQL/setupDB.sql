@@ -121,14 +121,12 @@ CREATE TABLE Invoice(
 	InvoiceID INT UNSIGNED AUTO_INCREMENT,
     `Time` TIMESTAMP NOT NULL,
     Total DOUBLE DEFAULT 0,
-	StaffID INT UNSIGNED,
     PartyID INT UNSIGNED,
     CONSTRAINT PkInvoice_InvoiceID PRIMARY KEY (InvoiceID),
     CONSTRAINT FkInvoice_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID)
 );
 
 -- 				Tạo bảng Order
--- DROP TABLE Order;
 CREATE TABLE `Order`(
 	PartyID INT UNSIGNED,
     DishID INT UNSIGNED,
@@ -141,11 +139,12 @@ CREATE TABLE `Order`(
 -- 				Tạo bảng DetailInvoice
 CREATE TABLE DetailInvoice(
 	DetailInvoiceID INT UNSIGNED AUTO_INCREMENT,
+    DishName VARCHAR(255) NOT NULL,
+    Unit_Price DOUBLE NOT NULL,
     `Number` TINYINT UNSIGNED,
-    DishID INT UNSIGNED,
+    Total DOUBLE NOT NULL,
     InvoiceID INT UNSIGNED,
     CONSTRAINT PkDetailInvoice_DetailInvoiceID PRIMARY KEY (DetailInvoiceID),
-    CONSTRAINT FkDetailInvoice_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID),
     CONSTRAINT FkDetailInvoice_InvoiceID FOREIGN KEY (InvoiceID) REFERENCES Invoice(InvoiceID)
 );
 
@@ -166,11 +165,9 @@ CREATE TABLE Account(
     `Password` TEXT NOT NULL,
 	Email VARCHAR(255),
     StaffID INT UNSIGNED,
-	RoleID INT UNSIGNED,
     CONSTRAINT PkAccount_AccountID PRIMARY KEY (AccountID),
     CONSTRAINT UnAccount_UN_Username UNIQUE (UN_Username),
-    CONSTRAINT FkAccount_StaffID FOREIGN KEY (StaffID) REFERENCES Staff(StaffID),
-	CONSTRAINT FkAccount_RoleID FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
+    CONSTRAINT FkAccount_StaffID FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
 );
 
 -- SELECT o.DishID, d.DishName, o.price FROM `order`o, dish d

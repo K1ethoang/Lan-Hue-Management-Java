@@ -22,14 +22,6 @@ INSERT INTO Role (RoleName) VALUES
     ('Nhà bếp'),
     ('Tài xế'),
     ('Quản trị viên');
-
-INSERT INTO account (UN_Username, `Password`, Email, RoleID) VALUES 
-('admin', 'admin', 'lanhue101@gmail.com', 4),
-('user','user@123', 'user1@gmail.com', 1),
-('user1','user@123', 'user2@gmail.com', 2),
-('user2','user@123', 'user3@gmail.com', 1),
-('user3','user@123', 'user4@gmail.com', 3)
-;
     
  INSERT INTO TypeDish (UN_TypeName) 
  VALUES 
@@ -47,12 +39,20 @@ INSERT INTO account (UN_Username, `Password`, Email, RoleID) VALUES
 
 INSERT INTO Staff(Name, Sex, UN_PhoneNumber, UN_CitizenNumber, Address, RoleID)
 VALUES
+	('Hoàng Thị Huệ', 1, '0908445378', '433434567479', '130/4, tổ 28, Phường Bình Đa, Thành phố Biên Hòa, Tỉnh Đồng Nai', 4),
 	('Nguyễn Văn Trí', 1, '0123456789', '012345678901', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 1),
 	('Phạm Thị Trang', 0, '0234567890', '123456789012', '66/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 2),
 	('Trần Văn Nguyễn Ánh', 0, '0345678901', '234567890123', '64/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 3),
 	('Lê Quốc Công Thần', 1, '0456789012', '345678901234', '25 Phạm Văn Đồng, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 2),
 	('Vũ Văn Phong', 1, '0567890123', '456789012345', '66 Trần Quang Diệu, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 2),
     ('Lê Thị Nguyệt', 0, '0562342343', '456570123434', '130/4, Phường Bình Đa, Thành phố Biên Hòa, Tỉnh Đồng Nai', 3);
+
+INSERT INTO account (UN_Username, `Password`, Email, StaffID) VALUES 
+('admin', 'admin', 'lanhue101@gmail.com', 1),
+('user','user@123', 'user1@gmail.com', 2),
+('user1','user@123', 'user2@gmail.com', 3),
+('user2','user@123', 'user3@gmail.com', 4),
+('user3','user@123', 'user4@gmail.com', 5);
 
 INSERT INTO Dish(DishName, CostPrice, TypeDishID)
 VALUES 
@@ -124,13 +124,13 @@ VALUES
     
 -- ALTER TABLE Party ADD CONSTRAINT CkParty_Date CHECK (`Date` > DATE(sysdate()));
     
-INSERT INTO Invoice(`Time`, Total, StaffID, PartyID)
+INSERT INTO Invoice(`Time`, Total, PartyID)
 VALUES 
-	('2023-04-21 10:00:00', 12000.00, 1, 1),
-	('2023-04-20 18:30:00', 500, 2, 3),
-	('2023-04-19 21:15:00', 100.00, 3, 2),
-	('2023-04-18 12:45:00', 550.00, 4, 4),
-	('2023-04-17 20:00:00', 15000.00, 5, 5);
+	('2023-04-21 10:00:00', 12000.00, 1),
+	('2023-04-20 18:30:00', 500, 3),
+	('2023-04-19 21:15:00', 100.00, 2),
+	('2023-04-18 12:45:00', 550.00, 4),
+	('2023-04-17 20:00:00', 15000.00, 5);
 
 INSERT INTO `Order`(PartyID, DishID, Price) 
 VALUES

@@ -626,7 +626,6 @@ public class PartyJPanel extends javax.swing.JPanel {
             addPartyMenu.setVisible(true);
         } catch (Exception e) {
             printDialogErrorSelectParty();
-
         }
     }//GEN-LAST:event_editMenuBtnActionPerformed
 
