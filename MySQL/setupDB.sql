@@ -142,7 +142,7 @@ CREATE TABLE DetailInvoice(
     DishName VARCHAR(255) NOT NULL,
     Unit_Price DOUBLE NOT NULL,
     `Number` TINYINT UNSIGNED,
-    Total DOUBLE NOT NULL,
+    Amount DOUBLE NOT NULL,
     InvoiceID INT UNSIGNED,
     CONSTRAINT PkDetailInvoice_DetailInvoiceID PRIMARY KEY (DetailInvoiceID),
     CONSTRAINT FkDetailInvoice_InvoiceID FOREIGN KEY (InvoiceID) REFERENCES Invoice(InvoiceID)
