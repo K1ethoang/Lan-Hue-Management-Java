@@ -85,6 +85,12 @@ public class AddPartyMenuView extends javax.swing.JFrame {
         Helper.setQuestionBeforeClose(this);
     }
 
+    public double getgTotalPricePerTable() {
+        return gTotalPricePerTable;
+    }
+    
+    
+   
     private void initDateTimeField() {
         Locale locale = new Locale("vi");
         // set date

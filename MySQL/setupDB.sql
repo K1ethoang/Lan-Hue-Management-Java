@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS Party(
     CONSTRAINT FkParty_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
     CONSTRAINT FkParty_HappenStatusID FOREIGN KEY (HappenStatusID) REFERENCES HappenStatus(HappenStatusID),
     CONSTRAINT FkParty_PaymentStatusID FOREIGN KEY (PaymentStatusID) REFERENCES PaymentStatus(PaymentStatusID),
+    
     CONSTRAINT FkParty_TypePartyID FOREIGN KEY (TypePartyID) REFERENCES TypeParty(TypePartyID),
 --     CONSTRAINT CkParty_Date CHECK (`Date` > DATE(sysdate())),
 -- 	CONSTRAINT CkParty_Time CHECK (`Time` >= TIME(sysdate()) + INTERVAL 6 HOUR),
@@ -269,3 +270,15 @@ BEGIN
 END //
 delimiter ;
 -- CALL `SP_Clear_All_Order_By_ID` ();
+
+DELIMITER //
+CREATE TRIGGER trg_UpdatePaymentStatus
+AFTER INSERT ON Invoice  
+FOR EACH ROW
+BEGIN
+    -- Cập nhật trạng thái thanh toán của bảng Party
+    UPDATE Party
+    SET PaymentStatusID = 2 -- Giả sử 2 là mã trạng thái 'Xong'
+    WHERE PartyID = NEW.PartyID;
+END //
+DELIMITER ;

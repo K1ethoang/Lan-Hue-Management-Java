@@ -102,6 +102,9 @@ public class AddPartyView extends javax.swing.JFrame {
 
     boolean updateParty() {
         PartyModel party = new PartyModel();
+//        CustomerModel customer = new CustomerModel();
+        party.setID(Integer.parseInt(TF_partyID.getText()));
+        gCustomerModel.setName(TF_nameCustomer.getText());
         party.setCustomer(gCustomerModel);
         party.setPartyName(TF_partyName.getText());
         party.setTableNumber((int) SP_partyNumber.getValue());
@@ -112,7 +115,7 @@ public class AddPartyView extends javax.swing.JFrame {
         party.setLocation(panelLocation2.getFullAddress());
         party.setHappenStatus(HappenStatusDAOImpl.getInstance().getByCodeStatus(HappenStatusModel.COMING_SOON));
         party.setPaymentStatus(PaymentStatusDAOImpl.getInstance().getByStatusCode(PaymentStatusModel.UN_PAID));
-        System.out.println("True or False: " + PartyDAOImpl.getInstance().insert(party));
+        
         return PartyDAOImpl.getInstance().update(party);
     }
 

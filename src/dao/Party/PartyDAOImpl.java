@@ -107,7 +107,8 @@ public class PartyDAOImpl implements PartyDAO {
     @Override
     public boolean update(PartyModel party) {
         PartyDAOImpl.getInstance().updateHappenStatus();
-
+        // trước khi cập nhập party,cần cập nhập thông tin của khách hàng
+        CustomerDAOImpl.getInstance().update(party.getCustomer());
         boolean isUpdated = false;
         try {
             Connection con = DBConnection.getConnection();

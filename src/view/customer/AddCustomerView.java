@@ -75,7 +75,6 @@ public class AddCustomerView extends javax.swing.JFrame {
 
     // UPDATE CUSTOMER
     public boolean updateCustomer() {
-
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(getName());

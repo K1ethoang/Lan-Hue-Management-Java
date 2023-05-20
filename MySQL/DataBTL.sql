@@ -77,7 +77,7 @@ VALUES
     ('Mực chiên xù', 150000, 5),
     ('Gà chiên giòn', 300000, 6),
     ('Cánh gà quay', 200000, 6),
-    ('Gà hấp nấm - Xôi', 280000, 6),
+    ('Gà hấp nấm - Xôi', 280000, 6),	
     ('Gà sốt Pa tê - Bánh mì', 300000, 6),
     ('Gà nướng xí muội', 280000, 6),
     ('Gà tiềm thuốc bắc - Xà lách Xoong', 320000, 6),
@@ -120,7 +120,7 @@ VALUES
 	('Sinh nhật Gia Bảo', 10, '2023-07-10','12:00:00', '66/2 đường 18, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party C', 3, 1, 2, 1),
 	('Khai trương Thuận Phát', 6, '2023-08-05', '19:00:00', '66 Trần Quang Diệu, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party D', 4, 1, 1, 3),
 	('Đám cưới Tần và Thủy', 120, '2023-09-02', '16:00:00', '25 Phạm Văn Đồng, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party E', 5, 1, 2, 4),
-    ('Đám cưới Thảo và Nghĩa', 37, '2023-05-30', ' 16:00:00', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party A', 1, 1, 1, 1);
+    ('Đám cưới Thảo và Nghĩa', 37, '2023-05-30', ' 16:00:00', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party A', 1, 1, 2, 1);
     
 -- ALTER TABLE Party ADD CONSTRAINT CkParty_Date CHECK (`Date` > DATE(sysdate()));
     
