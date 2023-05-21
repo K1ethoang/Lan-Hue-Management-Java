@@ -75,7 +75,6 @@ public class AddCustomerView extends javax.swing.JFrame {
 
     // UPDATE CUSTOMER
     public boolean updateCustomer() {
-
         CustomerModel customer = new CustomerModel();
         customer.setID(Integer.parseInt(TF_customerID.getText()));
         customer.setName(getName());
@@ -154,7 +153,7 @@ public class AddCustomerView extends javax.swing.JFrame {
         saveBtn2 = new rojeru_san.complementos.RSButtonHover();
         cancelBtn2 = new rojeru_san.complementos.RSButtonHover();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thêm khách hàng");
         setResizable(false);
 

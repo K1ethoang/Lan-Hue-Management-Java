@@ -11,7 +11,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 -- 				Tạo bảng Customer
--- DROP TABLE Customer;
 CREATE TABLE IF NOT EXISTS Customer(
 	CustomerID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
@@ -25,11 +24,8 @@ CREATE TABLE IF NOT EXISTS Customer(
     CONSTRAINT CkCustomer_UN_PhoneNumber CHECK (LENGTH(UN_PhoneNumber) = 10),
     CONSTRAINT CkCustomer_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12)
 );
--- TRUNCATE TABLE Customer;
--- NSERT INTO Customer(Name,PhoneNumber,UN_CitizenNumber,Address) VALUES ("Hoàng Gia Kiệt", "0784265174", "123123123123", "123");
 
 -- 				Tạo bảng PaymentStatus
--- DROP TABLE PaymentStatus;
 CREATE TABLE IF NOT EXISTS PaymentStatus(
 	PaymentStatusID INT UNSIGNED AUTO_INCREMENT,
     UN_StatusCode INT NOT NULL,
@@ -37,11 +33,8 @@ CREATE TABLE IF NOT EXISTS PaymentStatus(
     CONSTRAINT PkPaymentStatus_PaymentStatusID PRIMARY KEY (PaymentStatusID),
     CONSTRAINT UnPaymentStatus_UN_StatusCode UNIQUE (UN_StatusCode)
 );
--- TRUNCATE TABLE PaymentStatus;
--- INSERT INTO PaymentStatus (UN_StatusCode, StatusName) VALUES (-1, "Sắp tới");
 
 -- 				Tạo bảng HappenStatus
--- DROP TABLE HappenStatus;
 CREATE TABLE IF NOT EXISTS HappenStatus(
 	HappenStatusID INT UNSIGNED AUTO_INCREMENT,
     UN_StatusCode INT NOT NULL,
@@ -49,34 +42,23 @@ CREATE TABLE IF NOT EXISTS HappenStatus(
     CONSTRAINT PkHappenStatus_HappenStatusID PRIMARY KEY (HappenStatusID),
     CONSTRAINT UnHappenStatus_UN_StatusCode UNIQUE (UN_StatusCode)
 );
--- Cập nhật UN_StatusCode trong bảng HappenStatus dựa trên Date trong bảng Party
-
--- TRUNCATE TABLE HappenStatus;
--- INSERT INTO HappenStatus (UN_StatusCode, StatusName) VALUES (0, "Chưa thanh toán");
 
 --				Tạo bảng `Role`
--- DROP TABLE Role;
 CREATE TABLE IF NOT EXISTS Role(
 	RoleID INT UNSIGNED AUTO_INCREMENT,
     RoleName VARCHAR(255) NOT NULL,
     CONSTRAINT PkRole_RoleID PRIMARY KEY (RoleID)
 );
--- TRUNCATE TABLE Role;
--- INSERT INTO Role (UN_RoleCode, RoleName) VALUES ("CT1", "Chạy tiệc")
 
 --				Tạo bảng TypeDish
--- DROP TABLE TypeDish;
 CREATE TABLE IF NOT EXISTS TypeDish(
 	TypeDishID INT UNSIGNED AUTO_INCREMENT,
 	UN_TypeName VARCHAR(200) NOT NULL,
     CONSTRAINT PkTypeDish_TypeDishID PRIMARY KEY (TypeDishID),
     CONSTRAINT UnTypeDish_UN_TypeName UNIQUE (UN_TypeName)
 );
--- TRUNCATE TABLE TypeDish;
--- INSERT INTO TypeDish (UN_TypeName) VALUES ("Tráng miệng");
 
 -- 				Tạo bảng Staff
--- DROP TABLE Staff;
 CREATE TABLE IF NOT EXISTS Staff(
 	StaffID INT UNSIGNED AUTO_INCREMENT,
     `Name` VARCHAR(255) NOT NULL,
@@ -92,11 +74,8 @@ CREATE TABLE IF NOT EXISTS Staff(
     CONSTRAINT CkStaff_UN_CitizenNumber CHECK (LENGTH(UN_CitizenNumber) = 12),
     CONSTRAINT FkStaff_RoleID FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 );
--- TRUNCATE TABLE Staff;
--- INSERT INTO Staff (Name, PhoneNumber, UN_CitizenNumber, Address) VALUES ("Nguyễn Văn A", "037415782", "123123123123", "Quận 9, TP. Hồ Chí Minh");
 
 -- 				Tạo bảng Dish
--- DROP TABLE Dish;
 CREATE TABLE IF NOT EXISTS Dish(
 	DishID INT UNSIGNED AUTO_INCREMENT,
     DishName VARCHAR(255) NOT NULL,
@@ -105,22 +84,16 @@ CREATE TABLE IF NOT EXISTS Dish(
     CONSTRAINT PkDish_DishID PRIMARY KEY (DishID),
     CONSTRAINT FkDish_TypeDishID FOREIGN KEY (TypeDishID) REFERENCES TypeDish(TypeDishID)
 );
--- TRUNCATE TABLE Dish;
--- INSERT INTO Dish (DishName) VALUES ("Cơm chiên cá mặn");
 
 -- 				Tạo bảng TypeParty
--- DROP TABLE TypeParty;
 CREATE TABLE IF NOT EXISTS TypeParty(
 	TypePartyID INT UNSIGNED AUTO_INCREMENT,
     UN_TypeName VARCHAR(100) NOT NULL,
     CONSTRAINT PkTypeParty_TypePartyID PRIMARY KEY (TypePartyID) ,
     CONSTRAINT UnTypeParty_UN_TypeName UNIQUE (UN_TypeName)
 );
--- TRUNCATE TABLE TypeParty;
--- INSERT INTO TypeParty (UN_TypeName) VALUES ("Tiệc cưới");
 
 -- 				Tạo bảng Party
--- DROP TABLE Party;
 CREATE TABLE IF NOT EXISTS Party(
 	PartyID INT UNSIGNED AUTO_INCREMENT,
     PartyName TEXT NOT NULL,
@@ -137,29 +110,24 @@ CREATE TABLE IF NOT EXISTS Party(
     CONSTRAINT FkParty_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
     CONSTRAINT FkParty_HappenStatusID FOREIGN KEY (HappenStatusID) REFERENCES HappenStatus(HappenStatusID),
     CONSTRAINT FkParty_PaymentStatusID FOREIGN KEY (PaymentStatusID) REFERENCES PaymentStatus(PaymentStatusID),
+    
     CONSTRAINT FkParty_TypePartyID FOREIGN KEY (TypePartyID) REFERENCES TypeParty(TypePartyID),
-    CONSTRAINT CkParty_Date CHECK (`Date` > sysdate()),
+--     CONSTRAINT CkParty_Date CHECK (`Date` > DATE(sysdate())),
+-- 	CONSTRAINT CkParty_Time CHECK (`Time` >= TIME(sysdate()) + INTERVAL 6 HOUR),
     CONSTRAINT CkParty_TableNumber CHECK (TableNumber >= 2)
 );
--- TRUNCATE TABLE Party;
 
 -- 				Tạo bảng Invoice
--- DROP TABLE Invoice;
 CREATE TABLE Invoice(
 	InvoiceID INT UNSIGNED AUTO_INCREMENT,
     `Time` TIMESTAMP NOT NULL,
     Total DOUBLE DEFAULT 0,
-	StaffID INT UNSIGNED,
     PartyID INT UNSIGNED,
-    CustomerID INT UNSIGNED,
     CONSTRAINT PkInvoice_InvoiceID PRIMARY KEY (InvoiceID),
-    CONSTRAINT FkInvoice_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
-	CONSTRAINT FkInvoice_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+    CONSTRAINT FkInvoice_PartyID FOREIGN KEY (PartyID) REFERENCES Party(PartyID)
 );
--- TRUNCATE TABLE Invoice;
 
 -- 				Tạo bảng Order
--- DROP TABLE Order;
 CREATE TABLE `Order`(
 	PartyID INT UNSIGNED,
     DishID INT UNSIGNED,
@@ -170,20 +138,18 @@ CREATE TABLE `Order`(
 );
 
 -- 				Tạo bảng DetailInvoice
--- DROP TABLE DetailInvoice;
 CREATE TABLE DetailInvoice(
 	DetailInvoiceID INT UNSIGNED AUTO_INCREMENT,
+    DishName VARCHAR(255) NOT NULL,
+    Unit_Price DOUBLE NOT NULL,
     `Number` TINYINT UNSIGNED,
-    DishID INT UNSIGNED,
+    Amount DOUBLE NOT NULL,
     InvoiceID INT UNSIGNED,
     CONSTRAINT PkDetailInvoice_DetailInvoiceID PRIMARY KEY (DetailInvoiceID),
-    CONSTRAINT FkDetailInvoice_DishID FOREIGN KEY (DishID) REFERENCES Dish(DishID),
     CONSTRAINT FkDetailInvoice_InvoiceID FOREIGN KEY (InvoiceID) REFERENCES Invoice(InvoiceID)
 );
--- TRUNCATE TABLE DetailInvoice;
 
 -- 				Tạo bảng Work
--- DROP TABLE Work;
 CREATE TABLE Work(
 	PartyID INT UNSIGNED,
     StaffID INT UNSIGNED,
@@ -192,38 +158,46 @@ CREATE TABLE Work(
     CONSTRAINT FkWork_DishID FOREIGN KEY (PartyID) REFERENCES Party(PartyID),
     CONSTRAINT FkWork_InvoiceID FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
 );
--- TRUNCATE TABLE Work;
 
 -- 				Tạo bảng Account
--- DROP TABLE Account;
 CREATE TABLE Account(
 	AccountID INT UNSIGNED AUTO_INCREMENT,
     UN_Username VARCHAR(255) NOT NULL,
     `Password` TEXT NOT NULL,
 	Email VARCHAR(255),
     StaffID INT UNSIGNED,
-	RoleID INT UNSIGNED,
     CONSTRAINT PkAccount_AccountID PRIMARY KEY (AccountID),
     CONSTRAINT UnAccount_UN_Username UNIQUE (UN_Username),
-    CONSTRAINT FkAccount_StaffID FOREIGN KEY (StaffID) REFERENCES Staff(StaffID),
-	CONSTRAINT FkAccount_RoleID FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
+    CONSTRAINT FkAccount_StaffID FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
 );
--- TRUNCATE TABLE Account;
 
-INSERT INTO `lanhuemanagement`.`account` (`AccountID`, `UN_Username`, `Password`) VALUES 
-('1', 'admin', 'admin')
-;
+-- SELECT o.DishID, d.DishName, o.price FROM `order`o, dish d
+-- WHERE d.DishID = o.DishID AND o.partyID = 1;
 
-UPDATE HappenStatus
-JOIN Party ON HappenStatus.HappenStatusID = Party.HappenStatusID
-SET HappenStatus.UN_StatusCode = (
-    CASE
-        WHEN Party.`Date` < CURDATE() THEN 2 -- Đã xong
-        WHEN Party.`Date` > CURDATE() THEN 0 -- Sắp tới
-        ELSE 1 -- Đang tổ chức
-    END
-)
-WHERE HappenStatus.HappenStatusID > 0;
+-- SELECT * FROM `Order` WHERE PartyID = 10;
+
+-- Kiệt
+-- SELECT s.staffID, s.Name, s.UN_PhoneNumber, COUNT(w.staffID) as `số tiệc đã làm` 
+-- FROM Work w, Staff s
+-- WHERE s.staffID = w.staffID
+-- GROUP BY w.staffID;
+
+-- Hậu
+-- SELECT d.DishID, d.DishName, COUNT(o.DishID) AS `Số lần được đặt`
+-- FROM `Order` o
+-- JOIN Dish d ON d.DishID = o.DishID
+-- GROUP BY o.DishID
+-- HAVING COUNT(o.DishID) = (
+--     SELECT MAX(`Số lần được đặt`)
+--     FROM (
+--         SELECT COUNT(DishID) AS `Số lần được đặt`
+--         FROM `Order`
+--         GROUP BY DishID
+--     ) AS Counts
+-- );
+
+-- SELECT * FROM `order` o, dish d
+-- WHERE d.DishID = o.DishID AND o.partyID = 1;
 
 
 -- use lanhuemanagement;
@@ -256,6 +230,55 @@ WHERE HappenStatus.HappenStatusID > 0;
 -- SELECT *
 -- FROM typeparty;
 
+-- select * from Party where partyid = 1;
+
+-- 								Stored Procedure
+delimiter //
+CREATE PROCEDURE `SP_Update_HappentStatus_In_Party`()
+BEGIN
+	UPDATE Party p
+	SET p.happenstatusID = 
+		(CASE
+			WHEN p.`Date` <  DATE(sysdate()) THEN 3 -- Đã xong
+			WHEN p.`Date` >  DATE(sysdate()) THEN 1 -- Sắp tới
+			ELSE 2 -- Đang tổ chức
+		END)
+	WHERE p.happenstatusID > 0;
+END //
+delimiter ;
+-- CALL `SP_Update_HappentStatus_In_Party`;delimiter //
 
 
+delimiter //
+CREATE PROCEDURE `SP_Get_Revenue_By_Month_At_Now_Year`()
+BEGIN
+	SELECT MONTH(`Time`) AS Month, COUNT(DISTINCT PartyID) AS NumberOfParties, SUM(Total) AS Revenue
+	FROM Invoice
+	WHERE YEAR(`Time`) = YEAR(CURDATE())
+	GROUP BY MONTH(`Time`)
+	ORDER BY MONTH(`Time`);
+END //
+delimiter ;
+-- CALL `SP_Get_Revenue_By_Month_At_Now_Year`;
 
+
+delimiter //
+CREATE PROCEDURE `SP_Clear_All_Order_By_ID`(IN id INT UNSIGNED)
+BEGIN
+	DELETE FROM `Order`
+	WHERE partyID = id;
+END //
+delimiter ;
+-- CALL `SP_Clear_All_Order_By_ID` ();
+
+DELIMITER //
+CREATE TRIGGER trg_UpdatePaymentStatus
+AFTER INSERT ON Invoice  
+FOR EACH ROW
+BEGIN
+    -- Cập nhật trạng thái thanh toán của bảng Party
+    UPDATE Party
+    SET PaymentStatusID = 2 -- Giả sử 2 là mã trạng thái 'Xong'
+    WHERE PartyID = NEW.PartyID;
+END //
+DELIMITER ;

@@ -25,6 +25,7 @@ public class PartyDAOImpl implements PartyDAO {
 
     @Override
     public List<PartyModel> getList() {
+        PartyDAOImpl.getInstance().updateHappenStatus();
         try {
             Connection con = DBConnection.getConnection();
             String sql = "SELECT * FROM Party\n"
@@ -33,36 +34,14 @@ public class PartyDAOImpl implements PartyDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                TypePartyModel typeParty;
-                typeParty = TypePartyDAOImpl.getInstance().getByID(rs.getInt("TypePartyID"));
-
-                HappenStatusModel happenStatus;
-                happenStatus = HappenStatusDAOImpl.getInstance().getByID(rs.getInt("HappenStatusID"));
-
-                PaymentStatusModel paymentStatus;
-                paymentStatus = PaymentStatusDAOImpl.getInstance().getByID(rs.getInt("PaymentStatusID"));
-
-                CustomerModel customer;
-                customer = CustomerDAOImpl.getInstance().getByID(rs.getInt("CustomerID"));
-
-                PartyModel party = new PartyModel();
-                party.setID(rs.getInt("PartyID"));
-                party.setPartyName(rs.getString("PartyName"));
-                party.setTableNumber(rs.getInt("TableNumber"));
-                party.setDate(rs.getDate("Date"));
-                party.setTime(rs.getTime("Time"));
-                party.setLocation(rs.getString("Location"));
-                party.setNote(rs.getString("Note"));
-                party.setTypeParty(typeParty);
-                party.setHappenStatus(happenStatus);
-                party.setPaymentStatus(paymentStatus);
-                party.setCustomer(customer);
+                PartyModel party = PartyDAOImpl.getInstance().getByID(rs.getInt("partyID"));
 
                 list.add(party);
             }
             ps.close();
             rs.close();
             con.close();
+            PartyDAOImpl.getInstance().updateHappenStatus();
             return list;
         } catch (Exception ex) {
         }
@@ -93,6 +72,7 @@ public class PartyDAOImpl implements PartyDAO {
             int rs = ps.executeUpdate();
             if (rs >= 0) {
                 isOk = true;
+                PartyDAOImpl.getInstance().updateHappenStatus();
             }
 
             ps.close();
@@ -100,13 +80,6 @@ public class PartyDAOImpl implements PartyDAO {
         } catch (Exception e) {
         }
         return isOk;
-    }
-    
-    
-
-    public static void main(String[] args) {
-        PartyModel party = new PartyModel();
-        PartyDAOImpl.getInstance().insert(party);
     }
 
     @Override
@@ -133,11 +106,14 @@ public class PartyDAOImpl implements PartyDAO {
 
     @Override
     public boolean update(PartyModel party) {
+        PartyDAOImpl.getInstance().updateHappenStatus();
+        // trước khi cập nhập party,cần cập nhập thông tin của khách hàng
+        CustomerDAOImpl.getInstance().update(party.getCustomer());
         boolean isUpdated = false;
         try {
             Connection con = DBConnection.getConnection();
             String sql = "UPDATE PARTY SET PartyName = ?, TableNumber = ?, Date = ?, Time = ?, Location = ?, Note = ?, CustomerID = ?, HappenStatusID = ?, PaymentStatusID = ?, TypePartyID =? WHERE PartyID = ?";
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, party.getPartyName());
             ps.setInt(2, party.getTableNumber());
@@ -153,6 +129,7 @@ public class PartyDAOImpl implements PartyDAO {
             int rs = ps.executeUpdate();
             if (rs >= 0) {
                 isUpdated = true;
+                PartyDAOImpl.getInstance().updateHappenStatus();
             }
 
             ps.close();
@@ -160,6 +137,64 @@ public class PartyDAOImpl implements PartyDAO {
         } catch (Exception e) {
         }
         return isUpdated;
+    }
+
+    @Override
+    public PartyModel getByID(int id) {
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "SELECT * FROM Party\n"
+                    + "WHERE PartyID = ?;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                TypePartyModel typeParty;
+                typeParty = TypePartyDAOImpl.getInstance().getByID(rs.getInt("TypePartyID"));
+
+                HappenStatusModel happenStatus;
+                happenStatus = HappenStatusDAOImpl.getInstance().getByID(rs.getInt("HappenStatusID"));
+
+                PaymentStatusModel paymentStatus;
+                paymentStatus = PaymentStatusDAOImpl.getInstance().getByID(rs.getInt("PaymentStatusID"));
+
+                CustomerModel customer;
+                customer = CustomerDAOImpl.getInstance().getByID(rs.getInt("CustomerID"));
+
+                PartyModel party = new PartyModel();
+                party.setID(rs.getInt("PartyID"));
+                party.setPartyName(rs.getString("PartyName"));
+                party.setTableNumber(rs.getInt("TableNumber"));
+                party.setDate(rs.getDate("Date"));
+                party.setTime(rs.getTime("Time"));
+                party.setLocation(rs.getString("Location"));
+                party.setNote(rs.getString("Note"));
+                party.setTypeParty(typeParty);
+                party.setHappenStatus(happenStatus);
+                party.setPaymentStatus(paymentStatus);
+                party.setCustomer(customer);
+                return party;
+            }
+            ps.close();
+            rs.close();
+            con.close();
+        } catch (Exception ex) {
+        }
+        return null;
+    }
+
+    @Override
+    public void updateHappenStatus() {
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "CALL `SP_Update_HappentStatus_In_Party`";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.execute();
+
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+        }
     }
 
 }

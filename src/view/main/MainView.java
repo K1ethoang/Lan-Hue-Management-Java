@@ -415,7 +415,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
         int option = JOptionPane.showConfirmDialog(this, "Bạn muốn đăng xuất?", "Quản lý tiệc Lan Huệ", JOptionPane.YES_NO_OPTION);
-        if (option == ConfirmationCallback.YES) {
+        if (option == JOptionPane.YES_OPTION) {
             this.dispose();
             LoginView login = new LoginView();
             login.setVisible(true);

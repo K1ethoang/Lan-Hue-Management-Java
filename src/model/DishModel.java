@@ -1,5 +1,7 @@
 package model;
 
+import utils.Helper;
+
 public class DishModel {
 
     private int dishID;
@@ -41,7 +43,7 @@ public class DishModel {
 
     @Override
     public String toString() {
-        return "DishModel{" + "dishID=" + dishID + ", dishName=" + dishName + ", price=" + price + ", typeDishID=" + typeDish + '}';
+        return dishName + " ; " + Helper.formatPriceToDisplay(price);
     }
 
 }
