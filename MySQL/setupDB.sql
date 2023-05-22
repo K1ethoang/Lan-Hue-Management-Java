@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS Party(
     
     CONSTRAINT FkParty_TypePartyID FOREIGN KEY (TypePartyID) REFERENCES TypeParty(TypePartyID),
 --     CONSTRAINT CkParty_Date CHECK (`Date` > DATE(sysdate())),
--- 	CONSTRAINT CkParty_Time CHECK (`Time` >= TIME(sysdate()) + INTERVAL 6 HOUR),
+
     CONSTRAINT CkParty_TableNumber CHECK (TableNumber >= 2)
 );
 
@@ -273,8 +273,8 @@ delimiter ;
 -- CALL `SP_Clear_All_Order_By_ID` ();
 
 DELIMITER //
-CREATE TRIGGER trg_UpdatePaymentStatus
-AFTER INSERT ON Invoice  
+CREATE TRIGGER trg_AfterInvoiceInsert
+AFTER INSERT ON Invoice
 FOR EACH ROW
 BEGIN
     -- Cập nhật trạng thái thanh toán của bảng Party
