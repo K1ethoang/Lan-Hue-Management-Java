@@ -2,6 +2,7 @@ package dao.Invoice;
 
 import java.util.List;
 import java.util.Map;
+import model.DetailInvoiceModel;
 import model.InvoiceModel;
 /**
  *
@@ -15,7 +16,7 @@ public interface InvoiceDAO {
     
     public Map<Integer, Double> getRevenueByMonthAtNowYear();
     
-    public boolean insert(InvoiceModel invoice);
+    public boolean insert(InvoiceModel invoice, List<DetailInvoiceModel> list);
 
     public boolean update(InvoiceModel invoice);
 }

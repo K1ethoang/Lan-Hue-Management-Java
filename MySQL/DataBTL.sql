@@ -123,26 +123,39 @@ VALUES
     ('Đám cưới Thảo và Nghĩa', 37, '2023-05-30', ' 16:00:00', '78 đường 17, Phường Trảng Dài, Thành phố Biên Hòa, Tỉnh Đồng Nai', 'Note for Party A', 1, 1, 1, 1);
     
 -- ALTER TABLE Party ADD CONSTRAINT CkParty_Date CHECK (`Date` > DATE(sysdate()));
-    
+
+-- INSERT INTO DetailInvoice(DishName, Unit_Price, `Number`, Amount, InvoiceID)
+-- VALUES 
+-- 	('Rau câu', 12000.00, , , 1),
+-- 	('2023-04-20 18:30:00', 500, 2),
+-- 	('2023-04-17 20:00:00', 15000.00, 3);
+
 INSERT INTO Invoice(`Time`, Total, PartyID)
 VALUES 
-	('2023-04-21 10:00:00', 12000.00, 1),
-	('2023-04-20 18:30:00', 500, 3),
-	('2023-04-17 20:00:00', 15000.00, 5);
+	('2023-04-21 10:00:00', 10000000, 1),
+	('2023-04-20 18:30:00', 2100000, 3),
+	('2023-04-17 20:00:00', 31200000, 5);
 
 INSERT INTO `Order`(PartyID, DishID, Price) 
 VALUES
-    (1, 1, 100000),
-	(1, 2, 100000),
-	(2, 3, 50000),
-	(2, 4, 50000),
-	(3, 5, 50000),
+    (1, 1, 50000),
+	(1, 2, 50000),
+	(2, 3, 100000),
+	(2, 4, 200000),
+	(3, 5, 210000),
 	(4, 1, 50000),
-	(4, 5, 50000),
+	(4, 5, 210000),
 	(5, 1, 50000),
-	(5, 5, 50000);
-	
+	(5, 5, 210000);
     
+INSERT INTO DetailInvoice(DishName, Unit_Price, `Number`, Amount, InvoiceID) 
+VALUES
+    ('Rau câu', 50000, 100, 5000000, 1),
+	('Trái cây', 50000, 100, 5000000, 1),
+	('Súp hải sản', 210000, 10, 2100000, 2),
+    ('Rau câu', 50000, 120, 6000000, 3),
+    ('Súp hải sản', 210000, 120, 25200000, 3);
+
 INSERT INTO work(PartyID, StaffID, Salary)
 VALUES
 	(1, 1, 400000),

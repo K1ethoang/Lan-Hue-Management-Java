@@ -22,6 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.DetailInvoiceModel;
 import model.DishModel;
 import model.HappenStatusModel;
 import model.InvoiceModel;
@@ -754,23 +755,49 @@ public class PartyJPanel extends javax.swing.JPanel {
         sumParty.setText("Số lượng: " + rowSorter.getViewRowCount() + "");
     }// GEN-LAST:event_happenDoneActionPerformed
     
-    public boolean insertInvoice(){
-        InvoiceModel invoice = new InvoiceModel();
+    public void insertDetailInvoice(){
+//        DetailInvoiceModel detailInvoice = new DetailInvoiceModel();
+        List<DetailInvoiceModel> list = new ArrayList<>();
         
-//        List<InvoiceModel> gInvoice = InvoiceDAOImpl.getInstance().getList();
-//        System.out.println("invoice 0: " + gInvoice.get(0));
+        List<DishModel> gListOrder = null;
+        gListOrder = OrderDAOImpl.getInstance().getListByID(gPartyCurrent.getID());
+        for(int i=0; i< gListOrder.size(); i++){
+            list.get(i).setDishName(TOOL_TIP_TEXT_KEY);
+        }
+        
+    } 
+    
+    public boolean insertInvoice(){
+        InvoiceModel invoice = new InvoiceModel();     
        
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-        invoice.setTime(currentTimestamp);
-        
-        AddPartyMenuView addPartyMenuView = new AddPartyMenuView(gPartyCurrent);
-        Double total = addPartyMenuView.gTotalPricePerTable * gPartyCurrent.getTableNumber();
-        invoice.setTotal(total);
-        
+        invoice.setTime(currentTimestamp);        
+//        AddPartyMenuView addPartyMenuView = new AddPartyMenuView(gPartyCurrent);
+//        Double total = addPartyMenuView.gTotalPricePerTable * gPartyCurrent.getTableNumber();
+//        invoice.setTotal(total);        
         invoice.setParty(gPartyCurrent);
         
-        System.out.println("Invoice:" + invoice);
-        return InvoiceDAOImpl.getInstance().insert(invoice);
+        // dữ liệu cho danh sách detailinvoice
+        List<DetailInvoiceModel> list = new ArrayList<>();
+        
+        List<DishModel> gListOrder = null;
+        gListOrder = OrderDAOImpl.getInstance().getListByID(gPartyCurrent.getID());
+        System.out.println("gListOrder.size(): "+gListOrder.size());
+        for(int i=0; i< gListOrder.size(); i++){
+            System.out.println("1111");
+            System.out.println("gListOrder.get(i).getDishName(): "+gListOrder.get(i).getDishName());
+            DetailInvoiceModel detail = new DetailInvoiceModel();
+            detail.setDishName(gListOrder.get(i).getDishName());
+            detail.setUnit_Price(gListOrder.get(i).getPrice());
+            detail.setNumber(gPartyCurrent.getTableNumber());
+            detail.setAmount(gListOrder.get(i).getPrice()*gPartyCurrent.getTableNumber());
+            detail.setInvoiceID(0);
+            
+            list.add(detail);
+        }
+        
+        
+        return InvoiceDAOImpl.getInstance().insert(invoice, list);
     }
     
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_paymentBtnActionPerformed
@@ -791,6 +818,7 @@ public class PartyJPanel extends javax.swing.JPanel {
                 String ObjButtons[] = {"Thanh toán", "Hủy"};
                 int PromptResult = JOptionPane.showOptionDialog(Helper.getWindow(this), "Xác nhận thanh toán?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                 if (PromptResult == JOptionPane.YES_OPTION) {
+                    
                     insertInvoice();
                     JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 }

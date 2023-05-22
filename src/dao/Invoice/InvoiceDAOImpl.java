@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import model.DetailInvoiceModel;
 import model.InvoiceModel;
 import model.PartyModel;
 
@@ -43,25 +44,90 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     }
 
     @Override
-    public boolean insert(InvoiceModel invoice) {
+
+    public boolean insert(InvoiceModel invoice, List<DetailInvoiceModel> list) {
         boolean isOk = false;
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps1 = null;
+        PreparedStatement ps2 = null;
+        ResultSet rs = null;
+
+        Double total = 0.0;
         try {
-            Connection con = DBConnection.getConnection();
-            String sql = "INSERT INTO Invoice(Time, Total, PartyID)\n"
-                    + "VALUES (?, ?, ?)";
+            con.setAutoCommit(false); // Disable autocommit
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setTimestamp(1, invoice.getTime());
-            ps.setDouble(2, invoice.getTotal());           
-            ps.setInt(3, invoice.getParty().getID());
+            // Bước 1: Thêm dữ liệu vào bảng Invoice
+            invoice.setTotal(total);
+            String insertInvoice = "INSERT INTO Invoice(`Time`, Total, PartyID) VALUES (?, ?, ?)";
+            ps1 = con.prepareStatement(insertInvoice, Statement.RETURN_GENERATED_KEYS);
+            // Thiết lập các tham số cho câu lệnh SQL
+            ps1.setTimestamp(1, invoice.getTime());
+            ps1.setDouble(2, invoice.getTotal());
+            ps1.setInt(3, invoice.getParty().getID());
+            ps1.executeUpdate();
 
-            int rs = ps.executeUpdate();
-            if (rs >= 0) {
-                isOk = true;
+            // Lấy InvoiceID của bản ghi Invoice vừa chèn
+            rs = ps1.getGeneratedKeys();
+            int invoiceID = 0;
+            if (rs.next()) {
+                invoiceID = rs.getInt(1);
             }
-            ps.close();
-            con.close();
+
+            // Bước 2: Thêm dữ liệu vào bảng DetailInvoice
+            String insertDetailInvoice = "INSERT INTO DetailInvoice(DishName, Unit_Price, Number, Amount, InvoiceID) VALUES (?, ?, ?, ?, ?)";
+            ps2 = con.prepareStatement(insertDetailInvoice);
+            // Thiết lập các tham số cho câu lệnh SQL
+            for (int i = 0; i < list.size(); i++) {
+                total += list.get(i).getAmount();
+
+                ps2.setString(1, list.get(i).getDishName());
+                ps2.setDouble(2, list.get(i).getUnit_Price());
+                ps2.setInt(3, list.get(i).getNumber());
+                ps2.setDouble(4, list.get(i).getAmount());
+                ps2.setInt(5, invoiceID);
+
+                ps2.executeUpdate();
+            }
+
+            // Bước 3: Cập nhật lại trường Total trong bảng Invoice
+            String updateInvoice = "UPDATE Invoice SET Total = ? WHERE InvoiceID = ?";
+            PreparedStatement ps3 = con.prepareStatement(updateInvoice);
+// Thiết lập các tham số cho câu lệnh SQL
+            ps3.setDouble(1, total);
+            ps3.setInt(2, invoiceID);
+            ps3.executeUpdate();
+
+            con.commit(); // Commit thay đổi vào cơ sở dữ liệu
+            isOk = true;
+
         } catch (Exception e) {
+            // Xử lý exception (rollback, log, ...)
+            try {
+                if (con != null) {
+                    con.rollback(); // Rollback thay đổi nếu có lỗi
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và giải phóng tài nguyên
+            try {
+                if (ps1 != null) {
+                    ps1.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
         return isOk;
     }
@@ -76,7 +142,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setTimestamp(1, invoice.getTime());
             ps.setDouble(2, invoice.getTotal());
-            ps.setInt(3, invoice.getParty().getID()); 
+            ps.setInt(3, invoice.getParty().getID());
             ps.setInt(4, invoice.getInvoiceID());
             int rs = ps.executeUpdate();
             if (rs >= 0) {

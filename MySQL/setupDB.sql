@@ -252,11 +252,12 @@ delimiter ;
 delimiter //
 CREATE PROCEDURE `SP_Get_Revenue_By_Month_At_Now_Year`()
 BEGIN
-	SELECT MONTH(`Time`) AS Month, COUNT(DISTINCT PartyID) AS NumberOfParties, SUM(Total) AS Revenue
-	FROM Invoice
-	WHERE YEAR(`Time`) = YEAR(CURDATE())
-	GROUP BY MONTH(`Time`)
-	ORDER BY MONTH(`Time`);
+	SELECT MONTH(p.`Date`) AS Month, COUNT(DISTINCT p.PartyID) AS NumberOfParties, SUM(i.Total) AS Revenue
+	FROM Party p
+    JOIN Invoice i ON p.PartyID = i.PartyID
+    WHERE YEAR(p.`Date`) = YEAR(CURDATE())
+	GROUP BY MONTH(p.`Date`)
+	ORDER BY MONTH(p.`Date`);
 END //
 delimiter ;
 -- CALL `SP_Get_Revenue_By_Month_At_Now_Year`;
