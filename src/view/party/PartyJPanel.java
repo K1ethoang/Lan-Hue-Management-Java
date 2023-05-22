@@ -250,7 +250,8 @@ public class PartyJPanel extends javax.swing.JPanel {
     }
 
     private void setCurrentParty() {
-        int row = tableParty.getSelectedRow();
+        int viewRowIndex = tableParty.getSelectedRow();
+        int row = tableParty.getRowSorter().convertRowIndexToModel(viewRowIndex);
         gPartyCurrent = gListParty.get(row);
     }
 
