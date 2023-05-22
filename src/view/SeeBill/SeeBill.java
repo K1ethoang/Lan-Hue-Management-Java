@@ -5,6 +5,7 @@
 package view.SeeBill;
 
 import dao.Order.OrderDAOImpl;
+import java.text.DecimalFormat;
 import java.util.List;
 import model.DishModel;
 import model.PartyModel;
@@ -28,7 +29,6 @@ public class SeeBill extends javax.swing.JFrame {
 public SeeBill(PartyModel _partyModel){
         initComponents();
         
-        setOrderTable(_partyModel);
         setDataSeeBill(_partyModel);
     }
     
@@ -52,9 +52,15 @@ public SeeBill(PartyModel _partyModel){
         JLB_CustomerID.setText("ID: " + partyModel.getCustomer().getID() + "");
         jlb_PartyID.setText("ID: " + partyModel.getID() + "");
         
+        
         AddPartyMenuView addPartyMenuView = new AddPartyMenuView(partyModel);
         Double total = addPartyMenuView.getgTotalPricePerTable()*partyModel.getTableNumber();
-        jlb_Total.setText(total + "");
+        // format tiền
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        String formattedTotal = decimalFormat.format(total);
+
+        jlb_Total.setText(formattedTotal);
+        setOrderTable(partyModel);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,7 +70,6 @@ public SeeBill(PartyModel _partyModel){
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jpnTitle = new javax.swing.JPanel();
@@ -261,7 +266,8 @@ public SeeBill(PartyModel _partyModel){
         jpnCenter.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 195, 70));
 
         jlb_Total.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jpnCenter.add(jlb_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 120, 70));
+        jlb_Total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jpnCenter.add(jlb_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 240, 70));
 
         javax.swing.GroupLayout jpnBodyLayout = new javax.swing.GroupLayout(jpnBody);
         jpnBody.setLayout(jpnBodyLayout);

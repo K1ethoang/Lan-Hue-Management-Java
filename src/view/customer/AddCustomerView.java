@@ -301,9 +301,11 @@ public class AddCustomerView extends javax.swing.JFrame {
         }
 
         if (isInsertOk) {
+            new CustomerJPanel();
             JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else if (isEditOk) {
+               new CustomerJPanel();
             JOptionPane.showMessageDialog(this, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {

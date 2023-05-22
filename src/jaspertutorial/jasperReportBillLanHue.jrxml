@@ -204,14 +204,14 @@ WHERE
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="40" forecolor="#3399CC" uuid="31ef63f0-f933-45d6-80ca-fd0a3c173138"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="28" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="28" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[HÓA ĐƠN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="40" width="555" height="40" forecolor="#3399CC" uuid="af4d8270-c076-4e3b-acc2-bbc954868335"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="28" isBold="true" isItalic="true"/>
+					<font fontName="Arial" size="28" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[TIỆC LAN HUỆ]]></text>
 			</staticText>
@@ -222,154 +222,154 @@ WHERE
 			<staticText>
 				<reportElement x="0" y="20" width="280" height="30" forecolor="#3399CC" uuid="6d55022b-14e7-42bc-83b9-bae426aeca1a"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Thông tin khách hàng:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="30" y="60" width="90" height="30" uuid="f765d13a-184a-408f-b5dc-5de07e99e498"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Tên:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="30" y="90" width="90" height="30" uuid="de3ce90f-aa73-43f8-a773-07a2d3bdc311"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[SĐT:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="120" y="60" width="225" height="30" uuid="c95afa8c-c881-43ab-98f8-f1d0339d840e"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="120" y="90" width="225" height="30" uuid="50bc1545-9a24-47e0-8122-5034557a7d20"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{UN_PhoneNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="130" width="280" height="30" forecolor="#3399CC" uuid="557f9a19-ce96-4d27-9dd5-e02685dee851"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Thông tin tiệc:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="31" y="170" width="90" height="30" uuid="b4ede0e1-d8db-4379-a93c-5ca9d1cf78e2"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Tên tiệc:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="120" y="170" width="230" height="30" uuid="7c28f63b-2575-4120-a47e-ca7d605172b4"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PartyName}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="380" y="20" width="30" height="30" uuid="59f50951-33b8-4807-b0d7-d8ebfc00efa9"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ID:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="410" y="20" width="130" height="30" uuid="14a34edf-0901-4a78-962a-8b6a39b4781a"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CustomerID}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="31" y="200" width="90" height="30" uuid="2f962d90-a01f-4f0f-a571-9e9da25fe3bb"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Số bàn:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="120" y="200" width="230" height="30" uuid="d0739ced-afd2-4593-b087-6f7d667c7aa6"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TableNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="31" y="230" width="90" height="30" uuid="6eec59b7-080b-44f0-a873-26c6516b1604"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Thời gian:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="120" y="230" width="110" height="30" uuid="1936ccc8-2af2-41a2-b882-e73829c13047"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{Date})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="230" y="230" width="120" height="30" uuid="42b098b5-583c-4e12-b823-3baa055050e4"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm:ss").format($F{Time})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="30" y="260" width="90" height="30" uuid="e2dff0f5-7c61-41c0-a188-39413050523a"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Địa điểm:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="120" y="260" width="435" height="50" uuid="343ba719-ecfa-4b43-bf0e-dc93bfb69700"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Location}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="380" y="60" width="80" height="30" uuid="c63b9ac6-50d1-484c-ad9e-80ede5462eb5"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Giới tính:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="460" y="60" width="80" height="30" uuid="655de886-c57a-4a6b-8185-b201f74c5f99"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Sex} == true ? "Nam" : "Nữ"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="380" y="130" width="30" height="30" uuid="1c6a392d-4540-4065-ba43-9f48bbf4368b"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[ID:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="410" y="130" width="130" height="30" uuid="a4f06467-eae0-4cfe-b235-122f04c3e6b0"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PartyID}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="310" width="280" height="30" forecolor="#3399CC" uuid="97030a7c-35b2-4a04-b45b-9fb88d4bcded"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="UTF-8" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Thông tin món:]]></text>
 			</staticText>
@@ -387,7 +387,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[STT]]></text>
 			</staticText>
@@ -400,7 +400,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[Giá]]></text>
 			</staticText>
@@ -413,7 +413,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[Số lượng]]></text>
 			</staticText>
@@ -426,7 +426,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[Thành tiền]]></text>
 			</staticText>
@@ -439,7 +439,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[Tên món]]></text>
 			</staticText>
@@ -460,7 +460,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Price}]]></textFieldExpression>
 			</textField>
@@ -476,7 +476,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TableNumber}]]></textFieldExpression>
 			</textField>
@@ -491,7 +491,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($F{TableNumber}*$F{Price})]]></textFieldExpression>
 			</textField>
@@ -506,7 +506,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DishName}]]></textFieldExpression>
 			</textField>
@@ -521,7 +521,7 @@ WHERE
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14"/>
+					<font fontName="Arial" size="14" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
@@ -533,35 +533,35 @@ WHERE
 			<textField>
 				<reportElement x="400" y="-1" width="155" height="31" uuid="e08c0a03-335f-4968-89af-a7af2dbbb4d0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0").format($V{TOTAL})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="50" y="0" width="170" height="30" uuid="fa19e21c-9c54-4da9-af71-200618ad6f94"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[Tổng tiền thanh toán:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="50" y="80" width="170" height="30" uuid="e5b13cd4-0682-4ac9-a31c-b67f69236fd7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[KHÁCH HÀNG]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="320" y="60" width="235" height="20" uuid="92478691-8326-4eb7-9263-184d9ce9864e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12"/>
+					<font fontName="Arial" size="12" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[Ngày..........tháng..........năm 20.....]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="320" y="80" width="235" height="30" uuid="56caa9c0-8e5f-4008-b882-870382df5562"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true" pdfFontName="Times-Roman" pdfEncoding="Cp1258"/>
 				</textElement>
 				<text><![CDATA[NGƯỜI BÁN HÀNG]]></text>
 			</staticText>

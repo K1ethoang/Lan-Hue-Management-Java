@@ -22,6 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.DishModel;
 import model.HappenStatusModel;
 import model.InvoiceModel;
 import model.PartyModel;
@@ -728,7 +729,16 @@ public class PartyJPanel extends javax.swing.JPanel {
 
             int chid = gPartyCurrent.getID();
             System.out.println("id current: "+ chid);
-            new Print(chid, con);
+            
+            List<DishModel> gListOrder = null;
+            gListOrder = OrderDAOImpl.getInstance().getListByID(gPartyCurrent.getID());
+            if(gListOrder.size() == 0 || gPartyCurrent.getPaymentStatus().getStatusCode() == PaymentStatusModel.UN_PAID){
+                JOptionPane.showMessageDialog(this, "Vui lòng thanh toán trước khi Xuất hóa đơn!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                new Print(chid, con);
+            }
+            
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(PartyJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -772,11 +782,18 @@ public class PartyJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Tiệc này đã được thanh toán!", "Thông báo", JOptionPane.ERROR_MESSAGE);
         }
         else if(gPartyCurrent.getPaymentStatus().getStatusCode() == PaymentStatusModel.UN_PAID){
-            String ObjButtons[] = {"Thanh toán", "Hủy"};
-            int PromptResult = JOptionPane.showOptionDialog(Helper.getWindow(this), "Xác nhận thanh toán?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-            if (PromptResult == JOptionPane.YES_OPTION) {
-                insertInvoice();
-                JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            List<DishModel> gListOrder = null;
+            gListOrder = OrderDAOImpl.getInstance().getListByID(gPartyCurrent.getID());
+            if(gListOrder.size() == 0){
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn món trước khi thanh toán", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                String ObjButtons[] = {"Thanh toán", "Hủy"};
+                int PromptResult = JOptionPane.showOptionDialog(Helper.getWindow(this), "Xác nhận thanh toán?", "Quản lý tiệc Lan Huệ", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    insertInvoice();
+                    JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
 
