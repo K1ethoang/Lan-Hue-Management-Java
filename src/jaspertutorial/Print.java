@@ -25,7 +25,7 @@ public class Print {
         parameters.put("chid", chid);
 
         try {
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream("/jaspertutorial/jasperReportBillLanHue.jasper"));
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(getClass().getResourceAsStream("/jaspertutorial/LanHueReport.jasper"));
             JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, con);
 
             JasperViewer.viewReport(jp, false);
