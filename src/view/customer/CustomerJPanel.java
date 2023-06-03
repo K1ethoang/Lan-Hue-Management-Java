@@ -92,7 +92,6 @@ public class CustomerJPanel extends javax.swing.JPanel {
             }
         });
         setSumCustomer();
-
     }
 
     private void setSumCustomer() {

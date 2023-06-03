@@ -131,7 +131,8 @@ public class StaffJPanel extends javax.swing.JPanel {
     }
 
     private void setStaffCurrent() {
-        int row = tableStaff.getSelectedRow();
+        int viewRowIndex = tableStaff.getSelectedRow();
+        int row = tableStaff.getRowSorter().convertRowIndexToModel(viewRowIndex);
         staffCurrent = listStaff.get(row);
     }
 
