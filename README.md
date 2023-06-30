@@ -15,3 +15,4 @@
   - ![image](https://github.com/K1ethoang/Lan-Hue-Management/assets/88199151/b25fd984-93a3-4193-b426-f6fccec1570d)
 - Step 3: Run and build file [src/main/Program.java](src/main/Program.java)
 - *Note*: username and password to login (`User: admin, Pass: admin`)
+### If you have any questions, you can contact us via [Telegram](https://t.me/K1ethoang)
